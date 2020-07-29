@@ -1,0 +1,30 @@
+<!-- Popup container -->
+<div class="popupcontainer">
+    <nav id="bt-menu" class="popupcontainer__menu" [ngClass]="{'popupcontainer__menu-open': open, 'popupcontainer__menu-close': !open}">
+        <div class="popupcontainer__menu-trigger" (click)="switchTrigger()">Menu</div>
+        <ul>
+            <li>
+                <a href="#" class="popupcontainer__link"><img src="assets/images/salaSituacional.png" alt="Sala Situacional"></a>
+            </li>
+            <li>
+                <a href="#" class="popupcontainer__link"><img src="assets/images/salaSituacional.png" alt="Sala Situacional"></a>
+            </li>
+            <li>
+                <a href="#" class="popupcontainer__link"><img src="assets/images/salaSituacional.png" alt="Sala Situacional"></a>
+            </li>
+            <li>
+                <a href="#" class="popupcontainer__link"><img src="assets/images/salaSituacional.png" alt="Sala Situacional"></a>
+            </li>
+            <li>
+                <a href="#" class="popupcontainer__link"><img src="assets/images/salaSituacional.png" alt="Sala Situacional"></a>
+            </li>
+            <li>
+                <a href="#" class="popupcontainer__link"><img src="assets/images/salaSituacional.png" alt="Sala Situacional"></a>
+            </li>
+        </ul>
+        <div class="popupcontainer__overlay" (click)="listenOverlayClick()"></div>
+    </nav>
+</div>
+<script src="js/classie.js"></script>
+<script src="js/borderMenu.js"></script>
+<!-- End Popup container -->

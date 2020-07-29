@@ -1,0 +1,27 @@
+<div id="main-wrapper">
+    <app-header></app-header>
+    <app-navbar></app-navbar>
+
+    <!-- Page wrapper  -->
+    <div class="page-wrapper">
+        <!-- Container fluid  -->
+        <div class="container-fluid" id="workArea">
+            <div class="container404">
+                <span class="container404__title">404</span>
+                <h2 class="container404__text-title">Página no encontrada</h2>
+                <div class="text404">
+                    <p class="text404__content">No se ha podido encontrar la página requerida. Puede probar con los siguientes enlaces</p>
+                    <div class="text404__menu">
+                        <ul class="text404__ul">
+                            <li class="text404__li" *ngFor="let list of menuItems"><a routerLink="{{list.link}}">{{list.text}}</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Container fluid -->
+    </div>
+    <!-- End Page wrapper  -->
+    <app-footer></app-footer>
+    <app-icons-popup></app-icons-popup>
+</div>

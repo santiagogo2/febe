@@ -1,0 +1,20 @@
+<div id="main-wrapper">
+    <app-header></app-header>
+    <app-navbar></app-navbar>
+
+    <!-- Page wrapper  -->
+    <div class="page-wrapper">
+        <!-- Container fluid  -->
+        <div class="container-fluid" id="workArea">
+            <app-breadcrumbs></app-breadcrumbs>
+            <app-icons></app-icons>
+            <!-- Start Page Content -->
+            <router-outlet></router-outlet>
+            <!-- End PAge Content -->
+        </div>
+        <!-- End Container fluid -->
+    </div>
+    <!-- End Page wrapper  -->
+    <app-footer></app-footer>
+    <app-icons-popup></app-icons-popup>
+</div>

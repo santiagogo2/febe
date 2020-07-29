@@ -1,0 +1,22 @@
+<div class="row mb-2">
+    <div class="col-sm-12">
+        <div class="card border-0">
+            <div class="card-body breadcrumContainer">
+                <div class="col-md-5 align-self-center d-inline-block">
+                    <h3 class="text-themecolor">{{ page_title }}</h3>
+                </div>
+                <div class="col-md-7 align-self-center d-inline-block breadcrumLine">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item" style="margin-left: auto;" *ngIf="page_title != 'Inicio'">
+                            <a [routerLink]="['/inicio']">Inicio</a>
+                        </li>
+                        <li class="breadcrumb-item" *ngFor="let breadcrum of breadcrumbs" style="text-transform: capitalize;">
+                            <a [routerLink]="[breadcrum.url]">{{ breadcrum.span }}</a>
+                        </li>
+                        <li class="breadcrumb-item active" [ngStyle]="{'margin-left': page_title === 'Inicio' ? 'auto':'unset'}">{{ page_title }}</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,14 @@
+<div class="row mb-2">
+    <div class="col-sm-12">
+        <div class="card border-0">
+            <div class="card-body iconsContainer p-2">
+                <div class="circleImageContainer d-inline-block" *ngFor="let home of homeLinks">
+                    <a [routerLink]="[home.url]" class="imageLink">
+                        <app-circle-image [imageUrl]="home.imageUrl" [imageClass]="home.class">
+                        </app-circle-image>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

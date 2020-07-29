@@ -1,0 +1,53 @@
+.container404 {
+    max-width: 800px;
+    margin: auto;
+    text-align: center;
+    margin-bottom: 3rem;
+    margin-top: -2rem;
+}
+
+.container404__title {
+    font-size: 10rem;
+    animation: top-bottom 1s ease infinite;
+    display: block;
+    color: #88A9B9;
+}
+
+.container404__text-title {
+    font-size: 3rem;
+    text-transform: uppercase;
+    color: #004993;
+    font-weight: bold;
+}
+
+.text404 {
+    text-align: left;
+    margin-top: 2rem;
+}
+
+.text404__li {
+    text-transform: uppercase;
+}
+
+.text404__li a {
+    color: #1285C8;
+    transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+}
+
+.text404__li:hover a {
+    color: #004993;
+    margin-left: 0.4rem;
+}
+
+@keyframes top-bottom {
+    0% {
+        transform: translateY(20px);
+    }
+    25% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(20px);
+    }
+}

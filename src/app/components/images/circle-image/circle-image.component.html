@@ -1,0 +1,6 @@
+<div class="imageLoaderContainer" *ngIf="viewImage">
+    <div class="square"></div>
+</div>
+<div [class]="imageClass" [hidden]="viewImage">
+    <img src="{{ imageUrl }}" (load)="loadImage()">
+</div>
