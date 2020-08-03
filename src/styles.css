@@ -375,6 +375,123 @@ header .nav-item:hover {
 
 
 /*---------------------------------------------
+ Cards Styles
+---------------------------------------------*/
+
+#capacitacion .cardContainer {
+    display: flex;
+}
+
+.myCardContainer {
+    margin: 1rem auto;
+    display: grid;
+}
+
+.myCard {
+    border: none !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    padding-left: 9px !important;
+    padding-right: 2px !important;
+    transition: all 0.3s ease;
+    background-image: url(assets/images/background/cardBackground.jpg);
+    background-size: cover;
+    box-shadow: 9px 2px #019EAC inset, -2px -2px #019EAC inset;
+}
+
+.myCard:hover {
+    transform: translate(-2px, -2px);
+}
+
+.myCard:hover a {
+    text-decoration: none;
+}
+
+.myCard a {
+    color: #000;
+}
+
+.myCard .card-body,
+.myCard .card-title {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.myCard p {
+    box-shadow: 0 1px #CCC inset;
+    color: #424242;
+}
+
+.myCard p {
+    padding: .75rem .75rem 0;
+    text-align: left;
+}
+
+
+/* .card-019EAC {
+    box-shadow: 9px 2px #019EAC inset, -2px -2px #019EAC inset;
+}
+
+.card-019EAC:hover {
+    box-shadow: 9px 2px #019EAC inset, -2px -2px #019EAC inset, 10px 10px 5px -7px #777;
+    transform: translate(-2px, -2px);
+} */
+
+.card-4FB96F:hover {
+    box-shadow: 9px 2px #4FB96F inset, -2px -2px #4FB96F inset, 10px 10px 5px -7px #777;
+}
+
+.card-4FB96F:hover h4 {
+    color: #295f39;
+}
+
+.card-EC8993:hover {
+    box-shadow: 9px 2px #EC8993 inset, -2px -2px #EC8993 inset, 10px 10px 5px -7px #777;
+}
+
+.card-EC8993:hover h4 {
+    color: #77454a;
+}
+
+
+/* .circleImageContainer:hover .color-green {
+    box-shadow: 0 0 0 200px #4FB96F inset;
+}
+
+.circleImageContainer:hover .color-red {
+    box-shadow: 0 0 0 200px #EC8993 inset;
+}
+
+.circleImageContainer:hover .color-violet {
+    box-shadow: 0 0 0 200px #D073D2 inset;
+}
+
+.circleImageContainer:hover .color-orange {
+    box-shadow: 0 0 0 200px #F3B94E inset;
+}
+
+.circleImageContainer:hover .color-yellow {
+    box-shadow: 0 0 0 200px #EFEF74 inset;
+}
+
+.circleImageContainer:hover .color-dark-pink {
+    box-shadow: 0 0 0 200px #E75480 inset;
+}
+
+.circleImageContainer:hover .color-pink {
+    box-shadow: 0 0 0 200px #FDCEE7 inset;
+}
+
+.circleImageContainer:hover .color-soft-brown {
+    box-shadow: 0 0 0 200px #924E4E inset;
+}
+
+.circleImageContainer:hover .color-ecc350 {
+    box-shadow: 0 0 0 200px #ECC350 inset;
+} */
+
+
+/*---------------------------------------------
  Table Styles
 ---------------------------------------------*/
 
@@ -911,6 +1028,12 @@ footer p {
     }
     .circleImageContainer .imageContainer {
         padding: 6px;
+    }
+}
+
+@media ( max-width: 767px) {
+    #capacitacion .cardContainer {
+        display: block;
     }
 }
 

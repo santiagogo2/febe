@@ -1,0 +1,4 @@
+<angular-file-uploader [config]="afuConfig" (ApiResponse)="fileUpload($event)">
+</angular-file-uploader>
+<small class="invalid-feedback d-block" *ngIf="errorMessage">{{ errorMessage }}</small>
+<small class="valid-feedback d-block" *ngIf="successMessage">{{ successMessage }}</small>

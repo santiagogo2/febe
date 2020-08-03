@@ -3,6 +3,9 @@ export var global = {
 	// url: 'http://www.backend-rendicion-de-cuentas.subredsur.gov.co/public/api/',
 	url: 'http://info-utilitario.subredsur.gov.co/public/api/',
 	urlDinamica: 'http://172.17.2.81/api-rest-dinamica/public/api/',
+	iconsArray: [
+		{ title: 'Capacitaciones', imageUrl: 'assets/images/modulos/capacitacion.png', class: 'imageContainer color-violet', url: '/capacitaciones' },
+	],
 	estados: [
 		{id: 1, value: 'CUARENTENA'},
 		{id: 2, value: 'HOSPITALIZADO'},

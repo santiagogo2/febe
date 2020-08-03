@@ -4,8 +4,22 @@
         <div class="navbtn">
             <div class="navbtn__nav-links">
                 <ul>
-                    <li class="navbtn__nav-link">
-                        <a href="#">Sala Situacional</a>
+                    <li class="navbtn__nav-link" *ngFor="let navbar of navbarItems">
+                        <a routerLink="{{ navbar.url }}" [ngClass]="{'dropdown__arrow': navbar.dropdown}">{{ navbar.title }}</a>
+                        <div class="dropdown" *ngIf="navbar.dropdown">
+                            <ul>
+                                <li class="dropdown__link" *ngFor="let dropdown1 of navbar.dropdown">
+                                    <a routerLink="{{ dropdown1.url }}" [ngClass]="{'dropdown__arrow': dropdown1.dropdown}">{{ dropdown1.title }}</a>
+                                    <div class="dropdown second" *ngIf="dropdown1.dropdown">
+                                        <ul>
+                                            <li class="dropdown__link" *ngFor="let dropdown2 of dropdown1.dropdown">
+                                                <a routerLink="{{ dropdown2.url }}">{{ dropdown2.title }}</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
                     <li class="navbtn__nav-link">
                         <a href="#" class="dropdown__arrow">Contratación</a>
@@ -21,7 +35,6 @@
                                     <a href="#" class="dropdown__arrow">Link3</a>
                                     <div class="dropdown second">
                                         <ul>
-
                                             <li class="dropdown__link">
                                                 <a href="#">Link1</a>
                                             </li>

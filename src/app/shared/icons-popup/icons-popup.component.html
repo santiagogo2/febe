@@ -3,23 +3,8 @@
     <nav id="bt-menu" class="popupcontainer__menu" [ngClass]="{'popupcontainer__menu-open': open, 'popupcontainer__menu-close': !open}">
         <div class="popupcontainer__menu-trigger" (click)="switchTrigger()">Menu</div>
         <ul>
-            <li>
-                <a href="#" class="popupcontainer__link"><img src="assets/images/salaSituacional.png" alt="Sala Situacional"></a>
-            </li>
-            <li>
-                <a href="#" class="popupcontainer__link"><img src="assets/images/salaSituacional.png" alt="Sala Situacional"></a>
-            </li>
-            <li>
-                <a href="#" class="popupcontainer__link"><img src="assets/images/salaSituacional.png" alt="Sala Situacional"></a>
-            </li>
-            <li>
-                <a href="#" class="popupcontainer__link"><img src="assets/images/salaSituacional.png" alt="Sala Situacional"></a>
-            </li>
-            <li>
-                <a href="#" class="popupcontainer__link"><img src="assets/images/salaSituacional.png" alt="Sala Situacional"></a>
-            </li>
-            <li>
-                <a href="#" class="popupcontainer__link"><img src="assets/images/salaSituacional.png" alt="Sala Situacional"></a>
+            <li *ngFor="let icon of iconsArray">
+                <a routerLink="{{ icon.url }}"><img src="{{ icon.imageUrl }}" alt="{{ icon.title }}"></a>
             </li>
         </ul>
         <div class="popupcontainer__overlay" (click)="listenOverlayClick()"></div>

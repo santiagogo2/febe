@@ -1,0 +1,94 @@
+<div class="loaderBall" *ngIf="!infoLoaded && !responseMessage">
+    <div class="ball-pulse-rise">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+<div class="mt-3 errorAlert alert-danger" *ngIf="responseMessage">
+    <div class="alert" role="alert">
+        {{ responseMessage }}
+    </div>
+</div>
+<div class="row reports" *ngIf="infoLoaded">
+    <div class="col-sm-12 reportGraph pl-0 pr-0" *ngIf="trainingProfile">
+        <div class="card border-0">
+            <h4 class="card-header">{{ trainingProfile.title }}</h4>
+            <div class="tableContainer">
+                <table class="table table-bordered infoReportTable col col-sm-12 mt-3">
+                    <thead class="thead_styles">
+                        <td *ngFor="let label of trainingProfile.labels">{{ label }}</td>
+                    </thead>
+                    <tbody class="tbody_styles">
+                        <td *ngFor="let data of trainingProfile.data[0].data">{{ data }}</td>
+                    </tbody>
+                </table>
+            </div>
+            <div class="card-body">
+                <app-grafico-barras [barChartData]="trainingProfile.data" [barChartLabels]="trainingProfile.labels" [barChartType]="trainingProfile.type">
+                </app-grafico-barras>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-12 col-lg-6 reportGraph pl-0" *ngIf="trainingService">
+        <div class="card border-0">
+            <h4 class="card-header">{{ trainingService.title }}</h4>
+            <div class="tableContainer">
+                <table class="table table-bordered infoReportTable col col-sm-12 mt-3">
+                    <thead class="thead_styles">
+                        <td *ngFor="let label of trainingService.labels">{{ label }}</td>
+                    </thead>
+                    <tbody class="tbody_styles">
+                        <td *ngFor="let data of trainingService.data">{{ data }}</td>
+                    </tbody>
+                </table>
+            </div>
+            <div class="card-body">
+                <app-grafico-dona [chartData]="trainingService.data" [chartLabels]="trainingService.labels" [chartType]="trainingService.type">
+                </app-grafico-dona>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-lg-6 reportGraph pr-0" *ngIf="trainingTheme">
+        <div class="card border-0">
+            <h4 class="card-header">{{ trainingTheme.title }}</h4>
+            <div class="tableContainer">
+                <table class="table table-bordered infoReportTable col col-sm-12 mt-3">
+                    <thead class="thead_styles">
+                        <td *ngFor="let label of trainingTheme.labels">{{ label }}</td>
+                    </thead>
+                    <tbody class="tbody_styles">
+                        <td *ngFor="let data of trainingTheme.data">{{ data }}</td>
+                    </tbody>
+                </table>
+            </div>
+            <div class="card-body">
+                <app-grafico-pie [pieChartData]="trainingTheme.data" [pieChartLabels]="trainingTheme.labels" [pieChartType]="trainingTheme.type">
+                </app-grafico-pie>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-12 reportGraph pl-0 pr-0" *ngIf="trainingUnit">
+        <div class="card border-0">
+            <h4 class="card-header">{{ trainingUnit.title }}</h4>
+            <div class="tableContainer">
+                <table class="table table-bordered infoReportTable col col-sm-12 mt-3">
+                    <thead class="thead_styles">
+                        <td *ngFor="let label of trainingUnit.labels">{{ label }}</td>
+                    </thead>
+                    <tbody class="tbody_styles">
+                        <td *ngFor="let data of trainingUnit.data[0].data">{{ data }}</td>
+                    </tbody>
+                </table>
+            </div>
+            <div class="card-body">
+                <app-grafico-barras [barChartData]="trainingUnit.data" [barChartLabels]="trainingUnit.labels" [barChartType]="trainingUnit.type">
+                </app-grafico-barras>
+            </div>
+        </div>
+    </div>
+</div>

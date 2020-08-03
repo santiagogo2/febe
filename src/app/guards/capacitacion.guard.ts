@@ -3,9 +3,9 @@ import { Router, CanActivate } from '@angular/router';
 import { UserService } from '../services/services.index';
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
-export class IdentityGuard implements CanActivate {
+export class CapacitacionGuard implements CanActivate {
 
 	constructor(
 		private userService: UserService,
@@ -16,7 +16,13 @@ export class IdentityGuard implements CanActivate {
 		const identity = this.userService.getIdentity();
 
 		if (identity) {
-			return true;
+			const permissions = JSON.parse(localStorage.getItem('userOperations'));
+			for ( let i = 0; i < permissions.length; i++ ) {
+				if ( permissions[i].id_operations === 1 ) {
+					return true;
+				}
+			}
+			return false;
 		} else {
 			this.router.navigate(['/login']);
 			return false;

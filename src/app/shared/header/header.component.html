@@ -13,10 +13,10 @@
                     <a class="nav-link" [routerLink]="['/inicio']">Inicio</a>
                 </li>
             </ul>
-            <ul class="navbar-nav">
+            <ul class="navbar-nav" *ngIf="identity">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						Nombre del Usuario
+						{{ identity.name + ' ' + identity.surname }}
 					</a>
                     <div class="dropdown-menu animated fadeIn fast" aria-labelledby="navbarDropdownMenuLink" style="left: unset !important; right: 0;">
                         <div class="dropdown-divider"></div>

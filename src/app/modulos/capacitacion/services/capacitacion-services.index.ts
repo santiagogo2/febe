@@ -1,0 +1,1 @@
+export { TrainingService } from './training.service';

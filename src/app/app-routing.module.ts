@@ -7,10 +7,13 @@ import { NopagefoundComponent } from './shared/nopagefound/nopagefound.component
 // Routes Modules
 import { ModulosRoutingModule } from './modulos/modulos.routing';
 
+// Guards
+import { IdentityGuard } from './guards/identity.guard';
+
 const appRoutes: Routes = [
 	{ path: 'login', component: LoginComponent },
 	{ path: 'logout/:sure', component: LoginComponent },
-	{ path: '**', component: NopagefoundComponent}
+	{ path: '**', component: NopagefoundComponent, canActivate:[ IdentityGuard] },
 ];
 
 @NgModule({
