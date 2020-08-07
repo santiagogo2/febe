@@ -23,7 +23,7 @@ import { LoginComponent } from './login/login.component';
 	BrowserModule,
     HttpClientModule,
     ModulosModule, 
-    FormsModule
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

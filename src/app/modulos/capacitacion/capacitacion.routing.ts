@@ -16,7 +16,7 @@ const capacitacionRoutes: Routes = [
 
 	{ path: 'informes', component: CapacitacionInformesComponent, data: { titulo: 'Informes Capacitaciones' } },
 
-    { path: '', component: CapacitacionComponent, data: { titulo: 'Capacitaciones' } },
+	{ path: '', component: CapacitacionComponent, data: { titulo: 'Capacitaciones' } },
 ];
 
 @NgModule({

@@ -2,7 +2,7 @@
     <div class="container">
         <input type="checkbox" id="check">
         <div class="navbtn">
-            <div class="navbtn__nav-links">
+            <div class="navbtn__nav-links" *ngIf="navbarItems">
                 <ul>
                     <li class="navbtn__nav-link" *ngFor="let navbar of navbarItems">
                         <a routerLink="{{ navbar.url }}" [ngClass]="{'dropdown__arrow': navbar.dropdown}">{{ navbar.title }}</a>

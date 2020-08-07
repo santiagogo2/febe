@@ -20,6 +20,12 @@ const pagesRoutes: Routes = [
 		component: ModulosComponent,
 		canActivate: [ IdentityGuard, CapacitacionGuard ],
 		loadChildren: () => import('./capacitacion/capacitacion.module').then( m => m.CapacitacionModule ),
+	},
+	{
+		path: 'admin',
+		component: ModulosComponent,
+		canActivate: [ IdentityGuard ],
+		loadChildren: () => import('./admin/admin.module').then( m => m.AdminModule ),
 	}
 ];
 

@@ -27,10 +27,10 @@ export class NavbarComponent implements OnInit {
 	];
 
 	constructor() {
-		this.validatePermissions();
 	}
 
 	ngOnInit(): void {
+		this.validatePermissions();
 	}
 
 	validatePermissions() {
