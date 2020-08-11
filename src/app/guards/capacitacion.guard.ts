@@ -22,9 +22,10 @@ export class CapacitacionGuard implements CanActivate {
 					return true;
 				}
 			}
+			this.router.navigate(['/inicio']);
 			return false;
 		} else {
-			this.router.navigate(['/login']);
+			this.router.navigate(['/inicio']);
 			return false;
 		}
 	}
