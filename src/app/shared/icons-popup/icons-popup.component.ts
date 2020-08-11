@@ -15,10 +15,10 @@ export class IconsPopupComponent implements OnInit {
 	constructor() {
 		this.open = false;
 		this.iconsArray = global.iconsArray;
-		this.validatePermissions();
 	}
 
 	ngOnInit(): void {
+		this.validatePermissions();
 	}
 
 	validatePermissions() {
