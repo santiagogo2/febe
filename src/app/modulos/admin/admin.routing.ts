@@ -19,6 +19,10 @@ const adminRoutes: Routes = [
 			{
 				path: 'roles',
 				loadChildren: () => import('./role/role.module').then( m => m.RoleModule ),
+			},
+			{
+				path: 'modulos',
+				loadChildren: () => import('./modules/modules.module').then( m => m.ModulesModule ),
 			}
 		]
 	},

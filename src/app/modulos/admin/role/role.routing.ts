@@ -7,10 +7,10 @@ import { RoleEditComponent } from './role-edit/role-edit.component';
 import { NgModule } from '@angular/core';
 
 const roleRoutes: Routes = [
-	{ path: '', component: RoleListComponent, data: { titulo: 'Listar roles del sistema' } },
 	{ path: 'listar', component: RoleListComponent, data: { titulo: 'Listar roles del sistema' } },
 	{ path: 'agregar', component: RoleRegisterComponent, data: { titulo: 'Agregar roles' } },
 	{ path: 'editar/:id', component: RoleEditComponent, data: { titulo: 'Editar rol' } },
+	{ path: '', redirectTo: 'listar', pathMatch: 'full' },
 ];
 
 @NgModule({

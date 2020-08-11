@@ -3,7 +3,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { global } from '../../../services/global.service';
 
-@Injectable()
+@Injectable({
+	providedIn: 'root'
+})
 export class RoleService {
 	public url: string;
 
