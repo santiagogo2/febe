@@ -1,0 +1,62 @@
+<div class="loaderBall" *ngIf="!operation && !modules && !responseMessage">
+    <div class="ball-pulse-rise">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+<div class="mt-3 col col-sm-12 errorAlert" *ngIf="status=='error' && responseMessage && !operation && !modules">
+    <div class="alert alert-danger" role="alert">
+        {{ responseMessage }} <a routerLink="/admin/operaciones/listar" *ngIf="viewFlag">listar operaciones</a>
+    </div>
+</div>
+
+<div class="row" *ngIf="operation && modules">
+    <div class="col-sm-12">
+        <div class="card border-0">
+            <div class="card-body">
+                <div class="backLink col col-sm-12 col-md-8 col-lg-6">
+                    <a routerLink="/admin/operaciones/listar" *ngIf="viewFlag">Listar operaciones</a>
+                </div>
+                <div class="formContainerAdmin col col-sm-12 col-md-8 col-lg-6" [ngClass]="{'formContainerAdminError': status && status=='error'}">
+                    <form #operationRegisterForm="ngForm" class="form-container" (ngSubmit)="onSubmit(operationRegisterForm)">
+                        <div class="form-group col col-sm-12">
+                            <label for="operationName" class="labelForm">Nombre*</label>
+                            <input type="text" name="operationName" class="form-control inputForm" [ngClass]="{ 'is-invalid': operationName.touched && operationName.invalid }" #operationName="ngModel" [(ngModel)]="operation.name" (ngModelChange)="operation.name=upperCase($event)"
+                                required placeholder="Ingrese el nombre del módulo">
+                            <small class="invalid-feedback d-block font-weight-bold" *ngIf="operationName.invalid && operationName.touched">Debe ingresar un nombre válido</small>
+                        </div>
+                        <div class="form-group col col-sm-12">
+                            <label for="operationDescription" class="labelForm">Descripción</label>
+                            <textarea name="operationDescription" rows="3" class="form-control inputForm" [ngClass]="{'is-invalid': operationDescription.invalid && operationDescription.touched}" #operationDescription="ngModel" [(ngModel)]="operation.description" placeholder="Ingrese una descripción para el módulo"></textarea>
+                        </div>
+                        <div class="col col-sm-12 d-inline-block align-top">
+                            <label for="operationModule" class="labelForm">Módulo*</label>
+                            <select style="background-position-x: 95%" name="operationModule" id="operationModule" class="form-control inputForm" [ngClass]="{'is-invalid': operationModule.invalid && operationModule.touched}" #operationModule="ngModel" [(ngModel)]="operation.id_modules"
+                                required>
+								<option *ngFor="let module of modules" value="{{ module.id }}">{{ module.name }}</option>
+							</select>
+                            <small class="invalid-feedback d-block font-weight-bold" *ngIf="operationModule.invalid && operationModule.touched">Debe seleccionar un módulo de la lista desplegable</small>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col col-sm-12 buttonSubmit">
+                                <input type="submit" value="{{ buttonText }}" class="btn btn-success btnPrefer col-sm-12" [disabled]="operationRegisterForm.invalid">
+                            </div>
+                        </div>
+                        <div class="mt-3 col col-sm-12 errorAlert" *ngIf="status=='error' && responseMessage">
+                            <div class="alert alert-danger" role="alert">
+                                {{ responseMessage }}
+                            </div>
+                        </div>
+                        <div class="deleteLoader" *ngIf="preloaderStatus">
+                            <div class="loader"></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

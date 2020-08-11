@@ -23,6 +23,10 @@ const adminRoutes: Routes = [
 			{
 				path: 'modulos',
 				loadChildren: () => import('./modules/modules.module').then( m => m.ModulesModule ),
+			},
+			{
+				path: 'operaciones',
+				loadChildren: () => import('./operations/operations.module').then( m => m.OperationsModule ),
 			}
 		]
 	},
