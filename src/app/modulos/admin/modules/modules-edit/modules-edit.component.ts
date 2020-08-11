@@ -100,7 +100,7 @@ export class ModulesEditComponent implements OnInit {
 
 		if ( permissions ) {
 			permissions.forEach( element => {
-				if ( element.id_operations === 16 ) {
+				if ( element.id_operations === 15 ) {
 					this.viewFlag = true;
 				}
 			});
