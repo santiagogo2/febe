@@ -7,7 +7,7 @@ import { UserService } from '../../../../services/user.service';
 @Injectable({
 	providedIn: 'root'
 })
-export class OperationsGuard implements CanActivate {
+export class UserGuard implements CanActivate {
 
 	constructor(
 		private userService: UserService,
@@ -19,8 +19,8 @@ export class OperationsGuard implements CanActivate {
 
 		if (identity) {
 			const permissions = JSON.parse(localStorage.getItem('userOperations'));
-			for ( let i = 0; i < permissions.length; i++ ) {
-				if ( permissions[i].id_operations === 19 ) {
+			for ( const permission of permissions ) {
+				if ( permission.id_operations === 7 ) { // Operación que permite entrar al módulo de usuarios
 					return true;
 				}
 			}

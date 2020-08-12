@@ -7,7 +7,7 @@ import { UserService } from '../../../../services/user.service';
 @Injectable({
 	providedIn: 'root'
 })
-export class OperationsGuard implements CanActivate {
+export class RoleEditGuard implements CanActivate {
 
 	constructor(
 		private userService: UserService,
@@ -19,15 +19,15 @@ export class OperationsGuard implements CanActivate {
 
 		if (identity) {
 			const permissions = JSON.parse(localStorage.getItem('userOperations'));
-			for ( let i = 0; i < permissions.length; i++ ) {
-				if ( permissions[i].id_operations === 19 ) {
+			for ( const permission of permissions ) {
+				if ( permission.id_operations === 12 ) { // Operación que permite editar los roles
 					return true;
 				}
 			}
-			this.router.navigate(['/admin']);
+			this.router.navigate(['/admin/roles/listar']);
 			return false;
 		} else {
-			this.router.navigate(['/admin']);
+			this.router.navigate(['/admin/roles/listar']);
 			return false;
 		}
 	}

@@ -24,10 +24,10 @@ export class ModulesGuard implements CanActivate {
 					return true;
 				}
 			}
-			this.router.navigate(['/inicio']);
+			this.router.navigate(['/admin']);
 			return false;
 		} else {
-			this.router.navigate(['/inicio']);
+			this.router.navigate(['/admin']);
 			return false;
 		}
 	}
