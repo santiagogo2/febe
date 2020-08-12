@@ -49,7 +49,7 @@
                                     <td>{{ role.name }}</td>
                                     <td>{{ role.description }}</td>
                                     <td style="padding: 0.55rem">
-                                        <button type="button" class="btn btn-warning col col-sm-12 col-md-5 mr-1 d-inline-block" [routerLink]="['/admin/roles/editar', role.id]" *ngIf="editFlag && role.name != 'ADMIN_ROLE'">Editar</button>
+                                        <button type="button" class="btn btn-warning col col-sm-12 col-md-5 mr-1 d-inline-block" [routerLink]="['/admin/roles/editar', role.id]" *ngIf="editFlag">Editar</button>
                                         <button type="button" class="btn btn-danger col col-sm-12 col-md-5 d-inline-block" data-toggle="modal" [attr.data-target]="'#myModal'+role.id" *ngIf="deleteFlag && role.name != 'ADMIN_ROLE'">Borrar</button>
                                         <div class="deleteLoader" id="{{ 'loader' + role.id }}" style="display: none;">
                                             <div class="loader"></div>
