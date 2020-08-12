@@ -12,15 +12,32 @@ export class HeaderComponent implements OnInit {
 
 	public identity: any;
 
+	public adminFlag: boolean;
+
 	constructor(
-		private _userService: UserService
+		private userService: UserService
 	) {
 		this.page_title = 'FEBE';
+		this.adminFlag = false;
 
-		this.identity = this._userService.getIdentity();
+		this.identity = this.userService.getIdentity();
+		this.loadPermissions();
 	}
 
 	ngOnInit(): void {
+	}
+
+	loadPermissions() {
+		const permissions = this.userService.getPermissions();
+		this.adminFlag = false;
+
+		if ( permissions ) {
+			permissions.forEach( element => {
+				if ( element.id_operations === 23 ) {
+					this.adminFlag = true;
+				}
+			});
+		}
 	}
 
 }

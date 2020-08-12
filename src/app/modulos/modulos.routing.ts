@@ -26,7 +26,7 @@ const pagesRoutes: Routes = [
 		component: ModulosComponent,
 		canActivate: [ IdentityGuard ],
 		loadChildren: () => import('./admin/admin.module').then( m => m.AdminModule ),
-	}
+	},
 ];
 
 @NgModule({

@@ -5,12 +5,14 @@ import { Routes, RouterModule } from '@angular/router';
 import { AdminComponent } from './admin.component';
 
 // Guards
+import { AdminGuard } from './guards/admin-guards.index';
 
 const adminRoutes: Routes = [
 	{
 		path: '',
 		component: AdminComponent,
 		data: { titulo: 'Administración FEBE' },
+		canActivate: [ AdminGuard ],
 		children: [
 			{
 				path: 'usuarios',

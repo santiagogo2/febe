@@ -19,6 +19,8 @@
 						{{ identity.name + ' ' + identity.surname }}
 					</a>
                     <div class="dropdown-menu animated fadeIn fast" aria-labelledby="navbarDropdownMenuLink" style="left: unset !important; right: 0;">
+                        <a *ngIf="adminFlag" class="dropdown-item" routerLinkActive="active" routerLink='/admin'>Panel de Administración</a>
+                        <a class="dropdown-item" routerLinkActive="active" routerLink='/admin/usuarios/editar-contraseña'>Editar Contraseña</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" routerLinkActive="active" [routerLink]="['/logout', 1]">Cerrar Sesión</a>
                     </div>
