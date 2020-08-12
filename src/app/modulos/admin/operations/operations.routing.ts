@@ -26,7 +26,7 @@ const operationsRoutes: Routes = [
 		path: 'editar/:id',
 		component: OperationsEditComponent,
 		data: { titulo: 'Editar operaciones' },
-		canActivate: [ OperationsGuard ]
+		canActivate: [ OperationsEditGuard ]
 	},
 	{ path: '', redirectTo: 'listar', pathMatch: 'full' },
 ];

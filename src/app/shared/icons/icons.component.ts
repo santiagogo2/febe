@@ -15,7 +15,7 @@ export class IconsComponent implements OnInit {
 	public hidde: boolean;
 
 	constructor(
-		private _router: Router,
+		private router: Router,
 	) {
 		this.hidde = false;
 		this.iconsArray = global.iconsArray;
@@ -41,7 +41,7 @@ export class IconsComponent implements OnInit {
 	}
 
 	getUrl() {
-		return this._router.events.pipe(
+		return this.router.events.pipe(
 			filter( evento => evento instanceof NavigationEnd ),
 			map( ( evento: NavigationEnd ) => evento.url )
 		);
