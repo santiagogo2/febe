@@ -40,7 +40,7 @@
                             <div class="col col-sm-12 col-md-6 d-inline-block">
                                 <label for="userRole" class="labelForm">Role*</label>
                                 <select style="background-position-x: 93%" name="userRole" id="userRole" class="form-control inputForm" [ngClass]="{'is-invalid': userRole.invalid && userRole.touched}" #userRole="ngModel" [(ngModel)]="user.role" required>
-									<option *ngFor="let role of roles" value="{{ role.name }}">{{ role.name }}</option>
+									<option *ngFor="let role of roles" value="{{ role.id }}">{{ role.name }}</option>
 								</select>
                             </div>
                         </div>

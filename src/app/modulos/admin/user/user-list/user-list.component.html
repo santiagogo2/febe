@@ -47,7 +47,8 @@
                                     <td>{{ user.id }}</td>
                                     <td>{{ user.alias }}</td>
                                     <td>{{ user.name + ' ' + user.surname }}</td>
-                                    <td>{{ user.role }}</td>
+                                    <td *ngIf="user.roles">{{ user.roles.name }}</td>
+                                    <td *ngIf="!user.roles">{{ user.role }}</td>
                                     <td style="padding: 0.55rem">
                                         <button type="button" class="btn btn-warning col col-sm-12 col-md-5 mr-1 d-inline-block" [routerLink]="['/admin/usuarios/editar', user.id]" *ngIf="editFlag">Editar</button>
                                         <button type="button" class="btn btn-danger col col-sm-12 col-md-5 d-inline-block" data-toggle="modal" [attr.data-target]="'#myModal'+user.id" *ngIf="deleteFlag && identity.sub!=user.id">Borrar</button>

@@ -128,7 +128,7 @@ export class UserRegisterComponent implements OnInit {
 
 	showPasswordsInput() {} // No se puede eliminar por el reuso del component.html	
 
-	loadPermissions(){
+	loadPermissions() {
 		const permissions = this.userService.getPermissions();
 		this.viewFlag = false;
 

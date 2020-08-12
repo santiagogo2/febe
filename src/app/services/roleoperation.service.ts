@@ -10,14 +10,29 @@ export class RoleOperationService {
 	public url: string;
 
 	constructor(
-		private _http: HttpClient,
+		private http: HttpClient,
 	) {
 		this.url = global.url;
+	}
+
+	roleOperationsList( token ): Observable<any>{
+		const headers = new HttpHeaders().set('Authorization', token);
+
+		return this.http.get( this.url + 'roleoperations', {headers} );
 	}
 
 	getOperationsByRole( idRole, token ): Observable<any>{
 		const headers = new HttpHeaders().set('Authorization', token);
 
-		return this._http.get( this.url + 'roleoperations/show/role/' + idRole, {headers} );
+		return this.http.get( this.url + 'roleoperations/show/role/' + idRole, {headers} );
+	}
+
+	updateRoleOperationsByModule( modules, idRole, token ): Observable<any> {
+		const json = JSON.stringify( modules );
+		const params = 'json=' + json;
+		const headers = new HttpHeaders().set( 'Authorization', token )
+										 .set( 'Content-Type', 'application/x-www-form-urlencoded' );
+
+		return this.http.post( this.url + 'roleoperations/store/module/' + idRole, params, { headers } );
 	}
 }

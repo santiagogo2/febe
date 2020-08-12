@@ -7,11 +7,12 @@ import { UserRegisterComponent } from './user-register/user-register.component';
 import { UserEditComponent } from './user-edit/user-edit.component';
 
 // Guards
+import { UserEditGuard, UserRegisterGuard, UserGuard } from '../guards/admin-guards.index';
 
 const userRoutes: Routes = [
-	{ path: 'listar', component: UserListComponent, data: { titulo: 'Listar usuarios del sistema' } },
-	{ path: 'agregar', component: UserRegisterComponent, data: { titulo: 'Agregar un nuevo usuario' } },
-	{ path: 'editar/:id', component: UserEditComponent, data: { titulo: 'Editar usuario' } },
+	{ path: 'listar', component: UserListComponent, data: { titulo: 'Listar usuarios del sistema' }, canActivate: [ UserGuard ] },
+	{ path: 'agregar', component: UserRegisterComponent, data: { titulo: 'Agregar un nuevo usuario' }, canActivate: [ UserRegisterGuard ] },
+	{ path: 'editar/:id', component: UserEditComponent, data: { titulo: 'Editar usuario' }, canActivate: [ UserEditGuard ] },
 	{ path: '', redirectTo: 'listar', pathMatch: 'full '},
 ];
 
