@@ -1,4 +1,5 @@
-import { Routes, RouterModule } from "@angular/router";
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
 
 // Components
 import { SalaSituacionalComponent } from './sala-situacional.component';
@@ -46,5 +47,10 @@ const salaSituacionRoutes: Routes = [
 
 	{ path: 'informes', component: InformesComponent, data: { titulo: 'Informes' }, canActivate: [ SalaSituacionalInformesGuard ] },
 	{ path: '', component: SalaSituacionalComponent, data: { titulo: 'Sala Situacional' }, canActivate: [ SalaSituacionalGuard ] },
-]
-export const SALA_SITUACIONAL_ROUTES = RouterModule.forChild( salaSituacionRoutes );
+];
+
+@NgModule({
+	imports: [ RouterModule.forChild( salaSituacionRoutes ) ],
+	exports: [ RouterModule ]
+})
+export class SalaSituacionalRoutingModule {}

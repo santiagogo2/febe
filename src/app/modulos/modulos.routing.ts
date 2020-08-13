@@ -28,6 +28,12 @@ const pagesRoutes: Routes = [
 		loadChildren: () => import('./capacitacion/capacitacion.module').then( m => m.CapacitacionModule ),
 	},
 	{
+		path: 'epp',
+		component: ModulosComponent,
+		canActivate: [ IdentityGuard ],
+		loadChildren: () => import('./epp/epp.module').then(m => m.EppModule),
+	},
+	{
 		path: 'sala-situacional',
 		component: ModulosComponent,
 		canActivate: [ IdentityGuard ],

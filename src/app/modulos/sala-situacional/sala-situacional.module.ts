@@ -6,7 +6,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { RouterModule } from '@angular/router';
 
 // Routes
-import { SALA_SITUACIONAL_ROUTES } from './sala-situacional.routes';
+import { SalaSituacionalRoutingModule } from './sala-situacional.routing';
 
 // Components
 import { SalaSituacionalComponent } from './sala-situacional.component';
@@ -32,7 +32,7 @@ import { InformesComponent } from './informes/informes.component';
 		NgxPaginationModule,
 		RouterModule,
 
-		SALA_SITUACIONAL_ROUTES,
+		SalaSituacionalRoutingModule,
 	],
 	exports:[
 		SalaSituacionalComponent,

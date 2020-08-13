@@ -41,6 +41,23 @@ export class NavbarComponent implements OnInit {
 				{ title: 'Informes', url: '/sala-situacional/informes', operationId: 29 },
 			]
 		},
+		{
+			title: 'EPP',
+			url: '/epp',
+			operationId: 30,
+			dropdown: [
+				{
+					title: 'Seguimientos',
+					url: '/epp/seguimiento',
+					operationId: 31,
+					dropdown: [
+						{ title: 'Listar Seguimientos', url: '/epp/seguimiento/listar', operationId: 31 },
+						{ title: 'Registrar Seguimientos', url: '/epp/seguimiento/registrar', operationId: 34 },
+					]
+				},
+				{ title: 'Informes', url: '/epp/informes', operationId: 35 },
+			]
+		},
 	];
 
 	constructor() {

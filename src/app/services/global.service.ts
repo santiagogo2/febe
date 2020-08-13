@@ -6,6 +6,7 @@ export var global = {
 	iconsArray: [
 		{ title: 'Capacitaciones', imageUrl: 'assets/images/modulos/capacitacion.png', class: 'imageContainer color-violet', url: '/capacitaciones' },
 		{ title: 'Sala Situacional', imageUrl: 'assets/images/modulos/salaSituacional.png', class: 'imageContainer color-green', url: '/sala-situacional' },
+		{ title: 'epp', imageUrl: 'assets/images/modulos/epp.png', class: 'imageContainer color-red', url: '/epp' },
 	],
 	estados: [
 		{id: 1, value: 'CUARENTENA'},

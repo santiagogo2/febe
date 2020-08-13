@@ -1,0 +1,105 @@
+<div class="loaderBall" *ngIf="!eppTracking && !responseMessage">
+    <div class="ball-pulse-rise">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+<div class="mt-3 errorAlert" *ngIf="status=='error' && responseMessage && !eppTracking">
+    <div class="alert alert-danger" role="alert">
+        {{ responseMessage }} <a routerLink="/epp/seguimiento/listar" *ngIf="viewFlag">listar seguimientos EPP</a>
+    </div>
+</div>
+
+<div class="row" *ngIf="eppTracking">
+    <div class="col-sm-12">
+        <div class="card border-0">
+            <div class="card-body cardContainer">
+                <div class="backLink col col-sm-12">
+                    <a class="col-sm-12" routerLink="/epp/seguimiento/listar" *ngIf="viewFlag">Listar seguimientos EPP</a>
+                </div>
+                <div class="formContainer">
+                    <form #eppTrackingForm="ngForm" class="form-container" (ngSubmit)="onSubmit(eppTrackingForm)" style="text-align: left;">
+                        <div class="form-group">
+                            <div class="col col-sm-12 col-lg-6 d-inline-block align-top">
+                                <label for="fecha" class="labelForm">Fecha*</label>
+                                <input type="date" name="fecha" class="form-control inputForm" [ngClass]="{'is-invalid': fecha.touched && fecha.invalid}" #fecha="ngModel" [(ngModel)]="eppTracking.fecha" required maxlength="10" placeholder="Ingrese la fecha del registro" max="{{actualDate}}">
+                                <small class="invalid-feedback d-block font-weight-bold" *ngIf="fecha.invalid && fecha.touched">Debe ingresar una fecha. La fecha es obligatoria</small>
+                            </div>
+                            <div class="col col-sm-12 col-lg-6 d-inline-block align-top">
+                                <form #searchForm="ngForm" (ngSubmit)="searchThirdUser()">
+                                    <div class="col col-sm-12 col-lg-9 d-inline-block pl-0 align-top" [ngClass]="{'col-lg-9': editFlag, 'pr-0': !editFlag}">
+                                        <label for="documento" class="labelForm">Documento*</label>
+                                        <input type="text" name="documento" class="form-control inputForm" [ngClass]="{'is-invalid': documento.touched && documento.invalid}" #documento="ngModel" [(ngModel)]="eppTracking.documento" required pattern="[0-9]+" minlength="5" maxlength="10" placeholder="Ingrese el número de documento del colaborador">
+                                    </div>
+                                    <div class="col col-sm-12 col-lg-3 d-inline-block pr-0 align-bottom" *ngIf="editFlag">
+                                        <input type="submit" value="Buscar" class="btn btn-sm btn-info btnPrefer col-sm-12" [disabled]="searchForm.invalid">
+                                    </div>
+                                    <small class="invalid-feedback d-block font-weight-bold" *ngIf="documento.invalid && documento.touched">Debe ingresar un número de documento válido. Solo se admiten números. El campo es obligatorio</small>
+
+                                </form>
+                            </div>
+                            <small class="invalid-feedback d-block font-weight-bold col col-sm-12" *ngIf="searchResponseMessage">{{ searchResponseMessage }}</small>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12 col-md-6 d-inline-block align-bottom" *ngIf="searchPreloaderStatus">
+                                <fa-icon [icon]="faSpinner" class="d-block spin"></fa-icon>
+                            </div>
+                            <div class="col col-sm-12 col-lg-6 d-inline-block align-top" *ngIf="!searchPreloaderStatus">
+                                <label for="nombre" class="labelForm">Nombre completo*</label>
+                                <input type="text" name="nombre" class="form-control inputForm" [ngClass]="{'is-invalid': nombre.touched && nombre.invalid}" #nombre="ngModel" [(ngModel)]="eppTracking.nombre" (ngModelChange)="eppTracking.nombre=upperCase($event)" required pattern="[a-zA-ZÀ-ÿ ]+"
+                                    maxlength="200" placeholder="Ingrese el nombre completo del colaborador">
+                                <small class="invalid-feedback d-block font-weight-bold" *ngIf="nombre.invalid && nombre.touched">Debe ingresar el nombre completo del colaborador. Solo se admiten letras. El campop es obligatorio</small>
+                            </div>
+                            <div class="col col-sm-12 col-lg-6 d-inline-block align-top">
+                                <label for="perfil" class="labelForm">Perfil*</label>
+                                <select style="background-position-x: 95%" name="perfil" id="perfil" class="form-control inputForm" [ngClass]="{'is-invalid': perfil.invalid && perfil.touched}" #perfil="ngModel" [(ngModel)]="eppTracking.profiles_id" required>
+									<option *ngFor="let profile of profiles" value="{{ profile.id }}">{{ profile.name }}</option>
+								</select>
+                                <small class="invalid-feedback d-block font-weight-bold" *ngIf="perfil.invalid && perfil.touched">Debe selecionar un perfil de la lista desplegable</small>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col col-sm-12 col-lg-4 d-inline-block align-top">
+                                <label for="unidad" class="labelForm">Unidad*</label>
+                                <select style="background-position-x: 95%" name="unidad" id="unidad" class="form-control inputForm" [ngClass]="{'is-invalid': unidad.invalid && unidad.touched}" #unidad="ngModel" [(ngModel)]="eppTracking.units_id" required>
+									<option *ngFor="let unit of units" value="{{ unit.id }}">{{ unit.name }}</option>
+								</select>
+                                <small class="invalid-feedback d-block font-weight-bold" *ngIf="unidad.invalid && unidad.touched">Debe selecionar una unidad de la lista desplegable</small>
+                            </div>
+                            <div class="col col-sm-12 col-lg-4 d-inline-block align-top">
+                                <label for="servicio" class="labelForm">Servicio*</label>
+                                <select style="background-position-x: 95%" name="servicio" id="servicio" class="form-control inputForm" [ngClass]="{'is-invalid': servicio.invalid && servicio.touched}" #servicio="ngModel" [(ngModel)]="eppTracking.services_id" required>
+									<option *ngFor="let service of services" value="{{ service.id }}">{{ service.name }}</option>
+								</select>
+                                <small class="invalid-feedback d-block font-weight-bold" *ngIf="servicio.invalid && servicio.touched">Debe selecionar un servicio de la lista desplegable</small>
+                            </div>
+                            <div class="col col-sm-12 col-lg-4 d-inline-block align-top">
+                                <label for="eppEntregado" class="labelForm">EPP entregado*</label>
+                                <select style="background-position-x: 95%" name="eppEntregado" id="eppEntregado" class="form-control inputForm" [ngClass]="{'is-invalid': eppEntregado.invalid && eppEntregado.touched}" #eppEntregado="ngModel" [(ngModel)]="eppTracking.epp_id" required>
+									<option *ngFor="let epp of epps" value="{{ epp.id }}">{{ epp.name }}</option>
+								</select>
+                                <small class="invalid-feedback d-block font-weight-bold" *ngIf="eppEntregado.invalid && eppEntregado.touched">Debe selecionar un EPP de la lista desplegable</small>
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-top: 3rem" *ngIf="editFlag">
+                            <div class="col col-sm-12 buttonSubmit">
+                                <input type="submit" value="{{ buttonText }}" class="btn btn-success btnPrefer col-sm-12" [disabled]="eppTrackingForm.invalid">
+                            </div>
+                        </div>
+                        <div class="mt-3 col col-sm-12 errorAlert" *ngIf="status=='error' && responseMessage">
+                            <div class="alert alert-danger" role="alert">
+                                {{ responseMessage }}
+                            </div>
+                        </div>
+                        <div class="deleteLoader" *ngIf="preloaderStatus">
+                            <div class="loader"></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
