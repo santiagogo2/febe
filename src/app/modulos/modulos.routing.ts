@@ -16,16 +16,22 @@ const pagesRoutes: Routes = [
 		loadChildren: () => import('./home/home.module').then( m => m.HomeModule ),
 	},
 	{
+		path: 'admin',
+		component: ModulosComponent,
+		canActivate: [ IdentityGuard ],
+		loadChildren: () => import('./admin/admin.module').then( m => m.AdminModule ),
+	},
+	{
 		path: 'capacitaciones',
 		component: ModulosComponent,
 		canActivate: [ IdentityGuard, CapacitacionGuard ],
 		loadChildren: () => import('./capacitacion/capacitacion.module').then( m => m.CapacitacionModule ),
 	},
 	{
-		path: 'admin',
+		path: 'sala-situacional',
 		component: ModulosComponent,
 		canActivate: [ IdentityGuard ],
-		loadChildren: () => import('./admin/admin.module').then( m => m.AdminModule ),
+		loadChildren: () => import('./sala-situacional/sala-situacional.module').then( m => m.SalaSituacionalModule ),
 	},
 ];
 

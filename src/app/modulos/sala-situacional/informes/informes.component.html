@@ -1,0 +1,183 @@
+<div class="loaderBall" *ngIf="preloaderStatus">
+    <div class="ball-pulse-rise">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+<div class="mt-3 errorAlert alert-danger" *ngIf="status=='error' && responseMessage">
+    <div class="alert" role="alert">
+        {{ responseMessage }}
+    </div>
+</div>
+
+<div class="row reports">
+    <div class="col-sm-12 col-lg-6 reportGraph pl-0" *ngIf="gender">
+        <div class="card border-0">
+            <h4 class="card-header">{{ gender.title }}</h4>
+            <div class="card-body">
+                <div class="tableContainer">
+                    <table class="table table-bordered infoReportTable col col-sm-12 col-md-10">
+                        <thead class="thead_styles">
+                            <td *ngFor="let label of gender.labels">{{ label }}</td>
+                        </thead>
+                        <tbody class="tbody_styles">
+                            <td *ngFor="let data of gender.data">{{ data }}</td>
+                        </tbody>
+                    </table>
+                </div>
+                <app-grafico-dona [chartData]="gender.data" [chartLabels]="gender.labels" [chartType]="gender.type">
+                </app-grafico-dona>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-lg-6 reportGraph pr-0" *ngIf="epidemicNexus">
+        <div class="card border-0">
+            <h4 class="card-header">{{ epidemicNexus.title }}</h4>
+            <div class="card-body">
+                <div class="tableContainer">
+                    <table class="table table-bordered infoReportTable col col-sm-12 col-md-10">
+                        <thead class="thead_styles">
+                            <td *ngFor="let label of epidemicNexus.labels">{{ label }}</td>
+                        </thead>
+                        <tbody class="tbody_styles">
+                            <td *ngFor="let data of epidemicNexus.data">{{ data }}</td>
+                        </tbody>
+                    </table>
+                </div>
+                <app-grafico-pie [pieChartData]="epidemicNexus.data" [pieChartLabels]="epidemicNexus.labels" [pieChartType]="epidemicNexus.type">
+                </app-grafico-pie>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-12 reportGraph pl-0" *ngIf="profiles">
+        <div class="card border-0">
+            <h4 class="card-header">{{ profiles.title }}</h4>
+            <div class="card-body">
+                <div class="tableContainer">
+                    <table class="table table-bordered infoReportTable col col-sm-12 col-md-10">
+                        <thead class="thead_styles">
+                            <td *ngFor="let label of profiles.labels">{{ label }}</td>
+                        </thead>
+                        <tbody class="tbody_styles">
+                            <td *ngFor="let data of profiles.data[0].data">{{ data }}</td>
+                        </tbody>
+                    </table>
+                </div>
+                <app-grafico-barras [barChartData]="profiles.data" [barChartLabels]="profiles.labels" [barChartType]="profiles.type">
+                </app-grafico-barras>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-12 reportGraph pr-0" *ngIf="areas">
+        <div class="card border-0">
+            <h4 class="card-header">{{ areas.title }}</h4>
+            <div class="card-body">
+                <div class="tableContainer">
+                    <table class="table table-bordered infoReportTable col col-sm-12 col-md-10">
+                        <thead class="thead_styles">
+                            <td *ngFor="let label of areas.labels">{{ label }}</td>
+                        </thead>
+                        <tbody class="tbody_styles">
+                            <td *ngFor="let data of areas.data[0].data">{{ data }}</td>
+                        </tbody>
+                    </table>
+                </div>
+                <app-grafico-barras [barChartData]="areas.data" [barChartLabels]="areas.labels" [barChartType]="areas.type">
+                </app-grafico-barras>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-12 col-lg-6 reportGraph pl-0" *ngIf="peopleStatus">
+        <div class="card border-0">
+            <h4 class="card-header">{{ peopleStatus.title }}</h4>
+            <div class="card-body">
+                <div class="tableContainer">
+                    <table class="table table-bordered infoReportTable col col-sm-12 col-md-10">
+                        <thead class="thead_styles">
+                            <td *ngFor="let label of peopleStatus.labels">{{ label }}</td>
+                        </thead>
+                        <tbody class="tbody_styles">
+                            <td *ngFor="let data of peopleStatus.data">{{ data }}</td>
+                        </tbody>
+                    </table>
+                </div>
+                <app-grafico-dona [chartData]="peopleStatus.data" [chartLabels]="peopleStatus.labels" [chartType]="peopleStatus.type">
+                </app-grafico-dona>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-lg-6 reportGraph pr-0" *ngIf="symptoms">
+        <div class="card border-0">
+            <h4 class="card-header">{{ symptoms.title }}</h4>
+            <div class="card-body">
+                <div class="tableContainer">
+                    <table class="table table-bordered infoReportTable col col-sm-12 col-md-10">
+                        <thead class="thead_styles">
+                            <td *ngFor="let label of symptoms.labels">{{ label }}</td>
+                        </thead>
+                        <tbody class="tbody_styles">
+                            <td *ngFor="let data of symptoms.data">{{ data }}</td>
+                        </tbody>
+                    </table>
+                </div>
+                <app-grafico-pie [pieChartData]="symptoms.data" [pieChartLabels]="symptoms.labels" [pieChartType]="symptoms.type">
+                </app-grafico-pie>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-12 col-lg-6 reportGraph pl-0" *ngIf="resultingDelay">
+        <div class="card border-0">
+            <h4 class="card-header">{{ resultingDelay.title }}</h4>
+            <div class="card-body">
+                <div class="tableContainer">
+                    <table class="table table-bordered infoReportTable col col-sm-12 col-md-10">
+                        <thead class="thead_styles">
+                            <td *ngFor="let label of resultingDelay.labels">{{ label }}</td>
+                        </thead>
+                        <tbody class="tbody_styles">
+                            <td *ngFor="let data of resultingDelay.data[0].data">{{ data }}</td>
+                        </tbody>
+                    </table>
+                </div>
+                <app-grafico-barras [barChartData]="resultingDelay.data" [barChartLabels]="resultingDelay.labels" [barChartType]="resultingDelay.type">
+                </app-grafico-barras>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-lg-6 reportGraph pr-0" *ngIf="ageGroup">
+        <div class="card border-0">
+            <h4 class="card-header">{{ ageGroup.title }}</h4>
+            <div class="card-body">
+                <div class="tableContainer">
+                    <table class="table table-bordered infoReportTable col col-sm-12 col-md-10">
+                        <thead class="thead_styles">
+                            <td *ngFor="let label of ageGroup.labels">{{ label }}</td>
+                        </thead>
+                        <tbody class="tbody_styles">
+                            <td *ngFor="let data of ageGroup.data[0].data">{{ data }}</td>
+                        </tbody>
+                    </table>
+                </div>
+                <app-grafico-barras [barChartData]="ageGroup.data" [barChartLabels]="ageGroup.labels" [barChartType]="ageGroup.type">
+                </app-grafico-barras>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-12 reportGraph" *ngIf="weeksReport">
+        <div class="card border-0">
+            <h4 class="card-header">{{ weeksReport.title }}</h4>
+            <div class="card-body">
+                <app-grafico-linea [lineChartData]="weeksReport.data" [lineChartLabels]="weeksReport.labels" [lineChartType]="weeksReport.type" xTitle="Semanas" yTitle="Número de casos">
+                </app-grafico-linea>
+            </div>
+        </div>
+    </div>
+</div>

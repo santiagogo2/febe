@@ -1,0 +1,73 @@
+<div class="row">
+	<div class="col-sm-12">
+		<div class="card border-0">
+			<div class="card-body cardContainer">
+				<div class="col col-sm-12 successMessage mb-3" style="margin: auto;" *ngIf="responseMessage && status=='success'">
+					<span>{{ responseMessage }}</span><br/>
+				</div>
+				<div class="col col-sm-12 errorMessage mb-3" style="margin: auto;" *ngIf="responseMessage && status=='error'">
+					<span>{{ responseMessage }}</span><br/>
+					<button class="btn btn-info mt-2 btn-sm" [routerLink]="['/sala-situacional/colaboradores/registrar']">Agregar colaborador</button>
+				</div>
+				<div id="accordion">
+					<div class="card">
+						<div class="card-header" id="headingOne">
+							<h5 class="mb-0">
+								<button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+									Buscador
+								</button>
+							</h5>
+						</div>
+						<div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+							<div class="col col-sm-12 card-body">
+								<form #searchForm="ngForm" class="form-container" (ngSubmit)="onSubmitSearch()">
+									<div class="form-group">
+										<div class="col col-sm-12 col-lg-6 d-inline-block" style="text-align: left">
+											<label for="serviceName" class="labelForm">Seleccione el criterio de busqueda*</label>
+											<select style="background-position-x: 96%" name="searchCriteria" id="searchCriteria" class="form-control inputForm" [ngClass]="{'is-invalid': searchCriteria.invalid && searchCriteria.touched}" #searchCriteria="ngModel" [(ngModel)]="searchType" (change)="searchValue=null" required>
+												<option value="1">Buscar colaborador</option>
+											</select>
+										</div>
+										<div class="col col-sm-12 col-lg-6 d-inline-block" *ngIf="searchType && searchType==1" style="text-align: left">
+											<label for="document" class="labelForm">Número de identificación*</label>
+											<input type="text" name="document" id="document" class="form-control inputForm" [ngClass]="{'is-invalid': document.invalid && document.touched}" #document="ngModel" [(ngModel)]="searchValue" required pattern="[0-9]+" maxlength="10" placeholder="Ingrese el número de identificación de colbaorador">
+										</div>
+									</div>
+
+									<div class="buttonSubmit col-sm-12">
+										<input type="submit" value="Buscar" class="btn btn-success col-sm-12 col-md-6" [disabled]="searchForm.invalid">
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="tableContainer" *ngIf="collaborators">
+					<div class="tableContainerAll col col-sm-12">
+						<table class="table table-bordered">
+							<thead class="thead_styles">
+								<tr>
+									<th>Documento</th>
+									<th>Nombres</th>
+									<th>Apellidos</th>
+									<th>Relacionado</th>
+								</tr>
+							</thead>
+							<tbody class="tbody_styles">
+								<tr *ngFor="let collaborator of collaborators" class="tableStyles">
+									<td>{{ collaborator.documento }}</td>
+									<td>{{ collaborator.nombre }}</td>
+									<td>{{ collaborator.apellidos }}</td>
+									<td *ngIf="collaborator.idRelacionado">{{ collaborator.idRelacionado }}</td>
+									<td style="padding: 0.55rem" *ngIf="!collaborator.idRelacionado">
+										<button type="button" class="btn btn-info col col-sm-12 d-inline-block" *ngIf="collaborator.id != origen && collaborator.idRelacionado != origen" (click)="relacionar(collaborator.id)">Relacionar</button>
+									</td>												
+								</tr>					
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

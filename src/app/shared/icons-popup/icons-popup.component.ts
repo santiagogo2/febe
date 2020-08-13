@@ -25,8 +25,11 @@ export class IconsPopupComponent implements OnInit {
 		const permissions = JSON.parse(localStorage.getItem('userOperations'));
 		const array = [];
 		permissions.forEach( element => {
-			if( element.id_operations === 1 ) {
+			if ( element.id_operations === 1 ) {
 				array.push(this.iconsArray[0]);
+			}
+			if ( element.id_operations === 24 ) {
+				array.push(this.iconsArray[1]);
 			}
 		});
 		this.iconsArray = array;

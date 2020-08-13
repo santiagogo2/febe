@@ -24,6 +24,23 @@ export class NavbarComponent implements OnInit {
 				{ title: 'Informes', url: '/capacitaciones/informes', operationId: 6 },
 			]
 		},
+		{
+			title: 'Sala Situacional',
+			url: '/sala-situacional',
+			operationId: 24,
+			dropdown: [
+				{
+					title: 'Colaboradores',
+					url: '/sala-situacional/colaboradores',
+					operationId: 25,
+					dropdown: [
+						{ title: 'Listar Colaboradores', url: '/sala-situacional/colaboradores/listar', operationId: 25 },
+						{ title: 'Registrar Colaboradores', url: '/sala-situacional/colaboradores/registrar', operationId: 28 },
+					]
+				},
+				{ title: 'Informes', url: '/sala-situacional/informes', operationId: 29 },
+			]
+		},
 	];
 
 	constructor() {

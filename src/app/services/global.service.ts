@@ -5,6 +5,7 @@ export var global = {
 	urlDinamica: 'http://172.17.2.81/api-rest-dinamica/public/api/',
 	iconsArray: [
 		{ title: 'Capacitaciones', imageUrl: 'assets/images/modulos/capacitacion.png', class: 'imageContainer color-violet', url: '/capacitaciones' },
+		{ title: 'Sala Situacional', imageUrl: 'assets/images/modulos/salaSituacional.png', class: 'imageContainer color-green', url: '/sala-situacional' },
 	],
 	estados: [
 		{id: 1, value: 'CUARENTENA'},
