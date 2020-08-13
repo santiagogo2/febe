@@ -31,7 +31,7 @@ const eppRoutes: Routes = [
 
 	{ path: 'informes', component: EppInformesComponent, data: { titulo: 'Informes EPP' }, canActivate: [ EppInformesGuard ] },
 
-	{ path: '', component: EppComponent, data: { titulo: 'EPP' }, canActivate: [ EppGuard ] },
+	{ path: '', component: EppComponent, data: { titulo: 'Elementos de Protección Personal' }, canActivate: [ EppGuard ] },
 ];
 
 @NgModule({
