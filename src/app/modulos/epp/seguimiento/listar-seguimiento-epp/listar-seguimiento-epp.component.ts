@@ -23,7 +23,7 @@ export class ListarSeguimientoEppComponent implements OnInit {
 	public actualPage: number;
 	public itemsPerPage: number;
 	public adminFlag: boolean;
-
+	
 	public token: string;
 	public identity: any;
 	public epptracking: EppTracking[];

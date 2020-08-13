@@ -169,7 +169,7 @@ export class EditarSeguimientoEppComponent implements OnInit {
 				if ( element.id_operations === 31 ) {
 					this.viewFlag = true;
 				}
-				if ( (element.id_operations === 32 && this.identity.sub === this.eppTracking.created_by) || this.identity.role === 'ADMIN_ROLE' ) {
+				if ( (element.id_operations === 32 && this.identity.sub === this.eppTracking.created_by) ) {
 					this.editFlag = true;
 				}
 			});
