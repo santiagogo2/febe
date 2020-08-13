@@ -51,25 +51,29 @@ export class LoginComponent implements OnInit {
 
 					// Objeto del usuario identificado
 					this._userService.signup(this.user, true).subscribe(
-						response => {
-							this.preloaderStatus = false;
+						res => {
 
-							if (response.status === 'success') {
-								this.identity = response.signup;
+							if (res.status === 'success') {
+								this.identity = res.signup;
 
-								localStorage.setItem('utilitarioToken', this.token);
-								localStorage.setItem('utilitarioIdentity', JSON.stringify(this.identity));
+								localStorage.setItem('febeToken', this.token);
+								localStorage.setItem('febeIdentity', JSON.stringify(this.identity));
 								const expirationtime = (12 * 60 * 60 * 1000) + new Date().getTime();
-								localStorage.setItem('utilitarioExpiration', expirationtime.toString());
+								localStorage.setItem('febeExpiration', expirationtime.toString());
 
-								this._roleOperationService.getOperationsByRole( response.signup.role_id, this.token ).subscribe(
-									res => {
-										localStorage.setItem( 'userOperations', JSON.stringify( res.rolesoperations ) );
+								this._roleOperationService.getOperationsByRole( res.signup.role_id, this.token ).subscribe(
+									resp => {
+										this.preloaderStatus = false;
+										localStorage.setItem( 'userOperations', JSON.stringify( resp.rolesoperations ) );
+										loginForm.reset();
+										this._router.navigate(['/inicio']);
+									},
+									error => {
+										this.preloaderStatus = false;
+										loginForm.reset();
+										localStorage.clear();
 									}
 								);
-
-								loginForm.reset();
-								this._router.navigate(['/inicio']);
 							}
 						},
 						error => {
@@ -96,9 +100,7 @@ export class LoginComponent implements OnInit {
 			const logout = +params['sure'];
 
 			if (logout === 1) {
-				localStorage.removeItem('utilitarioToken');
-				localStorage.removeItem('utilitarioIdentity');
-				localStorage.removeItem('utilitarioExpiration');
+				localStorage.clear();
 				this.token = null;
 				this.identity = null;
 
