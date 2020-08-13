@@ -51,8 +51,8 @@
                                     <td>{{ train.nombre }}</td>
                                     <td>{{ train.documento }}</td>
                                     <td style="padding: 0.55rem">
-                                        <button type="button" class="btn btn-info col col-sm-12 col-md-5 mr-1 d-inline-block" [routerLink]="['/capacitaciones/seguimiento/editar', train.id]" *ngIf="(train.created_by!=identity.sub && identity.role != 'ADMIN_ROLE') || viewFlag">Ver</button>
-                                        <button type="button" class="btn btn-warning col col-sm-12 col-md-5 mr-1 d-inline-block" [routerLink]="['/capacitaciones/seguimiento/editar', train.id]" *ngIf="(train.created_by==identity.sub || identity.role == 'ADMIN_ROLE') && editFlag">Editar</button>
+                                        <button type="button" class="btn btn-info col col-sm-12 col-md-5 mr-1 d-inline-block" [routerLink]="['/capacitaciones/seguimiento/editar', train.id]" *ngIf="(train.created_by!=identity.sub && !editFlag) || viewFlag">Ver</button>
+                                        <button type="button" class="btn btn-warning col col-sm-12 col-md-5 mr-1 d-inline-block" [routerLink]="['/capacitaciones/seguimiento/editar', train.id]" *ngIf="train.created_by==identity.sub || editFlag">Editar</button>
                                         <button type="button" class="btn btn-danger col col-sm-12 col-md-5 d-inline-block" data-toggle="modal" [attr.data-target]="'#myModal'+train.id" *ngIf="deleteFlag">Borrar</button>
                                         <div class="deleteLoader" id="{{ 'loader' + train.id }}" style="display: none;">
                                             <div class="loader"></div>

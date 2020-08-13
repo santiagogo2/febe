@@ -66,20 +66,28 @@ export class ListarSeguimientoComponent implements OnInit {
 		);
 	}
 
-	loadPermissions(){
+	loadPermissions() {
 		const permissions = this._userService.getPermissions();
 		this.viewFlag = false;
 		this.editFlag = false;
 		this.registerFlag = false;
 		this.deleteFlag = false;
 
-		if( permissions ){
+		if ( permissions ) {
 			permissions.forEach( element => {
-				if( element.id_operations == 4 ) this.registerFlag = true;
-				if( element.id_operations == 2 || this.identity.role == 'ADMIN_ROLE' ) this.editFlag = true;
-				if( element.id_operations == 3 ) this.deleteFlag = true;
+				if ( element.id_operations === 4 ) {
+					this.registerFlag = true;
+				}
+				if ( element.id_operations === 2 ) {
+					this.editFlag = true;
+				}
+				if ( element.id_operations === 3 ) {
+					this.deleteFlag = true;
+				}
 			});
-			if( !this.editFlag ) this.viewFlag = true;
+			if ( !this.editFlag ) {
+				this.viewFlag = true;
+			}
 		}
 	}
 
