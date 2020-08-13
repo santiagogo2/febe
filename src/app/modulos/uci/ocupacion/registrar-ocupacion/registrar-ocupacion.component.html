@@ -1,0 +1,88 @@
+<div class="loaderBall" *ngIf="!occupation && !responseMessage">
+    <div class="ball-pulse-rise">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+<div class="mt-3 errorAlert" *ngIf="status=='error' && responseMessage && !occupation">
+    <div class="alert alert-danger" role="alert">
+        {{ responseMessage }} <a routerLink="/uci/ocupacion/listar" *ngIf="viewFlag">listar ocupación UCI</a>
+    </div>
+</div>
+
+<div class="row" *ngIf="occupation">
+    <div class="col-sm-12">
+        <div class="card border-0">
+            <div class="card-body cardContainer">
+                <div class="backLink col col-sm-12">
+                    <a class="col-sm-12" routerLink="/uci/ocupacion/listar" *ngIf="viewFlag">Listar ocupación UCI</a>
+                </div>
+                <div class="formContainer">
+                    <form #occupationsForm="ngForm" class="form-container" (ngSubmit)="onSubmit(occupationsForm)" style="text-align: left;">
+                        <div class="form-group">
+                            <div class="col col-sm-12 col-md-6 d-inline-block align-top">
+                                <label for="reportDate" class="labelForm">Fecha del reporte*</label>
+                                <input id="reportDate" type="date" name="reportDate" class="form-control inputForm" [ngClass]="{'is-invalid': reportDate.invalid && reportDate.touched}" #reportDate="ngModel" [(ngModel)]="occupation.reportDate" max="{{ year }}-{{ month }}-{{ day }}" required>
+                                <small class="invalid-feedback d-block" *ngIf="reportDate.invalid && reportDate.touched">Debe ingresar una fecha de reporte</small>
+                            </div>
+                            <div class="col col-sm-12 col-md-6 d-inline-block align-top">
+                                <label for="code" class="labelForm">Código del servicio*</label>
+                                <input id="code" type="text" name="code" class="form-control inputForm" [ngClass]="{'is-invalid': code.invalid && code.touched}" #code="ngModel" [(ngModel)]="occupation.code" pattern="[0-9]+" maxlength="12" required disabled>
+                                <small class="invalid-feedback d-block" *ngIf="code.invalid && code.touched">Debe ingresar el código del servicio. Solo se admiten números</small>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col col-sm-12 col-md-4 d-inline-block align-top">
+                                <label for="unit" class="labelForm">Unidad*</label>
+                                <select style="background-position-x: 93%" name="unit" id="unit" class="form-control inputForm" [ngClass]="{'is-invalid': unit.invalid && unit.touched}" #unit="ngModel" [(ngModel)]="occupation.unit" required disabled>
+									<option *ngFor="let unit of units" value="{{ unit.id }}">{{ unit.name }}</option>
+								</select>
+                                <small class="invalid-feedback d-block" *ngIf="unit.invalid && unit.touched">Debe seleccionar una unidad</small>
+                            </div>
+                            <div class="col col-sm-12 col-md-4 d-inline-block align-top">
+                                <label for="occupiedBeds" class="labelForm">Camas ocupadas*</label>
+                                <input type="text" name="occupiedBeds" class="form-control inputForm" [ngClass]="{'is-invalid': occupiedBeds.touched && occupiedBeds.invalid}" #occupiedBeds="ngModel" [(ngModel)]="occupation.occupiedBeds" required pattern="[0-9]+" placeholder="Ingrese el número de camas ocupadas"
+                                    maxlength="4">
+                                <small class="invalid-feedback d-block" *ngIf="occupiedBeds.invalid && occupiedBeds.touched">Ingrese el número de camas ocupadas</small>
+                            </div>
+                            <div class="col col-sm-12 col-md-4 d-inline-block align-top">
+                                <label for="availableBeds" class="labelForm">Camas disponibles*</label>
+                                <input type="text" name="availableBeds" class="form-control inputForm" [ngClass]="{'is-invalid': availableBeds.touched && availableBeds.invalid}" #availableBeds="ngModel" [(ngModel)]="occupation.availableBeds" required pattern="[0-9]+" placeholder="Ingrese el número de camas disponibles"
+                                    maxlength="4">
+                                <small class="invalid-feedback d-block" *ngIf="availableBeds.invalid && availableBeds.touched">Ingrese el número de camas disponibles</small>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col col-sm-12 col-md-6 d-inline-block align-top">
+                                <label for="suspectedCases" class="labelForm">Casos sospechosos*</label>
+                                <input type="text" name="suspectedCases" class="form-control inputForm" [ngClass]="{'is-invalid': suspectedCases.touched && suspectedCases.invalid}" #suspectedCases="ngModel" [(ngModel)]="occupation.suspectedCases" required pattern="[0-9]+" placeholder="Ingrese el número de casos sospechosos del dia">
+                                <small class="invalid-feedback d-block" *ngIf="suspectedCases.invalid && suspectedCases.touched">Debe ingresar el número de casos sospechosos. Solo números</small>
+                            </div>
+                            <div class="col col-sm-12 col-md-6 d-inline-block align-top">
+                                <label for="confirmedCases" class="labelForm">Casos confirmados*</label>
+                                <input type="text" name="confirmedCases" class="form-control inputForm" [ngClass]="{'is-invalid': confirmedCases.touched && confirmedCases.invalid}" #confirmedCases="ngModel" [(ngModel)]="occupation.confirmedCases" required pattern="[0-9]+" placeholder="Ingrese el número de casos confirmados del dia">
+                                <small class="invalid-feedback d-block" *ngIf="confirmedCases.invalid && confirmedCases.touched">Debe ingresar el número de casos confirmados. Solo números</small>
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-top: 3rem" *ngIf="editFlag">
+                            <div class="col col-sm-12 buttonSubmit">
+                                <input type="submit" value="{{ buttonText }}" class="btn btn-success btnPrefer col-sm-12" [disabled]="occupationsForm.invalid">
+                            </div>
+                        </div>
+                        <div class="mt-3 col col-sm-12 errorAlert" *ngIf="status=='error' && responseMessage">
+                            <div class="alert alert-danger" role="alert">
+                                {{ responseMessage }}
+                            </div>
+                        </div>
+                        <div class="deleteLoader" *ngIf="preloaderStatus">
+                            <div class="loader"></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

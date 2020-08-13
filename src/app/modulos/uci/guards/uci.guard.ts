@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { Router, CanActivate } from '@angular/router';
 
 // Services
-import { UserService } from '../../../../services/user.service';
+import { UserService } from '../../../services/user.service';
 
 @Injectable({
 	providedIn: 'root'
 })
-export class EppInformesGuard implements CanActivate {
+export class UciGuard implements CanActivate {
 
 	constructor(
 		private userService: UserService,
@@ -20,14 +20,14 @@ export class EppInformesGuard implements CanActivate {
 		if (identity) {
 			const permissions = JSON.parse(localStorage.getItem('userOperations'));
 			for ( const permission of permissions ) {
-				if ( permission.id_operations === 35 ) { // Operación que permite ver los informes del módulo EPP
+				if ( permission.id_operations === 36 ) { // Operación que permite entrar al módulo de UCI
 					return true;
 				}
 			}
-			this.router.navigate(['/epp']);
+			this.router.navigate(['/inicio']);
 			return false;
 		} else {
-			this.router.navigate(['/epp']);
+			this.router.navigate(['/inicio']);
 			return false;
 		}
 	}

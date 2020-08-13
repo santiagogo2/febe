@@ -39,6 +39,12 @@ const pagesRoutes: Routes = [
 		canActivate: [ IdentityGuard ],
 		loadChildren: () => import('./sala-situacional/sala-situacional.module').then( m => m.SalaSituacionalModule ),
 	},
+	{
+		path: 'uci',
+		component: ModulosComponent,
+		canActivate: [ IdentityGuard ],
+		loadChildren: () => import('./uci/uci.module').then(m => m.UciModule),
+	},
 ];
 
 @NgModule({

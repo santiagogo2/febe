@@ -7,7 +7,7 @@ import { UserService } from '../../../../services/user.service';
 @Injectable({
 	providedIn: 'root'
 })
-export class EppInformesGuard implements CanActivate {
+export class UciRegisterGuard implements CanActivate {
 
 	constructor(
 		private userService: UserService,
@@ -20,14 +20,14 @@ export class EppInformesGuard implements CanActivate {
 		if (identity) {
 			const permissions = JSON.parse(localStorage.getItem('userOperations'));
 			for ( const permission of permissions ) {
-				if ( permission.id_operations === 35 ) { // Operación que permite ver los informes del módulo EPP
+				if ( permission.id_operations === 40 ) { // Operación que permite registrar nuevas entradas de ocupacion UCI
 					return true;
 				}
 			}
-			this.router.navigate(['/epp']);
+			this.router.navigate(['/uci/ocupacion/listar']);
 			return false;
 		} else {
-			this.router.navigate(['/epp']);
+			this.router.navigate(['/uci/ocupacion/listar']);
 			return false;
 		}
 	}
