@@ -8,18 +8,18 @@ import { NopagefoundComponent } from './shared/nopagefound/nopagefound.component
 import { ModulosRoutingModule } from './modulos/modulos.routing';
 
 // Guards
-import { IdentityGuard } from './guards/identity.guard';
+import { IdentityGuard, LoginGuard } from './guards/guards.index';
 
 const appRoutes: Routes = [
-	{ path: 'login', component: LoginComponent },
+	{ path: 'login', component: LoginComponent, canActivate: [ LoginGuard ] },
 	{ path: 'logout/:sure', component: LoginComponent },
-	{ path: '**', component: NopagefoundComponent, canActivate:[ IdentityGuard] },
+	{ path: '**', component: NopagefoundComponent, canActivate: [ IdentityGuard] },
 ];
 
 @NgModule({
 	imports: [
 		ModulosRoutingModule,
-		RouterModule.forRoot( appRoutes ),
+		RouterModule.forRoot( appRoutes, { useHash: false } ),
 	],
 	exports: [
 		RouterModule

@@ -7,87 +7,87 @@ import { global } from './global.service';
 @Injectable({
 	providedIn: 'root'
 })
-export class UserService{
+export class UserService {
 	public url: string;
 	public token: string;
 	public identity: any;
 
 	constructor(
-		private _http: HttpClient
-	){
+		private http: HttpClient
+	) {
 		this.url = global.url;
 	}
 
-	signup(user, gettoken=null): Observable<any>{
-		if(gettoken != null){
+	signup(user, gettoken = null): Observable<any> {
+		if (gettoken != null) {
 			user.gettoken = 'true';
 		}
-		let json = JSON.stringify(user);
-		let params = "json="+json;
-		let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+		const json = JSON.stringify(user);
+		const params = 'json=' + json;
+		const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
 
-		return this._http.post(this.url + 'user/login', params, {headers:headers});
+		return this.http.post(this.url + 'user/login', params, { headers });
 	}
 
-	userList(token): Observable<any>{
-		let headers = new HttpHeaders().set('Authorization', token);
-		return this._http.get(this.url + 'user', {headers:headers});
+	userList(token): Observable<any> {
+		const headers = new HttpHeaders().set('Authorization', token);
+		return this.http.get(this.url + 'user', { headers });
 	}
 
-	getUser(id, token): Observable<any>{
-		let headers = new HttpHeaders().set('Authorization', token);
-		return this._http.get(this.url + 'user/' + id, {headers:headers});
+	getUser(id, token): Observable<any> {
+		const headers = new HttpHeaders().set('Authorization', token);
+		return this.http.get(this.url + 'user/' + id, { headers });
 	}
 
-	getUserByChain( chain, token): Observable<any>{
-		let headers = new HttpHeaders().set('Authorization', token);
-		return this._http.get(this.url + 'user/chain/' + chain, {headers:headers});
+	getUserByChain( chain, token): Observable<any> {
+		const headers = new HttpHeaders().set('Authorization', token);
+		return this.http.get(this.url + 'user/chain/' + chain, { headers });
 	}
 
-	getUserByRole( role, token): Observable<any>{
-		let headers = new HttpHeaders().set('Authorization', token);
-		return this._http.get(this.url + 'user/search/role/' + role, {headers:headers});
+	getUserByRole( role, token): Observable<any> {
+		const headers = new HttpHeaders().set('Authorization', token);
+		return this.http.get(this.url + 'user/search/role/' + role, { headers });
 	}
 
-	newUser(user, token):Observable<any>{
-		let json = JSON.stringify(user);
-		let params = "json="+json;
-		let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+	newUser(user, token): Observable<any> {
+		const json = JSON.stringify(user);
+		const params = 'json=' + json;
+		const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
 									   .set('Authorization', token);
-		return this._http.post(this.url + 'user', params, {headers:headers});
+		return this.http.post(this.url + 'user', params, { headers });
 	}
 
-	updateUser(user, token): Observable<any>{
-		let json = JSON.stringify(user);
-		let params = "json="+json;
-		let id = user.id;
+	updateUser(user, token): Observable<any> {
+		const json = JSON.stringify(user);
+		const params = 'json=' + json;
+		const id = user.id;
 
-		let headers = new HttpHeaders().set('Authorization', token)
+		const headers = new HttpHeaders().set('Authorization', token)
 									   .set('Content-Type', 'application/x-www-form-urlencoded');
-		return this._http.put(this.url + 'user/' + id, params, {headers:headers});
+		return this.http.put(this.url + 'user/' + id, params, { headers });
 	}
 
-	deleteUser(id, token): Observable<any>{
-		let headers = new HttpHeaders().set('Authorization', token);
-		return this._http.delete(this.url + 'user/' + id, {headers:headers});
+	deleteUser(id, token): Observable<any> {
+		const headers = new HttpHeaders().set('Authorization', token);
+		return this.http.delete(this.url + 'user/' + id, { headers });
 	}
 
-	getIdentity(){
-		let identity = JSON.parse(localStorage.getItem('utilitarioIdentity'));
+	getIdentity() {
+		const identity = JSON.parse(localStorage.getItem('febeIdentity'));
 
-		if(identity && identity != undefined){
+		if (identity && identity !== undefined) {
 			this.identity = identity;
-		} else{
+		} else {
 			this.identity = null;
 		}
 
 		return this.identity;
 	}
 
-	getToken(){
-		let token = localStorage.getItem('utilitarioToken');
+	getToken() {
+		const token = localStorage.getItem('febeToken');
 
-		if(token && token != undefined){
+		if (token && token !== undefined) {
 			this.token = token;
 		} else{
 			this.token = null;
@@ -96,12 +96,15 @@ export class UserService{
 		return this.token;
 	}
 
-	getPermissions(){
+	getPermissions() {
 		let permissions = JSON.parse( localStorage.getItem('userOperations') );
+		// while ( !permissions ) {
+		// 	permissions = JSON.parse( localStorage.getItem('userOperations') );
+		// }
 
-		if(permissions && permissions != undefined){
+		if ( permissions && permissions !== undefined ) {
 			return permissions;
-		} else{
+		} else {
 			return null;
 		}
 	}
