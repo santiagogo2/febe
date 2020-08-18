@@ -63,7 +63,7 @@ export class RegistrarSeguimientoEppComponent implements OnInit {
 		this.responseMessage = undefined;
 		this.actualDate = this.setMaxDate();
 		this.getAllPromises();
-
+		this.loadPermissions();
 	}
 
 	getAllPromises() {

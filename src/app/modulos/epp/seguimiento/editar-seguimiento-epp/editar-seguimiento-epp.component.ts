@@ -53,7 +53,7 @@ export class EditarSeguimientoEppComponent implements OnInit {
 		private router: Router,
 		private route: ActivatedRoute,
 	) {
-		this.buttonText = 'Registrar';
+		this.buttonText = 'Actualizar';
 
 		this.identity = this.userService.getIdentity();
 		this.token = this.userService.getToken();
@@ -72,7 +72,6 @@ export class EditarSeguimientoEppComponent implements OnInit {
 			let id = +params['id'];
 
 			this.getAllPromises(id);
-
 		});
 	}
 
@@ -82,6 +81,7 @@ export class EditarSeguimientoEppComponent implements OnInit {
 				   this.units = responses[0];
 				   this.profiles = responses[1];
 				   this.eppTracking = responses[2];
+				   this.loadPermissions();
 			   })
 			   .catch( error => {
 				   this.status = 'error';
@@ -160,6 +160,7 @@ export class EditarSeguimientoEppComponent implements OnInit {
 	}
 
 	loadPermissions() {
+		console.log('entre');
 		const permissions = this.userService.getPermissions();
 		this.viewFlag = false;
 		this.editFlag = false;
@@ -169,7 +170,7 @@ export class EditarSeguimientoEppComponent implements OnInit {
 				if ( element.id_operations === 31 ) {
 					this.viewFlag = true;
 				}
-				if ( (element.id_operations === 32 && this.identity.sub === this.eppTracking.created_by) ) {
+				if ( element.id_operations === 32 || this.identity.sub === this.eppTracking.created_by ) {
 					this.editFlag = true;
 				}
 			});

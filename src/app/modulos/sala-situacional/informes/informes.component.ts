@@ -68,11 +68,11 @@ export class InformesComponent implements OnInit {
 	}
 
 	setReports(){
-		this.gender = this.setGeneralInformation('sexo', global.sexo, 'Contagiados por género', 'doughnut');
-		this.epidemicNexus = this.setGeneralInformation('nexo', global.nexos, 'Contagiados por nexo epidemiológico', 'pie');
-		this.profiles = this.setGeneralInformation('perfil', this.profiles, 'Distribución de casos según el perfil ocupacional', 'horizontalBar');
+		this.gender = this.setGeneralInformation('sexo', global.sexo, 'Contagiados por género', 'doughnut', 1);
+		this.epidemicNexus = this.setGeneralInformation('nexo', global.nexos, 'Contagiados por nexo epidemiológico', 'pie', 1);
+		this.profiles = this.setGeneralInformation('perfil', this.profiles, 'Distribución de casos según el perfil ocupacional', 'horizontalBar', 1);
 		this.profiles.data = [ { data: this.profiles.data, label: 'Eventos por perfil' } ];
-		this.areas = this.setGeneralInformation('area', this.areas, 'Distribución según el área asistencial', 'horizontalBar');
+		this.areas = this.setGeneralInformation('area', this.areas, 'Distribución según el área asistencial', 'horizontalBar', 1);
 		this.areas.data = [ { data: this.areas.data, label: 'Eventos área asistencial' } ];
 		this.peopleStatus = this.setGeneralInformation('estado', global.estados, 'Distribución de eventos según el estado actual', 'doughnut');
 		this.symptoms = this.setSymptoms('Distribución de eventos por síntomas', 'pie');
@@ -85,18 +85,25 @@ export class InformesComponent implements OnInit {
 	}
 
 
-	setGeneralInformation(key: string, vector, title: string, type: string){
+	setGeneralInformation(key: string, vector, title: string, type: string, resp: number = null){
 		const labels = new Array();
 		const data = new Array();
 		const variable = {};
 
 		vector.forEach(element => {
 			let count = 0;
-			for ( const collaborator of this.collaborators ) {
-				if (collaborator[key] === element.id && collaborator.contagiado === 1) {
-					count++;
+			if( resp ) {
+				for ( const collaborator of this.collaborators ) {
+					if (collaborator[key] === element.id && collaborator.contagiado === resp) {
+						count++;
+					}
 				}
-
+			} else {
+				for ( const collaborator of this.collaborators ) {
+					if (collaborator[key] === element.id) {
+						count++;
+					}
+				}
 			}
 			if(count && count > 0){
 				data.push(count);
@@ -163,7 +170,7 @@ export class InformesComponent implements OnInit {
 			let cont  = 0;
 			let total = 0;
 			this.collaborators.forEach( element => {
-				if (element.diasTranscurridos && element.contagiado === 1) {
+				if (element.diasTranscurridos) {
 					if (label == element.diasTranscurridos) {
 						cont++;
 					} else if (label === '8 o más días' && element.diasTranscurridos >= 8) {

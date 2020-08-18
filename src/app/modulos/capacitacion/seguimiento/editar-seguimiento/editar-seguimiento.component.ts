@@ -43,33 +43,33 @@ export class EditarSeguimientoComponent implements OnInit {
 
 	public services: Array<any>;
 	public themes: Array<any>;
-	
+
 	constructor(
-		private _dinamicaService: DinamicaService,
-		private _profileService: ProfileService,
-		private _trainingService: TrainingService,
-		private _unitService: UnitService,
-		private _userService: UserService,
-		private _route: ActivatedRoute,
-		private _router: Router,
+		private dinamicaService: DinamicaService,
+		private profileService: ProfileService,
+		private trainingService: TrainingService,
+		private unitService: UnitService,
+		private userService: UserService,
+		private route: ActivatedRoute,
+		private router: Router,
 	) {
 		this.buttonText = 'Actualizar';
 
-		this.token = this._userService.getToken();
-		this.identity = this._userService.getIdentity();
+		this.token = this.userService.getToken();
+		this.identity = this.userService.getIdentity();
 
 		this.services = global.services;
 		this.themes = global.temas;
 	}
 
 	ngOnInit(): void {
-		this._route.params.subscribe(params => {
+		this.route.params.subscribe(params => {
 			this.status = undefined;
 			this.responseMessage = undefined;
 			this.training = undefined;
 
 			this.actualDate = this.setMaxDate();
-			let id = +params['id'];
+			const id = +params['id'];
 
 			this.getAllPromises(id);
 		});
@@ -86,17 +86,21 @@ export class EditarSeguimientoComponent implements OnInit {
 			   .catch( error => {
 				   this.status = 'error';
 				   this.responseMessage = error;
-			   })
+			   });
 	}
 
 	loadPermissions(){
-		let permissions = this._userService.getPermissions();
+		const permissions = this.userService.getPermissions();
 		this.editFlag = false;
 
-		if( permissions ){
+		if ( permissions ) {
 			permissions.forEach( element => {
-				if( element.id_operations == 5 ) this.viewFlag = true;
-				if( (element.id_operations == 2 && this.identity.sub == this.training.created_by) || this.identity.role == 'ADMIN_ROLE' ) this.editFlag = true;
+				if ( element.id_operations === 5 ) {
+					this.viewFlag = true;
+				}
+				if ( element.id_operations === 2 || this.identity.sub === this.training.created_by ) {
+					this.editFlag = true;
+				}
 			});
 		}
 	}
@@ -106,12 +110,12 @@ export class EditarSeguimientoComponent implements OnInit {
 		this.responseMessage = undefined;
 		this.preloaderStatus = true;
 
-		this._trainingService.updateTraining( this.training, this.token ).subscribe(
+		this.trainingService.updateTraining( this.training, this.token ).subscribe(
 			res => {
 				this.preloaderStatus = false;
 				if( res.status == 'success' ){
 					swal('Registro actualizado con éxito', res.message, 'success');
-					this._router.navigate(['/capacitaciones/seguimiento/listar']);
+					this.router.navigate(['/capacitaciones/seguimiento/listar']);
 				}
 			},
 			error => {
@@ -133,7 +137,7 @@ export class EditarSeguimientoComponent implements OnInit {
 		this.searchPreloaderStatus = true;
 		this.searchResponseMessage = undefined;
 
-		this._dinamicaService.getByTernumdoc( this.training.documento ).subscribe(
+		this.dinamicaService.getByTernumdoc( this.training.documento ).subscribe(
 			res => {
 				this.searchPreloaderStatus = false;
 				if( res.status == 'success' ){
@@ -174,7 +178,7 @@ export class EditarSeguimientoComponent implements OnInit {
 	//==========================================================================
 	profileList(){
 		return new Promise((resolve, reject) => {
-			this._profileService.profileList( this.token ).subscribe(
+			this.profileService.profileList( this.token ).subscribe(
 				res => {
 					if( res.status == 'success' ){
 						resolve(res.profiles);
@@ -190,7 +194,7 @@ export class EditarSeguimientoComponent implements OnInit {
 
 	unitList(){
 		return new Promise((resolve, reject) => {
-			this._unitService.unitList( this.token ).subscribe(
+			this.unitService.unitList( this.token ).subscribe(
 				res => {
 					if( res.status == 'success' ){
 						resolve(res.units);
@@ -206,7 +210,7 @@ export class EditarSeguimientoComponent implements OnInit {
 
 	getTraining(id){
 		return new Promise((resolve, reject) => {
-			this._trainingService.getTraining( id, this.token ).subscribe(
+			this.trainingService.getTraining( id, this.token ).subscribe(
 				res => {
 					if( res.status == 'success' ){
 						resolve(res.training);

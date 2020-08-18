@@ -47,7 +47,6 @@ export class EditarOcupacionComponent implements OnInit {
 
 		this.identity = this.userService.getIdentity();
 		this.token = this.userService.getToken();
-		this.loadPermissions();
 	}
 
 	ngOnInit(): void {
@@ -60,8 +59,9 @@ export class EditarOcupacionComponent implements OnInit {
 			Promise.all([this.unitList(), this.getOccupation(id)])
 				   .then( responses => {
 				   		this.units = responses[0];
-				   		this.occupation = responses[1];
-				   })
+						   this.occupation = responses[1];
+						   this.loadPermissions();
+					})
 				   .catch( error => {
 				   		this.status = 'error';
 				   		this.responseMessage = error;
@@ -108,7 +108,7 @@ export class EditarOcupacionComponent implements OnInit {
 				if ( element.id_operations === 37 ) {
 					this.viewFlag = true;
 				}
-				if ( (element.id_operations === 38 && this.identity.sub === this.occupation.created_by) ) {
+				if ( element.id_operations === 38 || this.identity.sub === this.occupation.created_by ) {
 					this.editFlag = true;
 				}
 			});

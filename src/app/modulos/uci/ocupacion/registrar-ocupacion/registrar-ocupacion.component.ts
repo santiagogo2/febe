@@ -50,12 +50,12 @@ export class RegistrarOcupacionComponent implements OnInit {
 		this.token = this.userService.getToken();
 
 		this.editFlag = true;
-		this.loadPermissions();
 	}
 
 	ngOnInit(): void {
 		this.setActualDate();
 		this.unitList();
+		this.loadPermissions();
 	}
 
 	onSubmit(occupationRegisterForm) {
