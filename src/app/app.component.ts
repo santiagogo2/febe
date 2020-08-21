@@ -15,27 +15,27 @@ export class AppComponent {
 	public identity: any[];
 
 	constructor(
-		private _userService: UserService,
-		private _router: Router
-	){
+		private userService: UserService,
+		private router: Router
+	) {
 		this.loadUser();
 	}
 
-	loadUser(){
-		let actualDate = new Date().getTime();
-		let expiresDate = +localStorage.getItem('utilitarioExpiration');
-		if( expiresDate && actualDate >= expiresDate ){
-			localStorage.removeItem('utilitarioToken');
-			localStorage.removeItem('utilitarioIdentity');
-			localStorage.removeItem('utilitarioExpiration');
+	loadUser() {
+		const actualDate = new Date().getTime();
+		const expiresDate = +localStorage.getItem('febeExpiration');
+		if ( expiresDate && actualDate >= expiresDate ) {
+			localStorage.removeItem('febeToken');
+			localStorage.removeItem('febeIdentity');
+			localStorage.removeItem('febeExpiration');
 
 			this.token = null;
 			this.identity = null;
 
-			this._router.navigate(['login']);
-		} else{
-			this.token = this._userService.getToken();
-			this.identity = this._userService.getIdentity();
-		}	
+			this.router.navigate(['login']);
+		} else {
+			this.token = this.userService.getToken();
+			this.identity = this.userService.getIdentity();
+		}
 	}
 }

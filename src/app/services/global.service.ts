@@ -8,6 +8,7 @@ export var global = {
 		{ title: 'Sala Situacional', imageUrl: 'assets/images/modulos/salaSituacional.png', class: 'imageContainer color-green', url: '/sala-situacional' },
 		{ title: 'epp', imageUrl: 'assets/images/modulos/epp.png', class: 'imageContainer color-red', url: '/epp' },
 		{ title: 'uci', imageUrl: 'assets/images/modulos/uci.png', class: 'imageContainer color-orange', url: '/uci' },
+		{ title: 'mipres', imageUrl: 'assets/images/modulos/mipres.png', class: 'imageContainer color-yellow', url: '/mipres' },
 	],
 	estados: [
 		{id: 1, value: 'CUARENTENA'},
@@ -227,4 +228,35 @@ export var global = {
 		{ id: 2, name: 'TEMA 2' },
 		{ id: 3, name: 'TEMA 3' },
 	],
+
+	// Mipres - Depende del servicio de consulta
+	afirmacion: [
+		{ id: 0, name: 'NO' },
+		{ id: 1, name: 'SI' },
+	],
+	EstadoEntrega: [
+		{ id: 1, value: '0', name: 'No se entrega' },
+		{ id: 2, value: '1', name: 'Si se entrega' },
+	],
+	TipoIDPaciente: [
+		{ id: 'CC', name: 'Cédula de Ciudadanía' },
+		{ id: 'RC', name: 'Registro Civil' },
+		{ id: 'TI', name: 'Tarjeta de Identidad' },
+		{ id: 'CE', name: 'Cedula de Extranjería' },
+		{ id: 'PA', name: 'Pasaporte' },
+		{ id: 'NV', name: 'Nacido Vivo' },
+		{ id: 'CD', name: 'Carné Diplomático' },
+		{ id: 'SC', name: 'Salvoconducto de Permanencia' },
+		{ id: 'PR', name: 'Pasaporte de la ONU' },
+		{ id: 'PE', name: 'Permiso Especial de Permanencia' },
+		{ id: 'AS', name: 'Adulto sin Identificación' },
+		{ id: 'MS', name: 'Menor sin Identificación' },
+	],
+	TipoTec: [
+		{ id: 'M', name: 'Medicamento' },
+		{ id: 'P', name: 'Procedimiento' },
+		{ id: 'D', name: 'Dispositivo Médico' },
+		{ id: 'N', name: 'Producto Nutricional' },
+		{ id: 'S', name: 'Servicio Complementario' },
+	]
 }

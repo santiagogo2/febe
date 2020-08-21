@@ -348,6 +348,16 @@ header .nav-item:hover {
     padding-bottom: 1rem;
 }
 
+.infoParagraph {
+    text-align: left;
+    font-size: 0.8rem;
+    color: #002142;
+}
+
+.infoParagraph p {
+    font-size: 0.8rem;
+}
+
 
 /*---------------------------------------------
  Accordion Styles

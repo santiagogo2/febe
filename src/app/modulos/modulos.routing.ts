@@ -34,6 +34,12 @@ const pagesRoutes: Routes = [
 		loadChildren: () => import('./epp/epp.module').then(m => m.EppModule),
 	},
 	{
+		path: 'mipres',
+		component: ModulosComponent,
+		canActivate: [ IdentityGuard ],
+		loadChildren: () => import('./mipres/mipres.module').then(m => m.MipresModule),
+	},
+	{
 		path: 'sala-situacional',
 		component: ModulosComponent,
 		canActivate: [ IdentityGuard ],

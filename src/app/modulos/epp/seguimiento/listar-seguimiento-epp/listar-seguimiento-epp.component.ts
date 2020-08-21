@@ -106,6 +106,7 @@ export class ListarSeguimientoEppComponent implements OnInit {
 
 	pageChange(event) {
 		this.actualPage = event;
+		localStorage.setItem('eppTrackingPage', event);
 	}
 
 	exportAsXLSX() {

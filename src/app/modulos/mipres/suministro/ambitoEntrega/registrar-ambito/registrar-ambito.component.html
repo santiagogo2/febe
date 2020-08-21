@@ -1,0 +1,132 @@
+<div class="loaderBall" *ngIf="!scopeDelivery && !responseMessage">
+    <div class="ball-pulse-rise">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+<div class="mt-3 errorAlert" *ngIf="status=='error' && responseMessage && !scopeDelivery">
+    <div class="alert alert-danger" role="alert">
+        {{ responseMessage }} <a routerLink="/mipres/ambito/listar" *ngIf="viewFlag">Listar Registro Ambito Entrega</a>
+    </div>
+</div>
+
+<div class="row" *ngIf="scopeDelivery">
+    <div class="col-sm-12">
+        <div class="card border-0">
+            <div class="card-body cardContainer">
+                <div class="backLink col col-sm-12">
+                    <a class="col-sm-12" routerLink="/mipres/ambito/listar" *ngIf="viewFlag">Listar Registro Ambito Entrega</a>
+                </div>
+                <div class="formContainer">
+                    <form #scopeDeliveryForm="ngForm" class="form-container" (ngSubmit)="onSubmit(scopeDeliveryForm)" style="text-align: left;">
+                        <div class="form-group">
+                            <div class="col-12 d-inline-block">
+                                <label for="NoPrescripcion" class="labelForm">Número de Prescripción*</label>
+                                <input type="text" name="NoPrescripcion" id="NoPrescripcion" class="form-control inputForm" [ngClass]="{'is-invalid': NoPrescripcion.invalid && NoPrescripcion.touched}" #NoPrescripcion="ngModel" [(ngModel)]="scopeDelivery.NoPrescripcion" maxlength="20"
+                                    pattern="[0-9]+" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12 col-md-6 col-lg-6 d-inline-block">
+                                <label for="TipoTecno" class="labelForm">Tipo de Servicio o Tecnología*</label>
+                                <select style="background-position-x: 96%" name="TipoTecno" id="TipoTecno" class="form-control inputForm" [ngClass]="{'is-invalid': TipoTecno.invalid && TipoTecno.touched}" #TipoTecno="ngModel" [(ngModel)]="scopeDelivery.TipoTec" required>
+									<option *ngFor="let TpTec of TipoTec" value="{{ TpTec.id }}">{{ TpTec.name }}</option>
+								</select>
+                            </div>
+                            <div class="col-sm-12 col-md-6 d-inline-block">
+                                <label for="ConTec" class="labelForm">Consecutivo orden de servicio o tecnología*</label>
+                                <input type="text" name="ConTec" id="ConTec" class="form-control inputForm" [ngClass]="{'is-invalid': ConTec.invalid && ConTec.touched}" #ConTec="ngModel" [(ngModel)]="scopeDelivery.ConTec" pattern="[0-9]+" maxlength="2" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12 col-md-6 d-inline-block">
+                                <label for="TIDPaciente" class="labelForm">Tipo de documento de identificación de paciente*</label>
+                                <select style="background-position-x: 96%" name="TIDPaciente" id="TIDPaciente" class="form-control inputForm" [ngClass]="{'is-invalid': TIDPaciente.invalid && TIDPaciente.touched}" #TIDPaciente="ngModel" [(ngModel)]="scopeDelivery.TipoIDPaciente" required>
+									<option *ngFor="let TPaciente of TipoIDPaciente" value="{{ TPaciente.id }}">{{ TPaciente.name }}</option>
+								</select>
+                            </div>
+                            <div class="col-sm-12 col-md-6 d-inline-block">
+                                <label for="NoIDPaciente" class="labelForm">Número de identificación del paciente*</label>
+                                <input type="text" name="NoIDPaciente" id="NoIDPaciente" class="form-control inputForm" [ngClass]="{'is-invalid': NoIDPaciente.invalid && NoIDPaciente.touched}" #NoIDPaciente="ngModel" [(ngModel)]="scopeDelivery.NoIDPaciente" maxlength="17" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12 col-md-4 d-inline-block">
+                                <label for="NoEntrega" class="labelForm">Número de entrega*</label>
+                                <input type="text" name="NoEntrega" id="NoEntrega" class="form-control inputForm" [ngClass]="{'is-invalid': NoEntrega.invalid && NoEntrega.touched}" #NoEntrega="ngModel" [(ngModel)]="scopeDelivery.NoEntrega" pattern="[0-9]+" maxlength="2" required>
+                            </div>
+                            <div class="col-sm-12 col-md-4 d-inline-block">
+                                <label for="CodSerTecEntregado" class="labelForm">Código de servicio o tecnología entregado*</label>
+                                <input type="text" name="CodSerTecEntregado" id="CodSerTecEntregado" class="form-control inputForm" [ngClass]="{'is-invalid': CodSerTecEntregado.invalid && CodSerTecEntregado.touched}" #CodSerTecEntregado="ngModel" [(ngModel)]="scopeDelivery.CodSerTecEntregado"
+                                    pattern="[0-9-]+" maxlength="20" required>
+                            </div>
+                            <div class="col-sm-12 col-md-4 d-inline-block">
+                                <label for="CantTotEntregada" class="labelForm">Cantidad total entregada*</label>
+                                <input type="text" name="CantTotEntregada" id="CantTotEntregada" class="form-control inputForm" [ngClass]="{'is-invalid': CantTotEntregada.invalid && CantTotEntregada.touched}" #CantTotEntregada="ngModel" [(ngModel)]="scopeDelivery.CantTotEntregada" pattern="[0-9,]+"
+                                    maxlength="10" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12 d-inline-block" [ngClass]="{'col-md-6': scopeDelivery.EntTotal == 0}">
+                                <label for="EntTotal" class="labelForm">Entrega total*</label>
+                                <select style="background-position-x: 96%" name="EntTotal" id="EntTotal" class="form-control inputForm" [ngClass]="{'is-invalid': EntTotal.invalid && EntTotal.touched}" #EntTotal="ngModel" [(ngModel)]="scopeDelivery.EntTotal" required>
+									<option *ngFor="let respuesta of afirmacion" value="{{ respuesta.id }}">{{ respuesta.name }}</option>
+								</select>
+                            </div>
+                            <div class="col-sm-12 col-md-6 d-inline-block" *ngIf="scopeDelivery.EntTotal == 0">
+                                <label for="CausaNoEntrega" class="labelForm">Causa de no entrega*</label>
+                                <input type="text" name="CausaNoEntrega" id="CausaNoEntrega" class="form-control inputForm" [ngClass]="{'is-invalid': CausaNoEntrega.invalid && CausaNoEntrega.touched}" #CausaNoEntrega="ngModel" [(ngModel)]="scopeDelivery.CausaNoEntrega" pattern="[0-9]+"
+                                    maxlength="2" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12 d-inline-block" [ngClass]="{'col-md-6': scopeDelivery.EstadoEntrega}">
+                                <label for="EstadoEntrega" class="labelForm">Estado de la entrega*</label>
+                                <select style="background-position-x: 96%" name="EstadoEntrega" id="EstadoEntrega" class="form-control inputForm" [ngClass]="{'is-invalid': EstadoEntrega.invalid && EstadoEntrega.touched}" #EstadoEntrega="ngModel" [(ngModel)]="scopeDelivery.EstadoEntrega"
+                                    required>
+									<option *ngFor="let estados of EstadoEntregas" value="{{ estados.value }}">{{ estados.name }}</option>
+								</select>
+                            </div>
+                            <div class="col-sm-12 col-md-6 d-inline-block" *ngIf="scopeDelivery.EstadoEntrega == 0">
+                                <label for="CausaNoEntrega" class="labelForm">Causas de no entrega*</label>
+                                <input type="text" name="CausaNoEntrega" id="CausaNoEntrega" class="form-control inputForm" [ngClass]="{'is-invalid': CausaNoEntrega.invalid && CausaNoEntrega.touched}" #CausaNoEntrega="ngModel" [(ngModel)]="scopeDelivery.CausaNoEntrega2" pattern="[0-9]+"
+                                    maxlength="2" required>
+                            </div>
+                            <div class="col-sm-12 col-md-6 d-inline-block" *ngIf="scopeDelivery.EstadoEntrega == 1">
+                                <label for="ValorEntregado" class="labelForm">Valor de la entrega facturado*</label>
+                                <input type="text" name="ValorEntregado" id="ValorEntregado" class="form-control inputForm" [ngClass]="{'is-invalid': ValorEntregado.invalid && ValorEntregado.touched}" #ValorEntregado="ngModel" [(ngModel)]="scopeDelivery.ValorEntregado" pattern="[0-9,]+"
+                                    maxlength="15" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12 col-md-6 d-inline-block">
+                                <label for="FecEntrega" class="labelForm">Fecha de entrega*</label>
+                                <input type="date" name="FecEntrega" id="FecEntrega" class="form-control inputForm" [ngClass]="{'is-invalid': FecEntrega.invalid && FecEntrega.touched}" #FecEntrega="ngModel" [(ngModel)]="scopeDelivery.FecEntrega" required max="{{actualDate}}">
+                            </div>
+                            <div class="col-sm-12 col-md-6 d-inline-block">
+                                <label for="NoLote" class="labelForm">Número de lote</label>
+                                <input type="text" name="NoLote" id="NoLote" class="form-control inputForm" [ngClass]="{'is-invalid': NoLote.invalid && NoLote.touched}" #NoLote="ngModel" [(ngModel)]="scopeDelivery.NoLote" maxlength="20">
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-top: 2rem">
+                            <div class="col col-sm-12 buttonSubmit">
+                                <input type="submit" value="{{ buttonText }}" class="col col-sm-12 btn btn-success" [disabled]="scopeDeliveryForm.invalid">
+                            </div>
+                        </div>
+                        <div class="mt-3 col col-sm-12 errorAlert" *ngIf="status=='error' && responseMessage">
+                            <div class="alert alert-danger" role="alert">
+                                {{ responseMessage }}
+                            </div>
+                        </div>
+                        <div class="deleteLoader" *ngIf="preloaderStatus">
+                            <div class="loader"></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

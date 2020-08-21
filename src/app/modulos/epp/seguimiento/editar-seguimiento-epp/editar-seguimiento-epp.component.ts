@@ -160,7 +160,6 @@ export class EditarSeguimientoEppComponent implements OnInit {
 	}
 
 	loadPermissions() {
-		console.log('entre');
 		const permissions = this.userService.getPermissions();
 		this.viewFlag = false;
 		this.editFlag = false;

@@ -75,6 +75,23 @@ export class NavbarComponent implements OnInit {
 				{ title: 'Informes', url: '/uci/informes', operationId: 41 },
 			]
 		},
+		{
+			title: 'MIPRES',
+			url: '/mipres',
+			operationId: 42,
+			dropdown: [
+				{ title: 'Entrega', url: '/mipres/entrega', operationId: 43 },
+				{
+					title: 'Ámbito Entrega',
+					url: '/mipres/ambito',
+					operationId: 44,
+					dropdown: [
+						{ title: 'Listar Ámbito', url: '/mipres/ambito/listar', operationId: 44 },
+						{ title: 'Registrar Ámbito', url: '/mipres/ambito/registrar', operationId: 47 },
+					]
+				},
+			]
+		},
 	];
 
 	constructor() {
