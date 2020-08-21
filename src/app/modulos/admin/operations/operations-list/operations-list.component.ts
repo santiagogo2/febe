@@ -33,7 +33,8 @@ export class OperationsListComponent implements OnInit {
 	) {
 		this.token = this.userService.getToken();
 		this.identity = this.userService.getIdentity();
-		this.actualPage = 1;
+		const userOperationsPage = +localStorage.getItem( 'userOperationsPage' );
+		this.actualPage = userOperationsPage ? userOperationsPage : 1;
 		this.itemsPerPage = 40;
 	}
 
@@ -106,5 +107,6 @@ export class OperationsListComponent implements OnInit {
 
 	pageChange(event) {
 		this.actualPage = event;
+		localStorage.setItem('userOperationsPage', event);
 	}
 }
