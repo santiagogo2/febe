@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 
 // Service
 import { TrainingService } from '../../services/training.service';
-import { DinamicaService, global, UserService, ProfileService, UnitService } from '../../../../services/services.index';
+import { AreaService, DinamicaService, global, UserService, ProfileService, UnitService } from '../../../../services/services.index';
 
 // Models
 import { Training } from '../../models/training';
@@ -32,32 +32,38 @@ export class RegistrarSeguimientoComponent implements OnInit {
 	public buttonText: string;
 	public actualDate: string;
 
+	public identity: any;
 	public token: string;
+	public areas: any;
 	public training: Training;
 	public profiles: any;
 	public units: any;
+	public users: any;
+
+	public previusDocument: string;
+	public showFile: boolean;
 
 	public viewFlag: boolean;
 	public editFlag: boolean;
 
-	public services: Array<any>;
 	public themes: Array<any>;
 
 	constructor(
-		private _dinamicaService: DinamicaService,
-		private _profileService: ProfileService,
-		private _trainingService: TrainingService,
-		private _unitService: UnitService,
-		private _userService: UserService,
-		private _router: Router,
+		private areaService: AreaService,
+		private dinamicaService: DinamicaService,
+		private profileService: ProfileService,
+		private trainingService: TrainingService,
+		private unitService: UnitService,
+		private userService: UserService,
+		private router: Router,
 	) {
 		this.loadPermissions();
 		this.editFlag = true;
 		this.buttonText = 'Registrar';
 
-		this.token = this._userService.getToken();
+		this.identity = this.userService.getIdentity();
+		this.token = this.userService.getToken();
 
-		this.services = global.services;
 		this.themes = global.temas;
 	}
 
@@ -72,22 +78,26 @@ export class RegistrarSeguimientoComponent implements OnInit {
 	}
 
 	loadPermissions(){
-		const permissions = this._userService.getPermissions();
+		const permissions = this.userService.getPermissions();
 		this.viewFlag = false;
 
-		if( permissions ) {
+		if ( permissions ) {
 			permissions.forEach( element => {
-				if( element.id_operations == 5 ) this.viewFlag = true;
+				if ( element.id_operations === 5 ) {
+					this.viewFlag = true;
+				}
 			});
 		}
 	}
 
 	getAllPromises() {
-		Promise.all([ this.unitList(), this.profileList() ])
+		Promise.all([ this.unitList(), this.profileList(), this.areaList(), this.userList() ])
 			   .then( responses => {
 				   this.units = responses[0];
 				   this.profiles = responses[1];
-				   this.training = new Training(null,this.actualDate,null,null,null,null,null,null);
+				   this.areas = responses[2];
+				   this.users = responses[3];
+				   this.training = new Training(null, this.actualDate, null, null, null, null, null, null, null, this.identity.sub);
 			   })
 			   .catch( error => {
 				   this.status = 'error';
@@ -100,13 +110,14 @@ export class RegistrarSeguimientoComponent implements OnInit {
 		this.responseMessage = undefined;
 		this.preloaderStatus = true;
 
-		this._trainingService.newTraining( this.training, this.token ).subscribe(
+		this.trainingService.newTraining( this.training, this.token ).subscribe(
 			res => {
 				this.preloaderStatus = false;
 				if( res.status === 'success' ) {
 					swal('Registro exitoso', res.message, 'success');
+					localStorage.removeItem('trainingLoadedDocument');
 					trainingForm.reset();
-					this._router.navigate(['/capacitaciones/seguimiento/listar']);
+					this.router.navigate(['/capacitaciones/registros/listar']);
 				}
 			},
 			error => {
@@ -114,7 +125,7 @@ export class RegistrarSeguimientoComponent implements OnInit {
 				this.status = error.error.status;
 				this.responseMessage = error.error.message;
 
-				if(error.error.errors) {
+				if (error.error.errors) {
 					this.responseMessage = this.responseMessage + '. ' + JSON.stringify(error.error.errors);
 				}
 
@@ -124,15 +135,15 @@ export class RegistrarSeguimientoComponent implements OnInit {
 		);
 	}
 
-	searchThirdUser(){
+	searchThirdUser() {
 		this.searchPreloaderStatus = true;
 		this.searchResponseMessage = undefined;
 
-		this._dinamicaService.getByTernumdoc( this.training.documento ).subscribe(
+		this.dinamicaService.getByTernumdoc( this.training.documento ).subscribe(
 			res => {
 				this.searchPreloaderStatus = false;
-				if( res.status === 'success' ) {
-					this.training.nombre = res.third.TERNOMCOM;
+				if ( res.status === 'success' ) {
+					this.training.nombre = res.third.ternomcom;
 				}
 			},
 			error => {
@@ -144,7 +155,34 @@ export class RegistrarSeguimientoComponent implements OnInit {
 		);
 	}
 
-	setMaxDate(){
+	downloadFile() {
+		this.status = undefined;
+		this.responseMessage = undefined;
+		const url = global.url;
+
+		this.trainingService.downloadTrainingDocument(this.training.archivo, this.token).subscribe(
+			res => {
+				window.open(url + 'training/get-file/' + this.training.archivo);
+			},
+			error => {
+				this.status = 'error';
+				this.responseMessage = error.error.message;
+				console.log(error);
+			}
+		);
+	}
+
+	setFileName(filename) {
+		this.training.archivo = filename;
+	}
+
+	editFile(estado) {}
+
+	deleteFile(loadedDocument) {
+		this.trainingService.deleteFile( loadedDocument, this.token ).subscribe();
+	}
+
+	setMaxDate() {
 		const date = new Date();
 		const day = this.addZero( date.getDate() );
 		let month = date.getMonth() + 1;
@@ -154,45 +192,91 @@ export class RegistrarSeguimientoComponent implements OnInit {
 	}
 
 	addZero(numero: any) {
-		if( numero < 10 ) {
+		if ( numero < 10 ) {
 			numero = '0' + numero.toString();
 		}
 		return numero;
 	}
-	
-	upperCase($event){
-		if($event) return $event.toUpperCase();
+
+	upperCase($event) {
+		if ($event) {
+			return $event.toUpperCase();
+		}
 	}
 
 	//==========================================================================
 	//================================Promises==================================
 	//==========================================================================
-	profileList(){
+	areaList() {
 		return new Promise((resolve, reject) => {
-			this._profileService.profileList( this.token ).subscribe(
+			this.areaService.areaList( this.token ).subscribe(
 				res => {
-					if( res.status === 'success' ) {
-						resolve(res.profiles);
+					if ( res.status === 'success' ) {
+						resolve( res.areas );
 					}
 				},
 				error => {
-					reject(error.error.message);
+					const err = error.message ? error.message : error.error.message;
+					reject(err);
 					console.log(error);
 				}
 			);
 		});
 	}
 
-	unitList(){
+	profileList() {
 		return new Promise((resolve, reject) => {
-			this._unitService.unitList( this.token ).subscribe(
+			this.profileService.profileList( this.token ).subscribe(
 				res => {
-					if( res.status === 'success' ) {
+					if ( res.status === 'success' ) {
+						resolve(res.profiles);
+					}
+				},
+				error => {
+					const err = error.message ? error.message : error.error.message;
+					reject(err);
+					console.log(error);
+				}
+			);
+		});
+	}
+
+	unitList() {
+		return new Promise((resolve, reject) => {
+			this.unitService.unitList( this.token ).subscribe(
+				res => {
+					if ( res.status === 'success' ) {
 						resolve(res.units);
 					}
 				},
 				error => {
-					reject(error.error.message);
+					const err = error.message ? error.message : error.error.message;
+					reject(err);
+					console.log(error);
+				}
+			);
+		});
+	}
+
+	userList() {
+		return new Promise((resolve, reject) => {
+			this.userService.userList( this.token ).subscribe(
+				res => {
+					if ( res.status === 'success' ) {
+						const users = new Array();
+
+						res.users.forEach( user => {
+							if ( user.role === '1' || user.role === '15' ) {
+								users.push(user);
+							}
+						});
+
+						resolve( users );
+					}
+				},
+				error => {
+					const err = error.message ? error.message : error.error.message;
+					reject(err);
 					console.log(error);
 				}
 			);

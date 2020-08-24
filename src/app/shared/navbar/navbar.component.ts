@@ -13,12 +13,12 @@ export class NavbarComponent implements OnInit {
 			operationId: 1,
 			dropdown: [
 				{
-					title: 'Seguimientos',
-					url: '/capacitaciones/seguimiento',
+					title: 'Registros',
+					url: '/capacitaciones/registros',
 					operationId: 5,
 					dropdown: [
-						{ title: 'Listar Seguimientos', url: '/capacitaciones/seguimiento/listar', operationId: 5 },
-						{ title: 'Registrar Seguimientos', url: '/capacitaciones/seguimiento/registrar', operationId: 4 },
+						{ title: 'Listar Registros', url: '/capacitaciones/registros/listar', operationId: 5 },
+						{ title: 'Agregar Registros', url: '/capacitaciones/registros/agregar', operationId: 4 },
 					]
 				},
 				{ title: 'Informes', url: '/capacitaciones/informes', operationId: 6 },

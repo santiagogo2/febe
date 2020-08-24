@@ -39,6 +39,7 @@
                         <table class="table table-bordered">
                             <thead class="thead_styles">
                                 <tr>
+                                    <th>Id</th>
                                     <th>Nombre</th>
                                     <th>Descripción</th>
                                     <th width="15%">Acción</th>
@@ -46,6 +47,7 @@
                             </thead>
                             <tbody class="tbody_styles">
                                 <tr *ngFor="let role of roles | paginate: {itemsPerPage: itemsPerPage, currentPage: actualPage};" class="tableStyles">
+                                    <td>{{ role.id }}</td>
                                     <td>{{ role.name }}</td>
                                     <td>{{ role.description }}</td>
                                     <td style="padding: 0.55rem">

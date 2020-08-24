@@ -15,45 +15,60 @@ export class TrainingService {
 	public url: string;
 
 	constructor(
-		private _http: HttpClient,
-	){
-        this.url = global.url;
-    }
+		private http: HttpClient,
+	) {
+		this.url = global.url;
+	}
 
-    trainingList( token ): Observable<any>{
-        let headers = new HttpHeaders().set('Authorization', token);
+	trainingList( token ): Observable<any> {
+		const headers = new HttpHeaders().set('Authorization', token);
 
-        return this._http.get( this.url + 'training', {headers:headers} );
-    }
+		return this.http.get( this.url + 'training', { headers } );
+	}
 
-    getTraining( id, token ): Observable<any>{
-        let headers = new HttpHeaders().set('Authorization', token);
+	getTraining( id, token ): Observable<any> {
+		const headers = new HttpHeaders().set('Authorization', token);
 
-        return this._http.get( this.url + 'training/' + id, {headers:headers} );
-    }
+		return this.http.get( this.url + 'training/' + id, { headers } );
+	}
 
-    newTraining( training: Training, token ): Observable<any>{
-        let json = JSON.stringify(training);
-        let params = "json="+json;
-        let headers = new HttpHeaders().set('Authorization', token)
+	newTraining( training: Training, token ): Observable<any> {
+		const json = JSON.stringify(training);
+		const params = 'json=' + json;
+		const headers = new HttpHeaders().set('Authorization', token)
                                        .set('Content-Type', 'application/x-www-form-urlencoded');
 
-        return this._http.post( this.url + 'training', params, {headers:headers} );
-    }
+		return this.http.post( this.url + 'training', params, { headers } );
+	}
 
-    updateTraining( training: Training, token ): Observable<any>{
-        let id = training.id;
-        let json = JSON.stringify(training);
-        let params = "json="+json;
-        let headers = new HttpHeaders().set('Authorization', token)
+	updateTraining( training: Training, token ): Observable<any>{
+		const id = training.id;
+		const json = JSON.stringify(training);
+		const params = "json="+json;
+		const headers = new HttpHeaders().set('Authorization', token)
                                        .set('Content-Type', 'application/x-www-form-urlencoded');
 
-        return this._http.put( this.url + 'training/' + id, params, {headers:headers} );
-    }
+		return this.http.put( this.url + 'training/' + id, params, { headers } );
+	}
 
-    deleteTraining( id, token ): Observable<any>{
-        let headers = new HttpHeaders().set('Authorization', token);
+	deleteTraining( id, token ): Observable<any>{
+		const headers = new HttpHeaders().set('Authorization', token);
 
-        return this._http.delete( this.url + 'training/' + id, {headers:headers} );
-    }
+		return this.http.delete( this.url + 'training/' + id, { headers } );
+	}
+
+	//==========================================================================
+	//===========================Training Documents=============================
+	//==========================================================================
+	downloadTrainingDocument(filename, token): Observable<any> {
+		const headers = new HttpHeaders().set('Authorization', token);
+
+		return this.http.get(this.url + 'training/get-file/' + `${filename}`, { responseType: 'blob', headers });
+	}
+
+	deleteFile(filename, token): Observable<any>{
+		const headers = new HttpHeaders().set('Authorization', token);
+
+		return this.http.delete(this.url + 'training/delete-file/' + filename, { headers });
+	}
 }

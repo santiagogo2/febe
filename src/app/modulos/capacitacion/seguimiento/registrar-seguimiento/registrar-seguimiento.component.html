@@ -9,7 +9,7 @@
 </div>
 <div class="mt-3 errorAlert" *ngIf="status=='error' && responseMessage && !training">
     <div class="alert alert-danger" role="alert">
-        {{ responseMessage }} <a routerLink="/capacitaciones/seguimiento/listar">Listado de capacitaciones</a>
+        {{ responseMessage }} <a routerLink="/capacitaciones/registros/listar">Listado de capacitaciones</a>
     </div>
 </div>
 
@@ -18,7 +18,7 @@
         <div class="card border-0">
             <div class="card-body cardContainer">
                 <div class="backLink col col-sm-12">
-                    <a class="col-sm-12" routerLink="/capacitaciones/seguimiento/listar" *ngIf="viewFlag">Listado de capacitaciones</a>
+                    <a class="col-sm-12" routerLink="/capacitaciones/registros/listar" *ngIf="viewFlag">Listado de capacitaciones</a>
                 </div>
                 <div class="formContainer">
                     <form #trainingForm="ngForm" class="form-container" (ngSubmit)="onSubmit(trainingForm)" style="text-align: left;">
@@ -29,12 +29,12 @@
                                 <small class="invalid-feedback d-block font-weight-bold" *ngIf="fecha.invalid && fecha.touched">Debe ingresar una fecha. La fecha es obligatoria</small>
                             </div>
                             <div class="col col-sm-12 col-lg-6 d-inline-block align-top">
-                                <form #searchForm="ngForm" (ngSubmit)="searchThirdUser()">
-                                    <div class="col col-sm-12 d-inline-block pl-0 align-top" [ngClass]="{'col-lg-9': editFlag, 'pr-0': !editFlag}">
+                                <form #searchForm="ngForm" (ngSubmit)="searchThirdUser()" id="searchForm">
+                                    <div id="labelSearch" class="col col-sm-12 d-inline-block pl-0 align-top" [ngClass]="{'col-lg-9': editFlag, 'pr-0': !editFlag}">
                                         <label for="documento" class="labelForm">Documento*</label>
                                         <input type="text" name="documento" class="form-control inputForm" [ngClass]="{'is-invalid': documento.touched && documento.invalid}" #documento="ngModel" [(ngModel)]="training.documento" required pattern="[0-9]+" minlength="5" maxlength="10" placeholder="Ingrese el número de documento del colaborador">
                                     </div>
-                                    <div class="col col-sm-12 col-lg-3 d-inline-block pr-0 align-bottom" *ngIf="editFlag">
+                                    <div id="submitButton" class="col col-sm-12 col-lg-3 d-inline-block pr-0 align-bottom" *ngIf="editFlag">
                                         <input type="submit" value="Buscar" class="btn btn-sm btn-info btnPrefer col-sm-12" [disabled]="searchForm.invalid">
                                     </div>
                                     <small class="invalid-feedback d-block font-weight-bold" *ngIf="documento.invalid && documento.touched">Debe ingresar un número de documento válido. Solo se admiten números. El campo es obligatorio</small>
@@ -72,7 +72,7 @@
                             <div class="col col-sm-12 col-lg-4 d-inline-block align-top">
                                 <label for="servicio" class="labelForm">Servicio*</label>
                                 <select style="background-position-x: 95%" name="servicio" id="servicio" class="form-control inputForm" [ngClass]="{'is-invalid': servicio.invalid && servicio.touched}" #servicio="ngModel" [(ngModel)]="training.services_id" required>
-									<option *ngFor="let service of services" value="{{ service.id }}">{{ service.name }}</option>
+									<option *ngFor="let area of areas" value="{{ area.id }}">{{ area.name }}</option>
 								</select>
                                 <small class="invalid-feedback d-block font-weight-bold" *ngIf="servicio.invalid && servicio.touched">Debe selecionar un servicio de la lista desplegable</small>
                             </div>
@@ -82,6 +82,25 @@
 									<option *ngFor="let theme of themes" value="{{ theme.id }}">{{ theme.name }}</option>
 								</select>
                                 <small class="invalid-feedback d-block font-weight-bold" *ngIf="theme.invalid && theme.touched">Debe selecionar un tema de la lista desplegable</small>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col col-12 d-inline-block align-top">
+                                <label for="loginUser" class="labelForm">Usuario que realiza la capacitación*</label>
+                                <select style="background-position-x: 95%; text-transform: uppercase;" name="loginUser" id="loginUser" class="form-control inputForm" [ngClass]="{'is-invalid': loginUser.invalid && loginUser.touched}" #loginUser="ngModel" [(ngModel)]="training.created_by"
+                                    required>
+									<option *ngFor="let user of users" value="{{ user.id }}">{{ user.name + ' ' + user.surname }}</option>
+								</select>
+                                <small class="invalid-feedback d-block font-weight-bold" *ngIf="loginUser.invalid && loginUser.touched">Debe selecionar un usuario de la lista desplegable</small>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col col-sm-12 align-top">
+                                <label for="document" class="labelForm">Documento</label>
+                                <div (click)="downloadFile()" class="badge badge-info d-block personalizedBadge" *ngIf="training.archivo && showFile">{{'Descargar archivo: ' + training.archivo }}</div>
+                                <div (click)="editFile('editar')" class="badge badge-warning d-inline-block personalizedBadge" *ngIf="training.archivo && showFile">Editar</div>
+                                <app-load-document (sendFileName)="setFileName($event)" (deleteFile)="deleteFile($event)" formatsAllowed=".pdf,.rar,.zip" maxSize="100" url="training/upload-file" localStorageText="trainingLoadedDocument" *ngIf="!showFile"></app-load-document>
+                                <div (click)="editFile('cancelar')" class="badge badge-danger d-inline-block personalizedBadge" *ngIf="previusDocument && !showFile">Cancelar</div>
                             </div>
                         </div>
                         <div class="form-group" style="margin-top: 3rem" *ngIf="editFlag">

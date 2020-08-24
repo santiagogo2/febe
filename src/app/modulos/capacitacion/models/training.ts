@@ -8,5 +8,7 @@ export class Training {
 		public units_id: number,
 		public services_id: number,
 		public theme_id: number,
+		public archivo: string,
+		public created_by: number,
 	) {}
 }

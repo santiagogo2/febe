@@ -9,10 +9,10 @@ import { RegistrarSeguimientoComponent } from './seguimiento/registrar-seguimien
 import { CapacitacionInformesComponent } from './capacitacion-informes/capacitacion-informes.component';
 
 const capacitacionRoutes: Routes = [
-	{ path: 'seguimiento', redirectTo: 'seguimiento/listar', pathMatch: 'full' },
-	{ path: 'seguimiento/listar', component: ListarSeguimientoComponent, data: { titulo: 'Seguimientos' } },
-	{ path: 'seguimiento/registrar', component: RegistrarSeguimientoComponent, data: { titulo: 'Registrar Seguimiento' } },
-	{ path: 'seguimiento/editar/:id', component: EditarSeguimientoComponent, data: { titulo: 'Editar Seguimiento' } },
+	{ path: 'registros', redirectTo: 'seguimiento/listar', pathMatch: 'full' },
+	{ path: 'registros/listar', component: ListarSeguimientoComponent, data: { titulo: 'Registros' } },
+	{ path: 'registros/agregar', component: RegistrarSeguimientoComponent, data: { titulo: 'Agregar Nuevo Registro' } },
+	{ path: 'registros/editar/:id', component: EditarSeguimientoComponent, data: { titulo: 'Editar Registro' } },
 
 	{ path: 'informes', component: CapacitacionInformesComponent, data: { titulo: 'Informes Capacitaciones' } },
 
