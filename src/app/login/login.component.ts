@@ -78,8 +78,8 @@ export class LoginComponent implements OnInit {
 						},
 						error => {
 							this.preloaderStatus = false;
-							this.status = error.error.status;
-							this.responseMessage = error.error.message;
+							this.status = 'error';
+							this.responseMessage = error.message ? error.message : error.error.message;
 							console.log(error);
 						}
 					);
@@ -88,7 +88,7 @@ export class LoginComponent implements OnInit {
 			},
 			error => {
 				this.preloaderStatus = false;
-				this.status = error.error.status;
+				this.status = 'error';
 				this.responseMessage = error.error.message;
 				console.log(error);
 			}
