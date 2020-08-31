@@ -15,6 +15,7 @@ import { ListarColaboradoresComponent } from './colaboradores/listar-colaborador
 import { EditarColaboradoresComponent } from './colaboradores/editar-colaboradores/editar-colaboradores.component';
 import { RelacionarColaboradoresComponent } from './colaboradores/relacionar-colaboradores/relacionar-colaboradores.component';
 import { InformesComponent } from './informes/informes.component';
+import { AdminSalaSituacionalComponent } from './admin-sala-situacional/admin-sala-situacional.component';
 
 @NgModule({
 	declarations:[
@@ -24,6 +25,7 @@ import { InformesComponent } from './informes/informes.component';
 		EditarColaboradoresComponent,
 		RelacionarColaboradoresComponent,
 		InformesComponent,
+		AdminSalaSituacionalComponent,
 	],
 	imports: [
 		CommonModule,

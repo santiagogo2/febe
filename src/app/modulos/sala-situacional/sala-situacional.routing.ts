@@ -8,9 +8,11 @@ import { RegistrarColaboradoresComponent } from './colaboradores/registrar-colab
 import { EditarColaboradoresComponent } from './colaboradores/editar-colaboradores/editar-colaboradores.component';
 import { RelacionarColaboradoresComponent } from './colaboradores/relacionar-colaboradores/relacionar-colaboradores.component';
 import { InformesComponent } from './informes/informes.component';
+import { AdminSalaSituacionalComponent } from './admin-sala-situacional/admin-sala-situacional.component';
 
 // Guards
 import {
+	AdminSalaSituacionalGuard,
 	ColaboradoresEditGuard,
 	ColaboradoresRegisterGuard,
 	ColaboradoresGuard,
@@ -19,6 +21,12 @@ import {
 } from './guards/sala-situacional-guards.index';
 
 const salaSituacionRoutes: Routes = [
+	{
+		path: 'admin',
+		component: AdminSalaSituacionalComponent,
+		data: { titulo: 'Administrar Sala Situacional' },
+		canActivate: [ AdminSalaSituacionalGuard ],
+	},
 	{ path: 'colaboradores', redirectTo: 'colaboradores/listar', pathMatch: 'full' },
 	{
 		path: 'colaboradores/listar',

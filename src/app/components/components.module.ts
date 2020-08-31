@@ -13,6 +13,7 @@ import { GraficoPieComponent } from './graficas/grafico-pie/grafico-pie.componen
 import { GraficoPuntosComponent } from './graficas/grafico-puntos/grafico-puntos.component';
 
 import { LoadDocumentComponent } from './load-document/load-document.component';
+import { GlobalAdminModule } from './global-admin/global-admin.module';
 
 @NgModule({
 	declarations: [
@@ -28,6 +29,7 @@ import { LoadDocumentComponent } from './load-document/load-document.component';
 		CommonModule,
 		ChartsModule,
 		AngularFileUploaderModule,
+		GlobalAdminModule,
 	],
 	exports: [
 		CircleImageComponent,
@@ -37,6 +39,7 @@ import { LoadDocumentComponent } from './load-document/load-document.component';
 		GraficoPieComponent,
 		GraficoPuntosComponent,
 		LoadDocumentComponent,
+		GlobalAdminModule
 	]
 })
 export class ComponentsModule { }
