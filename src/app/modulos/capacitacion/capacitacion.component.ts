@@ -9,7 +9,7 @@ export class CapacitacionComponent implements OnInit {
 	public identity: any;
 
 	public training: any[] = [
-		{ titulo: 'Seguimiento', url: 'seguimiento/listar', class: 'card-4FB96F', description: 'Seguimiento de las capacitaciones realizadas' },
+		{ titulo: 'Seguimiento', url: 'registros/listar', class: 'card-4FB96F', description: 'Seguimiento de las capacitaciones realizadas' },
 		{ titulo: 'Informes', url: 'informes', class: 'card-EC8993', description: 'Reportes gráficos de los datos almacenados en el sistema' },
 	];
 

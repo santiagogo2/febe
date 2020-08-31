@@ -216,7 +216,7 @@ export class RegistrarSeguimientoComponent implements OnInit {
 					}
 				},
 				error => {
-					const err = error.message ? error.message : error.error.message;
+					const err = error.error.message ? error.error.message : error.message;
 					reject(err);
 					console.log(error);
 				}
@@ -233,7 +233,7 @@ export class RegistrarSeguimientoComponent implements OnInit {
 					}
 				},
 				error => {
-					const err = error.message ? error.message : error.error.message;
+					const err = error.error.message ? error.error.message : error.message;
 					reject(err);
 					console.log(error);
 				}
@@ -250,7 +250,7 @@ export class RegistrarSeguimientoComponent implements OnInit {
 					}
 				},
 				error => {
-					const err = error.message ? error.message : error.error.message;
+					const err = error.error.message ? error.error.message : error.message;
 					reject(err);
 					console.log(error);
 				}
@@ -260,7 +260,7 @@ export class RegistrarSeguimientoComponent implements OnInit {
 
 	userList() {
 		return new Promise((resolve, reject) => {
-			this.userService.userList( this.token ).subscribe(
+			this.userService.userList().subscribe(
 				res => {
 					if ( res.status === 'success' ) {
 						const users = new Array();
@@ -275,7 +275,7 @@ export class RegistrarSeguimientoComponent implements OnInit {
 					}
 				},
 				error => {
-					const err = error.message ? error.message : error.error.message;
+					const err = error.error.message ? error.error.message : error.message;
 					reject(err);
 					console.log(error);
 				}

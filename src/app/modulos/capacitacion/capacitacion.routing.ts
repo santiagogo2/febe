@@ -9,7 +9,7 @@ import { RegistrarSeguimientoComponent } from './seguimiento/registrar-seguimien
 import { CapacitacionInformesComponent } from './capacitacion-informes/capacitacion-informes.component';
 
 const capacitacionRoutes: Routes = [
-	{ path: 'registros', redirectTo: 'seguimiento/listar', pathMatch: 'full' },
+	{ path: 'registros', redirectTo: 'registros/listar', pathMatch: 'full' },
 	{ path: 'registros/listar', component: ListarSeguimientoComponent, data: { titulo: 'Registros' } },
 	{ path: 'registros/agregar', component: RegistrarSeguimientoComponent, data: { titulo: 'Agregar Nuevo Registro' } },
 	{ path: 'registros/editar/:id', component: EditarSeguimientoComponent, data: { titulo: 'Editar Registro' } },

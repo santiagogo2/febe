@@ -238,7 +238,7 @@ export class EditarSeguimientoComponent implements OnInit {
 					}
 				},
 				error => {
-					const err = error.message ? error.message : error.error.message;
+					const err = error.error.message ? error.error.message : error.message;
 					reject(err);
 					console.log(error);
 				}
@@ -255,7 +255,7 @@ export class EditarSeguimientoComponent implements OnInit {
 					}
 				},
 				error => {
-					const err = error.message ? error.message : error.error.message;
+					const err = error.error.message ? error.error.message : error.message;
 					reject(err);
 					console.log(error);
 				}
@@ -272,7 +272,7 @@ export class EditarSeguimientoComponent implements OnInit {
 					}
 				},
 				error => {
-					const err = error.message ? error.message : error.error.message;
+					const err = error.error.message ? error.error.message : error.message;
 					reject(err);
 					console.log(error);
 				}
@@ -289,7 +289,7 @@ export class EditarSeguimientoComponent implements OnInit {
 					}
 				},
 				error => {
-					const err = error.message ? error.message : error.error.message;
+					const err = error.error.message ? error.error.message : error.message;
 					reject(err);
 					console.log(error);
 				}
@@ -299,7 +299,7 @@ export class EditarSeguimientoComponent implements OnInit {
 
 	userList() {
 		return new Promise((resolve, reject) => {
-			this.userService.userList( this.token ).subscribe(
+			this.userService.userList().subscribe(
 				res => {
 					if ( res.status === 'success' ) {
 						const users = new Array();
@@ -314,7 +314,7 @@ export class EditarSeguimientoComponent implements OnInit {
 					}
 				},
 				error => {
-					const err = error.message ? error.message : error.error.message;
+					const err = error.error.message ? error.error.message : error.message;
 					reject(err);
 					console.log(error);
 				}
