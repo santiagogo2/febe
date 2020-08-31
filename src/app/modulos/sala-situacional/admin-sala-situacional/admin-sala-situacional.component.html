@@ -1,0 +1,56 @@
+<div class="row reports">
+    <div class="col-sm-12 col-lg-6 reportGraph pl-0">
+        <div class="card border-0">
+            <h4 class="card-header">{{areaStatusView + ' áreas'}}</h4>
+            <div class="card-body">
+                <app-area-list (changeView)="chageAreaView($event)" *ngIf="areaStatusView == 'Listar'"></app-area-list>
+                <app-area-register (changeView)="chageAreaView($event)" *ngIf="areaStatusView == 'Registrar'"></app-area-register>
+                <app-area-edit (changeView)="chageAreaView($event)" *ngIf="areaStatusView == 'Editar'"></app-area-edit>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-lg-6 reportGraph pr-0">
+        <div class="card border-0">
+            <h4 class="card-header">{{profileStatusView + ' perfiles'}}</h4>
+            <div class="card-body">
+                <app-profile-list (changeView)="chageProfileView($event)" *ngIf="profileStatusView == 'Listar'"></app-profile-list>
+                <app-profile-register (changeView)="chageProfileView($event)" *ngIf="profileStatusView == 'Registrar'"></app-profile-register>
+                <app-profile-edit (changeView)="chageProfileView($event)" *ngIf="profileStatusView == 'Editar'"></app-profile-edit>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row reports">
+    <div class="col-sm-12 col-lg-6 reportGraph pl-0">
+        <div class="card border-0">
+            <h4 class="card-header">{{unitStatusView + ' unidades'}}</h4>
+            <div class="card-body">
+                <app-unit-list (changeView)="chageUnitView($event)" *ngIf="unitStatusView == 'Listar'"></app-unit-list>
+                <app-unit-register (changeView)="chageUnitView($event)" *ngIf="unitStatusView == 'Registrar'"></app-unit-register>
+                <app-unit-edit (changeView)="chageUnitView($event)" *ngIf="unitStatusView == 'Editar'"></app-unit-edit>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-lg-6 reportGraph pr-0">
+        <div class="card border-0">
+            <h4 class="card-header">{{arlStatusView + ' ARL'}}</h4>
+            <div class="card-body">
+                <app-arl-list (changeView)="chageArlView($event)" *ngIf="arlStatusView == 'Listar'"></app-arl-list>
+                <app-arl-register (changeView)="chageArlView($event)" *ngIf="arlStatusView == 'Registrar'"></app-arl-register>
+                <app-arl-edit (changeView)="chageArlView($event)" *ngIf="arlStatusView == 'Editar'"></app-arl-edit>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row reports">
+    <div class="col-sm-12 col-lg-12 reportGraph pl-0 pr-0">
+        <div class="card border-0">
+            <h4 class="card-header">{{insurerStatusView + ' aseguradoras'}}</h4>
+            <div class="card-body">
+                <app-insurer-list (changeView)="chageInsurerView($event)" *ngIf="insurerStatusView == 'Listar'"></app-insurer-list>
+                <app-insurer-register (changeView)="chageInsurerView($event)" *ngIf="insurerStatusView == 'Registrar'"></app-insurer-register>
+                <app-insurer-edit (changeView)="chageInsurerView($event)" *ngIf="insurerStatusView == 'Editar'"></app-insurer-edit>
+            </div>
+        </div>
+    </div>
+</div>
