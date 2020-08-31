@@ -33,9 +33,19 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <div class="col col-12 d-inline-block">
+                                <label for="userEmail" class="labelForm">Email*</label>
+                                <input type="text" name="userEmail" class="form-control inputForm" [ngClass]="{ 'is-invalid': userEmail.touched && userEmail.invalid }" #userEmail="ngModel" [(ngModel)]="user.email" required placeholder="Ingrese el correo electrónico del usuario" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <div class="col col-sm-12 col-md-6 d-inline-block">
                                 <label for="userAlias" class="labelForm">Alias*</label>
                                 <input type="text" name="userAlias" class="form-control inputForm" [ngClass]="{ 'is-invalid': userAlias.touched && userAlias.invalid }" #userAlias="ngModel" [(ngModel)]="user.alias" required placeholder="Ingrese el alias del usuario">
+                            </div>
+                            <div class="col col-sm-12 col-md-6 d-inline-block">
+                                <label for="userId" class="labelForm">Número de documento*</label>
+                                <input type="text" name="userId" class="form-control inputForm" [ngClass]="{ 'is-invalid': userId.touched && userId.invalid }" #userId="ngModel" [(ngModel)]="user.documentId" required placeholder="Ingrese el número de documento del usuario">
                             </div>
                             <div class="col col-sm-12 col-md-6 d-inline-block">
                                 <label for="userRole" class="labelForm">Role*</label>

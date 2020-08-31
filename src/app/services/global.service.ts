@@ -1,6 +1,7 @@
 export var global = {
 
 	// url: 'http://www.backend-rendicion-de-cuentas.subredsur.gov.co/public/api/',
+	appName: 'SIASUR',
 	url: 'http://info-utilitario.subredsur.gov.co/public/api/',
 	urlDinamica: 'http://172.17.2.81/api-rest-dinamica/public/api/',
 	iconsArray: [

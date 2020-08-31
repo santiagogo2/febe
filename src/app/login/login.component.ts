@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { RoleOperationService, UserService } from '../services/services.index';
+import { global, RoleOperationService, UserService } from '../services/services.index';
 import { TrainingService } from '../modulos/capacitacion/services/capacitacion-services.index';
 import { User } from '../models/user';
 
@@ -30,9 +30,9 @@ export class LoginComponent implements OnInit {
 		private router: Router,
 		private route: ActivatedRoute
 	) {
-		this.pageTitle = 'FEBE';
+		this.pageTitle = global.appName;
 
-		this.user = new User(null, null, null, null, null, null);
+		this.user = new User(null, null, null, null, null, null, null, null);
 	}
 
 	ngOnInit(): void {

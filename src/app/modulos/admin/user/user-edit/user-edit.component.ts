@@ -68,10 +68,10 @@ export class UserEditComponent implements OnInit {
 		this.responseMessage = undefined;
 		this.preloaderStatus = true;
 
-		this.userService.updateUser(this.user, this.token).subscribe(
+		this.userService.updateUser(this.user).subscribe(
 			res => {
 				this.preloaderStatus = false;
-				if(res.status == 'success'){
+				if(res.status === 'success'){
 					swal('Usuario editado exitosamente', res.message, 'success');
 					this.router.navigate(['/admin/usuarios/listar']);
 				}
@@ -99,7 +99,7 @@ export class UserEditComponent implements OnInit {
 
 			let id = params['id'];
 
-			this.userService.getUser( id, this.token ).subscribe(
+			this.userService.getUser( id ).subscribe(
 				res => {
 					if( res.status === 'success' ){
 						this.user = res.user;

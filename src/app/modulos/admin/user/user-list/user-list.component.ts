@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../../../../models/models.index';
 
 // Services
-import { global, UserService } from '../../../../services/services.index';
+import { UserService } from '../../../../services/services.index';
 
 @Component({
 	selector: 'app-user-list',
@@ -18,7 +18,6 @@ export class UserListComponent implements OnInit {
 	public actualPage: number;
 	public itemsPerPage: number;
 
-	public token: string;
 	public identity: any;
 	public users: User[];
 
@@ -30,7 +29,6 @@ export class UserListComponent implements OnInit {
 	constructor(
 		private userService: UserService
 	) {
-		this.token = this.userService.getToken();
 		this.identity = this.userService.getIdentity();
 		this.actualPage = 1;
 		this.itemsPerPage = 20;
@@ -42,7 +40,7 @@ export class UserListComponent implements OnInit {
 	}
 
 	getUsers(){
-		this.userService.userList(this.token).subscribe(
+		this.userService.userList().subscribe(
 			res => {
 				if ( res.status === 'success' ) {
 					this.users = res.users;
@@ -62,7 +60,7 @@ export class UserListComponent implements OnInit {
 		const loader = document.getElementById('loader' + id);
 		loader.style.display = 'block';
 
-		this.userService.deleteUser(id, this.token).subscribe(
+		this.userService.deleteUser(id).subscribe(
 			res => {
 				loader.style.display = 'none';
 				if ( res.status === 'success' ) {

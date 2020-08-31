@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../../services/services.index';
+import { global, UserService } from '../../services/services.index';
 
 @Component({
 	selector: 'app-header',
@@ -17,7 +17,7 @@ export class HeaderComponent implements OnInit {
 	constructor(
 		private userService: UserService
 	) {
-		this.page_title = 'FEBE';
+		this.page_title = global.appName;
 		this.adminFlag = false;
 
 		this.identity = this.userService.getIdentity();

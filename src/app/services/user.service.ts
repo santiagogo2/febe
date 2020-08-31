@@ -16,6 +16,7 @@ export class UserService {
 		private http: HttpClient
 	) {
 		this.url = global.url;
+		this.token = this.getToken();
 	}
 
 	signup(user, gettoken = null): Observable<any> {
@@ -29,46 +30,45 @@ export class UserService {
 		return this.http.post(this.url + 'user/login', params, { headers });
 	}
 
-	userList(token): Observable<any> {
-		const headers = new HttpHeaders().set('Authorization', token);
+	userList(): Observable<any> {
+		const headers = new HttpHeaders().set('Authorization', this.token);
 		return this.http.get(this.url + 'user', { headers });
 	}
 
-	getUser(id, token): Observable<any> {
-		const headers = new HttpHeaders().set('Authorization', token);
+	getUser(id): Observable<any> {
+		const headers = new HttpHeaders().set('Authorization', this.token);
 		return this.http.get(this.url + 'user/' + id, { headers });
 	}
 
-	getUserByChain( chain, token): Observable<any> {
-		const headers = new HttpHeaders().set('Authorization', token);
+	getUserByChain( chain ): Observable<any> {
+		const headers = new HttpHeaders().set('Authorization', this.token);
 		return this.http.get(this.url + 'user/chain/' + chain, { headers });
 	}
 
-	getUserByRole( role, token): Observable<any> {
-		const headers = new HttpHeaders().set('Authorization', token);
+	getUserByRole( role ): Observable<any> {
+		const headers = new HttpHeaders().set('Authorization', this.token);
 		return this.http.get(this.url + 'user/search/role/' + role, { headers });
 	}
 
-	newUser(user, token): Observable<any> {
+	newUser(user): Observable<any> {
 		const json = JSON.stringify(user);
 		const params = 'json=' + json;
-		const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
-									   .set('Authorization', token);
+		const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
 		return this.http.post(this.url + 'user', params, { headers });
 	}
 
-	updateUser(user, token): Observable<any> {
+	updateUser( user ): Observable<any> {
 		const json = JSON.stringify(user);
 		const params = 'json=' + json;
 		const id = user.id;
 
-		const headers = new HttpHeaders().set('Authorization', token)
+		const headers = new HttpHeaders().set('Authorization', this.token)
 									   .set('Content-Type', 'application/x-www-form-urlencoded');
 		return this.http.put(this.url + 'user/' + id, params, { headers });
 	}
 
-	deleteUser(id, token): Observable<any> {
-		const headers = new HttpHeaders().set('Authorization', token);
+	deleteUser( id ): Observable<any> {
+		const headers = new HttpHeaders().set('Authorization', this.token);
 		return this.http.delete(this.url + 'user/' + id, { headers });
 	}
 
@@ -97,7 +97,7 @@ export class UserService {
 	}
 
 	getPermissions() {
-		let permissions = JSON.parse( localStorage.getItem('userOperations') );
+		const permissions = JSON.parse( localStorage.getItem('userOperations') );
 		// while ( !permissions ) {
 		// 	permissions = JSON.parse( localStorage.getItem('userOperations') );
 		// }

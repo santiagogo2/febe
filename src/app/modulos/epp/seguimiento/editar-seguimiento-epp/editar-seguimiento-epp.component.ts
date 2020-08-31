@@ -125,7 +125,7 @@ export class EditarSeguimientoEppComponent implements OnInit {
 			res => {
 				this.searchPreloaderStatus = false;
 				if ( res.status === 'success' ) {
-					this.eppTracking.nombre = res.third.TERNOMCOM;
+					this.eppTracking.nombre = res.third.ternomcom;
 				}
 			},
 			error => {

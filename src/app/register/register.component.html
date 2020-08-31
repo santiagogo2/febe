@@ -1,0 +1,52 @@
+<section id="wrapper" class="login-register login-sidebar" style="background-image:url(../assets/images/background/loginBackground.jpg);">
+    <div class="login-box card">
+        <div class="card-body">
+            <div class="logoContainer">
+                <img src="assets/images/logoSubred.png" alt="">
+            </div>
+            <div class="titleContainer">
+                <h1>{{ pageTitle }}</h1>
+            </div>
+
+            <form #registerForm="ngForm" class="formContainer" id="registerForm" (ngSubmit)="onSubmit(registerForm)">
+                <div class="form-group">
+                    <div class="col col-sm-12">
+                        <input type="email" name="email" id="email" class="form-control inputForm" [ngClass]="{'is-invalid': email.touched && email.invalid}" #email="ngModel" [(ngModel)]="user.email" required placeholder="Correo electrónico" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+                        <small class="invalid-feedback d-block" *ngIf="email.touched && email.invalid">Debe ingresar un correo electrónico correcto</small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col col-sm-12">
+                        <input type="password" name="password" id="password" class="form-control inputForm" [ngClass]="{'is-invalid': password.touched && password.invalid}" #password="ngModel" [(ngModel)]="user.password" required placeholder="Contraseña">
+                        <small class="invalid-feedback d-block" *ngIf="password.touched && password.invalid">Debe ingresar su contraseña</small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col col-sm-12">
+                        <input type="password" name="passwordConfirm" id="passwordConfirm" class="form-control inputForm" [ngClass]="{'is-invalid': passwordConfirm.touched && passwordConfirm.invalid}" #passwordConfirm="ngModel" [(ngModel)]="passConfirm" (ngModelChange)="checkPassword($event)"
+                            required placeholder="Confirmar contraseña">
+                        <small class="invalid-feedback d-block" *ngIf="passwordConfirm.touched && !samePasswords">Las contraseñas no coinciden</small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col col-sm-12">
+                        <input type="document" name="document" id="document" class="form-control inputForm" [ngClass]="{'is-invalid': document.touched && document.invalid}" #document="ngModel" [(ngModel)]="user.documentId" required placeholder="Número de documento" pattern="[0-9]+"
+                            maxlength="10">
+                        <small class="invalid-feedback d-block" *ngIf="document.touched && document.invalid">Debe ingresar su número de documento</small>
+                    </div>
+                </div>
+                <div class="buttonSubmit col-sm-12">
+                    <input type="submit" value="Registrar" class="btn btn-info btnPrefer col-sm-12" [disabled]="registerForm.invalid || !samePasswords">
+                </div>
+                <div class="mt-3 col col-sm-12 errorAlert" *ngIf="status=='error' && responseMessage">
+                    <div class="alert alert-danger" role="alert">
+                        {{ responseMessage }}
+                    </div>
+                </div>
+                <div class="deleteLoader mt-2" id="loader" *ngIf="preloaderStatus">
+                    <div class="loader"></div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>

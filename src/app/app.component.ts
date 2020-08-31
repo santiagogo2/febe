@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserService } from './services/services.index';
+import { global, UserService } from './services/services.index';
 
 @Component({
 	selector: 'app-root',
@@ -9,7 +9,7 @@ import { UserService } from './services/services.index';
 	providers: [UserService]
 })
 export class AppComponent {
-	title = 'adminpro';
+	title = global.appName;
 
 	public token: string;
 	public identity: any[];

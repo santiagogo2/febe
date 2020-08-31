@@ -36,7 +36,7 @@
                             <thead class="thead_styles">
                                 <tr>
                                     <th>id</th>
-                                    <th>Alias</th>
+                                    <th>Email</th>
                                     <th>Nombre</th>
                                     <th>Role</th>
                                     <th>Acción</th>
@@ -45,7 +45,7 @@
                             <tbody class="tbody_styles">
                                 <tr *ngFor="let user of users | paginate: {itemsPerPage: itemsPerPage, currentPage: actualPage};" class="tableStyles">
                                     <td>{{ user.id }}</td>
-                                    <td>{{ user.alias }}</td>
+                                    <td>{{ user.email }}</td>
                                     <td>{{ user.name + ' ' + user.surname }}</td>
                                     <td *ngIf="user.roles">{{ user.roles.name }}</td>
                                     <td *ngIf="!user.roles">{{ user.role }}</td>

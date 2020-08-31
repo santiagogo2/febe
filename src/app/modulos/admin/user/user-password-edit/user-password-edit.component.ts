@@ -31,7 +31,6 @@ export class UserPasswordEditComponent implements OnInit {
 	public passwordText: string;
 	public buttonText: string;
 
-	public token: string;
 	public identity: any;
 	public user: User;
 
@@ -46,7 +45,6 @@ export class UserPasswordEditComponent implements OnInit {
 		this.enabled = true;
 		this.enabledPassword = false;
 		this.buttonText = 'Actualizar Contraseña';
-		this.token = this.userService.getToken();
 		this.identity = this.userService.getIdentity();
 	}
 
@@ -59,7 +57,7 @@ export class UserPasswordEditComponent implements OnInit {
 		this.responseMessage = undefined;
 		this.preloaderStatus = true;
 
-		this.userService.updateUser( this.user, this.token ).subscribe(
+		this.userService.updateUser( this.user ).subscribe(
 			res => {
 				this.preloaderStatus = false;
 				if ( res.status === 'success' ) {
@@ -87,9 +85,9 @@ export class UserPasswordEditComponent implements OnInit {
 		this.status = undefined;
 		this.responseMessage = undefined;
 
-		this.userService.getUser( this.identity.sub, this.token ).subscribe(
+		this.userService.getUser( this.identity.sub ).subscribe(
 			res => {
-				if( res.status === 'success' ) {
+				if ( res.status === 'success' ) {
 					this.user = res.user;
 				}
 			},
