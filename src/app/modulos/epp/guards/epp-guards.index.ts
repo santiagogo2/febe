@@ -1,3 +1,5 @@
+export { AdminEppGuard } from './admin-epp/admin-epp.guard';
+
 export { EppGuard } from './epp.guard';
 
 export { EppInformesGuard } from './informes/epp-informes.guard';

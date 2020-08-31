@@ -1,3 +1,4 @@
+import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 // Components
@@ -6,12 +7,18 @@ import { EditarSeguimientoEppComponent } from './seguimiento/editar-seguimiento-
 import { ListarSeguimientoEppComponent } from './seguimiento/listar-seguimiento-epp/listar-seguimiento-epp.component';
 import { RegistrarSeguimientoEppComponent } from './seguimiento/registrar-seguimiento-epp/registrar-seguimiento-epp.component';
 import { EppInformesComponent } from './epp-informes/epp-informes.component';
-import { NgModule } from '@angular/core';
+import { AdminEppComponent } from './admin-epp/admin-epp.component';
 
 // Guards
-import { EppGuard, EppInformesGuard, EppEditGuard, EppListGuard, EppRegisterGuard } from './guards/epp-guards.index';
+import { AdminEppGuard, EppGuard, EppInformesGuard, EppEditGuard, EppListGuard, EppRegisterGuard } from './guards/epp-guards.index';
 
 const eppRoutes: Routes = [
+	{
+		path: 'admin',
+		component: AdminEppComponent,
+		data: { titulo: 'Administrar Sala Situacional' },
+		canActivate: [ AdminEppGuard ],
+	},
 	{ path: 'seguimiento', redirectTo: 'seguimiento/listar', pathMatch: 'full' },
 	{
 		path: 'seguimiento/listar',

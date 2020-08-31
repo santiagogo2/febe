@@ -16,6 +16,7 @@ import { EditarSeguimientoEppComponent } from './seguimiento/editar-seguimiento-
 import { ListarSeguimientoEppComponent } from './seguimiento/listar-seguimiento-epp/listar-seguimiento-epp.component';
 import { RegistrarSeguimientoEppComponent } from './seguimiento/registrar-seguimiento-epp/registrar-seguimiento-epp.component';
 import { EppInformesComponent } from './epp-informes/epp-informes.component';
+import { AdminEppComponent } from './admin-epp/admin-epp.component';
 
 @NgModule({
 	declarations: [
@@ -23,7 +24,8 @@ import { EppInformesComponent } from './epp-informes/epp-informes.component';
 		EditarSeguimientoEppComponent,
 		ListarSeguimientoEppComponent,
 		RegistrarSeguimientoEppComponent,
-		EppInformesComponent
+		EppInformesComponent,
+		AdminEppComponent
 	],
 	imports: [
 		CommonModule,

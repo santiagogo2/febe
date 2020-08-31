@@ -1,0 +1,22 @@
+<div class="row reports">
+    <div class="col-sm-12 col-lg-6 reportGraph pl-0">
+        <div class="card border-0">
+            <h4 class="card-header">{{profileStatusView + ' perfiles'}}</h4>
+            <div class="card-body">
+                <app-profile-list (changeView)="chageProfileView($event)" *ngIf="profileStatusView == 'Listar'"></app-profile-list>
+                <app-profile-register (changeView)="chageProfileView($event)" *ngIf="profileStatusView == 'Registrar'"></app-profile-register>
+                <app-profile-edit (changeView)="chageProfileView($event)" *ngIf="profileStatusView == 'Editar'"></app-profile-edit>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-lg-6 reportGraph pr-0">
+        <div class="card border-0">
+            <h4 class="card-header">{{unitStatusView + ' unidades'}}</h4>
+            <div class="card-body">
+                <app-unit-list (changeView)="chageUnitView($event)" *ngIf="unitStatusView == 'Listar'"></app-unit-list>
+                <app-unit-register (changeView)="chageUnitView($event)" *ngIf="unitStatusView == 'Registrar'"></app-unit-register>
+                <app-unit-edit (changeView)="chageUnitView($event)" *ngIf="unitStatusView == 'Editar'"></app-unit-edit>
+            </div>
+        </div>
+    </div>
+</div>

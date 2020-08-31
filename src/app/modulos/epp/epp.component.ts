@@ -17,6 +17,7 @@ export class EppComponent implements OnInit {
 	public epp: any[] = [
 		{ titulo: 'Seguimiento', url: 'seguimiento/listar', class: 'card-4FB96F', description: 'Seguimiento de las capacitaciones realizadas' },
 		{ titulo: 'Informes', url: 'informes', class: 'card-EC8993', description: 'Reportes gráficos de los datos almacenados en el sistema' },
+		{ titulo: 'Administración', url: 'admin', class: 'card-924E4E', description: 'Sección que le permite administrar las listas desplegables de esta sección' },
 	];
 
 	constructor() {
@@ -35,6 +36,9 @@ export class EppComponent implements OnInit {
 			}
 			if ( element.id_operations === 6 ) {
 				array.push(this.epp[1]);
+			}
+			if ( element.id_operations === 62 ) {
+				array.push(this.epp[2]);
 			}
 		});
 		this.epp = array;

@@ -11,8 +11,8 @@
             <form #loginForm="ngForm" class="formContainer" id="loginForm" (ngSubmit)="onSubmit(loginForm)">
                 <div class="form-group">
                     <div class="col col-sm-12">
-                        <input type="text" name="alias" id="alias" class="form-control inputForm" [ngClass]="{'is-invalid': alias.touched && alias.invalid}" #alias="ngModel" [(ngModel)]="user.alias" required placeholder="Nombre de usuario">
-                        <small class="invalid-feedback d-block" *ngIf="alias.touched && alias.invalid">Debe ingresar su nombre de usuario</small>
+                        <input type="text" name="email" id="email" class="form-control inputForm" [ngClass]="{'is-invalid': email.touched && email.invalid}" #email="ngModel" [(ngModel)]="user.alias" required placeholder="Correo electrónico">
+                        <small class="invalid-feedback d-block" *ngIf="email.touched && email.invalid">Debe ingresar su correo electrónico</small>
                     </div>
                 </div>
                 <div class="form-group">
