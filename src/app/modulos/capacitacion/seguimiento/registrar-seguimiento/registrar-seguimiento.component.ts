@@ -4,7 +4,7 @@ import swal from 'sweetalert';
 import { Router } from '@angular/router';
 
 // Service
-import { TrainingService } from '../../services/training.service';
+import { TrainingService, ThemeService } from '../../services/capacitacion-services.index';
 import { AreaService, DinamicaService, global, UserService, ProfileService, UnitService } from '../../../../services/services.index';
 
 // Models
@@ -46,12 +46,13 @@ export class RegistrarSeguimientoComponent implements OnInit {
 	public viewFlag: boolean;
 	public editFlag: boolean;
 
-	public themes: Array<any>;
+	public themes: any;
 
 	constructor(
 		private areaService: AreaService,
 		private dinamicaService: DinamicaService,
 		private profileService: ProfileService,
+		private themeService: ThemeService,
 		private trainingService: TrainingService,
 		private unitService: UnitService,
 		private userService: UserService,
@@ -63,8 +64,6 @@ export class RegistrarSeguimientoComponent implements OnInit {
 
 		this.identity = this.userService.getIdentity();
 		this.token = this.userService.getToken();
-
-		this.themes = global.temas;
 	}
 
 	ngOnInit(): void {
@@ -91,12 +90,13 @@ export class RegistrarSeguimientoComponent implements OnInit {
 	}
 
 	getAllPromises() {
-		Promise.all([ this.unitList(), this.profileList(), this.areaList(), this.userList() ])
+		Promise.all([ this.unitList(), this.profileList(), this.areaList(), this.userList(), this.themeList() ])
 			   .then( responses => {
 				   this.units = responses[0];
 				   this.profiles = responses[1];
 				   this.areas = responses[2];
 				   this.users = responses[3];
+				   this.themes = responses[4];
 				   this.training = new Training(null, this.actualDate, null, null, null, null, null, null, null, this.identity.sub);
 			   })
 			   .catch( error => {
@@ -230,6 +230,23 @@ export class RegistrarSeguimientoComponent implements OnInit {
 				res => {
 					if ( res.status === 'success' ) {
 						resolve(res.profiles);
+					}
+				},
+				error => {
+					const err = error.error.message ? error.error.message : error.message;
+					reject(err);
+					console.log(error);
+				}
+			);
+		});
+	}
+
+	themeList() {
+		return new Promise((resolve, reject) => {
+			this.themeService.themeList().subscribe(
+				res => {
+					if ( res.status === 'success' ) {
+						resolve(res.themes);
 					}
 				},
 				error => {

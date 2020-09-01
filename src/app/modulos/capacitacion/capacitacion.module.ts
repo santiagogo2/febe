@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
 
 // Modules
 import { ComponentsModule } from 'src/app/components/components.module';
+import { ThemeModule } from './theme/theme.module';
 
 // Routes
 import { CapacitacionRoutingModule } from './capacitacion.routing';
@@ -17,6 +18,7 @@ import { EditarSeguimientoComponent } from './seguimiento/editar-seguimiento/edi
 import { ListarSeguimientoComponent } from './seguimiento/listar-seguimiento/listar-seguimiento.component';
 import { RegistrarSeguimientoComponent } from './seguimiento/registrar-seguimiento/registrar-seguimiento.component';
 import { CapacitacionInformesComponent } from './capacitacion-informes/capacitacion-informes.component';
+import { AdminCapacitacionComponent } from './admin-capacitacion/admin-capacitacion.component';
 
 @NgModule({
 	declarations: [
@@ -25,17 +27,19 @@ import { CapacitacionInformesComponent } from './capacitacion-informes/capacitac
 		ListarSeguimientoComponent,
 		RegistrarSeguimientoComponent,
 		CapacitacionInformesComponent,
+		AdminCapacitacionComponent,
 	],
-    imports: [
+	imports: [
 		CommonModule,
 		ComponentsModule,
 		FontAwesomeModule,
 		FormsModule,
 		NgxPaginationModule,
 		RouterModule,
+		ThemeModule,
 
 		CapacitacionRoutingModule,
-    ],
-    exports: []
+	],
+	exports: []
 })
 export class CapacitacionModule { }

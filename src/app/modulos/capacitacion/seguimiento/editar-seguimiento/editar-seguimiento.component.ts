@@ -4,7 +4,7 @@ import swal from 'sweetalert';
 import { ActivatedRoute, Router } from '@angular/router';
 
 // Service
-import { TrainingService } from '../../services/capacitacion-services.index';
+import { TrainingService, ThemeService } from '../../services/capacitacion-services.index';
 import { AreaService, DinamicaService, global, UserService, ProfileService, UnitService } from '../../../../services/services.index';
 
 // Models
@@ -46,12 +46,13 @@ export class EditarSeguimientoComponent implements OnInit {
 	public viewFlag: boolean;
 	public editFlag: boolean;
 
-	public themes: Array<any>;
+	public themes: any;
 
 	constructor(
 		private areaService: AreaService,
 		private dinamicaService: DinamicaService,
 		private profileService: ProfileService,
+		private themeService: ThemeService,
 		private trainingService: TrainingService,
 		private unitService: UnitService,
 		private userService: UserService,
@@ -62,8 +63,6 @@ export class EditarSeguimientoComponent implements OnInit {
 
 		this.token = this.userService.getToken();
 		this.identity = this.userService.getIdentity();
-
-		this.themes = global.temas;
 	}
 
 	ngOnInit(): void {
@@ -80,13 +79,14 @@ export class EditarSeguimientoComponent implements OnInit {
 	}
 
 	getAllPromises(id) {
-		Promise.all([ this.unitList(), this.profileList(), this.getTraining(id), this.areaList(), this.userList() ])
+		Promise.all([ this.unitList(), this.profileList(), this.getTraining(id), this.areaList(), this.userList(), this.themeList() ])
 			   .then( responses => {
 				   this.units = responses[0];
 				   this.profiles = responses[1];
 				   this.training = responses[2];
 				   this.areas = responses[3];
 				   this.users = responses[4];
+				   this.themes = responses[5];
 				   this.showFile = this.training.archivo ? true : false;
 				   this.loadPermissions();
 			   })
@@ -263,7 +263,24 @@ export class EditarSeguimientoComponent implements OnInit {
 		});
 	}
 
-	unitList(){
+	themeList() {
+		return new Promise((resolve, reject) => {
+			this.themeService.themeList().subscribe(
+				res => {
+					if ( res.status === 'success' ) {
+						resolve(res.themes);
+					}
+				},
+				error => {
+					const err = error.error.message ? error.error.message : error.message;
+					reject(err);
+					console.log(error);
+				}
+			);
+		});
+	}
+
+	unitList() {
 		return new Promise((resolve, reject) => {
 			this.unitService.unitList( this.token ).subscribe(
 				res => {

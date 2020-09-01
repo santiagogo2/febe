@@ -1,0 +1,47 @@
+<div class="loaderBall" *ngIf="!theme && !responseMessage">
+    <div class="ball-pulse-rise">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+<div class="mt-3 col col-sm-12 errorAlert" *ngIf="status=='error' && responseMessage && !theme">
+    <div class="alert alert-danger" role="alert">
+        {{ responseMessage }} <a class="link" (click)="sendFlag()">listar temas</a>
+    </div>
+</div>
+
+<div class="row" *ngIf="theme">
+    <div class="col-sm-12">
+        <div class="card border-0">
+            <div class="card-body">
+                <div class="backLink col col-sm-12">
+                    <a class="link" (click)="sendFlag()">Listar Temas</a>
+                </div>
+                <div class="formContainerAdmin col col-sm-12" [ngClass]="{'formContainerAdminError': status && status=='error'}">
+                    <form #themeForm="ngForm" class="form-container" (ngSubmit)="onSubmit(themeForm)">
+                        <div class="form-group col col-sm-12">
+                            <label for="themeName" class="labelForm">Nombre*</label>
+                            <input type="text" name="themeName" class="form-control inputForm" [ngClass]="{ 'is-invalid': themeName.touched && themeName.invalid }" #themeName="ngModel" [(ngModel)]="theme.name" required pattern="[a-zA-ZÀ-ÿ0-9 -]+" placeholder="Ingrese el nombre del tema que desea registrar">
+                        </div>
+                        <div class="form-group">
+                            <div class="col col-sm-12 buttonSubmit">
+                                <input type="submit" value="{{ buttonText }}" class="btn btn-success btnPrefer col-sm-12" [disabled]="themeForm.invalid">
+                            </div>
+                        </div>
+                        <div class="mt-3 col col-sm-12 errorAlert" *ngIf="status && responseMessage">
+                            <div class="alert" [ngClass]="{'alert-danger': status=='error', 'alert-success': status=='success'}" role="alert">
+                                {{ responseMessage }}
+                            </div>
+                        </div>
+                        <div class="deleteLoader" *ngIf="preloaderStatus">
+                            <div class="loader"></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

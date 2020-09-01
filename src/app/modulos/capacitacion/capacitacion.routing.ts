@@ -7,8 +7,10 @@ import { EditarSeguimientoComponent } from './seguimiento/editar-seguimiento/edi
 import { ListarSeguimientoComponent } from './seguimiento/listar-seguimiento/listar-seguimiento.component';
 import { RegistrarSeguimientoComponent } from './seguimiento/registrar-seguimiento/registrar-seguimiento.component';
 import { CapacitacionInformesComponent } from './capacitacion-informes/capacitacion-informes.component';
+import { AdminCapacitacionComponent } from './admin-capacitacion/admin-capacitacion.component';
 
 const capacitacionRoutes: Routes = [
+	{ path: 'admin', component: AdminCapacitacionComponent, data: { titulo: 'Administración Capacitaciones' } },
 	{ path: 'registros', redirectTo: 'registros/listar', pathMatch: 'full' },
 	{ path: 'registros/listar', component: ListarSeguimientoComponent, data: { titulo: 'Registros' } },
 	{ path: 'registros/agregar', component: RegistrarSeguimientoComponent, data: { titulo: 'Agregar Nuevo Registro' } },
