@@ -1,4 +1,4 @@
-import { Routes, RouterModule } from '@angular/router';
+import { Routes, RouterModule, ExtraOptions } from '@angular/router';
 import { NgModule } from '@angular/core';
 
 import { LoginComponent } from './login/login.component';
@@ -18,10 +18,16 @@ const appRoutes: Routes = [
 	{ path: '**', component: NopagefoundComponent, canActivate: [ IdentityGuard] },
 ];
 
+const routerOptions: ExtraOptions = {
+	anchorScrolling: 'enabled',
+	scrollPositionRestoration: 'enabled',
+	useHash: false,
+};
+
 @NgModule({
 	imports: [
 		ModulosRoutingModule,
-		RouterModule.forRoot( appRoutes, { useHash: false } ),
+		RouterModule.forRoot( appRoutes, routerOptions ),
 	],
 	exports: [
 		RouterModule

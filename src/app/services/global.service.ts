@@ -259,5 +259,20 @@ export var global = {
 		{ id: 'D', name: 'Dispositivo Médico' },
 		{ id: 'N', name: 'Producto Nutricional' },
 		{ id: 'S', name: 'Servicio Complementario' },
-	]
+	],
+
+	months: [
+		{ id: '1', name: 'ENERO', alias: 'ENE' },
+		{ id: '2', name: 'FEBRERO', alias: 'FEB' },
+		{ id: '3', name: 'MARZO', alias: 'MAR' },
+		{ id: '4', name: 'ABRIL', alias: 'ABR' },
+		{ id: '5', name: 'MAYO', alias: 'MAY' },
+		{ id: '6', name: 'JUNIO', alias: 'JUN' },
+		{ id: '7', name: 'JULIO', alias: 'JUL' },
+		{ id: '8', name: 'AGOSTO', alias: 'AGO' },
+		{ id: '9', name: 'SEPTIEMBRE', alias: 'SEPT' },
+		{ id: '10', name: 'OCTUBRE', alias: 'OCT' },
+		{ id: '11', name: 'NOVIEMBRE', alias: 'NOV' },
+		{ id: '12', name: 'DICIEMBRE', alias: 'DIC' },
+	],
 }

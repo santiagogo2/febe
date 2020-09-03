@@ -22,6 +22,12 @@ const pagesRoutes: Routes = [
 		loadChildren: () => import('./admin/admin.module').then( m => m.AdminModule ),
 	},
 	{
+		path: 'business',
+		component: ModulosComponent,
+		canActivate: [ IdentityGuard ],
+		loadChildren: () => import('./business/business.module').then( m => m.BusinessModule ),
+	},
+	{
 		path: 'capacitaciones',
 		component: ModulosComponent,
 		canActivate: [ IdentityGuard, CapacitacionGuard ],

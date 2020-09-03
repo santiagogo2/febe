@@ -1,0 +1,1 @@
+export { BscIndicatorFollow } from './bsc-indicator-follow';

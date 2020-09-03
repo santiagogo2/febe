@@ -1,0 +1,89 @@
+<div class="loaderBall" *ngIf="!bscIndicators && !responseMessage">
+    <div class="ball-pulse-rise">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+<div class="mt-3 errorAlert alert-danger" *ngIf="status=='error' && responseMessage && !bscIndicators">
+    <div class="alert" role="alert">
+        {{ responseMessage }}
+    </div>
+</div>
+
+<div class="row" *ngIf="bscIndicators">
+    <div class="col-sm-12">
+        <div class="card border-0">
+            <div class="card-body cardContainer">
+                <div class="mt-3 errorAlert" *ngIf="status && responseMessage">
+                    <div class="alert" role="alert" [ngClass]="{'alert-danger': status=='error', 'alert-success': status=='success'}">
+                        {{ responseMessage }}
+                    </div>
+                </div>
+
+                <div class="tableContainer" *ngIf="bscIndicators">
+                    <div class="tableContainerAll col col-sm-12">
+                        <table class="table table-bordered">
+                            <thead class="thead_styles">
+                                <tr>
+                                    <th rowspan="2">#</th>
+                                    <th rowspan="2">INDICADOR</th>
+                                    <th rowspan="2">PERIODICIDAD</th>
+                                    <th rowspan="2">META</th>
+                                    <th colspan="12">RESULTADOS {{ actualYear }}</th>
+                                    <th rowspan="2">ACCIÓN</th>
+                                </tr>
+                                <tr>
+                                    <th *ngFor="let month of months">{{ month.alias }}</th>
+                                </tr>
+                            </thead>
+                            <tbody class="tbody_styles">
+                                <tr *ngFor="let indicator of bscIndicators; index as i" class="tableStyles">
+                                    <td>{{ i + 1 }}</td>
+                                    <td>{{ indicator.nom_indicador }}</td>
+                                    <td>{{ indicator.periodicidad }}</td>
+                                    <td>{{ indicator.meta | isnullfill }}</td>
+                                    <td *ngFor="let month of months">
+                                        <span *ngIf="!indicator.follow">-</span>
+                                        <span *ngIf="indicator.follow">
+											<span>{{ month.name | businessmonth:indicator.follow }}</span>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-info col col-sm-12 d-inline-block" (click)="graficar(indicator.follow, indicator.nom_indicador)" *ngIf="indicator.follow">Graficar</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row reports" id="grafica">
+    <div class="col-sm-12 reportGraph pl-0 pr-0" *ngIf="infoToReport">
+        <div class="card border-0">
+            <h4 class="card-header">{{ infoToReport.title }}</h4>
+            <div class="tableContainer">
+                <table class="table table-bordered infoReportTable col col-sm-12 mt-3">
+                    <thead class="thead_styles">
+                        <td *ngFor="let label of infoToReport.labels">{{ label }}</td>
+                    </thead>
+                    <tbody class="tbody_styles">
+                        <td *ngFor="let data of infoToReport.data[0].data">{{ data }}</td>
+                    </tbody>
+                </table>
+            </div>
+            <div class="card-body">
+                <app-grafico-barras [barChartData]="infoToReport.data" [barChartLabels]="infoToReport.labels" [barChartType]="infoToReport.type">
+                </app-grafico-barras>
+            </div>
+        </div>
+    </div>
+
+</div>
