@@ -92,6 +92,14 @@ export class NavbarComponent implements OnInit {
 				},
 			]
 		},
+		{
+			title: 'Business Inteligent',
+			url: '/business',
+			operationId: 64,
+			dropdown: [
+				{ title: 'Dashboard', url: '/business/dashboard', operationId: 65 },
+			]
+		},
 	];
 
 	constructor() {

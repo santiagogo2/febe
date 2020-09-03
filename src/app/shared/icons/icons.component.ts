@@ -49,6 +49,9 @@ export class IconsComponent implements OnInit {
 			if ( element.id_operations === 42 ) {
 				array.push(this.iconsArray[4]);
 			}
+			if ( element.id_operations === 65 ) {
+				array.push(this.iconsArray[5]);
+			}
 		});
 		this.iconsArray = array;
 	}

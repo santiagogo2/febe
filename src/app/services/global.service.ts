@@ -10,6 +10,7 @@ export var global = {
 		{ title: 'epp', imageUrl: 'assets/images/modulos/epp.png', class: 'imageContainer color-red', url: '/epp' },
 		{ title: 'uci', imageUrl: 'assets/images/modulos/uci.png', class: 'imageContainer color-orange', url: '/uci' },
 		{ title: 'mipres', imageUrl: 'assets/images/modulos/mipres.png', class: 'imageContainer color-yellow', url: '/mipres' },
+		{ title: 'business', imageUrl: 'assets/images/modulos/business.png', class: 'imageContainer color-dark-pink', url: '/business' },
 	],
 	estados: [
 		{id: 1, value: 'CUARENTENA'},
@@ -20,7 +21,7 @@ export var global = {
 	],
 	manejos: [
 		{id: 1, value: 'AMBULATORIO'},
-		{id: 2, value: 'HOSPITALIZADO'},	
+		{id: 2, value: 'HOSPITALIZADO'},
 	],
 	modalidad: [
 		{id: 1, value: 'PRESENCIAL'},
