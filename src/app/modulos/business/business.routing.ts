@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { BusinessDashboardComponent } from './dashboard/business-dashboard.component';
 
 // Guards
-import { BusinessDashboardGuard } from './guards/business-dashboard.guard';
+import { BusinessDashboardGuard } from './guards/business-guards.index';
 
 const businessRoutes: Routes = [
 	{ path: '', redirectTo: 'dashboard', pathMatch: 'full' },
