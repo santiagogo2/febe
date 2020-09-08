@@ -297,6 +297,16 @@ header .nav-item:hover {
     color: #3C763D;
 }
 
+.bad {
+    background-color: #D23C4A;
+    color: #FFF;
+}
+
+.good {
+    background-color: #58AD58;
+    color: #FFF;
+}
+
 
 /*---------------------------------------------
  Reports Styles

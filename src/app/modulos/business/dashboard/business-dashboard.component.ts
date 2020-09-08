@@ -39,6 +39,7 @@ export class BusinessDashboardComponent implements OnInit {
 			res => {
 				if ( res.status === 'success' ) {
 					this.bscIndicators = res.indicators;
+					console.log(this.bscIndicators);
 					let flag = false;
 					this.bscIndicators.forEach( indicator => {
 						if ( indicator.follow ) {
@@ -111,5 +112,22 @@ export class BusinessDashboardComponent implements OnInit {
 		const date = new Date();
 		const year = date.getFullYear();
 		return year;
+	}
+
+	setClass( month, follows, satisfaccion ) {
+		if ( !follows || !satisfaccion ) {
+			return false;
+		} else {
+			for ( const follow of follows ) {
+				if ( follow.mes === month.name ) {
+					const result = +follow.val_numerador / +follow.val_denominador;
+					if ( result > satisfaccion ) {
+						return 'bad';
+					} else {
+						return 'good';
+					}
+				}
+			}
+		}
 	}
 }
