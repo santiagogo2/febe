@@ -1,0 +1,104 @@
+<div class="loaderBall" *ngIf="!indicators && !responseMessage">
+    <div class="ball-pulse-rise">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+<div class="mt-3 errorAlert alert-danger" *ngIf="status=='error' && responseMessage && !indicators">
+    <div class="alert" role="alert">
+        {{ responseMessage }}
+    </div>
+</div>
+
+<div class="row" *ngIf="indicators">
+    <div class="col-sm-12 col-md-4 mt-3">
+        <div class="card border-0">
+            <h5 class="cardTitle">Redes</h5>
+            <div class="card-body" style="height: 370px; overflow: auto;">
+                <div class="col-lg-12 pl-3 align-top checkbox dropdown-item" *ngFor="let red of redes">
+                    <input type="checkbox" [(ngModel)]="red.isSelected" (ngModelChange)="doFilters()" name="{{ red.name }}" id="{{ red.name }}" value="{{ red.name }">
+                    <label class="checkbox" for="{{ red.name }}">{{ red.name }}</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-4 mt-3">
+        <div class="card border-0">
+            <h5 class="cardTitle">Sedes</h5>
+            <div class="card-body" style="height: 370px; overflow: auto;">
+                <div class="col-lg-12 pl-3 align-top checkbox dropdown-item" *ngFor="let sede of sedes">
+                    <input type="checkbox" [(ngModel)]="sede.isSelected" (ngModelChange)="doFilters()" name="{{ sede.name }}" id="{{ sede.name }}" value="{{ sede.name }">
+                    <label class="checkbox" for="{{ sede.name }}">{{ sede.name }}</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-4 mt-3">
+        <div class="card border-0">
+            <h5 class="cardTitle">Años</h5>
+            <div class="card-body" style="height: 370px; overflow: auto;">
+                <div class="col-lg-12 pl-3 align-top checkbox dropdown-item" *ngFor="let year of years">
+                    <input type="checkbox" [(ngModel)]="year.isSelected" (ngModelChange)="doFilters()" name="{{ year.name }}" id="{{ year.name }}" value="{{ year.name }">
+                    <label class="checkbox" for="{{ year.name }}">{{ year.name }}</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="deleteLoader mt-3" *ngIf="preloaderStatus">
+    <div class="loader"></div>
+</div>
+<div class="mt-3 col col-sm-12 errorAlert p-0" *ngIf="filterMessage && !preloaderStatus">
+    <div class="alert alert-danger" role="alert">
+        {{ filterMessage }}
+    </div>
+</div>
+<div *ngIf="!preloaderStatus && !filterMessage">
+    <div class="row reports">
+        <div class="col-12 reportGraph pl-0 pr-0" *ngIf="promedioGiroCama">
+            <div class="card border-0">
+                <h4 class="card-header">{{ promedioGiroCama.title }}</h4>
+                <div class="card-body">
+                    <app-grafico-barras [barChartData]="promedioGiroCama.data" [barChartLabels]="promedioGiroCama.labels" [barChartType]="promedioGiroCama.type" barChartLegend=true needColors=false>
+                    </app-grafico-barras>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row reports">
+        <div class="col-12 reportGraph pl-0 pr-0" *ngIf="procentajeOcupacion">
+            <div class="card border-0">
+                <h4 class="card-header">{{ procentajeOcupacion.title }}</h4>
+                <div class="card-body">
+                    <app-grafico-barras [barChartData]="procentajeOcupacion.data" [barChartLabels]="procentajeOcupacion.labels" [barChartType]="procentajeOcupacion.type" barChartLegend=true needColors=false>
+                    </app-grafico-barras>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row reports">
+        <div class="col-12 reportGraph pl-0 pr-0" *ngIf="promedioEstancia">
+            <div class="card border-0">
+                <h4 class="card-header">{{ promedioEstancia.title }}</h4>
+                <div class="card-body">
+                    <app-grafico-barras [barChartData]="promedioEstancia.data" [barChartLabels]="promedioEstancia.labels" [barChartType]="promedioEstancia.type" barChartLegend=true needColors=false>
+                    </app-grafico-barras>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row reports">
+        <div class="col-12 reportGraph pl-0 pr-0" *ngIf="totalEgresos">
+            <div class="card border-0">
+                <h4 class="card-header">{{ totalEgresos.title }}</h4>
+                <div class="card-body">
+                    <app-grafico-barras [barChartData]="totalEgresos.data" [barChartLabels]="totalEgresos.labels" [barChartType]="totalEgresos.type" barChartLegend=true needColors=false>
+                    </app-grafico-barras>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
