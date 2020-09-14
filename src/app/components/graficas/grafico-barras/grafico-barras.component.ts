@@ -8,12 +8,13 @@ import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 	templateUrl: './grafico-barras.component.html',
 	styles: []
 })
-export class GraficoBarrasComponent implements OnInit {	
+export class GraficoBarrasComponent implements OnInit {
 	@Input() public barChartData: ChartDataSets[];
 	@Input() public barChartLabels: string[];
 	@Input() public barChartType: string;
+	@Input() public barChartLegend = false;
+	@Input() public needColors = true;
 
-	public barChartLegend = false;
 	public barChartPlugins = [pluginDataLabels];
 	public barChartOptions: ChartOptions = {
 
@@ -22,12 +23,14 @@ export class GraficoBarrasComponent implements OnInit {
 		legend: { position: 'top' },
 		scales: {
 			yAxes: [{
-				stacked: true,
-				ticks: { stepSize: 1 }
+				// Esta configuración alinea las barras en una sola
+				// stacked: true,
+				// ticks: { stepSize: 1 }
 			}],
 			xAxes: [{
-				stacked: true,
-				ticks: { stepSize: 1 }
+				// Esta configuración alinea las barras en una sola
+				// stacked: true,
+				// ticks: { stepSize: 1 }
 			}]
 		},
 		plugins: {
@@ -38,14 +41,14 @@ export class GraficoBarrasComponent implements OnInit {
 					weight: 'bold'
 				},
 				align: function(context) {
-					var index = context.dataIndex;
-					var value:any = context.dataset.data[index];
-					var invert = Math.abs(value) <= 1;
-					return value < 1 ? 'end' : 'start'
+					const index = context.dataIndex;
+					const value: any = context.dataset.data[index];
+					const invert = Math.abs(value) <= 1;
+					return value < 1 ? 'end' : 'start';
 				},
 				color: '#343A40',
 				formatter: (value, ctx) => {
-					return ctx.dataset.data[ctx.dataIndex]
+					return ctx.dataset.data[ctx.dataIndex];
 				},
 			},
 		}
@@ -56,33 +59,35 @@ export class GraficoBarrasComponent implements OnInit {
 	constructor() {}
 
 	ngOnInit(): void {
-		this.setColors();
+		if ( this.needColors === true ) {
+			this.setColors();
+		}
 	}
 
-	setColors(){
-		let backgroundColor = new Array();
-		let borderColor = new Array();
+	setColors() {
+		const backgroundColor = new Array();
+		const borderColor = new Array();
 
 		this.barChartLabels.forEach( element => {
-			let color = this.getRandomColor();
-			backgroundColor.push(color+'33');
+			const color = this.getRandomColor();
+			backgroundColor.push(color + '33');
 			borderColor.push(color);
 		});
-		
+
 		this.barChartColors = [
 			{
-				backgroundColor: backgroundColor,
-				borderColor: borderColor
+				backgroundColor,
+				borderColor
 			},
-		]		
+		];
 	}
 
 	getRandomColor() {
-		var letters = '0123456789ABCDEF'.split('');
-		var color = '#';
-		for (var i = 0; i < 6; i++ ) { 
-			color += letters[Math.floor(Math.random() * 16)]; 
+		const letters = '0123456789ABCDEF'.split('');
+		let color = '#';
+		for (let i = 0; i < 6; i++ ) {
+			color += letters[Math.floor(Math.random() * 16)];
 		}
-		return color; 
+		return color;
 	}
 }

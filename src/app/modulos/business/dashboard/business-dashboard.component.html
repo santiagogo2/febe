@@ -45,7 +45,7 @@
                                     <td>{{ indicator.nom_indicador }}</td>
                                     <td>{{ indicator.periodicidad }}</td>
                                     <td>{{ indicator.meta | isnullfill }}</td>
-                                    <td *ngFor="let month of months" [ngClass]="setClass( month, indicator.follow, indicator.satisfaccion )">
+                                    <td *ngFor="let month of months" [ngClass]="setClass( month, indicator.follow, indicator.satisfaccion, indicator.MayorMenor )">
                                         <span *ngIf="!indicator.follow">-</span>
                                         <span *ngIf="indicator.follow">
 											<span>{{ month.name | businessmonth:indicator.follow }}</span>

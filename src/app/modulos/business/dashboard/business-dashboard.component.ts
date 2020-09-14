@@ -39,7 +39,6 @@ export class BusinessDashboardComponent implements OnInit {
 			res => {
 				if ( res.status === 'success' ) {
 					this.bscIndicators = res.indicators;
-					console.log(this.bscIndicators);
 					let flag = false;
 					this.bscIndicators.forEach( indicator => {
 						if ( indicator.follow ) {
@@ -56,7 +55,6 @@ export class BusinessDashboardComponent implements OnInit {
 							indicator.meta = null;
 						}
 					});
-					console.log(this.bscIndicators);
 				}
 			},
 			error => {
@@ -100,7 +98,10 @@ export class BusinessDashboardComponent implements OnInit {
 			let dato = 0;
 			for ( const element of array ) {
 				if ( element.mes === month.name ) {
-					dato = +(+element.val_numerador / +element.val_denominador).toFixed(2);
+					if ( +element.val_denominador !== 0 ) {
+						dato = +(+element.val_numerador / +element.val_denominador).toFixed(2);
+						dato = 0;
+					}
 				}
 			}
 			data.push( dato );
@@ -114,14 +115,17 @@ export class BusinessDashboardComponent implements OnInit {
 		return year;
 	}
 
-	setClass( month, follows, satisfaccion ) {
-		if ( !follows || !satisfaccion ) {
+	setClass( month, follows, satisfaccion, mayorMenor ) {
+		if ( !follows || !satisfaccion || !mayorMenor || (+mayorMenor !== 0 && +mayorMenor !== 1) ) {
 			return false;
 		} else {
 			for ( const follow of follows ) {
 				if ( follow.mes === month.name ) {
-					const result = +follow.val_numerador / +follow.val_denominador;
-					if ( result > satisfaccion ) {
+					let result = 0;
+					if ( +follow.val_denominador !== 0 ) {
+						result = +follow.val_numerador / +follow.val_denominador;
+					}
+					if ( (+mayorMenor === 0 && result >= satisfaccion) || (+mayorMenor === 1 && result < satisfaccion) ) {
 						return 'bad';
 					} else {
 						return 'good';

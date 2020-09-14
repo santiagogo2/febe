@@ -34,6 +34,18 @@ const pagesRoutes: Routes = [
 		loadChildren: () => import('./capacitacion/capacitacion.module').then( m => m.CapacitacionModule ),
 	},
 	{
+		path: 'cip',
+		component: ModulosComponent,
+		canActivate: [ IdentityGuard ],
+		loadChildren: () => import('./cip/cip.module').then( m => m.CipModule ),
+	},
+	{
+		path: 'contratacion',
+		component: ModulosComponent,
+		canActivate: [ IdentityGuard ],
+		loadChildren: () => import('./contratacion/contratacion.module').then( m => m.ContratacionModule ),
+	},
+	{
 		path: 'epp',
 		component: ModulosComponent,
 		canActivate: [ IdentityGuard ],

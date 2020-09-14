@@ -93,6 +93,32 @@ export class NavbarComponent implements OnInit {
 			]
 		},
 		{
+			title: 'Contratación',
+			url: '/contratacion',
+			operationId: 48,
+			dropdown: [
+				{
+					title: 'Certificaciones',
+					url: '/contratacion/certificaciones',
+					operationId: 66,
+					dropdown: [
+						{
+							title: 'Contratos',
+							url: '/contratacion/buscarcontratos',
+							operationId: 52,
+							dropdown: [
+								{ title: 'Buscar Contrato', url: '/contratacion/buscarcontratos', operationId: 57 },
+								{ title: 'Crear Contrato', url: '/contratacion/agregarcontrato', operationId: 49 },
+								{ title: 'Subir Contratos', url: '/contratacion/subirctos', operationId: 58 },
+							]
+						},
+						// { title: 'Certificaciones', url: '/contratacion/certificaciones', operationId: 53 },
+						{ title: 'Novedades', url: '/contratacion/vernovedades', operationId: 55 },
+					]
+				},
+			]
+		},
+		{
 			title: 'Business Inteligent',
 			url: '/business',
 			operationId: 64,
@@ -141,6 +167,21 @@ export class NavbarComponent implements OnInit {
 	}
 
 	validateSecondDropdown(dropdown, permissions) {
+		const array = [];
+		permissions.forEach( element => {
+			dropdown.forEach( element2 => {
+				if ( element.id_operations === element2.operationId ) {
+					if ( element2.dropdown ) {
+						element2.dropdown = this.validateThirdDropdown( element2.dropdown, permissions );
+					}
+					array.push( element2 );
+				}
+			});
+		});
+		return array;
+	}
+
+	validateThirdDropdown(dropdown, permissions) {
 		const array = [];
 		permissions.forEach( element => {
 			dropdown.forEach( element2 => {

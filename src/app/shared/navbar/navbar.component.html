@@ -13,7 +13,14 @@
                                     <div class="dropdown second" *ngIf="dropdown1.dropdown">
                                         <ul>
                                             <li class="dropdown__link" *ngFor="let dropdown2 of dropdown1.dropdown">
-                                                <a routerLink="{{ dropdown2.url }}">{{ dropdown2.title }}</a>
+                                                <a routerLink="{{ dropdown2.url }}" [ngClass]="{'dropdown__arrow': dropdown2.dropdown}">{{ dropdown2.title }}</a>
+                                                <div class="dropdown second" *ngIf="dropdown2.dropdown">
+                                                    <ul>
+                                                        <li class="dropdown__link" *ngFor="let dropdown3 of dropdown2.dropdown">
+                                                            <a routerLink="{{ dropdown3.url }}">{{ dropdown3.title }}</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
                                             </li>
                                         </ul>
                                     </div>

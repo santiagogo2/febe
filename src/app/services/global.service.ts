@@ -10,6 +10,7 @@ export var global = {
 		{ title: 'epp', imageUrl: 'assets/images/modulos/epp.png', class: 'imageContainer color-red', url: '/epp' },
 		{ title: 'uci', imageUrl: 'assets/images/modulos/uci.png', class: 'imageContainer color-orange', url: '/uci' },
 		{ title: 'mipres', imageUrl: 'assets/images/modulos/mipres.png', class: 'imageContainer color-yellow', url: '/mipres' },
+		{ title: 'contratacion', imageUrl: 'assets/images/modulos/contracts.png', class: 'imageContainer color-pink', url: '/contratacion' },
 		{ title: 'business', imageUrl: 'assets/images/modulos/business.png', class: 'imageContainer color-dark-pink', url: '/business' },
 	],
 	estados: [

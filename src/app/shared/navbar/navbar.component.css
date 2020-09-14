@@ -97,7 +97,7 @@ a {
 }
 
 .dropdown__link:not(:nth-last-child(2)) {
-    border-bottom: 1px solid #A7E8EA;
+    /* border-bottom: 1px solid #A7E8EA; */
 }
 
 .dropdown__arrow::after {
