@@ -1,0 +1,35 @@
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card border-0">
+            <div class="card-body cardContainer">
+                <div class="backLink col col-sm-12">
+                    <a class="col-sm-12" routerLink="/contratacion/vernovedades">Regresar</a>
+                </div>
+                <div class="formContainer">
+                    <form #certificationForm="ngForm" class="form-container" (ngSubmit)="onSubmit(certificationForm)" style="text-align: center;">
+                        <div class="form-group">
+                            <div class="col col-sm-12 col-md-6 col-lg-4 d-inline-block align-top text-left">
+                                <label for="documento" class="labelForm">Documento del contratista*</label>
+                                <input name="documento" class="form-control inputForm" [ngClass]="{'is-invalid': documento.touched && documento.invalid}" #documento="ngModel" [(ngModel)]="document" required placeholder="Ingrese el número del documento" pattern="[0-9]+" maxlength="15">
+                                <small class="invalid-feedback d-block font-weight-bold" *ngIf="documento.invalid && documento.touched">Debe ingresar un número de documento válido</small>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col col-sm-12 col-md-6 col-lg-4 buttonSubmit" style="margin: auto;">
+                                <input type="submit" value="Consultar" class="btn btn-success btnPrefer col-sm-12" [disabled]="certificationForm.invalid">
+                            </div>
+                        </div>
+                        <div class="mt-3 col col-sm-12 errorAlert" *ngIf="status=='error' && responseMessage">
+                            <div class="alert alert-danger" role="alert">
+                                {{ responseMessage }}
+                            </div>
+                        </div>
+                        <div class="deleteLoader" *ngIf="preloaderStatus">
+                            <div class="loader"></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

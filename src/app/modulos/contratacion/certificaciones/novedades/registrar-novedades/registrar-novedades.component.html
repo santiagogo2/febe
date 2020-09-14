@@ -1,0 +1,59 @@
+<div class="loaderBall" *ngIf="!news && !responseMessage">
+    <div class="ball-pulse-rise">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+<div class="mt-3 errorAlert" *ngIf="status=='error' && responseMessage && !news">
+    <div class="alert alert-danger" role="alert">
+        {{ responseMessage }} <a routerLink="/contratacion/vernovedades">Listado de novedades</a>
+    </div>
+</div>
+
+<div class="row" *ngIf="news">
+    <div class="col-sm-12">
+        <div class="card border-0">
+            <div class="card-body cardContainer">
+                <div class="backLink col col-sm-12">
+                    <a class="col-sm-1 btn btn-info " routerLink="/contratacion/vernovedades" *ngIf="viewFlag">Volver</a>
+                </div>
+                <div class="formContainer">
+                    <form #novedadForm="ngForm" class="form-container" (ngSubmit)="onSubmit(novedadForm)" style="text-align: left;">
+                        <div class="form-group">
+                            <div class="col col-12 d-inline-block align-top">
+                                <label for="novedad" class="labelForm">Novedad*</label>
+                                <textarea name="novedad" rows="10" class="form-control inputForm" [ngClass]="{'is-invalid': novedad.touched && novedad.invalid}" #novedad="ngModel" [(ngModel)]="news.Novedad" required placeholder="Ingrese la novedad a reportar"></textarea>
+                                <small class="invalid-feedback d-block font-weight-bold" *ngIf="novedad.invalid && novedad.touched">Debe ingresar una novedad. El campo es obligatorio</small>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col col-sm-12 align-top">
+                                <label for="document" class="labelForm">Documento</label>
+                                <div (click)="downloadFile()" class="badge badge-info d-block personalizedBadge" *ngIf="news.Archivo && showFile">{{'Descargar archivo: ' + news.Archivo }}</div>
+                                <div (click)="editFile('editar')" class="badge badge-warning d-inline-block personalizedBadge" *ngIf="news.Archivo && showFile && !close">Editar</div>
+                                <app-load-document (sendFileName)="setFileName($event)" (deleteFile)="deleteFile($event)" formatsAllowed=".pdf" maxSize="100" url="news/upload-file" localStorageText="novedadLoadedDocument" *ngIf="!showFile && !close"></app-load-document>
+                                <div (click)="editFile('cancelar')" class="badge badge-danger d-inline-block personalizedBadge" *ngIf="previusDocument && !showFile">Cancelar</div>
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-top: 2rem" *ngIf="editFlag">
+                            <div class="col col-sm-12 buttonSubmit">
+                                <input type="submit" value="{{ buttonText }}" class="btn btn-success btnPrefer col-sm-12" [disabled]="novedadForm.invalid">
+                            </div>
+                        </div>
+                        <div class="mt-3 col col-sm-12 errorAlert" *ngIf="status=='error' && responseMessage">
+                            <div class="alert alert-danger" role="alert">
+                                {{ responseMessage }}
+                            </div>
+                        </div>
+                        <div class="deleteLoader" *ngIf="preloaderStatus">
+                            <div class="loader"></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
