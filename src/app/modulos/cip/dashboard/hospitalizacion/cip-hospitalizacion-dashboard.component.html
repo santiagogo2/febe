@@ -1,0 +1,102 @@
+<div class="loaderBall" *ngIf="!indicators && !responseMessage">
+    <div class="ball-pulse-rise">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+<div class="mt-3 errorAlert alert-danger" *ngIf="status=='error' && responseMessage && !indicators">
+    <div class="alert" role="alert">
+        {{ responseMessage }}
+    </div>
+</div>
+
+<div class="row" *ngIf="indicators">
+    <div class="col-sm-12 col-md-3 mt-3">
+        <div class="card border-0">
+            <h5 class="cardTitle">Redes</h5>
+            <div class="card-body" style="height: 370px; overflow: auto;">
+                <div class="col-lg-12 pl-3 align-top checkbox dropdown-item">
+                    <input type="checkbox" [(ngModel)]="selectRedes" (ngModelChange)="selectBoxes( redes, selectRedes )" name="todosRedes" id="todosRedes" value="todosRedes">
+                    <label class="checkbox" for="todosRedes">TODOS</label>
+                </div>
+                <div class="col-lg-12 pl-3 align-top checkbox dropdown-item" *ngFor="let red of redes">
+                    <input type="checkbox" [(ngModel)]="red.isSelected" (ngModelChange)="doFilters()" name="{{ red.name }}" id="{{ red.name }}" value="{{ red.name }}">
+                    <label class="checkbox" for="{{ red.name }}">{{ red.name }}</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-3 mt-3">
+        <div class="card border-0">
+            <h5 class="cardTitle">Sedes</h5>
+            <div class="card-body" style="height: 370px; overflow: auto;">
+                <div class="col-lg-12 pl-3 align-top checkbox dropdown-item">
+                    <input type="checkbox" [(ngModel)]="selectSedes" (ngModelChange)="selectBoxes( sedes, selectSedes )" name="todosSedes" id="todosSedes" value="todosSedes">
+                    <label class="checkbox" for="todosSedes">TODOS</label>
+                </div>
+                <div class="col-lg-12 pl-3 align-top checkbox dropdown-item" *ngFor="let sede of sedes">
+                    <input type="checkbox" [(ngModel)]="sede.isSelected" (ngModelChange)="doFilters()" name="{{ sede.name }}" id="{{ sede.name }}" value="{{ sede.name }">
+                    <label class="checkbox" for="{{ sede.name }}">{{ sede.name }}</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-3 mt-3">
+        <div class="card border-0">
+            <h5 class="cardTitle">Servicios</h5>
+            <div class="card-body" style="height: 370px; overflow: auto;">
+                <div class="col-lg-12 pl-3 align-top checkbox dropdown-item">
+                    <input type="checkbox" [(ngModel)]="selectServices" (ngModelChange)="selectBoxes( services, selectServices )" name="todosServices" id="todosServices" value="todosServices">
+                    <label class="checkbox" for="todosServices">TODOS</label>
+                </div>
+                <div class="col-lg-12 pl-3 align-top checkbox dropdown-item" *ngFor="let service of services">
+                    <input type="checkbox" [(ngModel)]="service.isSelected" (ngModelChange)="doFilters()" name="{{ service.name }}" id="{{ service.name }}" value="{{ service.name }">
+                    <label class="checkbox" for="{{ service.name }}">{{ service.name }}</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-3 mt-3">
+        <div class="card border-0">
+            <h5 class="cardTitle">Años</h5>
+            <div class="card-body" style="height: 370px; overflow: auto;">
+                <div class="col-lg-12 pl-3 align-top checkbox dropdown-item">
+                    <input type="checkbox" [(ngModel)]="selectYears" (ngModelChange)="selectBoxes( years, selectYears )" name="todosYears" id="todosYears" value="todosYears">
+                    <label class="checkbox" for="todosYears">TODOS</label>
+                </div>
+                <div class="col-lg-12 pl-3 align-top checkbox dropdown-item" *ngFor="let year of years">
+                    <input type="checkbox" [(ngModel)]="year.isSelected" (ngModelChange)="doFilters()" name="{{ year.name }}" id="{{ year.name }}" value="{{ year.name }">
+                    <label class="checkbox" for="{{ year.name }}">{{ year.name }}</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="deleteLoader mt-3" *ngIf="preloaderStatus">
+    <div class="loader"></div>
+</div>
+<div class="mt-3 col col-sm-12 errorAlert p-0" *ngIf="filterMessage && !preloaderStatus">
+    <div class="alert alert-danger" role="alert">
+        {{ filterMessage }}
+    </div>
+</div>
+
+<div *ngIf="!preloaderStatus && !filterMessage && graphics">
+    <div class="row reports" *ngFor="let graph of graphics">
+        <div class="col-12 reportGraph pl-0 pr-0">
+            <div class="card border-0">
+                <h4 class="card-header">{{ graph.title }}</h4>
+                <div class="card-body">
+                    <app-grafico-barras [barChartData]="graph.data" [barChartLabels]="graph.labels" [barChartType]="graph.type" barChartLegend=true [barChartColors]="barChartColors">
+                    </app-grafico-barras>
+                    <div class="warningNote">
+                        <small>*NOTA: {{ yearNote }}</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
