@@ -13,7 +13,7 @@ export class GraficoBarrasComponent implements OnInit {
 	@Input() public barChartLabels: string[];
 	@Input() public barChartType: string;
 	@Input() public barChartLegend = false;
-	@Input() public needColors = true;
+	@Input() public barChartColors: any = false;
 
 	public barChartPlugins = [pluginDataLabels];
 	public barChartOptions: ChartOptions = {
@@ -54,12 +54,10 @@ export class GraficoBarrasComponent implements OnInit {
 		}
 	};
 
-	public barChartColors: Array<any>;
-
 	constructor() {}
 
 	ngOnInit(): void {
-		if ( this.needColors === true ) {
+		if ( this.barChartColors === false ) {
 			this.setColors();
 		}
 	}

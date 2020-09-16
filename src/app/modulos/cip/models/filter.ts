@@ -3,5 +3,6 @@ export class Filter {
 		public redes: Array<string>,
 		public sedes: Array<string>,
 		public years: Array<number>,
+		public services: Array<string>,
 	){}
 }

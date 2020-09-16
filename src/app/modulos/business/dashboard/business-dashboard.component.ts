@@ -18,6 +18,7 @@ export class BusinessDashboardComponent implements OnInit {
 	infoToReport: any;
 
 	bscIndicators: any;
+	barChartColors: any;
 
 	constructor(
 		private bscIndicatorService: BscIndicatorService,
@@ -29,6 +30,10 @@ export class BusinessDashboardComponent implements OnInit {
 	ngOnInit(): void {
 		this.actualYear = this.setDate();
 		this.followIndicatorList();
+
+		this.barChartColors = [
+			{ backgroundColor: 'rgba(24, 156, 217,  0.7)', borderColor: 'rgba(24, 156, 217,  1)', hoverBackgroundColor: 'rgba(24, 156, 217,  1)' },
+		];
 	}
 
 	followIndicatorList() {
@@ -100,7 +105,6 @@ export class BusinessDashboardComponent implements OnInit {
 				if ( element.mes === month.name ) {
 					if ( +element.val_denominador !== 0 ) {
 						dato = +(+element.val_numerador / +element.val_denominador).toFixed(2);
-						dato = 0;
 					}
 				}
 			}
