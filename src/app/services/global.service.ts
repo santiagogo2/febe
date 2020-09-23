@@ -160,6 +160,8 @@ export var global = {
 		{ id: 4, name: 'MONOGAFAS' },
 		{ id: 5, name: 'TAPABOCAS DESECHABLE' },
 		{ id: 6, name: 'TAPABOCAS N95' },
+		{ id: 7, name: 'KIT NÚMERO UNO COVID' },
+		{ id: 8, name: 'KIT NÚMERO DOS COVID DESECHABLE' },
 	],
 	nacionalidades: [
 		{ id: 1, name: 'COLOMBIANO' },

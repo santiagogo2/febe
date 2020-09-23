@@ -72,10 +72,10 @@ export class CipConsultaExternaComponent implements OnInit {
 			},
 			error => {
 				this.status = 'error';
-				if (error.message) {
-					this.responseMessage = error.error.message ? error.error.message : error.message;
-				} else {
+				if ( error.status === 500 ) {
 					this.responseMessage = 'Ha ocurrido un problema cargando la información. Por favor recargue la página.';
+				} else {
+					this.responseMessage = error.error.message ? error.error.message : error.message;
 				}
 				console.log( error );
 			}
@@ -101,7 +101,7 @@ export class CipConsultaExternaComponent implements OnInit {
 					const oportunidadPrimeraVez = this.cipService.setInfo(this.indicators, 'Oportunidad Primera Vez', 'oportunidadPrimeraVez' );
 					const oportunidadControl = this.cipService.setInfo(this.indicators, 'Oportunidad Control', 'oportunidadControl' );
 					const porcentajeInasistencia = this.cipService.setInfo(this.indicators, 'Porcentaje Inasistencia', 'porcentajeInasistencia' );
-					const asignadasVsProgramadas = this.cipService.setInfo(this.indicators, 'Asignadas vs Programadas', 'asignadasVsProgramadas' );
+					const asignadasVsProgramadas = this.cipService.setInfo(this.indicators, 'Porcentaje Asignadas vs Programadas', 'asignadasVsProgramadas' );
 
 					this.graphics = [
 						produccion,

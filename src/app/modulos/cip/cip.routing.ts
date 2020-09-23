@@ -4,10 +4,12 @@ import { RouterModule, Routes } from '@angular/router';
 // Components
 import { CipHospitalizacionDashboardComponent } from './dashboard/hospitalizacion/cip-hospitalizacion-dashboard.component';
 import { CipConsultaExternaComponent } from './dashboard/consulta-externa/cip-consulta-externa.component';
+import { CipCirugiaDashboardComponent } from './dashboard/cirugia/cip-cirugia-dashboard.component';
 
 const cipRoutes: Routes = [
 	{ path: 'dashboard', component: CipHospitalizacionDashboardComponent, data: { title: 'CIP Dashboard'} },
 	{ path: 'consultaexterna/dashboard', component: CipConsultaExternaComponent, data: { title: 'CIP Dashboard'} },
+	{ path: 'cirugia/dashboard', component: CipCirugiaDashboardComponent, data: { title: 'CIP Dashboard'} },
 	{ path: '', redirectTo: 'dashboard', pathMatch: 'full' },
 ];
 

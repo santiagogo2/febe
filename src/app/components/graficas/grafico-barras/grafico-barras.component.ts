@@ -26,6 +26,16 @@ export class GraficoBarrasComponent implements OnInit {
 				// Esta configuración alinea las barras en una sola
 				// stacked: true,
 				// ticks: { stepSize: 1 }
+				ticks: {
+					beginAtZero: true,
+					callback: function( value: any ) {
+						if ( parseInt( value ) >= 1000) {
+							return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+						} else {
+							return value;
+						}
+					}
+				}
 			}],
 			xAxes: [{
 				// Esta configuración alinea las barras en una sola
@@ -48,7 +58,11 @@ export class GraficoBarrasComponent implements OnInit {
 				},
 				color: '#343A40',
 				formatter: (value, ctx) => {
-					return ctx.dataset.data[ctx.dataIndex];
+					if ( parseInt( value ) >= 1000) {
+						return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+					} else {
+						return value;
+					}
 				},
 			},
 		}
