@@ -9,12 +9,14 @@ import { CipRoutingModule } from './cip.routing';
 import { CipHospitalizacionDashboardComponent } from './dashboard/hospitalizacion/cip-hospitalizacion-dashboard.component';
 import { CipConsultaExternaComponent } from './dashboard/consulta-externa/cip-consulta-externa.component';
 import { CipCirugiaDashboardComponent } from './dashboard/cirugia/cip-cirugia-dashboard.component';
+import { CipPartosCesareasDashboardComponent } from './dashboard/partos-cesareas/cip-partos-cesareas-dashboard.component';
 
 @NgModule({
 	declarations: [
 		CipHospitalizacionDashboardComponent,
 		CipConsultaExternaComponent,
-		CipCirugiaDashboardComponent
+		CipCirugiaDashboardComponent,
+		CipPartosCesareasDashboardComponent
 	],
 	imports: [
 		CommonModule,
