@@ -95,7 +95,8 @@ export class CipConsultaExternaComponent implements OnInit {
 			res => {
 				if ( res.status === 'success' ) {
 					this.indicators = res.indicators;
-					const produccion = this.cipService.setInfo(this.indicators, 'Producción', 'produccion' );
+					const produccion: any = this.cipService.setInfo(this.indicators, 'Producción', 'produccion' );
+					produccion.type = 'horizontalBar';
 					const rendimiento = this.cipService.setInfo(this.indicators, 'Rendimiento', 'rendimiento' );
 					const utilizacionRecursoHumano = this.cipService.setInfo(this.indicators, 'Utilización Recurso Humano', 'utilizacionRecursoHumano' );
 					const oportunidadPrimeraVez = this.cipService.setInfo(this.indicators, 'Oportunidad Primera Vez', 'oportunidadPrimeraVez' );
