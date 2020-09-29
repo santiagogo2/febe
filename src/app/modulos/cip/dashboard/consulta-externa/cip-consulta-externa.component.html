@@ -9,7 +9,7 @@
 </div>
 <div class="mt-3 errorAlert alert-danger" *ngIf="status=='error' && responseMessage && !indicators">
     <div class="alert" role="alert">
-        {{ responseMessage }}
+        {{ responseMessage }} <a [routerLink]="['/cip']" (click)="getFilters()">Volver a intentarlo</a>
     </div>
 </div>
 

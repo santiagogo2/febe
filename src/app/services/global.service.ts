@@ -12,6 +12,7 @@ export var global = {
 		{ title: 'mipres', imageUrl: 'assets/images/modulos/mipres.png', class: 'imageContainer color-yellow', url: '/mipres' },
 		{ title: 'contratacion', imageUrl: 'assets/images/modulos/contracts.png', class: 'imageContainer color-pink', url: '/contratacion' },
 		{ title: 'business', imageUrl: 'assets/images/modulos/business.png', class: 'imageContainer color-dark-pink', url: '/business' },
+		{ title: 'CIP', imageUrl: 'assets/images/modulos/cip.png', class: 'imageContainer color-pink', url: '/cip' },
 	],
 	estados: [
 		{id: 1, value: 'CUARENTENA'},

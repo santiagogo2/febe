@@ -46,6 +46,9 @@ export class IconsPopupComponent implements OnInit {
 			if ( element.id_operations === 64 ) {
 				array.push(this.iconsArray[6]);
 			}
+			if ( element.id_operations === 68 ) {
+				array.push(this.iconsArray[7]);
+			}
 		});
 		this.iconsArray = array;
 	}

@@ -651,6 +651,29 @@ header .nav-item:hover {
     background-color: #36888C !important;
 }
 
+.btn-cip-dashboard {
+    border: 2px solid #48BABF !important;
+    transition: all 1s ease;
+}
+
+.btn-cip-dashboard:hover,
+.btn-cip-dashboard:not(:disabled):not(.disabled):active {
+    box-shadow: inset 0 3rem #48BABF;
+    color: #FFF !important;
+}
+
+.btn-cip-dashboard:focus {
+    color: #fff;
+    background-color: #48BABF;
+    border-color: #48BABF;
+    box-shadow: 0 0 0 0.2rem #48BABF80;
+}
+
+.btn-cip-active {
+    background-color: #48BABF !important;
+    color: #FFF !important;
+}
+
 
 /*---------------------------------------------
  Modal Styles

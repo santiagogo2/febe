@@ -126,6 +126,14 @@ export class NavbarComponent implements OnInit {
 				{ title: 'Dashboard', url: '/business/dashboard', operationId: 65 },
 			]
 		},
+		{
+			title: 'CIP',
+			url: '/cip',
+			operationId: 68,
+			dropdown: [
+				{ title: 'Dashboard', url: '/cip/dashboard', operationId: 69 },
+			]
+		},
 	];
 
 	constructor() {
