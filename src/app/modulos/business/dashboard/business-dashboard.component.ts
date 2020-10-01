@@ -103,7 +103,10 @@ export class BusinessDashboardComponent implements OnInit {
 			let dato = 0;
 			for ( const element of array ) {
 				if ( element.mes === month.name ) {
-					if ( +element.val_denominador !== 0 ) {
+					console.log(element);
+					if ( +element.resultado ) {
+						dato = +element.resultado;
+					} else if ( +element.val_denominador !== 0 ) {
 						dato = +(+element.val_numerador / +element.val_denominador).toFixed(2);
 					}
 				}
@@ -126,7 +129,9 @@ export class BusinessDashboardComponent implements OnInit {
 			for ( const follow of follows ) {
 				if ( follow.mes === month.name ) {
 					let result = 0;
-					if ( +follow.val_denominador !== 0 ) {
+					if ( follow.resultado ) {
+						result = +follow.resultado;
+					} else if ( +follow.val_denominador !== 0 ) {
 						result = +follow.val_numerador / +follow.val_denominador;
 					}
 					if ( (+mayorMenor === 0 && result >= satisfaccion) || (+mayorMenor === 1 && result < satisfaccion) ) {

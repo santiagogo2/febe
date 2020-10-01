@@ -6,11 +6,11 @@ import { BusinessDashboardComponent } from './dashboard/business-dashboard.compo
 import { BusinessDashboardGuard } from './guards/business-guards.index';
 
 const businessRoutes: Routes = [
-	{ path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+	{ path: '', redirectTo: 'tablero', pathMatch: 'full' },
 	{
-		path: 'dashboard',
+		path: 'tablero',
 		component: BusinessDashboardComponent,
-		data: { titulo: 'Business Dashboard' },
+		data: { titulo: 'Tablero Business' },
 		canActivate: [BusinessDashboardGuard]
 	},
 ];

@@ -53,7 +53,7 @@ const salaSituacionRoutes: Routes = [
 		canActivate: [ ColaboradoresRegisterGuard ]
 	},
 
-	{ path: 'informes', component: InformesComponent, data: { titulo: 'Informes' }, canActivate: [ SalaSituacionalInformesGuard ] },
+	{ path: 'informes', component: InformesComponent, data: { titulo: 'Informes Sala Situacional' }, canActivate: [ SalaSituacionalInformesGuard ] },
 	{ path: '', component: SalaSituacionalComponent, data: { titulo: 'Sala Situacional' }, canActivate: [ SalaSituacionalGuard ] },
 ];
 

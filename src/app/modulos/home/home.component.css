@@ -1,0 +1,29 @@
+.textImageContainer {
+    position: absolute;
+    top: 0;
+    right: 15px;
+    padding: 25px 25px 15px;
+}
+
+.logoHomeContainer {
+    position: absolute;
+    top: 0;
+    left: 15px;
+    padding: 25px 25px 15px;
+}
+
+.logoHomeContainer img {
+    display: inline-block;
+    max-width: 250px;
+}
+
+.textImageContainer span {
+    display: inline-block;
+}
+
+.textImageContainer span {
+    font-size: 2rem;
+    color: #FFF;
+    vertical-align: -webkit-baseline-middle;
+    margin-left: 1rem;
+}

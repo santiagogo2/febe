@@ -16,6 +16,7 @@ export class CipDashboardComponent implements OnInit {
 			{ id: 3, title: 'Cirugía' },
 			{ id: 4, title: 'Partos y Cesareas' },
 			{ id: 5, title: 'Laboratorio Clínico' },
+			{ id: 6, title: 'Enfermería' },
 		]
 	}
 

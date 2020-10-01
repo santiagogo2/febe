@@ -123,7 +123,7 @@ export class NavbarComponent implements OnInit {
 			url: '/business',
 			operationId: 64,
 			dropdown: [
-				{ title: 'Dashboard', url: '/business/dashboard', operationId: 65 },
+				{ title: 'Tablero Business', url: '/business/tablero', operationId: 65 },
 			]
 		},
 		{
@@ -131,7 +131,7 @@ export class NavbarComponent implements OnInit {
 			url: '/cip',
 			operationId: 68,
 			dropdown: [
-				{ title: 'Dashboard', url: '/cip/dashboard', operationId: 69 },
+				{ title: 'Tablero CIP', url: '/cip/tablero', operationId: 69 },
 			]
 		},
 	];

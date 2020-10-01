@@ -33,7 +33,7 @@ const uciRoutes: Routes = [
 		canActivate: [ UciEditGuard ]
 	},
 
-	{ path: 'informes', component: InformesUciComponent, data: { titulo: 'Informes' }, canActivate: [ UciInformesGuard ] },
+	{ path: 'informes', component: InformesUciComponent, data: { titulo: 'Informes UCI' }, canActivate: [ UciInformesGuard ] },
 	{ path: '', component: UciComponent, data: { titulo: 'UCI' }, canActivate: [ UciGuard ] },
 ];
 

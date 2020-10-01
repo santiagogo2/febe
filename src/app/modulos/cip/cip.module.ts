@@ -12,6 +12,7 @@ import { CipConsultaExternaComponent } from './dashboard/consulta-externa/cip-co
 import { CipCirugiaDashboardComponent } from './dashboard/cirugia/cip-cirugia-dashboard.component';
 import { CipPartosCesareasDashboardComponent } from './dashboard/partos-cesareas/cip-partos-cesareas-dashboard.component';
 import { CipLaboratorioDashboardComponent } from './dashboard/laboratorio/cip-laboratorio-dashboard.component';
+import { CipEnfermeriaDashboardComponent } from './dashboard/enfermeria/cip-enfermeria-dashboard.component';
 
 @NgModule({
 	declarations: [
@@ -21,6 +22,7 @@ import { CipLaboratorioDashboardComponent } from './dashboard/laboratorio/cip-la
 		CipCirugiaDashboardComponent,
 		CipPartosCesareasDashboardComponent,
 		CipLaboratorioDashboardComponent,
+		CipEnfermeriaDashboardComponent,
 	],
 	imports: [
 		CommonModule,
