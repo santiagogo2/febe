@@ -23,7 +23,7 @@ import { SubirContratosComponent } from './certificaciones/contratos/subir-contr
 import { ValidarcertComponent } from './certificaciones/validarcert/validarcert.component';
 import { SolicitarcertComponent } from './certificaciones/solicitarcert/solicitarcert.component';
 import { CrearComponent } from './contratos/crear/crear.component';
-import { IngresoComponent } from './contratos/ingreso/ingreso.component';
+// import { IngresoComponent } from './contratos/ingreso/ingreso.component';
 
 @NgModule({
 	declarations: [
@@ -39,8 +39,7 @@ import { IngresoComponent } from './contratos/ingreso/ingreso.component';
 		ValidarcertComponent,
 		SolicitarcertComponent,
 		CrearComponent,
-		IngresoComponent
-
+		// IngresoComponent
 	],
 	imports: [
 		CommonModule,

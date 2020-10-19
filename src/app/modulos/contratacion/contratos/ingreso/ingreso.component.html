@@ -21,133 +21,136 @@
                     <a class="col-sm-1 btn-sm btn-info" routerLink="/contratacion/buscarcontratos" *ngIf="viewFlag">Volver</a>
                 </div>
                 <div class="formContainer">
-   					<form #ingresoForm="ngForm" class="form-container" (ngSubmit)="onSubmit(ingresoForm)" style="text-align: left;">
-							<div class="col col-lg-2 d-inline-block"><label for="tipoDoc">Tipo Documento</label>
-							 	<select style="background-position-x: 95%" name="tipoDoc" id="tipoDoc" class="form-control inputForm" [ngClass]="{'is-invalid': tipoDoc.invalid && tipoDoc.touched}" #tipoDoc="ngModel" [(ngModel)]="ingreso.tipoDoc" required>
+                    <form #ingresoForm="ngForm" class="form-container" (ngSubmit)="onSubmit(ingresoForm)" style="text-align: left;">
+                        <div class="col col-lg-2 d-inline-block"><label for="tipoDoc">Tipo Documento</label>
+                            <select style="background-position-x: 95%" name="tipoDoc" id="tipoDoc" class="form-control inputForm" [ngClass]="{'is-invalid': tipoDoc.invalid && tipoDoc.touched}" #tipoDoc="ngModel" [(ngModel)]="ingreso.tipoDoc" required>
 										<option value="CC">Cedula Ciudadania</option>
 										<option value="CE">Cedula de Extranjeria</option>
 										<option value="PP">Pasaporte</option>
 										<option value="NI">Nit</option>
 									  </select>
-                                <small class="invalid-feedback d-block font-weight-bold" *ngIf="tipoDoc.invalid && tipoDoc.touched">Debe seleccionar una opción. El campo es obligatorio</small>
+                            <small class="invalid-feedback d-block font-weight-bold" *ngIf="tipoDoc.invalid && tipoDoc.touched">Debe seleccionar una opción. El campo es obligatorio</small>
 
-								</div>
-							<div class="col col-lg-2 d-inline-block"><label for="documento">Documento</label>
+                        </div>
+                        <div class="col col-lg-2 d-inline-block"><label for="documento">Documento</label>
 
-								<input type="text" name="documento" class="form-control inputForm" [ngClass]="{'is-invalid': documento.touched && documento.invalid}" #documento="ngModel" [(ngModel)]="ingreso.documento" required pattern="[0-9]+" minlength="4" maxlength="50" placeholder="Digite Primer Nombre">
-                                <small class="invalid-feedback d-block font-weight-bold" *ngIf="documento.invalid && documento.touched">Debe ingresar un nombre. El campo es obligatorio</small>
-							      </div>
-							     
-						    <div class="col col-lg-2 d-inline-block"><label for="digitoVer">D.V.</label>
+                            <input type="text" name="documento" class="form-control inputForm" [ngClass]="{'is-invalid': documento.touched && documento.invalid}" #documento="ngModel" [(ngModel)]="ingreso.documento" required pattern="[0-9]+" minlength="4" maxlength="50" placeholder="Digite Primer Nombre">
+                            <small class="invalid-feedback d-block font-weight-bold" *ngIf="documento.invalid && documento.touched">Debe ingresar un nombre. El campo es obligatorio</small>
+                        </div>
 
-								<input type="text" name="digitoVer" class="form-control inputForm" [ngClass]="{'is-invalid': digitoVer.touched && digitoVer.invalid}" #digitoVer="ngModel" [(ngModel)]="ingreso.digitoVer"  pattern="[0-9]+" >
-                                <small class="invalid-feedback d-block font-weight-bold" *ngIf="digitoVer.invalid && digitoVer.touched">Debe ingresar un número. El campo es obligatorio</small>
-							      </div>  
-							     
-							<div class="col col-lg-3 d-inline-block"><p><label for="LugExp">Lugar de Expedicion</label>
-								
-								<select id="LugExp" name="LugExp"><option value="1">BOGOTA D.C.</option><option value="2">EL ENCANTO </option><option value="3">LA CHORRERA </option><option value="4">LA PEDRERA </option><option value="5">LA VICTORIA</option><option value="6">LETICIA</option><option value="7">MIRITI - PARANA</option><option value="8">PUERTO ALEGRIA</option><option value="9">PUERTO ARICA</option><option value="10">PUERTO NARI&Ntilde;O</option><option value="11">PUERTO SANTANDER </option><option value="12">TARAPACA</option><option value="13">ABEJORRAL </option><option value="14">ABRIAQUI </option><option value="15">ALEJANDRIA</option><option value="16">AMAGA</option><option value="17">AMALFI</option><option value="18">ANDES </option><option value="19">ANGELOPOLIS</option><option value="20">ANGOSTURA</option><option value="21">ANORI </option><option value="22">ANZA</option><option value="23">APARTADO</option><option value="24">ARBOLETES</option><option value="25">ARGELIA</option><option value="26">ARMENIA</option><option value="27">BARBOSA</option><option value="28">BELLO </option><option value="29">BELMIRA</option><option value="30">BETANIA</option><option value="31">BETULIA</option><option value="32">BRICE&Ntilde;O</option><option value="33">BURITICA</option><option value="34">CACERES</option><option value="35">CAICEDO</option><option value="36">CALDAS</option><option value="37">CAMPAMENTO</option><option value="38">CA&Ntilde;ASGORDAS</option><option value="39">CARACOLI </option><option value="40">CARAMANTA</option><option value="41">CAREPA </option><option value="42">CAROLINA</option><option value="43">CAUCASIA</option><option value="44">CHIGORODO</option><option value="45">CISNEROS </option><option value="46">CIUDAD BOLIVAR</option><option value="47">COCORNA</option><option value="48">CONCEPCION</option><option value="49">CONCORDIA </option><option value="50">COPACABANA</option><option value="51">DABEIBA</option><option value="52">DON MATIAS</option><option value="53">EBEJICO</option><option value="54">EL BAGRE </option><option value="55">EL CARMEN DE VIBORAL</option><option value="56">EL SANTUARIO </option><option value="57">ENTRERRIOS</option><option value="58">ENVIGADO</option><option value="59">FREDONIA</option><option value="60">FRONTINO</option><option value="61">GIRALDO</option><option value="62">GIRARDOTA</option><option value="63">GOMEZ PLATA</option><option value="64">GRANADA</option><option value="65">GUADALUPE</option><option value="66">GUARNE</option><option value="67">GUATAPE</option><option value="68">HELICONIA</option><option value="69">HISPANIA</option><option value="70">ITAG&Uuml;I </option><option value="71">ITUANGO</option><option value="72">JARDIN</option><option value="73">JERICO </option><option value="74">LA CEJA</option><option value="75">LA ESTRELLA</option><option value="76">LA PINTADA</option><option value="77">LA UNION</option><option value="78">LIBORINA</option><option value="79"> MACEO</option><option value="80">MARINILLA</option><option value="81">MEDELLIN </option><option value="82">MONTEBELLO</option><option value="83">MURINDO</option><option value="84">MUTATA </option><option value="85">NARI&Ntilde;O </option><option value="86">NECHI</option><option value="87">NECOCLI </option><option value="88">OLAYA</option><option value="89">PE&Ntilde;OL </option><option value="90">PEQUE </option><option value="91">PUEBLORRICO</option><option value="92">PUERTO BERRIO</option><option value="93">PUERTO NARE</option><option value="94">PUERTO TRIUNFO</option><option value="95">REMEDIOS </option><option value="96">RETIRO</option><option value="97">RIONEGRO</option><option value="98">SABANALARGA</option><option value="99">SABANETA</option><option value="100">SALGAR </option><option value="101">SAN ANDRES</option><option value="102">SAN CARLOS </option><option value="103">SAN FRANCISCO</option><option value="104">SAN JERONIMO</option><option value="105">SAN JOSE DE LA MONTA&Ntilde;A </option><option value="106">SAN JUAN DE URABA</option><option value="107">SAN LUIS </option><option value="108">SAN PEDRO</option><option value="109">SAN PEDRO DE URABA</option><option value="110">SAN RAFAEL </option><option value="111">SAN ROQUE</option><option value="112">SAN VICENTE</option><option value="113">SANTA BARBARA</option><option value="114">SANTA ROSA DE OSOS</option><option value="115"> SANTAFE DE ANTIOQUIA </option><option value="116">SANTO DOMINGO</option><option value="117">SEGOVIA</option><option value="118">SONSON</option><option value="119">SOPETRAN</option><option value="120">TARAZA </option><option value="121">TARSO </option><option value="122">TITIRIBI</option><option value="123">TOLEDO</option><option value="124">TURBO </option><option value="125">URAMITA</option><option value="126">URRAO</option><option value="127">VALDIVIA</option><option value="128">VALPARAISO</option><option value="129">VEGACHI</option><option value="130">AGUA DE DIOS</option><option value="131">ALBAN</option><option value="132">ANAPOIMA</option><option value="133">ANOLAIMA</option><option value="134">ARBELAEZ</option><option value="135">BELTRAN</option><option value="136">BITUIMA</option><option value="137">BOJACA</option><option value="138">CABRERA</option><option value="139">CACHIPAY</option><option value="140">CAJICA</option><option value="141">CAPARRAPI</option><option value="142">CAQUEZA</option><option value="143">CARMEN DE CARUPA</option><option value="144">CHAGUANI</option><option value="145">CHIA</option><option value="146">CHIPAQUE</option><option value="147">CHOACHI</option><option value="148">CHOCONTA</option><option value="149">COGUA</option><option value="150">COTA</option><option value="151">CUCUNUBA</option><option value="152">EL COLEGIO</option><option value="153">EL PE&Ntilde;ON</option><option value="154">EL ROSAL</option><option value="155">FACATATIVA</option><option value="156">FOMEQUE</option><option value="157">FOSCA</option><option value="158">FUNZA</option><option value="159">FUQUENE</option><option value="160">FUSAGASUGA</option><option value="161">GACHALA</option><option value="162">GACHANCIPA</option><option value="163">GACHETA</option><option value="164">GAMA</option><option value="165">GIRARDOT</option><option value="166">GRANADA</option><option value="167">GUACHETA</option><option value="168">GUADUAS</option><option value="169">GUASCA</option><option value="170">GUATAQUI</option><option value="171">GUATAVITA</option><option value="172">GUAYABAL DE SIQUIMA</option><option value="173">GUAYABETAL</option><option value="174">GUTIERREZ</option><option value="175">JERUSALEN</option><option value="176">JUNIN</option><option value="177">LA CALERA</option><option value="178">LA MESA</option><option value="179">LA PALMA</option><option value="180">LA PE&Ntilde;A</option><option value="181">LA VEGA</option><option value="182">LENGUAZAQUE</option><option value="183">MACHETA</option><option value="184">MADRID</option><option value="185">MANTA</option><option value="186">MEDINA</option><option value="187">MOSQUERA</option><option value="188">NARI&Ntilde;O</option><option value="189">NEMOCON</option><option value="190">NILO</option><option value="191">NIMAIMA</option><option value="192">NOCAIMA</option><option value="193">VENECIA</option><option value="194">PACHO</option><option value="195">PAIME</option><option value="196">PANDI</option><option value="197">PARATEBUENO</option><option value="198">PASCA</option><option value="199">PUERTO SALGAR</option><option value="200">PULI</option><option value="201">QUEBRADANEGRA</option><option value="202">QUETAME</option><option value="203">QUIPILE</option><option value="204">APULO</option><option value="205">RICAURTE</option><option value="206">SAN ANTONIO DEL TEQUENDAMA</option><option value="207">SAN BERNARDO</option><option value="208">SAN CAYETANO</option><option value="209">SAN FRANCISCO</option><option value="210">SAN JUAN DE RIO SECO</option><option value="211">SASAIMA</option><option value="212">SESQUILE</option><option value="213">SIBATE</option><option value="214">SILVANIA</option><option value="215">SIMIJACA</option><option value="216">SOACHA</option><option value="217">SOPO</option><option value="218">SUBACHOQUE</option><option value="219">SUESCA</option><option value="220">SUPATA</option><option value="221">SUSA</option><option value="222">SUTATAUSA</option><option value="223">TABIO</option><option value="224">TAUSA</option><option value="225">TENA</option><option value="226">TENJO</option><option value="227">TIBACUY</option><option value="228">TIBIRITA</option><option value="229">TOCAIMA</option><option value="230">TOCANCIPA</option><option value="231">TOPAIPI</option><option value="232">UBALA</option><option value="233">UBAQUE</option><option value="234">VILLA DE SAN DIEGO DE UBATE</option><option value="235">UNE</option><option value="236">UTICA</option><option value="237">VERGARA</option><option value="238">VIANI</option><option value="239">VILLAGOMEZ</option><option value="240">VILLAPINZON</option><option value="241">VILLETA</option><option value="242">VIOTA</option><option value="243">YACOPI</option><option value="244">ZIPACON</option><option value="245">ZIPAQUIRA</option><option value="246">CALI</option><option value="247">BUCARAMANGA</option><option value="248">BARRANQUILLA</option><option value="249">CARTAGENA</option><option value="250">TUNJA</option><option value="252">CHAPINERO</option><option value="253">SANTA FE</option><option value="254">SAN CRISTOBAL</option><option value="255">USME</option><option value="256">TUNJUELITO</option><option value="257">BOSA</option><option value="258">KENNEDY</option><option value="259">FONTIBON</option><option value="260">ENGATIVA</option><option value="261">SUBA</option><option value="262">BARRIOS UNIDOS</option><option value="263">TEUSAQUILLO</option><option value="264">LOS MARTIRES</option><option value="265">ANTONIO NARI&Ntilde;O</option><option value="266">PUENTE ARANDA</option><option value="267">CANDELARIA</option><option value="268">RAFAEL URIBE</option><option value="269">CIUDAD BOLIVAR</option><option value="270">SUMAPAZ</option><option value="272">AGUADA</option><option value="273">ALBANIA</option><option value="274">ARATOCA</option><option value="275">BARBOSA</option><option value="276">BARICHARA</option><option value="277">BARRANCABERMEJA</option><option value="278">BETULIA</option><option value="279">BOLIVAR</option><option value="280">CABRERA</option><option value="281">CALIFORNIA</option><option value="282">CAPITANEJO</option><option value="283">CARCASI</option><option value="284">MAICAO</option><option value="285">RIOHACHA</option><option value="286">ALBANIA</option><option value="287">BARRANCAS</option><option value="288">DIBULLA</option><option value="289">DISTRACCION</option><option value="290">EL MOLINO</option><option value="291">FONSECA</option><option value="292">HATONUEVO</option><option value="293">LA JAGUA DEL PILAR</option><option value="294">MANAURE</option><option value="295">SAN JUAN DEL CESAR</option><option value="296">URIBIA</option><option value="297">URUMITA</option><option value="298">VILLANUEVA</option><option value="299">QUIBDO</option><option value="300">NEIVA</option><option value="301">PASTO</option><option value="302">YOPAL</option><option value="303">MONTERIA</option><option value="304">AYAPEL</option><option value="305">BUENA VISTA</option><option value="306">CERETE</option><option value="307">ARMENIA</option><option value="308">IBAGUE</option><option value="309">ANZOATEGUI</option><option value="310">ALPUJARRA</option><option value="311">CUCUTA</option><option value="312">LERIDA</option><option value="313">SINCELEJO</option><option value="314">VALLEDUPAR</option><option value="315">SAN ANDRES</option><option value="316">PROVIDENCIA</option><option value="317">SAN ANDRES SOTAVENTO</option><option value="318">FLORENCIA</option><option value="319">ORITO</option><option value="320">MITU</option><option value="321">POPAYAN</option><option value="322">VILLAVICENCIO</option><option value="323">SAN JOSE DEL GUAVIARE</option><option value="324">SANTA MARTA</option><option value="325">PEREIRA</option><option value="326">PUERTO CARRE&Ntilde;O</option><option value="327">LA PRIMAVERA</option><option value="328">SANTA ROSALIA</option><option value="329">CUMARIBO</option><option value="330">ZAPAYAN</option><option value="331">GRANADA</option><option value="332">GIGANTE</option><option value="333">MONTERREY</option><option value="334">VILLANUEVA</option><option value="335">SABANALARGA</option></select>
-							     </div>
-							<div class="col col-lg-2 d-inline-block"><label for="CodCiu"> Codigo C.I.U</label>
-							    <input type="text" name="CodCiu" class="form-control inputForm" [ngClass]="{'is-invalid': CodCiu.touched && CodCiu.invalid}" #CodCiu="ngModel" [(ngModel)]="ingreso.CodCiu"  pattern="[0-9]+" >
-							     <small class="invalid-feedback d-block font-weight-bold" *ngIf="CodCiu.invalid && CodCiu.touched">Debe ingresar un número. El campo es numérico</small>
-								</div>
-							   
-							<div class="col col-lg-1 d-inline-block"><label for="sexo">Sexo</label>
-								<select name="sexo" id="sexo" class="form-control  inputForm" [ngClass]="{'is-invalid': sexo.touched && sexo.invalid}" #sexo="ngModel" [(ngModel)]="ingreso.sexo" required>
+                        <div class="col col-lg-2 d-inline-block"><label for="digitoVer">D.V.</label>
+
+                            <input type="text" name="digitoVer" class="form-control inputForm" [ngClass]="{'is-invalid': digitoVer.touched && digitoVer.invalid}" #digitoVer="ngModel" [(ngModel)]="ingreso.digitoVer" pattern="[0-9]+">
+                            <small class="invalid-feedback d-block font-weight-bold" *ngIf="digitoVer.invalid && digitoVer.touched">Debe ingresar un número. El campo es obligatorio</small>
+                        </div>
+
+                        <div class="col col-lg-3 d-inline-block">
+                            <p><label for="LugExp">Lugar de Expedicion</label>
+
+                                <select id="LugExp" name="LugExp"><option value="1">BOGOTA D.C.</option><option value="2">EL ENCANTO </option><option value="3">LA CHORRERA </option><option value="4">LA PEDRERA </option><option value="5">LA VICTORIA</option><option value="6">LETICIA</option><option value="7">MIRITI - PARANA</option><option value="8">PUERTO ALEGRIA</option><option value="9">PUERTO ARICA</option><option value="10">PUERTO NARI&Ntilde;O</option><option value="11">PUERTO SANTANDER </option><option value="12">TARAPACA</option><option value="13">ABEJORRAL </option><option value="14">ABRIAQUI </option><option value="15">ALEJANDRIA</option><option value="16">AMAGA</option><option value="17">AMALFI</option><option value="18">ANDES </option><option value="19">ANGELOPOLIS</option><option value="20">ANGOSTURA</option><option value="21">ANORI </option><option value="22">ANZA</option><option value="23">APARTADO</option><option value="24">ARBOLETES</option><option value="25">ARGELIA</option><option value="26">ARMENIA</option><option value="27">BARBOSA</option><option value="28">BELLO </option><option value="29">BELMIRA</option><option value="30">BETANIA</option><option value="31">BETULIA</option><option value="32">BRICE&Ntilde;O</option><option value="33">BURITICA</option><option value="34">CACERES</option><option value="35">CAICEDO</option><option value="36">CALDAS</option><option value="37">CAMPAMENTO</option><option value="38">CA&Ntilde;ASGORDAS</option><option value="39">CARACOLI </option><option value="40">CARAMANTA</option><option value="41">CAREPA </option><option value="42">CAROLINA</option><option value="43">CAUCASIA</option><option value="44">CHIGORODO</option><option value="45">CISNEROS </option><option value="46">CIUDAD BOLIVAR</option><option value="47">COCORNA</option><option value="48">CONCEPCION</option><option value="49">CONCORDIA </option><option value="50">COPACABANA</option><option value="51">DABEIBA</option><option value="52">DON MATIAS</option><option value="53">EBEJICO</option><option value="54">EL BAGRE </option><option value="55">EL CARMEN DE VIBORAL</option><option value="56">EL SANTUARIO </option><option value="57">ENTRERRIOS</option><option value="58">ENVIGADO</option><option value="59">FREDONIA</option><option value="60">FRONTINO</option><option value="61">GIRALDO</option><option value="62">GIRARDOTA</option><option value="63">GOMEZ PLATA</option><option value="64">GRANADA</option><option value="65">GUADALUPE</option><option value="66">GUARNE</option><option value="67">GUATAPE</option><option value="68">HELICONIA</option><option value="69">HISPANIA</option><option value="70">ITAG&Uuml;I </option><option value="71">ITUANGO</option><option value="72">JARDIN</option><option value="73">JERICO </option><option value="74">LA CEJA</option><option value="75">LA ESTRELLA</option><option value="76">LA PINTADA</option><option value="77">LA UNION</option><option value="78">LIBORINA</option><option value="79"> MACEO</option><option value="80">MARINILLA</option><option value="81">MEDELLIN </option><option value="82">MONTEBELLO</option><option value="83">MURINDO</option><option value="84">MUTATA </option><option value="85">NARI&Ntilde;O </option><option value="86">NECHI</option><option value="87">NECOCLI </option><option value="88">OLAYA</option><option value="89">PE&Ntilde;OL </option><option value="90">PEQUE </option><option value="91">PUEBLORRICO</option><option value="92">PUERTO BERRIO</option><option value="93">PUERTO NARE</option><option value="94">PUERTO TRIUNFO</option><option value="95">REMEDIOS </option><option value="96">RETIRO</option><option value="97">RIONEGRO</option><option value="98">SABANALARGA</option><option value="99">SABANETA</option><option value="100">SALGAR </option><option value="101">SAN ANDRES</option><option value="102">SAN CARLOS </option><option value="103">SAN FRANCISCO</option><option value="104">SAN JERONIMO</option><option value="105">SAN JOSE DE LA MONTA&Ntilde;A </option><option value="106">SAN JUAN DE URABA</option><option value="107">SAN LUIS </option><option value="108">SAN PEDRO</option><option value="109">SAN PEDRO DE URABA</option><option value="110">SAN RAFAEL </option><option value="111">SAN ROQUE</option><option value="112">SAN VICENTE</option><option value="113">SANTA BARBARA</option><option value="114">SANTA ROSA DE OSOS</option><option value="115"> SANTAFE DE ANTIOQUIA </option><option value="116">SANTO DOMINGO</option><option value="117">SEGOVIA</option><option value="118">SONSON</option><option value="119">SOPETRAN</option><option value="120">TARAZA </option><option value="121">TARSO </option><option value="122">TITIRIBI</option><option value="123">TOLEDO</option><option value="124">TURBO </option><option value="125">URAMITA</option><option value="126">URRAO</option><option value="127">VALDIVIA</option><option value="128">VALPARAISO</option><option value="129">VEGACHI</option><option value="130">AGUA DE DIOS</option><option value="131">ALBAN</option><option value="132">ANAPOIMA</option><option value="133">ANOLAIMA</option><option value="134">ARBELAEZ</option><option value="135">BELTRAN</option><option value="136">BITUIMA</option><option value="137">BOJACA</option><option value="138">CABRERA</option><option value="139">CACHIPAY</option><option value="140">CAJICA</option><option value="141">CAPARRAPI</option><option value="142">CAQUEZA</option><option value="143">CARMEN DE CARUPA</option><option value="144">CHAGUANI</option><option value="145">CHIA</option><option value="146">CHIPAQUE</option><option value="147">CHOACHI</option><option value="148">CHOCONTA</option><option value="149">COGUA</option><option value="150">COTA</option><option value="151">CUCUNUBA</option><option value="152">EL COLEGIO</option><option value="153">EL PE&Ntilde;ON</option><option value="154">EL ROSAL</option><option value="155">FACATATIVA</option><option value="156">FOMEQUE</option><option value="157">FOSCA</option><option value="158">FUNZA</option><option value="159">FUQUENE</option><option value="160">FUSAGASUGA</option><option value="161">GACHALA</option><option value="162">GACHANCIPA</option><option value="163">GACHETA</option><option value="164">GAMA</option><option value="165">GIRARDOT</option><option value="166">GRANADA</option><option value="167">GUACHETA</option><option value="168">GUADUAS</option><option value="169">GUASCA</option><option value="170">GUATAQUI</option><option value="171">GUATAVITA</option><option value="172">GUAYABAL DE SIQUIMA</option><option value="173">GUAYABETAL</option><option value="174">GUTIERREZ</option><option value="175">JERUSALEN</option><option value="176">JUNIN</option><option value="177">LA CALERA</option><option value="178">LA MESA</option><option value="179">LA PALMA</option><option value="180">LA PE&Ntilde;A</option><option value="181">LA VEGA</option><option value="182">LENGUAZAQUE</option><option value="183">MACHETA</option><option value="184">MADRID</option><option value="185">MANTA</option><option value="186">MEDINA</option><option value="187">MOSQUERA</option><option value="188">NARI&Ntilde;O</option><option value="189">NEMOCON</option><option value="190">NILO</option><option value="191">NIMAIMA</option><option value="192">NOCAIMA</option><option value="193">VENECIA</option><option value="194">PACHO</option><option value="195">PAIME</option><option value="196">PANDI</option><option value="197">PARATEBUENO</option><option value="198">PASCA</option><option value="199">PUERTO SALGAR</option><option value="200">PULI</option><option value="201">QUEBRADANEGRA</option><option value="202">QUETAME</option><option value="203">QUIPILE</option><option value="204">APULO</option><option value="205">RICAURTE</option><option value="206">SAN ANTONIO DEL TEQUENDAMA</option><option value="207">SAN BERNARDO</option><option value="208">SAN CAYETANO</option><option value="209">SAN FRANCISCO</option><option value="210">SAN JUAN DE RIO SECO</option><option value="211">SASAIMA</option><option value="212">SESQUILE</option><option value="213">SIBATE</option><option value="214">SILVANIA</option><option value="215">SIMIJACA</option><option value="216">SOACHA</option><option value="217">SOPO</option><option value="218">SUBACHOQUE</option><option value="219">SUESCA</option><option value="220">SUPATA</option><option value="221">SUSA</option><option value="222">SUTATAUSA</option><option value="223">TABIO</option><option value="224">TAUSA</option><option value="225">TENA</option><option value="226">TENJO</option><option value="227">TIBACUY</option><option value="228">TIBIRITA</option><option value="229">TOCAIMA</option><option value="230">TOCANCIPA</option><option value="231">TOPAIPI</option><option value="232">UBALA</option><option value="233">UBAQUE</option><option value="234">VILLA DE SAN DIEGO DE UBATE</option><option value="235">UNE</option><option value="236">UTICA</option><option value="237">VERGARA</option><option value="238">VIANI</option><option value="239">VILLAGOMEZ</option><option value="240">VILLAPINZON</option><option value="241">VILLETA</option><option value="242">VIOTA</option><option value="243">YACOPI</option><option value="244">ZIPACON</option><option value="245">ZIPAQUIRA</option><option value="246">CALI</option><option value="247">BUCARAMANGA</option><option value="248">BARRANQUILLA</option><option value="249">CARTAGENA</option><option value="250">TUNJA</option><option value="252">CHAPINERO</option><option value="253">SANTA FE</option><option value="254">SAN CRISTOBAL</option><option value="255">USME</option><option value="256">TUNJUELITO</option><option value="257">BOSA</option><option value="258">KENNEDY</option><option value="259">FONTIBON</option><option value="260">ENGATIVA</option><option value="261">SUBA</option><option value="262">BARRIOS UNIDOS</option><option value="263">TEUSAQUILLO</option><option value="264">LOS MARTIRES</option><option value="265">ANTONIO NARI&Ntilde;O</option><option value="266">PUENTE ARANDA</option><option value="267">CANDELARIA</option><option value="268">RAFAEL URIBE</option><option value="269">CIUDAD BOLIVAR</option><option value="270">SUMAPAZ</option><option value="272">AGUADA</option><option value="273">ALBANIA</option><option value="274">ARATOCA</option><option value="275">BARBOSA</option><option value="276">BARICHARA</option><option value="277">BARRANCABERMEJA</option><option value="278">BETULIA</option><option value="279">BOLIVAR</option><option value="280">CABRERA</option><option value="281">CALIFORNIA</option><option value="282">CAPITANEJO</option><option value="283">CARCASI</option><option value="284">MAICAO</option><option value="285">RIOHACHA</option><option value="286">ALBANIA</option><option value="287">BARRANCAS</option><option value="288">DIBULLA</option><option value="289">DISTRACCION</option><option value="290">EL MOLINO</option><option value="291">FONSECA</option><option value="292">HATONUEVO</option><option value="293">LA JAGUA DEL PILAR</option><option value="294">MANAURE</option><option value="295">SAN JUAN DEL CESAR</option><option value="296">URIBIA</option><option value="297">URUMITA</option><option value="298">VILLANUEVA</option><option value="299">QUIBDO</option><option value="300">NEIVA</option><option value="301">PASTO</option><option value="302">YOPAL</option><option value="303">MONTERIA</option><option value="304">AYAPEL</option><option value="305">BUENA VISTA</option><option value="306">CERETE</option><option value="307">ARMENIA</option><option value="308">IBAGUE</option><option value="309">ANZOATEGUI</option><option value="310">ALPUJARRA</option><option value="311">CUCUTA</option><option value="312">LERIDA</option><option value="313">SINCELEJO</option><option value="314">VALLEDUPAR</option><option value="315">SAN ANDRES</option><option value="316">PROVIDENCIA</option><option value="317">SAN ANDRES SOTAVENTO</option><option value="318">FLORENCIA</option><option value="319">ORITO</option><option value="320">MITU</option><option value="321">POPAYAN</option><option value="322">VILLAVICENCIO</option><option value="323">SAN JOSE DEL GUAVIARE</option><option value="324">SANTA MARTA</option><option value="325">PEREIRA</option><option value="326">PUERTO CARRE&Ntilde;O</option><option value="327">LA PRIMAVERA</option><option value="328">SANTA ROSALIA</option><option value="329">CUMARIBO</option><option value="330">ZAPAYAN</option><option value="331">GRANADA</option><option value="332">GIGANTE</option><option value="333">MONTERREY</option><option value="334">VILLANUEVA</option><option value="335">SABANALARGA</option></select>
+                        </div>
+                        <div class="col col-lg-2 d-inline-block"><label for="CodCiu"> Codigo C.I.U</label>
+                            <input type="text" name="CodCiu" class="form-control inputForm" [ngClass]="{'is-invalid': codCiu.touched && codCiu.invalid}" #codCiu="ngModel" [(ngModel)]="ingreso.codCiu" pattern="[0-9]+">
+                            <small class="invalid-feedback d-block font-weight-bold" *ngIf="codCiu.invalid && codCiu.touched">Debe ingresar un número. El campo es numérico</small>
+                        </div>
+
+                        <div class="col col-lg-1 d-inline-block"><label for="sexo">Sexo</label>
+                            <select name="sexo" id="sexo" class="form-control  inputForm" [ngClass]="{'is-invalid': sexo.touched && sexo.invalid}" #sexo="ngModel" [(ngModel)]="ingreso.sexo" required>
 									<option value="0">Hombre</option>
 									<option value="1">Mujer</option>
 								</select>
-	                            <small class="invalid-feedback d-block font-weight-bold" *ngIf="sexo.invalid && sexo.touched">Debe seleccionar una opción. El campo es obligatorio</small>
-							    </div>
-							<BR>
-							<div class="col col-lg-2 d-inline-block"><label for="PriNom">Primer Nombre</label>
+                            <small class="invalid-feedback d-block font-weight-bold" *ngIf="sexo.invalid && sexo.touched">Debe seleccionar una opción. El campo es obligatorio</small>
+                        </div>
+                        <BR>
+                        <div class="col col-lg-2 d-inline-block"><label for="PriNom">Primer Nombre</label>
 
-								<input type="text" name="PriNom" class="form-control inputForm" [ngClass]="{'is-invalid': PriNom.touched && PriNom.invalid}" #PriNom="ngModel" [(ngModel)]="ingreso.PriNom" required pattern="[a-zA-ZÀ-ÿ ]+" minlength="4" maxlength="50" placeholder="Digite Primer Nombre">
-                                <small class="invalid-feedback d-block font-weight-bold" *ngIf="PriNom.invalid && PriNom.touched">Debe ingresar un nombre. El campo es obligatorio</small>
-							    </div>
-							<div class="col col-lg-2 d-inline-block"><label for="SegNom">Segundo Nombre</label>
-								<input type="text" name="SegNom" class="form-control inputForm" [ngClass]="{'is-invalid': SegNom.touched && SegNom.invalid}" #SegNom="ngModel" [(ngModel)]="ingreso.SegNom" pattern="[a-zA-ZÀ-ÿ ]+" minlength="4" maxlength="50" SegNom="Digite Segundo Nombre">
-                                <small class="invalid-feedback d-block font-weight-bold" *ngIf="SegNom.invalid && SegNom.touched">Debe ingresar un nombre. El campo es obligatorio</small>
-								</div>
-							<div class="col col-lg-2 d-inline-block"><label for="PriApe">Primer Apellido</label>
-								<input type="text" name="PriApe" class="form-control inputForm" [ngClass]="{'is-invalid': PriApe.touched && PriApe.invalid}" #PriApe="ngModel" [(ngModel)]="ingreso.PriApe" required  pattern="[a-zA-ZÀ-ÿ ]+" minlength="4" maxlength="50" PriApe="Digite PriApe Nombre">
-                                <small class="invalid-feedback d-block font-weight-bold" *ngIf="PriApe.invalid && PriApe.touched">Debe ingresar un nombre. El campo es obligatorio</small>
-                            	</div>
-                            <div class="col col-lg-2 d-inline-block"><label for="PriApe">Segundo Apellido</label>
+                            <input type="text" name="PriNom" class="form-control inputForm" [ngClass]="{'is-invalid': PriNom.touched && PriNom.invalid}" #PriNom="ngModel" [(ngModel)]="ingreso.PriNom" required pattern="[a-zA-ZÀ-ÿ ]+" minlength="4" maxlength="50" placeholder="Digite Primer Nombre">
+                            <small class="invalid-feedback d-block font-weight-bold" *ngIf="PriNom.invalid && PriNom.touched">Debe ingresar un nombre. El campo es obligatorio</small>
+                        </div>
+                        <div class="col col-lg-2 d-inline-block"><label for="SegNom">Segundo Nombre</label>
+                            <input type="text" name="SegNom" class="form-control inputForm" [ngClass]="{'is-invalid': SegNom.touched && SegNom.invalid}" #SegNom="ngModel" [(ngModel)]="ingreso.SegNom" pattern="[a-zA-ZÀ-ÿ ]+" minlength="4" maxlength="50" SegNom="Digite Segundo Nombre">
+                            <small class="invalid-feedback d-block font-weight-bold" *ngIf="SegNom.invalid && SegNom.touched">Debe ingresar un nombre. El campo es obligatorio</small>
+                        </div>
+                        <div class="col col-lg-2 d-inline-block"><label for="PriApe">Primer Apellido</label>
+                            <input type="text" name="PriApe" class="form-control inputForm" [ngClass]="{'is-invalid': PriApe.touched && PriApe.invalid}" #PriApe="ngModel" [(ngModel)]="ingreso.PriApe" required pattern="[a-zA-ZÀ-ÿ ]+" minlength="4" maxlength="50" PriApe="Digite PriApe Nombre">
+                            <small class="invalid-feedback d-block font-weight-bold" *ngIf="PriApe.invalid && PriApe.touched">Debe ingresar un nombre. El campo es obligatorio</small>
+                        </div>
+                        <div class="col col-lg-2 d-inline-block"><label for="PriApe">Segundo Apellido</label>
 
-								<input type="text" name="SegApe" class="form-control inputForm" [ngClass]="{'is-invalid': SegApe.touched && SegApe.invalid}" #SegApe="ngModel" [(ngModel)]="ingreso.SegApe" pattern="[a-zA-ZÀ-ÿ ]+" minlength="4" maxlength="50" SegApe="Digite Segundo Nombre">
-                                <small class="invalid-feedback d-block font-weight-bold" *ngIf="SegApe.invalid && SegApe.touched">Debe ingresar un nombre. El campo es obligatorio</small>
-								</div>  
-							<div class="col col-lg-2 d-inline-block"><label for="direccion">Direcci&oacute;n</label>
-								<input type="text" name="direccion" class="form-control inputForm" [ngClass]="{'is-invalid': direccion.touched && direccion.invalid}" #direccion="ngModel" [(ngModel)]="ingreso.direccion" required pattern="[a-zA-ZÀ-ÿ 0-9]+" minlength="4" maxlength="50" direccion="Digite Segundo Nombre">
-                                <small class="invalid-feedback d-block font-weight-bold" *ngIf="direccion.invalid && direccion.touched">Debe ingresar una dirección. El campo es obligatorio</small>
-							 	</div>
-							<div class="col col-lg-1 d-inline-block"><label for="Fijo">Fijo</label>
-								<input type="text" name="Fijo" class="form-control inputForm" [ngClass]="{'is-invalid': Fijo.touched && Fijo.invalid}" #Fijo="ngModel" [(ngModel)]="ingreso.Fijo" pattern="[0-9]+" minlength="7"  placeholder="Digite Número Fijo">
-                                <small class="invalid-feedback d-block font-weight-bold" *ngIf="Fijo.invalid && Fijo.touched">Debe ingresar un Número . El campo es Numérico</small>
-								</div>
-							<div class="col col-lg-1 d-inline-block"><label for="celular">Celular</label>
-								<input type="text" name="celular" class="form-control inputForm" [ngClass]="{'is-invalid': celular.touched && celular.invalid}" #celular="ngModel" [(ngModel)]="ingreso.celular" pattern="[0-9]+" required minlength="10" maxlength="10" placeholder="Digite Número de celular">
-                                <small class="invalid-feedback d-block font-weight-bold" *ngIf="celular.invalid && celular.touched">Debe ingresar un número de celular. El campo es obligatorio</small>
-								</div>
-							<div class="col col-lg-2 d-inline-block"><label for="email">Email</label>
-								<input type="text" name="email" class="form-control inputForm" [ngClass]="{'is-invalid': email.touched && email.invalid}" #email="ngModel" [(ngModel)]="ingreso.email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required placeholder="Digite un correo válido">
-                                <small class="invalid-feedback d-block font-weight-bold" *ngIf="email.invalid && email.touched">Debe ingresar un nombre. El campo es obligatorio</small>
-							  
-							   </div> 
-							<div class="col col-lg-3 d-inline-block"><label for="perfil">Perfil</label>
-								<select name="perfil" id="perfil" class="form-control inputForm" [ngClass]="{'is-invalid': perfil.touched && perfil.invalid}" #perfil="ngModel" [(ngModel)]="ingreso.perfil" required>
+                            <input type="text" name="SegApe" class="form-control inputForm" [ngClass]="{'is-invalid': SegApe.touched && SegApe.invalid}" #SegApe="ngModel" [(ngModel)]="ingreso.SegApe" pattern="[a-zA-ZÀ-ÿ ]+" minlength="4" maxlength="50" SegApe="Digite Segundo Nombre">
+                            <small class="invalid-feedback d-block font-weight-bold" *ngIf="SegApe.invalid && SegApe.touched">Debe ingresar un nombre. El campo es obligatorio</small>
+                        </div>
+                        <div class="col col-lg-2 d-inline-block"><label for="direccion">Direcci&oacute;n</label>
+                            <input type="text" name="direccion" class="form-control inputForm" [ngClass]="{'is-invalid': direccion.touched && direccion.invalid}" #direccion="ngModel" [(ngModel)]="ingreso.direccion" required pattern="[a-zA-ZÀ-ÿ 0-9]+" minlength="4" maxlength="50"
+                                direccion="Digite Segundo Nombre">
+                            <small class="invalid-feedback d-block font-weight-bold" *ngIf="direccion.invalid && direccion.touched">Debe ingresar una dirección. El campo es obligatorio</small>
+                        </div>
+                        <div class="col col-lg-1 d-inline-block"><label for="Fijo">Fijo</label>
+                            <input type="text" name="Fijo" class="form-control inputForm" [ngClass]="{'is-invalid': Fijo.touched && Fijo.invalid}" #Fijo="ngModel" [(ngModel)]="ingreso.Fijo" pattern="[0-9]+" minlength="7" placeholder="Digite Número Fijo">
+                            <small class="invalid-feedback d-block font-weight-bold" *ngIf="Fijo.invalid && Fijo.touched">Debe ingresar un Número . El campo es Numérico</small>
+                        </div>
+                        <div class="col col-lg-1 d-inline-block"><label for="celular">Celular</label>
+                            <input type="text" name="celular" class="form-control inputForm" [ngClass]="{'is-invalid': celular.touched && celular.invalid}" #celular="ngModel" [(ngModel)]="ingreso.celular" pattern="[0-9]+" required minlength="10" maxlength="10" placeholder="Digite Número de celular">
+                            <small class="invalid-feedback d-block font-weight-bold" *ngIf="celular.invalid && celular.touched">Debe ingresar un número de celular. El campo es obligatorio</small>
+                        </div>
+                        <div class="col col-lg-2 d-inline-block"><label for="email">Email</label>
+                            <input type="text" name="email" class="form-control inputForm" [ngClass]="{'is-invalid': email.touched && email.invalid}" #email="ngModel" [(ngModel)]="ingreso.email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required placeholder="Digite un correo válido">
+                            <small class="invalid-feedback d-block font-weight-bold" *ngIf="email.invalid && email.touched">Debe ingresar un nombre. El campo es obligatorio</small>
+
+                        </div>
+                        <div class="col col-lg-3 d-inline-block"><label for="perfil">Perfil</label>
+                            <select name="perfil" id="perfil" class="form-control inputForm" [ngClass]="{'is-invalid': perfil.touched && perfil.invalid}" #perfil="ngModel" [(ngModel)]="ingreso.perfil" required>
 									<option value="1">Profesional II / $2,600,000</option>
 									<option value="2">tecnico i / $1,250,000</option>
 								</select>
-	                                <small class="invalid-feedback d-block font-weight-bold" *ngIf="perfil.invalid && perfil.touched">Debe ingresar un perfil. El campo es obligatorio</small>
-								 </div>
-							<div class="col col-lg-3 d-inline-block"><label for="centroCosto">Centro de Costo</label>
-								<select id="centroCosto" name="centroCosto" required class="form-control inputForm" [ngClass]="{'is-invalid': centroCosto.touched && centroCosto.invalid}" #centroCosto="ngModel" [(ngModel)]="ingreso.centroCosto" >
+                            <small class="invalid-feedback d-block font-weight-bold" *ngIf="perfil.invalid && perfil.touched">Debe ingresar un perfil. El campo es obligatorio</small>
+                        </div>
+                        <div class="col col-lg-3 d-inline-block"><label for="centroCosto">Centro de Costo</label>
+                            <select id="centroCosto" name="centroCosto" required class="form-control inputForm" [ngClass]="{'is-invalid': centroCosto.touched && centroCosto.invalid}" #centroCosto="ngModel" [(ngModel)]="ingreso.centroCosto">
 									<option value="1">Planeacion</option>
 									<option value="2">Oficina de calidad</option>
 								</select>
-                                <small class="invalid-feedback d-block font-weight-bold" *ngIf="centroCosto.invalid && centroCosto.touched">Debe sellecionar una opción. El campo es obligatorio</small>
-								</div>
-							<div class="col col-lg-2 d-inline-block"><label for="CtaBco">Cuenta Bancaria</label>
-								<input type="text" name="CtaBco" class="form-control inputForm" [ngClass]="{'is-invalid': CtaBco.touched && CtaBco.invalid}" #CtaBco="ngModel" [(ngModel)]="ingreso.CtaBco" pattern="[0-9]+" minlength="10" maxlength="50" placeholder="Digite número de cta bancaria" required>
-                                <small class="invalid-feedback d-block font-weight-bold" *ngIf="CtaBco.invalid && CtaBco.touched">Debe ingresar un nùmero de cuenta bancaria. El campo es obligatorio</small>
-				               	 </div>
-							<div class="col col-lg-2 d-inline-block"><label for="banco">Banco</label>
-								<select name="banco" id="banco" class="form-control inputForm" [ngClass]="{'is-invalid': banco.touched && banco.invalid}" #banco="ngModel" [(ngModel)]="ingreso.banco" placeholder="Seleccione Banco" required>
+                            <small class="invalid-feedback d-block font-weight-bold" *ngIf="centroCosto.invalid && centroCosto.touched">Debe sellecionar una opción. El campo es obligatorio</small>
+                        </div>
+                        <div class="col col-lg-2 d-inline-block"><label for="CtaBco">Cuenta Bancaria</label>
+                            <input type="text" name="CtaBco" class="form-control inputForm" [ngClass]="{'is-invalid': CtaBco.touched && CtaBco.invalid}" #CtaBco="ngModel" [(ngModel)]="ingreso.CtaBco" pattern="[0-9]+" minlength="10" maxlength="50" placeholder="Digite número de cta bancaria"
+                                required>
+                            <small class="invalid-feedback d-block font-weight-bold" *ngIf="CtaBco.invalid && CtaBco.touched">Debe ingresar un nùmero de cuenta bancaria. El campo es obligatorio</small>
+                        </div>
+                        <div class="col col-lg-2 d-inline-block"><label for="banco">Banco</label>
+                            <select name="banco" id="banco" class="form-control inputForm" [ngClass]="{'is-invalid': banco.touched && banco.invalid}" #banco="ngModel" [(ngModel)]="ingreso.banco" placeholder="Seleccione Banco" required>
 									<option value="0">caja social</option>
 								</select>
-                                <small class="invalid-feedback d-block font-weight-bold" *ngIf="banco.invalid && banco.touched">Debe ingresar un nombre. El campo es obligatorio</small>
-							       </div>
-							<div class="col col-lg-2 d-inline-block"><label for="tipoContrib">Tipo de Contribuyente</label>
-								<select name="tipoContrib" id ="tipoContrib" class="form-control inputForm" [ngClass]="{'is-invalid': tipoContrib.touched && tipoContrib.invalid}" #tipoContrib="ngModel" [(ngModel)]="ingreso.tipoContrib" required>
+                            <small class="invalid-feedback d-block font-weight-bold" *ngIf="banco.invalid && banco.touched">Debe ingresar un nombre. El campo es obligatorio</small>
+                        </div>
+                        <div class="col col-lg-2 d-inline-block"><label for="tipoContrib">Tipo de Contribuyente</label>
+                            <select name="tipoContrib" id="tipoContrib" class="form-control inputForm" [ngClass]="{'is-invalid': tipoContrib.touched && tipoContrib.invalid}" #tipoContrib="ngModel" [(ngModel)]="ingreso.tipoContrib" required>
 									<option value="1">Regimen comun</option>
 									<option value="2">Regimen Simplificado</option>
 									<option value="3">Gran Contribuyente</option>
 									<option value="4">Estatal</option>
 								</select>
-                                <small class="invalid-feedback d-block font-weight-bold" *ngIf="tipoContrib.invalid && tipoContrib.touched">Debe ingresar un tipo de contribuyente. El campo es obligatorio</small>
-								</div>
-							<div class="col col-lg-2 d-inline-block"><label for="tipoRet">Tipo de Retencion</label>
-								<select name="tipoRet"id="tipoRet" class="form-control inputForm" [ngClass]="{'is-invalid': tipoRet.touched && tipoRet.invalid}" #tipoRet="ngModel" [(ngModel)]="ingreso.tipoRet" required >
+                            <small class="invalid-feedback d-block font-weight-bold" *ngIf="tipoContrib.invalid && tipoContrib.touched">Debe ingresar un tipo de contribuyente. El campo es obligatorio</small>
+                        </div>
+                        <div class="col col-lg-2 d-inline-block"><label for="tipoRet">Tipo de Retencion</label>
+                            <select name="tipoRet" id="tipoRet" class="form-control inputForm" [ngClass]="{'is-invalid': tipoRet.touched && tipoRet.invalid}" #tipoRet="ngModel" [(ngModel)]="ingreso.tipoRet" required>
 									<option value="1">Exento</option>
 									<option value="2">Hacer Retención</option>
 									<option value="3">Autoretenedor</option>
 								</select>
-                                <small class="invalid-feedback d-block font-weight-bold" *ngIf="tipoRet.invalid && tipoRet.touched">Debe ingresar un tipo de contribuyente. El campo es obligatorio</small>
-								 </div>
-							<div class="col col-lg-1 d-inline-block align-top"><label for="ica">Maneja ICA?</label>
-								<input type="checkbox" name="ica" id ="ica" class="form-control inputForm" [ngClass]="{'is-invalid': ica.touched && ica.invalid}" #ica="ngModel" [(ngModel)]="ingreso.ica">
-                                <small class="invalid-feedback d-block font-weight-bold" *ngIf="ica.invalid && ica.touched">Debe ingresar un nombre. El campo es obligatorio</small>
-					             </div>
-							<div class="col col-lg-1 d-inline-block"  *ngIf="ica"><label for="valorIca">% ICA</label>
-								<input type="text" name="valorIca" class="form-control inputForm" [ngClass]="{'is-invalid': valorIca.touched && valorIca.invalid}" #valorIca="ngModel" [(ngModel)]="ingreso.valorIca" value="9.66" >
-                                <small class="invalid-feedback d-block font-weight-bold" *ngIf="valorIca.invalid && valorIca.touched">Debe ingresar un valor. El campo es obligatorio</small>
-							    </div>
+                            <small class="invalid-feedback d-block font-weight-bold" *ngIf="tipoRet.invalid && tipoRet.touched">Debe ingresar un tipo de contribuyente. El campo es obligatorio</small>
+                        </div>
+                        <div class="col col-lg-1 d-inline-block align-top"><label for="ica">Maneja ICA?</label>
+                            <input type="checkbox" name="ica" id="ica" class="form-control inputForm" [ngClass]="{'is-invalid': ica.touched && ica.invalid}" #ica="ngModel" [(ngModel)]="ingreso.ica">
+                            <small class="invalid-feedback d-block font-weight-bold" *ngIf="ica.invalid && ica.touched">Debe ingresar un nombre. El campo es obligatorio</small>
+                        </div>
+                        <div class="col col-lg-1 d-inline-block" *ngIf="ica"><label for="valorIca">% ICA</label>
+                            <input type="text" name="valorIca" class="form-control inputForm" [ngClass]="{'is-invalid': valorIca.touched && valorIca.invalid}" #valorIca="ngModel" [(ngModel)]="ingreso.valorIca" value="9.66">
+                            <small class="invalid-feedback d-block font-weight-bold" *ngIf="valorIca.invalid && valorIca.touched">Debe ingresar un valor. El campo es obligatorio</small>
+                        </div>
 
-							<div class="col col-lg-2 d-inline-block"><label for="TipoEmp">Tipo de Empresa</label>
-								<select name="TipoEmp" class="form-control inputForm" [ngClass]="{'is-invalid': TipoEmp.touched && TipoEmp.invalid}" #TipoEmp="ngModel" [(ngModel)]="ingreso.TipoEmp" required>
+                        <div class="col col-lg-2 d-inline-block"><label for="TipoEmp">Tipo de Empresa</label>
+                            <select name="TipoEmp" class="form-control inputForm" [ngClass]="{'is-invalid': TipoEmp.touched && TipoEmp.invalid}" #TipoEmp="ngModel" [(ngModel)]="ingreso.TipoEmp" required>
 								<option value="0" selected="selected">Ninguna</option>
 								<option value="1">Municipal</option>
 								<option value="2">Departamental</option>
@@ -155,42 +158,42 @@
 								<option value="4">Privada</option>
 								<option value="5">Otra</option>
 									</select>
-							 <!-- <option *ngFor="let periodo of periodos; let index = index" [value]="periodo.id" [selected]="index == 1" >{{periodo.fecha_inicio}}</option> -->
-                                <small class="invalid-feedback d-block font-weight-bold" *ngIf="TipoEmp.invalid && TipoEmp.touched">Debe ingresar un nombre. El campo es obligatorio</small>
-								 </div>
-							<div class="col col-lg-2 d-inline-block"><label for="Nacionalidad">Nacionalidad</label>
-								<select name="Nacionalidad" class="form-control inputForm" [ngClass]="{'is-invalid': Nacionalidad.touched && Nacionalidad.invalid}" #Nacionalidad="ngModel" [(ngModel)]="ingreso.Nacionalidad"  required>
+                            <!-- <option *ngFor="let periodo of periodos; let index = index" [value]="periodo.id" [selected]="index == 1" >{{periodo.fecha_inicio}}</option> -->
+                            <small class="invalid-feedback d-block font-weight-bold" *ngIf="TipoEmp.invalid && TipoEmp.touched">Debe ingresar un nombre. El campo es obligatorio</small>
+                        </div>
+                        <div class="col col-lg-2 d-inline-block"><label for="Nacionalidad">Nacionalidad</label>
+                            <select name="Nacionalidad" class="form-control inputForm" [ngClass]="{'is-invalid': Nacionalidad.touched && Nacionalidad.invalid}" #Nacionalidad="ngModel" [(ngModel)]="ingreso.Nacionalidad" required>
 								<option value="1">Nacional </option>
 								<option value="2">Extranjera</option>
 									</select>
-                                <small class="invalid-feedback d-block font-weight-bold" *ngIf="Nacionalidad.invalid && Nacionalidad.touched">Debe seleccionar una opción. El campo es obligatorio</small>
-								 </div>
-							
-							<div class="col col-lg-2 d-inline-block"><label for="estCivil">Estado Civil</label>
-								<select name="estCivil" class="form-control inputForm" [ngClass]="{'is-invalid': estCivil.touched && estCivil.invalid}" #estCivil="ngModel" [(ngModel)]="ingreso.estCivil"  required>
+                            <small class="invalid-feedback d-block font-weight-bold" *ngIf="Nacionalidad.invalid && Nacionalidad.touched">Debe seleccionar una opción. El campo es obligatorio</small>
+                        </div>
+
+                        <div class="col col-lg-2 d-inline-block"><label for="estCivil">Estado Civil</label>
+                            <select name="estCivil" class="form-control inputForm" [ngClass]="{'is-invalid': estCivil.touched && estCivil.invalid}" #estCivil="ngModel" [(ngModel)]="ingreso.estCivil" required>
 								<option value="0" selected="selected">Soltero</option><option value="1">Casado</option><option value="2">Separado</option><option value="3">Viudo</option></select>
-                                <small class="invalid-feedback d-block font-weight-bold" *ngIf="estCivil.invalid && estCivil.touched">Debe seleccionar una opción. El campo es obligatorio</small>
-							    </div> 
-							<div class="col col-lg-1 d-inline-block align-top"><label for="Tope">Maneja Tope?</label>
-								<input type="checkbox" name="Tope" class="form-control inputForm" [ngClass]="{'is-invalid': Tope.touched && Tope.invalid}" #Tope="ngModel" [(ngModel)]="ingreso.Tope" >
-                            	<small class="invalid-feedback d-block font-weight-bold" *ngIf="Tope.invalid && Tope.touched">Debe ingresar un nombre. El campo es obligatorio</small>
-							     </div>
-							<div class="col col-lg-1 d-inline-block"><label for="ValorTope">Valor Tope</label>
-								<input type="text" name="ValorTope" class="form-control inputForm" [ngClass]="{'is-invalid': ValorTope.touched && ValorTope.invalid}" #ValorTope="ngModel" [(ngModel)]="ingreso.ValorTope" >
-                                <small class="invalid-feedback d-block font-weight-bold" *ngIf="ValorTope.invalid && ValorTope.touched">Debe ingresar un valor. El campo es obligatorio</small>
-								</div>
-							<div class="col col-lg-2 d-inline-block"><label for="tipoTercero">Tipo de Tercero</label>
-								<select name="tipoTercero" class="form-control inputForm" [ngClass]="{'is-invalid': tipoTercero.touched && tipoTercero.invalid}" #tipoTercero="ngModel" [(ngModel)]="ingreso.tipoTercero" required>
+                            <small class="invalid-feedback d-block font-weight-bold" *ngIf="estCivil.invalid && estCivil.touched">Debe seleccionar una opción. El campo es obligatorio</small>
+                        </div>
+                        <div class="col col-lg-1 d-inline-block align-top"><label for="Tope">Maneja Tope?</label>
+                            <input type="checkbox" name="Tope" class="form-control inputForm" [ngClass]="{'is-invalid': Tope.touched && Tope.invalid}" #Tope="ngModel" [(ngModel)]="ingreso.Tope">
+                            <small class="invalid-feedback d-block font-weight-bold" *ngIf="Tope.invalid && Tope.touched">Debe ingresar un nombre. El campo es obligatorio</small>
+                        </div>
+                        <div class="col col-lg-1 d-inline-block"><label for="ValorTope">Valor Tope</label>
+                            <input type="text" name="ValorTope" class="form-control inputForm" [ngClass]="{'is-invalid': ValorTope.touched && ValorTope.invalid}" #ValorTope="ngModel" [(ngModel)]="ingreso.ValorTope">
+                            <small class="invalid-feedback d-block font-weight-bold" *ngIf="ValorTope.invalid && ValorTope.touched">Debe ingresar un valor. El campo es obligatorio</small>
+                        </div>
+                        <div class="col col-lg-2 d-inline-block"><label for="tipoTercero">Tipo de Tercero</label>
+                            <select name="tipoTercero" class="form-control inputForm" [ngClass]="{'is-invalid': tipoTercero.touched && tipoTercero.invalid}" #tipoTercero="ngModel" [(ngModel)]="ingreso.tipoTercero" required>
 								<option value="0">Otro</option>
 								<option value="1">Cliente</option>
 								<option value="2">Proveedor</option>
 								<option value="3">Contribuyente</option>
 								<option value="5">Pensionado</option>
 								</select>
-                                <small class="invalid-feedback d-block font-weight-bold" *ngIf="tipoTercero.invalid && tipoTercero.touched">Debe seleccionar una opción. El campo es obligatorio</small>
-								</div>	
-							<div class="col col-lg-1 d-inline-block"><label for="arl">ARL</label>
-								<select name="arl" class="form-control inputForm" [ngClass]="{'is-invalid': arl.touched && arl.invalid}" #arl="ngModel" [(ngModel)]="ingreso.arl" required >
+                            <small class="invalid-feedback d-block font-weight-bold" *ngIf="tipoTercero.invalid && tipoTercero.touched">Debe seleccionar una opción. El campo es obligatorio</small>
+                        </div>
+                        <div class="col col-lg-1 d-inline-block"><label for="arl">ARL</label>
+                            <select name="arl" class="form-control inputForm" [ngClass]="{'is-invalid': arl.touched && arl.invalid}" #arl="ngModel" [(ngModel)]="ingreso.arl" required>
 								<option value="Seleccione">0</option>
 								<option value="1">1</option>
 								<option value="2">2</option>
@@ -198,29 +201,29 @@
 								<option value="4">4</option>
 								<option value="5">5</option>
 								<option value="6">6</option>
-								</select> 
-                                <small class="invalid-feedback d-block font-weight-bold" *ngIf="arl.invalid && arl.touched">Debe una opción. El campo es obligatorio</small>
-								</div>
-							<div class="col col-lg-2 d-inline-block"><label for="persona">Tipo de Persona</label>
-								<select name="persona" class="form-control inputForm" [ngClass]="{'is-invalid': persona.touched && persona.invalid}" #persona="ngModel" [(ngModel)]="ingreso.persona" required>
+								</select>
+                            <small class="invalid-feedback d-block font-weight-bold" *ngIf="arl.invalid && arl.touched">Debe una opción. El campo es obligatorio</small>
+                        </div>
+                        <div class="col col-lg-2 d-inline-block"><label for="persona">Tipo de Persona</label>
+                            <select name="persona" class="form-control inputForm" [ngClass]="{'is-invalid': persona.touched && persona.invalid}" #persona="ngModel" [(ngModel)]="ingreso.persona" required>
                                 <option value="1">Jur&iacute;dica</option>
                                 <option value="2">Natural</option>
                             	</select>
-                                <small class="invalid-feedback d-block font-weight-bold" *ngIf="persona.invalid && persona.touched">Debe ingresar un nombre. El campo es obligatorio</small>
-								</div>
-							<div class="col col-sm-12 align-top"><label for="photo">Foto</label>
-                                <label for="document" class="labelForm">Documento</label>
-                                <div (click)="downloadFile()" class="badge badge-info d-block personalizedBadge" *ngIf="ingreso.photo && showFile">{{'Descargar foto: ' + ingreso.photo }}</div>
-                                <div (click)="editFile('editar')" class="badge badge-warning d-inline-block personalizedBadge" *ngIf="ingreso.photo && showFile && !close">Editar</div>
-                                <app-load-document (sendFileName)="setFileName($event)" (deleteFile)="deleteFile($event)" formatsAllowed=".jpg|png" maxSize="100" url="fotos/upload-file" localStorageText="novedadLoadedDocument" *ngIf="showFile && close"></app-load-document>
-                                <div (click)="editFile('cancelar')" class="badge badge-danger d-inline-block personalizedBadge" *ngIf="previusDocument && !showFile">Cancelar</div>
-                            	</div>
-							<div colspan="3" style="text-align: center">
-								<a class="btn btn-small btn-success" routerLink="http://172.16.0.15:1710/contratacion/public/contratistas">Volver</a>
-								<input class="btn btn-primary" type="submit" value="Guardar!">
-								</div>
-	                    </form>
- 				</div>
+                            <small class="invalid-feedback d-block font-weight-bold" *ngIf="persona.invalid && persona.touched">Debe ingresar un nombre. El campo es obligatorio</small>
+                        </div>
+                        <div class="col col-sm-12 align-top"><label for="photo">Foto</label>
+                            <label for="document" class="labelForm">Documento</label>
+                            <div (click)="downloadFile()" class="badge badge-info d-block personalizedBadge" *ngIf="ingreso.photo && showFile">{{'Descargar foto: ' + ingreso.photo }}</div>
+                            <div (click)="editFile('editar')" class="badge badge-warning d-inline-block personalizedBadge" *ngIf="ingreso.photo && showFile && !close">Editar</div>
+                            <app-load-document (sendFileName)="setFileName($event)" (deleteFile)="deleteFile($event)" formatsAllowed=".jpg|png" maxSize="100" url="fotos/upload-file" localStorageText="novedadLoadedDocument" *ngIf="showFile && close"></app-load-document>
+                            <div (click)="editFile('cancelar')" class="badge badge-danger d-inline-block personalizedBadge" *ngIf="previusDocument && !showFile">Cancelar</div>
+                        </div>
+                        <div colspan="3" style="text-align: center">
+                            <a class="btn btn-small btn-success" routerLink="http://172.16.0.15:1710/contratacion/public/contratistas">Volver</a>
+                            <input class="btn btn-primary" type="submit" value="Guardar!">
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

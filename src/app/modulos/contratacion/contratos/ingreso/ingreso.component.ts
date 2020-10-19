@@ -28,33 +28,33 @@ public status: string;
 	public viewFlag: boolean;
 	public editFlag: boolean;
 	public close: boolean;
-	public perfiles:any;
+	public perfiles: any;
 
 	public previusDocument: string;
 
 	public showFile: boolean;
-  constructor( 
-  	private ContratoService: ContractorService,
-    private userService: UserService,
-    private router: Router,
-              ) {
-                this.buttonText = 'Enviar';
+	constructor(
+		private ContratoService: ContractorService,
+		private userService: UserService,
+		private router: Router,
+	) {
+		this.buttonText = 'Enviar';
 
-                this.identity = this.userService.getIdentity();
-                this.ingreso = new Contractor( 	null, null, null, null, null, null,null, null, null, null, null, null,
-								                null, null, null, null, null, null,null, null, null, null, null, null,
-								                null, null, null, null, null, null,null, null, null, null, null, null );
-               // this.perfiles = this.ContratoService.getPerfiles();
-                this.viewFlag = true;
-                this.editFlag = true;
-                this.close = true;
-              }
+		this.identity = this.userService.getIdentity();
+		this.ingreso = new Contractor( 	null, null, null, null, null, null,null, null, null, null, null, null,
+										null, null, null, null, null, null,null, null, null, null, null, null,
+										null, null, null, null, null, null,null, null, null, null, null, null );
+		// this.perfiles = this.ContratoService.getPerfiles();
+		this.viewFlag = true;
+		this.editFlag = true;
+		this.close = true;
+	}
 
-  ngOnInit(): void {
-  console.log(this.ingreso);
-  }
+	ngOnInit(): void {
+		console.log(this.ingreso);
+	}
 
-onSubmit(ingresoForm) {
+	onSubmit(ingresoForm) {
 		this.status = null;
 		this.responseMessage = null;
 		this.preloaderStatus = true;
@@ -62,7 +62,7 @@ onSubmit(ingresoForm) {
 		this.ContratoService.newContractor( this.ingreso ).subscribe(
 			res => {
 				this.preloaderStatus = false;
-				if( res.status === 'success' ) {
+				if ( res.status === 'success' ) {
 					swal('Registro exitoso', res.message, 'success');
 					localStorage.removeItem('contratoLoadedDocument');
 					ingresoForm.reset();
@@ -83,4 +83,9 @@ onSubmit(ingresoForm) {
 			}
 		);
 	}
+
+	editFile(variable) {
+
+	}
 }
+

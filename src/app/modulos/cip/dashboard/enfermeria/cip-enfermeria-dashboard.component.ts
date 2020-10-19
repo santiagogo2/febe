@@ -19,12 +19,12 @@ export class CipEnfermeriaDashboardComponent implements OnInit {
 	filters: any;
 	filtersArray: any;
 	redes: any;
-	services: any;
+	sedes: any;
 	years: any;
 
 	indicators: Array<any>;
 	selectRedes: boolean;
-	selectServices: boolean;
+	selectSedes: boolean;
 	selectYears: boolean;
 	yearNote: string;
 
@@ -37,7 +37,7 @@ export class CipEnfermeriaDashboardComponent implements OnInit {
 		this.months = global.months;
 
 		this.selectRedes = true;
-		this.selectServices = true;
+		this.selectSedes = true;
 		this.selectYears = true;
 		this.yearNote = 'Periodo 2020 Enero - Agosto';
 
@@ -57,16 +57,16 @@ export class CipEnfermeriaDashboardComponent implements OnInit {
 				if ( res.status === 'success' ) {
 					this.filters = res.filters;
 					this.redes = this.cipService.setCheckBox(this.filters.redes);
-					this.services = this.cipService.setCheckBox(this.filters.services);
+					this.sedes = this.cipService.setCheckBox(this.filters.sedes);
 					this.years = this.cipService.setCheckBox(this.filters.years);
 					this.filtersArray = [
 						{ reference: this.redes, title: 'Redes', select: this.selectRedes },
-						{ reference: this.services, title: 'Servicios', select: this.selectServices },
+						{ reference: this.sedes, title: 'Sedes', select: this.selectSedes },
 						{ reference: this.years, title: 'Años', select: this.selectYears },
 					];
 					this.getIndicators(
 						this.filters.redes,
-						this.filters.services,
+						this.filters.sedes,
 						this.filters.years,
 					);
 				}
@@ -83,12 +83,12 @@ export class CipEnfermeriaDashboardComponent implements OnInit {
 		);
 	}
 
-	getIndicators( redes, services, years ) {
+	getIndicators( redes, sedes, years ) {
 		this.filterMessage = null;
 
 		const params = {
 			redes,
-			services,
+			sedes,
 			years,
 		};
 		this.enfermeriaService.getByFilters( params ).subscribe(
@@ -142,13 +142,13 @@ export class CipEnfermeriaDashboardComponent implements OnInit {
 		}
 		this.selectRedes = redes.length === this.redes.length ? true : false;
 
-		const services = new Array();
-		for ( const service of this.services ) {
-			if ( service.isSelected ) {
-				services.push( service.name );
+		const sedes = new Array();
+		for ( const sede of this.sedes ) {
+			if ( sede.isSelected ) {
+				sedes.push( sede.name );
 			}
 		}
-		this.selectServices = services.length === this.services.length ? true : false;
+		this.selectSedes = sedes.length === this.sedes.length ? true : false;
 
 		const years = new Array();
 		for ( const year of this.years ) {
@@ -158,12 +158,12 @@ export class CipEnfermeriaDashboardComponent implements OnInit {
 		}
 		this.selectYears = years.length === this.years.length ? true : false;
 
-		if ( redes.length === 0 || services.length === 0 || years.length === 0 ) {
+		if ( redes.length === 0 || sedes.length === 0 || years.length === 0 ) {
 			this.filterMessage = 'Debe estar seleccionado al menos un elemento por filtro';
 			this.preloaderStatus = false;
 		} else {
 			this.filterMessage = null;
-			this.getIndicators( redes, services, years );
+			this.getIndicators( redes, sedes, years );
 		}
 	}
 

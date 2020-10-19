@@ -14,7 +14,7 @@ import { ListarContratosComponent } from './certificaciones/contratos/listar-con
 import { RegistrarContratosComponent } from './certificaciones/contratos/registrar-contratos/registrar-contratos.component';
 import { SubirContratosComponent } from './certificaciones/contratos/subir-contratos/subir-contratos.component';
 import { CrearComponent } from './contratos/crear/crear.component';
-import { IngresoComponent } from './contratos/ingreso/ingreso.component';
+// import { IngresoComponent } from './contratos/ingreso/ingreso.component';
 
 // Guards de certificaciones
 import {
@@ -31,7 +31,6 @@ import {
 // guards de contratos
 import {
 	ContratosGuard,
-	
 } from './guards/contratos/contratos-guards.index';
 
 const contratacionRoutes: Routes = [
@@ -50,7 +49,7 @@ const contratacionRoutes: Routes = [
 	{ path: 'perfiles', component: EditarContratosComponent, data: { titulo: 'Obtener Perfiles' } },
 	{ path: 'subirctos', component: SubirContratosComponent, data: { titulo: 'Subir Contratos' }, canActivate: [ SubirContratosGuard ] },
 	{ path: 'crearctos', component: CrearComponent, data: { titulo: 'Crear Contratos' }, canActivate: [ ContratosGuard ] },
-	{ path: 'ingreso', component: IngresoComponent, data: { titulo: 'Crear Contratos' }, canActivate: [ ContratosGuard ] },
+	// { path: 'ingreso', component: IngresoComponent, data: { titulo: 'Crear Contratos' }, canActivate: [ ContratosGuard ] },
 
 ];
 
