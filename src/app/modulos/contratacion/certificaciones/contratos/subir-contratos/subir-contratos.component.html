@@ -41,11 +41,11 @@
                         <!-- <fa-icon [icon]="faSpinner" class="d-inline-block spin" *ngIf="preloaderStatus"></fa-icon> -->
                     </div>
                     <div class="tableContainer col col-12" *ngIf="uploads">
-                        <!-- <div class="paginationControls" *ngIf="uploads && uploads.length > itemsPerPage">
+                        <div class="paginationControls" *ngIf="uploads && uploads.length > itemsPerPage">
                             <pagination-controls (pageChange)="pageChange($event)" previousLabel="Anterior" nextLabel="Siguiente" maxSize="4">
                             </pagination-controls>
-                        </div> -->
-                        <!-- <div class="tableContainerAll col col-sm-12">
+                        </div>
+                        <div class="tableContainerAll col col-sm-12">
                             <table class="table table-bordered">
                                 <thead class="thead_styles">
                                     <tr>
@@ -58,11 +58,11 @@
                                     </tr>
                                 </tbody>
                             </table>
-                        </div> -->
-                        <!-- <div class="paginationControls" *ngIf="uploads && uploads.length > itemsPerPage">
+                        </div>
+                        <div class="paginationControls" *ngIf="uploads && uploads.length > itemsPerPage">
                             <pagination-controls (pageChange)="pageChange($event)" previousLabel="Anterior" nextLabel="Siguiente" maxSize="4">
                             </pagination-controls>
-                        </div> -->
+                        </div>
                         <div class="form-group" style="margin-top: 1rem">
                             <div class="col col-sm-2 buttonSubmit p-0 align-center">
                                 <input type="submit" value="Importar Contratos" class="btn btn-success btnPrefer col-sm-12" (click)="registerMassive()">
@@ -78,7 +78,7 @@
                                 <thead class="thead_styles_errors">
                                     <tr>
                                         <th>#</th>
-                                        <th>Inconsistencia</th>
+                                        <th>Inconsistencias</th>
                                     </tr>
                                 </thead>
                                 <tbody class="tbody_styles">

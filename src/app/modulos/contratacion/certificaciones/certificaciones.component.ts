@@ -11,7 +11,8 @@ export class CertificacionesComponent implements OnInit {
 	public status: string;
 	public responseMessage: string;
 	public preloaderStatus: boolean;
-
+	public pageBuscar: string;
+    public pageTitle: string;
 	public identity: any;
 	public token: string;
 	public document: number;
@@ -25,6 +26,8 @@ export class CertificacionesComponent implements OnInit {
 	) {
 		this.document = null;
 		this.token = this.userService.getToken();
+		this.pageBuscar = "Validar Certificación";
+		this.pageTitle = 'Siasur';
 	}
 
 	ngOnInit(): void {

@@ -1,0 +1,135 @@
+<div class="container">
+    <br><br>
+  		<div class="card text-center">
+	        <div class="card-body ">
+	            <div class="logoContainer">
+	                <img src="assets/images/logoSubred.png" alt="">
+	            </div>
+	            <div class="titleContainer text-center">
+	                <h1>{{ pageTitle }}</h1>
+	            </div>
+	            <div class="form-control  text-center">
+	                <div >
+	                    <h3>{{ pageBuscar }}</h3>
+	                </div>
+	                <br>
+		            <div class="card-body">
+						<div class="mt-3 errorAlert" *ngIf="status=='error' && responseMessage ">
+						    <div class="alert alert-danger" role="alert">
+						        {{ responseMessage }} <a routerLink="/login">Regresar</a>
+						    </div>
+						</div>
+						<div class="row">
+						    <div class="col-sm-12">
+						        <div class="card border-0">
+						            <div class="card-body cardContainer">
+						                <div class="formContainer">
+						                	 <div class="backLink col col-sm-12">
+							                    <a class="col-sm-1 btn btn-info " routerLink="/login" >Volver</a>
+							                </div>
+						                    <form #solicitudForm="ngForm" class="form-container" (ngSubmit)="onSubmit(solicitudForm)" style="text-align: left;">
+						                    	<div class="form-group">
+						                           <div class="col col-lg-5 d-inline-block">
+						                                <label for="Nombre" class="labelForm">Nombre Completo</label>
+						                                <input type="text" name="Nombre" class="form-control inputForm" [ngClass]="{'is-invalid': Nombre.touched && Nombre.invalid}" #Nombre="ngModel" [(ngModel)]="news.Nombre" required pattern="[a-zA-ZÀ-ÿ ]+" minlength="5" maxlength="50" placeholder="Ingrese el número de documento del colaborador">
+						                                <small class="invalid-feedback d-block font-weight-bold" *ngIf="Nombre.invalid && Nombre.touched">Debe ingresar Nombre Contratista. El campo es obligatorio</small>
+						                            </div>
+						                            <div class="col col-lg-3 d-inline-block">
+						                                <label for="IdUsuario" class="labelForm">Documento</label>
+						                                <input type="text" name="IdUsuario" class="form-control inputForm" [ngClass]="{'is-invalid': IdUsuario.touched && IdUsuario.invalid}" #IdUsuario="ngModel" [(ngModel)]="news.IdUsuario" required pattern="[0-9]+" minlength="5" maxlength="15" placeholder="Ingrese el número de documento del colaborador">
+						                                <small class="invalid-feedback d-block font-weight-bold" *ngIf="IdUsuario.invalid && IdUsuario.touched">Debe ingresar un documento de identidad. El campo es obligatorio</small> </div>
+						                        </div>
+						                        <div class="form-group">
+						                            <div class="col col-12 d-inline-block align-top">
+						                                <label for="Novedad" class="labelForm">novedad*</label>
+						                                <textarea name="Novedad" rows="5" class="form-control inputForm" [ngClass]="{'is-invalid': Novedad.touched && Novedad.invalid}" #Novedad="ngModel" [(ngModel)]="news.Novedad" required placeholder="Ingrese la novedad a reportar"></textarea>
+						                                <small class="invalid-feedback d-block font-weight-bold" *ngIf="Novedad.invalid && Novedad.touched">Debe ingresar una breve descripción de su solicitud. El campo es obligatorio</small>
+						                            </div>
+						                        </div>
+						                        <div class="form-group">
+						                        	<div class="col col-lg-2 d-inline-block">
+						                                <label for="yearInit" class="labelForm">Año Inicial</label>
+						                                <select style="background-position-x: 95%" name="yearInit" id="yearInit" class="form-control inputForm" [ngClass]="{'is-invalid': yearInit.invalid && yearInit.touched}"  #yearInit="ngModel" [(ngModel)]="news.yearInit" required>
+						                                	<option value="2000">2000</option>
+															<option value="2001">2001</option>
+															<option value="2002">2002</option>
+															<option value="2003">2003</option>
+															<option value="2004">2004</option>
+															<option value="2005">2005</option>
+															<option value="2006">2006</option>
+															<option value="2007">2007</option>
+															<option value="2008">2008</option>
+															<option value="2009">2009</option>
+															<option value="2010">2010</option>
+															<option value="2011">2011</option>
+															<option value="2012">2012</option>
+															<option value="2013">2013</option>
+															<option value="2014">2014</option>
+															<option value="2015">2015</option>
+															<option value="2016">2016</option>
+															<option value="2017">2017</option>
+															<option value="2018">2018</option>
+															<option value="2019">2019</option>
+															<option selected="selected" value="2020">2020</option>
+														</select>
+						                                <small class="invalid-feedback d-block font-weight-bold" *ngIf="yearInit.invalid && yearInit.touched">Debe Seleccionar un Año de inicio. El campo es obligatorio</small>
+						                            </div>
+						                            <div class="col col-lg-2 d-inline-block">
+						                                <label for="yearFinish" class="labelForm">Año Final</label>
+						                                <select style="background-position-x: 95%" name="yearFinish" id="Type" class="form-control inputForm" [ngClass]="{'is-invalid': yearFinish.invalid && yearFinish.touched}" #yearFinish="ngModel" [(ngModel)]="news.yearFinish" required>
+						                                	<option value="2000">2000</option>
+															<option value="2001">2001</option>
+															<option value="2002">2002</option>
+															<option value="2003">2003</option>
+															<option value="2004">2004</option>
+															<option value="2005">2005</option>
+															<option value="2006">2006</option>
+															<option value="2007">2007</option>
+															<option value="2008">2008</option>
+															<option value="2009">2009</option>
+															<option value="2010">2010</option>
+															<option value="2011">2011</option>
+															<option value="2012">2012</option>
+															<option value="2013">2013</option>
+															<option value="2014">2014</option>
+															<option value="2015">2015</option>
+															<option value="2016">2016</option>
+															<option value="2017">2017</option>
+															<option value="2018">2018</option>
+															<option value="2019">2019</option>
+															<option selected="selected" value="2020">2020</option>
+														</select>
+						                                <small class="invalid-feedback d-block font-weight-bold" *ngIf="yearFinish.invalid && yearFinish.touched">Debe Seleccionar un Año de terminación. El campo es obligatorio</small>
+						                            </div>
+						                           
+						                        	<div class="col col-12 d-inline-block">
+						                                <label for="userEmail" class="labelForm">Email*</label>
+						                                <input type="text" name="userEmail" class="form-control inputForm" [ngClass]="{ 'is-invalid': userEmail.touched && userEmail.invalid }" #userEmail="ngModel" [(ngModel)]="news.userEmail" required placeholder="Ingrese el correo electrónico del usuario" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+						                                 <small class="invalid-feedback d-block font-weight-bold" *ngIf="userEmail.invalid && userEmail.touched">Debe ingresar un correo electrónico válido. El campo es obligatorio</small>
+						                            </div>
+						                          
+						                        </div>
+						                        <div class="form-group" style="margin-top: 2rem" *ngIf="editFlag">
+						                            <div class="col col-sm-12 buttonSubmit">
+						                                <input type="submit" value="{{ buttonText }}" class="btn btn-success btnPrefer col-sm-12" [disabled]="solicitudForm.invalid">
+						                            </div>
+						                        </div>
+						                        <div class="mt-3 col col-sm-12 errorAlert" *ngIf="status=='error' && responseMessage">
+						                            <div class="alert alert-danger" role="alert">
+						                                {{ responseMessage }}
+						                            </div>
+						                        </div>
+						                        <div class="deleteLoader" *ngIf="preloaderStatus">
+						                            <div class="loader"></div>
+						                        </div>
+						                    </form>
+						                </div>
+						            </div>
+						        </div>
+						    </div>
+						</div> 
+					</div>
+	            </div>
+	        </div>
+		</div>
+</div>

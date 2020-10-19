@@ -20,6 +20,7 @@ export class RegistrarNovedadesComponent implements OnInit {
 	public responseMessage: string;
 	public preloaderStatus: boolean;
 	public buttonText: string;
+	public externFlag:boolean;
 
 	public identity: any;
 	public token: string;
@@ -40,12 +41,13 @@ export class RegistrarNovedadesComponent implements OnInit {
 		this.buttonText = 'Enviar';
 
 		this.identity = this.userService.getIdentity();
-		this.news = new Novedad( null, null, null, null, null, null );
+		this.news = new Novedad( null, null, null, null, null, null,null,null,null,null,null );
 
 		this.viewFlag = true;
 		this.editFlag = true;
 		this.close = true;
-	}
+		this.showFile = true;
+	}º
 
 	ngOnInit(): void {
 		this.loadPermissions();

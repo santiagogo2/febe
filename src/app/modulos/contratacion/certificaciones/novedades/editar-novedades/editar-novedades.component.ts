@@ -38,7 +38,7 @@ export class EditarNovedadesComponent implements OnInit {
 	public viewFlag: boolean;
 	public editFlag: boolean;
 	public close: boolean;
-
+	public externFlag:boolean;
 	constructor(
 		private novedadService: NovedadesService,
 		private userService: UserService,
@@ -48,6 +48,7 @@ export class EditarNovedadesComponent implements OnInit {
 		this.identity = this.userService.getIdentity();
 
 		this.buttonText = this.identity.role === '1' ? 'Cerrar Novedad' : 'Actualizar';
+		this.externFlag = false;
 
 		this.loadPermissions();
 	}
@@ -57,10 +58,10 @@ export class EditarNovedadesComponent implements OnInit {
 			this.status = null;
 			this.responseMessage = null;
 			this.news = null;
-
 			const id = +params['id'];
 
 			this.getNews(id);
+			
 		});
 	}
 
@@ -69,6 +70,9 @@ export class EditarNovedadesComponent implements OnInit {
 			res => {
 				if( res.status === 'success' ) {
 					this.news = res.news; 
+					console.log(this.news['Tipo']);
+					if (this.news['Tipo'] == "2")
+						this.externFlag = true;
 					this.showFile = this.news.Archivo ? true : false;
 				}
 			},

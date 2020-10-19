@@ -13,11 +13,12 @@ import { CertificacionesComponent } from './certificaciones/certificaciones.comp
 import { ListarContratosComponent } from './certificaciones/contratos/listar-contratos/listar-contratos.component';
 import { RegistrarContratosComponent } from './certificaciones/contratos/registrar-contratos/registrar-contratos.component';
 import { SubirContratosComponent } from './certificaciones/contratos/subir-contratos/subir-contratos.component';
+import { CrearComponent } from './contratos/crear/crear.component';
+import { IngresoComponent } from './contratos/ingreso/ingreso.component';
 
-// Guards
+// Guards de certificaciones
 import {
 	ContratacionGuard,
-
 	EditarContratosGuard,
 	ListarContratosGuard,
 	RegistrarContratosGuard,
@@ -26,6 +27,12 @@ import {
 	ListarNovedadesGuard,
 	RegistrarNovedadesGuard,
 } from './guards/contratacion-guards.index';
+
+// guards de contratos
+import {
+	ContratosGuard,
+	
+} from './guards/contratos/contratos-guards.index';
 
 const contratacionRoutes: Routes = [
 	{ path: '', component: ContratacionComponent, data: { titulo: 'Contratación' }, canActivate: [ ContratacionGuard ] },
@@ -37,12 +44,14 @@ const contratacionRoutes: Routes = [
 	{ path: 'certificaciones', component: CertificacionesComponent, data: { titulo: 'Generación de certificaciones de OPS' } },
 
 	{ path: 'buscarcontratos', component: ListarContratosComponent, data: { titulo: 'Listado de Contratos' }, canActivate: [ ListarContratosGuard ] },
-
 	{ path: 'agregarcontrato', component: RegistrarContratosComponent, data: { titulo: 'Crear Contrato' }, canActivate: [ RegistrarContratosGuard ] },
 	{ path: 'vercontrato/:id', component: EditarContratosComponent, data: { titulo: 'Ver Contrato' } },
 	{ path: 'ver/:id', component: EditarContratosComponent, data: { titulo: 'Editar Contratos' }, canActivate: [ EditarContratosGuard ] },
 	{ path: 'perfiles', component: EditarContratosComponent, data: { titulo: 'Obtener Perfiles' } },
 	{ path: 'subirctos', component: SubirContratosComponent, data: { titulo: 'Subir Contratos' }, canActivate: [ SubirContratosGuard ] },
+	{ path: 'crearctos', component: CrearComponent, data: { titulo: 'Crear Contratos' }, canActivate: [ ContratosGuard ] },
+	{ path: 'ingreso', component: IngresoComponent, data: { titulo: 'Crear Contratos' }, canActivate: [ ContratosGuard ] },
+
 ];
 
 @NgModule({

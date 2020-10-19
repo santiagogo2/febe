@@ -15,13 +15,14 @@ export class CertificacionesService {
 	constructor(
 		private http: HttpClient,
 	) {
+		this.url = global.url;
 		
 	}
 
 	getCertify( code ): Observable<any> {
-		const headers = new HttpHeaders().set( 'Authorization', this.token );
+		const headers = new HttpHeaders();
 
-		return this.http.get( this.url + 'certify', { headers } );
+		return this.http.get( this.url + 'certify/'+code, { headers } );
 	}
 
 	

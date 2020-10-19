@@ -20,6 +20,10 @@ import { RegistrarContratosComponent } from './certificaciones/contratos/registr
 import { ListarContratosComponent } from './certificaciones/contratos/listar-contratos/listar-contratos.component';
 // import { ContratosComponent } from './certificaciones/contratos/contratos/contratos.component';
 import { SubirContratosComponent } from './certificaciones/contratos/subir-contratos/subir-contratos.component';
+import { ValidarcertComponent } from './certificaciones/validarcert/validarcert.component';
+import { SolicitarcertComponent } from './certificaciones/solicitarcert/solicitarcert.component';
+import { CrearComponent } from './contratos/crear/crear.component';
+import { IngresoComponent } from './contratos/ingreso/ingreso.component';
 
 @NgModule({
 	declarations: [
@@ -30,9 +34,13 @@ import { SubirContratosComponent } from './certificaciones/contratos/subir-contr
 		CertificacionesComponent,
 		RegistrarContratosComponent,
 		ListarContratosComponent,
-		// ContratosComponent,
 		SubirContratosComponent,
-		ContratacionComponent
+		ContratacionComponent,
+		ValidarcertComponent,
+		SolicitarcertComponent,
+		CrearComponent,
+		IngresoComponent
+
 	],
 	imports: [
 		CommonModule,

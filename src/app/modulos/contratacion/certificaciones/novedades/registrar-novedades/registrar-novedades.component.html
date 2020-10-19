@@ -34,8 +34,34 @@
                                 <label for="document" class="labelForm">Documento</label>
                                 <div (click)="downloadFile()" class="badge badge-info d-block personalizedBadge" *ngIf="news.Archivo && showFile">{{'Descargar archivo: ' + news.Archivo }}</div>
                                 <div (click)="editFile('editar')" class="badge badge-warning d-inline-block personalizedBadge" *ngIf="news.Archivo && showFile && !close">Editar</div>
-                                <app-load-document (sendFileName)="setFileName($event)" (deleteFile)="deleteFile($event)" formatsAllowed=".pdf" maxSize="100" url="news/upload-file" localStorageText="novedadLoadedDocument" *ngIf="!showFile && !close"></app-load-document>
+                                <app-load-document (sendFileName)="setFileName($event)" (deleteFile)="deleteFile($event)" formatsAllowed=".pdf" maxSize="100" url="news/upload-file" localStorageText="novedadLoadedDocument" *ngIf="showFile && close"></app-load-document>
                                 <div (click)="editFile('cancelar')" class="badge badge-danger d-inline-block personalizedBadge" *ngIf="previusDocument && !showFile">Cancelar</div>
+                            </div>
+                             <div class="col col-lg-5 d-inline-block"  *ngIf="externFlag">
+                                <label for="Nombre" class="labelForm">Nombre Completo</label>
+                                <input type="text" name="Nombre" class="form-control inputForm" [ngClass]="{'is-invalid': Nombre.touched && Nombre.invalid}" #Nombre="ngModel" [(ngModel)]="news.Nombre" required pattern="[a-zA-ZÀ-ÿ ]+" minlength="5" maxlength="50" placeholder="Ingrese el número de documento del colaborador">
+                                <small class="invalid-feedback d-block font-weight-bold" *ngIf="Nombre.invalid && Nombre.touched">Debe ingresar Nombre Contratista. El campo es obligatorio</small>
+                            </div>
+                            <div class="col col-lg-3 d-inline-block"  *ngIf="externFlag">
+                                <label for="IdUsuario" class="labelForm">Documento</label>
+                                <input type="text" name="IdUsuario" class="form-control inputForm" [ngClass]="{'is-invalid': IdUsuario.touched && IdUsuario.invalid}" #IdUsuario="ngModel" [(ngModel)]="news.IdUsuario" required pattern="[0-9]+" minlength="5" maxlength="15" placeholder="Ingrese el número de documento del colaborador">
+                                <small class="invalid-feedback d-block font-weight-bold" *ngIf="IdUsuario.invalid && IdUsuario.touched">Debe ingresar un documento de identidad. El campo es obligatorio</small> </div>
+                                <div class="col col-lg-2 d-inline-block"  *ngIf="externFlag">
+                                    <label for="yearInit" class="labelForm">Año Inicial</label>
+                                     <input type="text" style="background-position-x: 95%" name="yearInit" id="yearInit" class="form-control inputForm" [ngClass]="{'is-invalid': yearInit.invalid && yearInit.touched}"  #yearInit="ngModel" [(ngModel)]="news.yearInit" required>
+                                       
+                                    <small class="invalid-feedback d-block font-weight-bold" *ngIf="yearInit.invalid && yearInit.touched">Debe Seleccionar un Año de inicio. El campo es obligatorio</small>
+                                </div>
+                                <div class="col col-lg-2 d-inline-block"  *ngIf="externFlag">
+                                    <label for="yearFinish" class="labelForm">Año Final</label>
+                                   <input type="text" style="background-position-x: 95%" name="yearFinish" id="yearFinish" class="form-control inputForm" [ngClass]="{'is-invalid': yearFinish.invalid && yearFinish.touched}" #yearFinish="ngModel" [(ngModel)]="news.yearFinish" required>
+                                       
+                                    <small class="invalid-feedback d-block font-weight-bold" *ngIf="yearFinish.invalid && yearFinish.touched">Debe Seleccionar un Año de terminación. El campo es obligatorio</small>
+                                </div>
+                            <div class="col col-3 d-inline-block" *ngIf="externFlag">
+                                <label for="userEmail" class="labelForm">Email*</label>
+                                <input type="text" name="userEmail" class="form-control inputForm" [ngClass]="{ 'is-invalid': userEmail.touched && userEmail.invalid }" #userEmail="ngModel" [(ngModel)]="news.userEmail" required placeholder="Ingrese el correo electrónico del usuario" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+                                 <small class="invalid-feedback d-block font-weight-bold" *ngIf="userEmail.invalid && userEmail.touched">Debe ingresar un correo electrónico válido. El campo es obligatorio</small>
                             </div>
                         </div>
                         <div class="form-group" style="margin-top: 2rem" *ngIf="editFlag">

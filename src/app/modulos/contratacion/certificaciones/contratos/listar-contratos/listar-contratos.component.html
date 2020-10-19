@@ -76,7 +76,7 @@
                                     <td>{{ contrato.DateFinish }}</td>
                                     <td style="padding: 0.55rem">
                                         <button type="button" class="btn btn-info col col-sm-12 col-md-5 mr-1 d-inline-block" [routerLink]="['../vercontrato', contrato.Id]" *ngIf="viewFlag">Ver</button>
-                                        <button type="button" class="btn btn-warning col col-sm-12 col-md-5 mr-1 d-inline-block" [routerLink]="['../editarcontratos', contrato.Id]" *ngIf="editFlag">Editar</button>
+                                        <button type="button" class="btn btn-warning col col-sm-12 col-md-5 mr-1 d-inline-block" [routerLink]="['../vercontrato', contrato.Id]" *ngIf="editFlag">Editar</button>
                                         <button type="button" class="btn btn-danger col col-sm-12 col-md-5 d-inline-block" data-toggle="modal" [attr.data-target]="'#myModal'+contrato.Id" *ngIf="deleteFlag">Borrar</button>
                                         <div class="deleteLoader" id="{{ 'loader' + contrato.Id }}" style="display: none;">
                                             <div class="loader"></div>

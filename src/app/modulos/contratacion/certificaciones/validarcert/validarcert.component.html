@@ -1,0 +1,84 @@
+<div class="container">
+    <br><br>
+        <div class="card text-center">
+            <div class="card-body ">
+                <div class="logoContainer">
+                    <img src="assets/images/logoSubred.png" alt="">
+                </div>
+                <div class="titleContainer text-center">
+                    <h1>{{ pageTitle }}</h1>
+                </div>
+                <div class="form-control  text-center">
+                    <div >
+                        <h3>{{ pageBuscar }}</h3>
+                    </div>
+                    <br>
+                    <div class="card-body">
+                        <div class="mt-3 errorAlert" *ngIf="status=='error' && responseMessage ">
+                            <div class="alert alert-danger" role="alert">
+                                {{ responseMessage }} <a routerLink="/login">Regresar</a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="card border-0">
+                                    <div class="card-body cardContainer">
+                                        <div class="formContainer">
+                                             <div class="backLink col col-sm-12">
+                                                <a class="col-sm-1 btn btn-info " routerLink="/login" >Volver</a>
+                                            </div>
+                                                <form #searchForm="ngForm"  id="searchForm" (ngSubmit)="onSubmit(searchForm)" >
+                                                    <div class="form-group ">
+                                                        <div class="col col-lg-3">
+                                                            <input type="text" name="codigo" id="codigo" [(ngModel)]="Codever" #codigo='ngModel' [ngClass]="{'is-invalid': codigo.touched && codigo.invalid}" class="form-control inputForm" required placeholder="Código de Verificación">
+                                                            <small class="invalid-feedback d-block font-weight-bold" *ngIf="codigo.invalid && codigo.touched">Debe ingresar un Código de Validación de certificación</small>
+                                                        </div>
+                                                    </div>
+                                                
+                                                    <div class="buttonSubmit col-sm-3">
+                                                        <input type="submit" value="Consultar" class="btn btn-info btnPrefer col-sm-12" [disabled]="searchForm.invalid">
+                                                    </div>
+                                                    <div class="mt-3 col col-sm-12 errorAlert" *ngIf="status=='error' || responseMessage">
+                                                        <div class="alert alert-danger" role="alert">
+                                                            {{ responseMessage }}
+                                                        </div>
+                                                    </div>
+                                                    <div class="deleteLoader mt-2" id="loader" *ngIf="preloaderStatus">
+                                                        <div class="loader"></div>
+                                                    </div>
+                                            </form>
+                                        </div>
+                                        <div class="tableContainer" *ngIf="datum">
+                                            <div class="tableContainerAll col col-sm-12">
+                                                    <table class="table table-bordered">
+                                                        <thead class="thead_styles">
+                                                            <tr>
+                                                                <th>Código</th>
+                                                                <th>Fecha de expedición</th>
+                                                                <th>Documento</th>
+                                                                <th>Nombre</th>
+                                                                <th>Páginas</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody class="tbody_styles">
+                                                            <tr  *ngFor="let dato of certi"  class="tableStyles" >
+                                                                <td>{{ dato.Codigo }}</td>
+                                                                <td>{{ dato.FecExp }}</td>
+                                                                <td>{{ dato.IdUsuario }}</td>
+                                                                <td>{{ dato.Nombre }}</td>
+                                                                <td>{{ dato.Paginas }}</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>

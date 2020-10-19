@@ -56,6 +56,7 @@ export class ListarNovedadesComponent implements OnInit {
 			res => {
 				if( res.status === 'success' ){
 					this.news = res.news;
+					console.log(this.news);
 				}
 			},
 			error => {

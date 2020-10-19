@@ -6,5 +6,10 @@ export class Novedad {
         public Archivo: string,
         public Estado: number,
         public update_by: number,
+        public Nombre:string,
+        public Tipo:string,
+        public yearInit:string,
+        public yearFinish: string,
+        public userEmail:string
     ){}
 }
