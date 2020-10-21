@@ -230,9 +230,9 @@ export var global = {
 		{ id: 3, name: 'FALLECIDO' },
 	],
 	temas: [
-		{ id: 1, name: 'TEMA 1' },
-		{ id: 2, name: 'TEMA 2' },
-		{ id: 3, name: 'TEMA 3' },
+		{ id: 1, name: 'HISTORIA CLÍNICA' },
+		{ id: 2, name: 'REGISTRO DE ENFERMERÍA' },
+		{ id: 3, name: 'MANEJO MÓDULOS FACTURACIÓN DGH' },
 	],
 
 	// Mipres - Depende del servicio de consulta

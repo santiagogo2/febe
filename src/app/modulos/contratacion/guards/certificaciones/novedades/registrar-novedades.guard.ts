@@ -20,7 +20,7 @@ export class RegistrarNovedadesGuard implements CanActivate {
 		if (identity) {
 			const permissions = JSON.parse(localStorage.getItem('userOperations'));
 			for ( const permission of permissions ) {
-				if ( permission.id_operations === 60 ) { // Operación que permite crear novedades en el módulo de certificaciones
+				if ( permission.id_operations === 54 ) { // Operación que permite crear novedades en el módulo de certificaciones
 					return true;
 				}
 			}

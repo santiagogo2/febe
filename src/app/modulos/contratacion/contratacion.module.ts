@@ -22,7 +22,7 @@ import { ListarContratosComponent } from './certificaciones/contratos/listar-con
 import { SubirContratosComponent } from './certificaciones/contratos/subir-contratos/subir-contratos.component';
 import { ValidarcertComponent } from './certificaciones/validarcert/validarcert.component';
 import { SolicitarcertComponent } from './certificaciones/solicitarcert/solicitarcert.component';
-import { CrearComponent } from './contratos/crear/crear.component';
+// import { CrearComponent } from './contratos/crear/crear.component';
 // import { IngresoComponent } from './contratos/ingreso/ingreso.component';
 
 @NgModule({
@@ -38,8 +38,9 @@ import { CrearComponent } from './contratos/crear/crear.component';
 		ContratacionComponent,
 		ValidarcertComponent,
 		SolicitarcertComponent,
-		CrearComponent,
+		// CrearComponent,
 		// IngresoComponent
+
 	],
 	imports: [
 		CommonModule,

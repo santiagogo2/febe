@@ -25,7 +25,7 @@ export class ContractorService {
 										 .set( 'Content-Type', 'application/x-www-form-urlencoded' );
 		 
 
-		return this.http.post( this.url + 'store', params, { headers } );
+		return this.http.post( this.url + 'storeContractor', params, { headers } );
 	}
 
 	getAllContractsByDocument( document ): Observable<any> {

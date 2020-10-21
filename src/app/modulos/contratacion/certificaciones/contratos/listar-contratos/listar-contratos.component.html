@@ -70,7 +70,7 @@
                                 <tr *ngFor="let contrato of contratos | paginate: {itemsPerPage: itemsPerPage, currentPage: actualPage}; index as i" class="tableStyles">
                                     <td>{{ contrato.Contract }}</td>
                                     <td>{{ contrato.Year }}</td>
-                                    <td>{{ contrato.Objeto | isnullfill }}</td>
+                                    <td>{{ contrato.Object | isnullfill }}</td>
                                     <td>{{ contrato.Value }}</td>
                                     <td>{{ contrato.DateBegin }}</td>
                                     <td>{{ contrato.DateFinish }}</td>

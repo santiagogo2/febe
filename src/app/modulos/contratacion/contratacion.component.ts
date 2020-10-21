@@ -9,7 +9,7 @@ export class ContratacionComponent implements OnInit {
 	public identity: any;
 
 	public contracts: any[] = [
-		{ titulo: 'Certificaciones', url: 'vernovedades', class: 'card-4FB96F', description: 'Módulo de certificaciones' },
+		{ titulo: 'Novedades', url: 'vernovedades', class: 'card-4FB96F', description: 'Módulo de Certificaciones' },
 		// { titulo: 'Informes', url: 'informes', class: 'card-EC8993', description: 'Reportes gráficos de los datos almacenados en el sistema' },
 	];
 

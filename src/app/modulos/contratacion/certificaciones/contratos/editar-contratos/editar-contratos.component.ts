@@ -85,7 +85,7 @@ export class EditarContratosComponent implements OnInit {
 				if ( res.status === 'success' ) {
 					swal('Contrato actualizado con éxito', res.message, 'success');
 				
-					this.router.navigate(['/contratacion/vercontratos']);
+					this.router.navigate(['/contratacion/buscarcontratos']);
 				}
 			},
 			error => {

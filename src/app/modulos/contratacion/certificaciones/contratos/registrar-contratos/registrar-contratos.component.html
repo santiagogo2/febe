@@ -23,12 +23,17 @@
                 <div class="formContainer">
                     <form #contratoForm="ngForm" class="form-container" (ngSubmit)="onSubmit(contratoForm)" style="text-align: left;">
                         <div class="form-group">
-                            <div class="col col-lg-5 d-inline-block">
+                            <div class="col col-lg-3 d-inline-block">
                                 <label for="Nombre" class="labelForm">Nombre Completo</label>
                                 <input type="text" name="Nombre" class="form-control inputForm" [ngClass]="{'is-invalid': Nombre.touched && Nombre.invalid}" #Nombre="ngModel" [(ngModel)]="contrato.Nombre" required pattern="[a-zA-ZÀ-ÿ ]+" minlength="5" maxlength="50" placeholder="Ingrese el número de documento del colaborador">
                                 <small class="invalid-feedback d-block font-weight-bold" *ngIf="Nombre.invalid && Nombre.touched">Debe ingresar un documento. El campo es obligatorio</small>
                             </div>
                             <div class="col col-lg-3 d-inline-block">
+                                <label for="Nombre" class="labelForm">Objeto</label>
+                                <input type="text" name="Object" class="form-control inputForm" [ngClass]="{'is-invalid': Object.touched && Object.invalid}" #Object="ngModel" [(ngModel)]="contrato.Object" required  minlength="5" maxlength="100" placeholder="Ingrese el número de documento del colaborador">
+                                <small class="invalid-feedback d-block font-weight-bold" *ngIf="Object.invalid && Object.touched">Debe ingresar un Objeto. El campo es obligatorio</small>
+                            </div>
+                            <div class="col col-lg-2 d-inline-block">
                                 <label for="IdUsuario" class="labelForm">Documento</label>
                                 <input type="text" name="IdUsuario" class="form-control inputForm" [ngClass]="{'is-invalid': IdUsuario.touched && IdUsuario.invalid}" #IdUsuario="ngModel" [(ngModel)]="contrato.IdUsuario" required pattern="[0-9]+" minlength="5" maxlength="10" placeholder="Ingrese el número de documento del colaborador">
                                 <small class="invalid-feedback d-block font-weight-bold" *ngIf="IdUsuario.invalid && IdUsuario.touched">Debe ingresar un documento. El campo es obligatorio</small> </div>
@@ -47,11 +52,11 @@
                         <div class="form-group">
                             <div class="col col-lg-2 d-inline-block">
                                 <label for="DateBegin" class="labelForm">Fecha de Inicio</label>
-                                <input type="date" name="DateBegin" class="form-control inputForm" [ngClass]="{'is-invalid': DateBegin.touched && DateBegin.invalid}" #DateBegin="ngModel" [(ngModel)]="contrato.DateBegin" required placeholder="Año Contrato">
+                                <input type="text" name="DateBegin" class="form-control inputForm" [ngClass]="{'is-invalid': DateBegin.touched && DateBegin.invalid}" #DateBegin="ngModel" [(ngModel)]="contrato.DateBegin" required placeholder="Año Contrato">
                                 <small class="invalid-feedback d-block font-weight-bold" *ngIf="DateBegin.invalid && DateBegin.touched">Debe ingresar un No de Año. El campo es obligatorio</small> </div>
                             <div class="col col-lg-2 d-inline-block">
                                 <label for="DateFinish" class="labelForm">Fecha de Finalización</label>
-                                <input type="date" name="DateFinish" class="form-control inputForm" [ngClass]="{'is-invalid': DateFinish.touched && DateFinish.invalid}" #DateFinish="ngModel" [(ngModel)]="contrato.DateFinish" required placeholder="Año Contrato">
+                                <input type="text" name="DateFinish" class="form-control inputForm" [ngClass]="{'is-invalid': DateFinish.touched && DateFinish.invalid}" #DateFinish="ngModel" [(ngModel)]="contrato.DateFinish" required placeholder="Año Contrato">
                                 <small class="invalid-feedback d-block font-weight-bold" *ngIf="DateFinish.invalid && Year.touched">Debe ingresar un No de Año. El campo es obligatorio</small> </div>
                             <div class="col col-lg-2 d-inline-block">
                                 <label for="Value" class="labelForm">Valor Mensual</label>
@@ -59,12 +64,7 @@
                                 <small class="invalid-feedback d-block font-weight-bold" *ngIf="Value.invalid && Year.touched">Debe ingresar un No de Año. El campo es obligatorio</small> </div>
                             <div class="col col-lg-3 d-inline-block">
                                 <label for="Unit" class="labelForm">Unidad</label>
-                                <select style="background-position-x: 95%" name="Unit" id="Unit" class="form-control inputForm" [ngClass]="{'is-invalid': Unit.invalid && Unit.touched}" #Unit="ngModel" [(ngModel)]="contrato.Unit" required>
-										<option value="Meissen">MEISSEN</option>
-										<option value="Tunal">TUNAL</option>
-										<option value="Usme">USME</option>
-										<option value="Vista Hermosa">VISTA HERMOSA</option>
-									  </select>
+                                <input type="text" name="Unit" id="Unit" class="form-control inputForm" [ngClass]="{'is-invalid': Unit.invalid && Unit.touched}" #Unit="ngModel" [(ngModel)]="contrato.Unit" required>
                                 <small class="invalid-feedback d-block font-weight-bold" *ngIf="Unit.invalid && Unit.touched">Debe seleccionar una Unidad. El campo es obligatorio</small>
                             </div>
                             <div class="col col-lg-3 d-inline-block">

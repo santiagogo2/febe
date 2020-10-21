@@ -47,7 +47,7 @@ export class EditarNovedadesComponent implements OnInit {
 	) {
 		this.identity = this.userService.getIdentity();
 
-		this.buttonText = this.identity.role === '1' ? 'Cerrar Novedad' : 'Actualizar';
+		this.buttonText = this.identity.role == '20' ? 'Cerrar Novedad' : 'Actualiza';
 		this.externFlag = false;
 
 		this.loadPermissions();

@@ -33,31 +33,31 @@ export class ListarContratosComponent implements OnInit {
 	) {
 		const newsPage = +localStorage.getItem( 'newsPage' );
 		this.actualPage = newsPage ? newsPage : 1;
-		this.itemsPerPage = 40;
+		this.itemsPerPage = 10;
 
 		this.token = this.userService.getToken();
 		this.identity = this.userService.getIdentity();
 	}
 
 	ngOnInit(): void {
-	this.identity = this.userService.getIdentity();
-	console.log(this.identity);
-			
-	if (this.identity['role'] != 1 )
-		{this.document = this.identity['documentId'];
-		this.contractList();} 
-
-		this.status = undefined;
-		this.responseMessage = undefined;
-		this.loadPermissions();
-    //this.contractList();
-    const contratos= localStorage.getItem('contratosById');
-    if (contratos){
-      this.contratos = JSON.parse(contratos);
-    }
-
-	
+		this.identity = this.userService.getIdentity();
+		console.log(this.identity);
+				
+		if (this.identity['role'] != 20 )
+			{
+				this.document = this.identity['documentId'];
+				this.contractList();
+			} 
+			this.status = undefined;
+			this.responseMessage = undefined;
+			this.loadPermissions();
+	    const contratos= localStorage.getItem('contratosById');
+	    
+	    if (contratos){
+	      this.contratos = JSON.parse(contratos);
+	    	}
 	}
+  
   onSubmit(contratosForm) {
     	this.contratos = null;
 		this.status = null;
@@ -67,11 +67,10 @@ export class ListarContratosComponent implements OnInit {
 		this.ContratoService.getAllContractsByDocument(this.document).subscribe(
 			res => {
 				this.preloaderStatus = false;
-        if ( res.status === 'success' ) {
-          this.contratos = res.contracts;
-          localStorage.setItem('contratosById',JSON.stringify(this.contratos));
-         
-				}
+		        if ( res.status === 'success' ) {
+		          this.contratos = res.contracts;
+		          localStorage.setItem('contratosById',JSON.stringify(this.contratos));
+						}
 			},
 			error => {
 				this.preloaderStatus = false;
@@ -82,6 +81,7 @@ export class ListarContratosComponent implements OnInit {
 		);
 		
 	}
+
 	contractList() {
 		this.contratos = null;
 		this.status = null;
@@ -91,11 +91,10 @@ export class ListarContratosComponent implements OnInit {
 		this.ContratoService.getAllContractsByDocument(this.document).subscribe(
 			res => {
 				this.preloaderStatus = false;
-        if ( res.status === 'success' ) {
-          this.contratos = res.contracts;
-          localStorage.setItem('contratosById',JSON.stringify(this.contratos));
-         
-				}
+		        if ( res.status === 'success' ) {
+		          this.contratos = res.contracts;
+		          localStorage.setItem('contratosById',JSON.stringify(this.contratos));
+						}
 			},
 			error => {
 				this.preloaderStatus = false;
