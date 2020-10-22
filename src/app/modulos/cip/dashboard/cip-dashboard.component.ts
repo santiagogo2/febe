@@ -17,7 +17,9 @@ export class CipDashboardComponent implements OnInit {
 			{ id: 4, title: 'Partos y Cesareas' },
 			{ id: 5, title: 'Laboratorio Clínico' },
 			{ id: 6, title: 'Enfermería' },
-		]
+			{ id: 7, title: 'Terapias Actividades' },
+			{ id: 8, title: 'Procedimientos No Cruentos' },
+		];
 	}
 
 	ngOnInit(): void {

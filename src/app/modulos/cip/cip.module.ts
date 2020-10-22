@@ -13,6 +13,9 @@ import { CipCirugiaDashboardComponent } from './dashboard/cirugia/cip-cirugia-da
 import { CipPartosCesareasDashboardComponent } from './dashboard/partos-cesareas/cip-partos-cesareas-dashboard.component';
 import { CipLaboratorioDashboardComponent } from './dashboard/laboratorio/cip-laboratorio-dashboard.component';
 import { CipEnfermeriaDashboardComponent } from './dashboard/enfermeria/cip-enfermeria-dashboard.component';
+import { CipTherapyActivitiesComponent } from './dashboard/therapy-activities/cip-therapy-activities.component';
+import { CipNonBloodyProceduresComponent } from './dashboard/non-bloody-procedures/cip-non-bloody-procedures.component';
+import { TriageComponent } from './dashboard/triage/triage.component';
 
 @NgModule({
 	declarations: [
@@ -23,6 +26,9 @@ import { CipEnfermeriaDashboardComponent } from './dashboard/enfermeria/cip-enfe
 		CipPartosCesareasDashboardComponent,
 		CipLaboratorioDashboardComponent,
 		CipEnfermeriaDashboardComponent,
+		CipTherapyActivitiesComponent,
+		CipNonBloodyProceduresComponent,
+		TriageComponent,
 	],
 	imports: [
 		CommonModule,

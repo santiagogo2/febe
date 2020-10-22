@@ -5,3 +5,6 @@ export { EnfermeriaService } from './enfermeria.service';
 export { HospitalizacionService } from './hospitalizacion.service';
 export { LaboratorioService } from './laboratorio.service';
 export { PartosCesareasService } from './partoscesareas.service';
+export { ProcedimientosNoCruentosService } from './procedimientosnocruentos.service';
+export { TerapiaActividadesService } from './terapiaactividades.service';
+export { TriageService } from './triage.service';

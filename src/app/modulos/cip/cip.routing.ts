@@ -3,9 +3,11 @@ import { RouterModule, Routes } from '@angular/router';
 
 // Components
 import { CipDashboardComponent } from './dashboard/cip-dashboard.component';
+import { TriageComponent } from './dashboard/triage/triage.component';
 
 const cipRoutes: Routes = [
 	{ path: 'tablero', component: CipDashboardComponent, data: { titulo: 'Tablero CIP'} },
+	{ path: 'tablero/prueba', component: TriageComponent, data: { titulo: 'Tablero CIP'} },
 	{ path: '', redirectTo: 'tablero', pathMatch: 'full' },
 ];
 
