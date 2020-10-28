@@ -19,6 +19,8 @@ export class CipDashboardComponent implements OnInit {
 			{ id: 6, title: 'Enfermería' },
 			{ id: 7, title: 'Terapias Actividades' },
 			{ id: 8, title: 'Procedimientos No Cruentos' },
+			{ id: 9, title: 'Triage' },
+			{ id: 10, title: 'Odontología Tratamientos' },
 		];
 	}
 

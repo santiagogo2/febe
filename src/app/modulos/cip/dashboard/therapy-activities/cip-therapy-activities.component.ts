@@ -39,7 +39,7 @@ export class CipTherapyActivitiesComponent implements OnInit {
 		this.selectRedes = true;
 		this.selectSedes = true;
 		this.selectYears = true;
-		this.yearNote = 'Periodo 2020 Enero - Agosto';
+		this.yearNote = global.cipNote;
 
 		this.barChartColors = this.cipService.setBarChartColors();
 	}

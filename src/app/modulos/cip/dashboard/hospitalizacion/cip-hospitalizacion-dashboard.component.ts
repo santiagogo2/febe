@@ -42,7 +42,7 @@ export class CipHospitalizacionDashboardComponent implements OnInit {
 		this.selectSedes = true;
 		this.selectServices = true;
 		this.selectYears = true;
-		this.yearNote = 'Periodo 2020 Enero - Agosto';
+		this.yearNote = global.cipNote;
 
 		this.barChartColors = this.cipService.setBarChartColors();
 	}

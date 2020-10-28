@@ -4,6 +4,8 @@ export var global = {
 	appName: 'SIASUR',
 	url: 'http://info-utilitario.subredsur.gov.co/public/api/',
 	urlDinamica: 'http://172.17.2.81/api-rest-dinamica/public/api/',
+	cipNote: 'Periodo 2020 Enero - Septiembre',
+
 	iconsArray: [
 		{ title: 'Capacitaciones', imageUrl: 'assets/images/modulos/capacitacion.png', class: 'imageContainer color-violet', url: '/capacitaciones' },
 		{ title: 'Sala Situacional', imageUrl: 'assets/images/modulos/salaSituacional.png', class: 'imageContainer color-green', url: '/sala-situacional' },
@@ -233,6 +235,8 @@ export var global = {
 		{ id: 1, name: 'HISTORIA CLÍNICA' },
 		{ id: 2, name: 'REGISTRO DE ENFERMERÍA' },
 		{ id: 3, name: 'MANEJO MÓDULOS FACTURACIÓN DGH' },
+		{ id: 4, name: 'MÓDULO DE CITAS MÉDICAS' },
+		{ id: 5, name: 'CONSULTAS DE REPORTES' },
 	],
 
 	// Mipres - Depende del servicio de consulta

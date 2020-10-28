@@ -39,7 +39,7 @@ export class CipEnfermeriaDashboardComponent implements OnInit {
 		this.selectRedes = true;
 		this.selectSedes = true;
 		this.selectYears = true;
-		this.yearNote = 'Periodo 2020 Enero - Agosto';
+		this.yearNote = global.cipNote;
 
 		this.barChartColors = this.cipService.setBarChartColors();
 	}
@@ -96,7 +96,7 @@ export class CipEnfermeriaDashboardComponent implements OnInit {
 				if ( res.status === 'success' ) {
 					this.indicators = res.indicators;
 					const actividadesEducativas = this.cipService.setInfo(this.indicators, 'Actividades Educativas (Talleres)', 'actividadesEducativas' );
-					const consejerias = this.cipService.setInfo(this.indicators, 'Conjerías', 'consejerias' );
+					const consejerias = this.cipService.setInfo(this.indicators, 'Consejerías', 'consejerias' );
 					const consultaControlCrecimiento = this.cipService.setInfo(this.indicators, 'Consulta Control de Crecimiento y Desarrollo', 'consultaControlCrecimiento' );
 					const consultaControlJoven = this.cipService.setInfo(this.indicators, 'Consulta Control del Joven', 'consultaControlJoven' );
 					const consultaControlPrenatal = this.cipService.setInfo(this.indicators, 'Consulta Control Prenatal', 'consultaControlPrenatal' );

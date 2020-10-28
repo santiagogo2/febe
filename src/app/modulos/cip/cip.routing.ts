@@ -3,11 +3,11 @@ import { RouterModule, Routes } from '@angular/router';
 
 // Components
 import { CipDashboardComponent } from './dashboard/cip-dashboard.component';
-import { TriageComponent } from './dashboard/triage/triage.component';
+import { CipTherapyConsultationsComponent } from './dashboard/therapy-consultations/cip-therapy-consultations.component';
 
 const cipRoutes: Routes = [
 	{ path: 'tablero', component: CipDashboardComponent, data: { titulo: 'Tablero CIP'} },
-	{ path: 'tablero/prueba', component: TriageComponent, data: { titulo: 'Tablero CIP'} },
+	{ path: 'tablero/prueba', component: CipTherapyConsultationsComponent, data: { titulo: 'Tablero CIP'} },
 	{ path: '', redirectTo: 'tablero', pathMatch: 'full' },
 ];
 

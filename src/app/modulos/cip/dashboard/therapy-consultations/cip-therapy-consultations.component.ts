@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { global } from '../../../../services/services.index';
-import { CipService, ProcedimientosNoCruentosService } from '../../services/cip-services.index';
+import { CipService, TerapiaConsultasService } from '../../services/cip-services.index';
 
 @Component({
-	selector: 'app-cip-non-bloody-procedures',
-	templateUrl: './cip-non-bloody-procedures.component.html',
+	selector: 'app-cip-therapy-consultations',
+	templateUrl: './cip-therapy-consultations.component.html',
 	styles: []
 })
-export class CipNonBloodyProceduresComponent implements OnInit {
+export class CipTherapyConsultationsComponent implements OnInit {
 	status: string;
 	responseMessage: string;
 	preloaderStatus: boolean;
@@ -21,30 +21,27 @@ export class CipNonBloodyProceduresComponent implements OnInit {
 	redes: any;
 	sedes: any;
 	years: any;
-	services: any;
-	tipoProcedimiento: any;
+	servicioNieto: any;
 
 	indicators: Array<any>;
 	selectRedes: boolean;
 	selectSedes: boolean;
-	selectServices: boolean;
-	selectTipoProcedimiento: boolean;
 	selectYears: boolean;
+	selectServicioNieto: boolean;
 	yearNote: string;
 
 	barChartColors: any;
 
 	constructor(
 		private cipService: CipService,
-		private noCruentosService: ProcedimientosNoCruentosService,
+		private terapiaConsultasService: TerapiaConsultasService,
 	) {
 		this.months = global.months;
 
 		this.selectRedes = true;
 		this.selectSedes = true;
-		this.selectServices = true;
-		this.selectTipoProcedimiento = true;
 		this.selectYears = true;
+		this.selectServicioNieto = true;
 		this.yearNote = global.cipNote;
 
 		this.barChartColors = this.cipService.setBarChartColors();
@@ -58,28 +55,25 @@ export class CipNonBloodyProceduresComponent implements OnInit {
 		this.status = null;
 		this.responseMessage = null;
 
-		this.noCruentosService.getFilters().subscribe(
+		this.terapiaConsultasService.getFilters().subscribe(
 			res => {
 				if ( res.status === 'success' ) {
 					this.filters = res.filters;
 					this.redes = this.cipService.setCheckBox(this.filters.redes);
 					this.sedes = this.cipService.setCheckBox(this.filters.sedes);
 					this.years = this.cipService.setCheckBox(this.filters.years);
-					this.services = this.cipService.setCheckBox(this.filters.services);
-					this.tipoProcedimiento = this.cipService.setCheckBox( this.filters.proceduresTypes );
+					this.servicioNieto = this.cipService.setCheckBox(this.filters.servicioNieto);
 					this.filtersArray = [
 						{ reference: this.redes, title: 'Redes', select: this.selectRedes },
 						{ reference: this.sedes, title: 'Sedes', select: this.selectSedes },
+						{ reference: this.servicioNieto, title: 'Servicio Nieto', select: this.selectServicioNieto },
 						{ reference: this.years, title: 'Años', select: this.selectYears },
-						{ reference: this.services, title: 'Servicios', select: this.selectServices },
-						{ reference: this.tipoProcedimiento, title: 'Tipo de Procedimiento', select: this.selectTipoProcedimiento },
 					];
 					this.getIndicators(
 						this.filters.redes,
 						this.filters.sedes,
 						this.filters.years,
-						this.filters.services,
-						this.filters.proceduresTypes
+						this.filters.servicioNieto
 					);
 				}
 			},
@@ -95,32 +89,35 @@ export class CipNonBloodyProceduresComponent implements OnInit {
 		);
 	}
 
-	getIndicators( redes, sedes, years, services, proceduresTypes ) {
+	getIndicators( redes, sedes, years, servicioNieto ) {
 		this.filterMessage = null;
 
 		const params = {
 			redes,
 			sedes,
 			years,
-			services,
-			proceduresTypes
+			servicioNieto
 		};
-		this.noCruentosService.getByFilters( params ).subscribe(
+		this.terapiaConsultasService.getByFilters( params ).subscribe(
 			res => {
 				if ( res.status === 'success' ) {
 					this.indicators = res.indicators;
-					const totalProcedimientos = this.cipService.setInfo(this.indicators, 'Total Procedimientos', 'totalProcedimientos' );
-					const procedimientos2al6 = this.cipService.setInfo(this.indicators, 'Procedimientos Grupo 2 al 6', 'procedimientos2al6' );
-					const procedimiento7al10 = this.cipService.setInfo(this.indicators, 'Procedimientos Grupo 7 al 10', 'procedimiento7al10' );
-					const procedimiento11al13 = this.cipService.setInfo(this.indicators, 'Procedimientos Grupo 11 al 13', 'procedimiento11al13' );
-					const procedimiento20al23 = this.cipService.setInfo(this.indicators, 'Procedimientos Grupo 20 al 23', 'procedimiento20al23' );
+					const produccionTotal = this.cipService.setInfo(this.indicators, 'Producción Total', 'produccionTotal' );
+					const rendimiento = this.cipService.setInfo(this.indicators, 'Rendimiento', 'rendimiento' );
+					const utilizacionRecursoHumano = this.cipService.setInfo(this.indicators, 'Utilizaciòn Recurso Humano', 'utilizacionRecursoHumano' );
+					const oportunidadPrimeraVez = this.cipService.setInfo(this.indicators, 'Oportunidad Primera Vez', 'oportunidadPrimeraVez' );
+					const oportunidadControl = this.cipService.setInfo(this.indicators, 'Oportunidad Control', 'oportunidadControl' );
+					const porcentajeInasistencia = this.cipService.setInfo(this.indicators, 'Porcentaje Inasistencia', 'porcentajeInasistencia' );
+					const asignadasvsprogramadas = this.cipService.setInfo(this.indicators, 'Asignadas Vs Programadas', 'asignadasvsprogramadas' );
 
 					this.graphics = [
-						totalProcedimientos,
-						procedimientos2al6,
-						procedimiento7al10,
-						procedimiento11al13,
-						procedimiento20al23,
+						produccionTotal,
+						rendimiento,
+						utilizacionRecursoHumano,
+						oportunidadPrimeraVez,
+						oportunidadControl,
+						porcentajeInasistencia,
+						asignadasvsprogramadas,
 					];
 
 					this.preloaderStatus = false;
@@ -166,29 +163,21 @@ export class CipNonBloodyProceduresComponent implements OnInit {
 		}
 		this.selectYears = years.length === this.years.length ? true : false;
 
-		const services = new Array();
-		for ( const service of this.services ) {
+		const servicioNieto = new Array();
+		for ( const service of this.servicioNieto ) {
 			if ( service.isSelected ) {
-				services.push( service.name );
+				servicioNieto.push( service.name );
 			}
 		}
-		this.selectServices = services.length === this.services.length ? true : false;
+		this.selectServicioNieto = servicioNieto.length === this.servicioNieto.length ? true : false;
 
-		const tipoProcedimiento = new Array();
-		for ( const service of this.tipoProcedimiento ) {
-			if ( service.isSelected ) {
-				tipoProcedimiento.push( service.name );
-			}
-		}
-		this.selectTipoProcedimiento = tipoProcedimiento.length === this.tipoProcedimiento.length ? true : false;
-
-		if ( redes.length === 0 || sedes.length === 0 || years.length === 0 || services.length === 0 ||
-			tipoProcedimiento.length === 0 ) {
+		if ( redes.length === 0 || sedes.length === 0 || years.length === 0 ||
+			servicioNieto.length === 0 ) {
 			this.filterMessage = 'Debe estar seleccionado al menos un elemento por filtro';
 			this.preloaderStatus = false;
 		} else {
 			this.filterMessage = null;
-			this.getIndicators( redes, sedes, years, services, tipoProcedimiento );
+			this.getIndicators( redes, sedes, years, servicioNieto );
 		}
 	}
 
