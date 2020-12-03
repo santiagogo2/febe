@@ -1090,11 +1090,19 @@ footer p {
     #capacitacion .cardContainer {
         display: block;
     }
+    .textImageContainer span {
+        font-size: 1.5rem !important;
+    }
 }
 
 @media ( max-width: 630px) {
     .circleImageContainer {
         width: 20%;
+    }
+    .textImageContainer {
+        font-size: 1.2rem !important;
+        top: 75px !important;
+        left: 0;
     }
 }
 

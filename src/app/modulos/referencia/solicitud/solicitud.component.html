@@ -1,0 +1,188 @@
+<!-- <div class="loaderBall" *ngIf="!eppTracking && !responseMessage">
+    <div class="ball-pulse-rise">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+<div class="mt-3 errorAlert" *ngIf="status=='error' && responseMessage && !eppTracking">
+    <div class="alert alert-danger" role="alert">
+        {{ responseMessage }} <a routerLink="/epp/seguimiento/listar" *ngIf="viewFlag">listar seguimientos EPP</a>
+    </div>
+</div> -->
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card border-0">
+            <div class="card-body cardContainer">
+                <div class="formContainer">
+                    <form #referenceForm="ngForm" class="form-container" (ngSubmit)="onSubmit(referenceForm)" style="text-align: left;">
+                        <div class="form-group">
+                            <div class="col col-12 d-inline-block align-top">
+                                <form id="searchForm" #searchForm="ngForm" (ngSubmit)="searchPatient()">
+                                    <div id="labelSearch" class="col col-sm-12 col-lg-8 d-inline-block pl-0 align-top">
+                                        <label for="documento" class="labelForm">Número de documento del paciente*</label>
+                                        <input type="text" name="documento" class="form-control inputForm " [ngClass]="{ 'is-invalid': documento.touched && documento.invalid}" #documento="ngModel" [(ngModel)]="request.numeroIdentificacion
+                                        " required pattern="[0-9]+" minlength="5" maxlength="15" placeholder="Ingrese el número de documento del paciente ">
+                                    </div>
+                                    <div id="submitButton" class="col col-sm-12 col-lg-4 d-inline-block pr-0 align-bottom">
+                                        <input type="submit" value="Buscar" class="btn btn-sm btn-info btnPrefer col-sm-12" [disabled]="searchForm.invalid">
+                                    </div>
+                                    <small class="invalid-feedback d-block font-weight-bold" *ngIf="documento.invalid && documento.touched">Debe ingresar un número de documento válido. Solo se admiten números. El campo es obligatorio</small>
+                                </form>
+                            </div>
+                            <small class="invalid-feedback d-block font-weight-bold col col-sm-12" *ngIf="searchResponseMessage">{{ searchResponseMessage }}</small>
+                        </div>
+                        <div class="col-sm-12" *ngIf="searchPreloaderStatus">
+                            <fa-icon [icon]="faSpinner" class="d-block spin"></fa-icon>
+                        </div>
+                        <div *ngIf="incomes">
+                            <div class="form-group">
+                                <div class="col col-sm-4 col-lg-3 d-inline-block align-top">
+                                    <label for="tipoIdentificacion" class="labelForm">Tipo de Identificación</label>
+                                    <input type="text" name="tipoIdentificacion" class="form-control inputForm" [ngClass]="{'is-invalid': tipoIdentificacion.touched && tipoIdentificacion.invalid}" #tipoIdentificacion="ngModel" [(ngModel)]="request.tipoIdentificacion" required disabled>
+                                </div>
+                                <div class="col col-sm-8 col-lg-6 d-inline-block align-top">
+                                    <label for="nombresApellidos" class="labelForm">Nombres y Apellidos</label>
+                                    <input type="text" name="nombresApellidos" class="form-control inputForm" [ngClass]="{'is-invalid': nombresApellidos.touched && nombresApellidos.invalid}" #nombresApellidos="ngModel" [(ngModel)]="request.nombresApellidos" required disabled>
+                                </div>
+                                <div class="col col-sm-6 col-lg-1 d-inline-block align-top">
+                                    <label for="edadPaciente" class="labelForm">Edad</label>
+                                    <input type="text" name="edadPaciente" class="form-control inputForm" [ngClass]="{'is-invalid': edadPaciente.touched && edadPaciente.invalid}" #edadPaciente="ngModel" [(ngModel)]="request.edadPaciente" required disabled>
+                                </div>
+                                <div class="col col-sm-6 col-lg-2 d-inline-block align-top">
+                                    <label for="genero" class="labelForm">Genero</label>
+                                    <input type="text" name="genero" class="form-control inputForm" [ngClass]="{'is-invalid': genero.touched && genero.invalid}" #genero="ngModel" [(ngModel)]="request.genero" required disabled>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col col-sm-12 col-lg-6 d-inline-block align-top">
+                                    <label for="aseguradora" class="labelForm">Aseguradora*</label>
+                                    <input type="text" name="aseguradora" class="form-control inputForm" [ngClass]="{'is-invalid': aseguradora.touched && aseguradora.invalid}" #aseguradora="ngModel" [(ngModel)]="request.aseguradora" required disabled>
+                                </div>
+                                <div class="col col-sm-12 col-lg-6 d-inline-block align-top">
+                                    <label for="selectIngreso" class="labelForm">Ingreso*</label>
+                                    <select style="background-position-x: 95%" name="selectIngreso" id="selectIngreso" class="form-control inputForm" [ngClass]="{'is-invalid': selectIngreso.invalid && selectIngreso.touched}" #selectIngreso="ngModel" [(ngModel)]="request.ingreso" (ngModelChange)="setIncome()"
+                                        required>
+										<option *ngFor="let income of incomes" value="{{ income.Ingreso }}">{{ income.Ingreso }} - {{ income.FechaIngreso }}</option>
+									</select>
+                                    <small class="invalid-feedback d-block font-weight-bold" *ngIf="selectIngreso.invalid && selectIngreso.touched">Debe selecionar un ingreso de la lista desplegable</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="request.ingreso">
+                            <div class="form-group">
+                                <div class="col col-sm-12 col-lg-2 d-inline-block align-top">
+                                    <label for="ingreso" class="labelForm">Ingreso</label>
+                                    <input type="text" name="ingreso" class="form-control inputForm" #ingreso="ngModel" [(ngModel)]="request.ingreso" required disabled>
+                                </div>
+                                <div class="col col-sm-12 col-lg-4 d-inline-block align-top">
+                                    <label for="centroAtencion" class="labelForm">Centro de Atención</label>
+                                    <input type="text" name="centroAtencion" class="form-control inputForm" #centroAtencion="ngModel" [(ngModel)]="request.centroAtencion" required disabled>
+                                </div>
+                                <div class="col col-sm-12 col-lg-2 d-inline-block align-top">
+                                    <label for="numeroCama" class="labelForm">Número de Cama</label>
+                                    <input type="text" name="numeroCama" class="form-control inputForm" #numeroCama="ngModel" [(ngModel)]="request.numeroCama" required disabled>
+                                </div>
+                                <div class="col col-sm-12 col-lg-4 d-inline-block align-top">
+                                    <label for="nombreCama" class="labelForm">Nombre de la Cama</label>
+                                    <input type="text" name="nombreCama" class="form-control inputForm" #nombreCama="ngModel" [(ngModel)]="request.nombreCama" required disabled>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col col-sm-12 col-lg-6 d-inline-block align-top">
+                                    <label for="motivoTranslado" class="labelForm">Motivo de Translado*</label>
+                                    <select style="background-position-x: 95%" name="motivoTranslado" id="motivoTranslado" class="form-control inputForm" [ngClass]="{'is-invalid': motivoTranslado.invalid && motivoTranslado.touched}" #motivoTranslado="ngModel" [(ngModel)]="request.motivoTranslado"
+                                        required>
+										<option *ngFor="let motivo of motivosTranslados" value="{{ motivo.id }}">{{ motivo.name }}</option>
+									</select>
+                                    <small class="invalid-feedback d-block font-weight-bold" *ngIf="motivoTranslado.invalid && motivoTranslado.touched">Debe selecionar un motivo de la lista desplegable</small>
+                                </div>
+                                <div class="col col-sm-12 col-lg-6 align-bottom d-inline-block" *ngIf="searchFolioPreloaderStatus || searchFolioResponseMessage">
+                                    <fa-icon [icon]="faSpinner" class="d-block spin" *ngIf="searchFolioPreloaderStatus"></fa-icon>
+                                    <small class="invalid-feedback d-block font-weight-bold" *ngIf="searchFolioResponseMessage">{{ searchFolioResponseMessage }}</small>
+                                </div>
+                                <div class="col col-sm-12 col-lg-6 d-inline-block align-top" *ngIf="folios">
+                                    <label for="selectFolio" class="labelForm">Folios asociados al ingreso*</label>
+                                    <select style="background-position-x: 95%" name="selectFolio" id="selectFolio" class="form-control inputForm" [ngClass]="{'is-invalid': selectFolio.invalid && selectFolio.touched}" #selectFolio="ngModel" [(ngModel)]="request.folio" (ngModelChange)="setFolio()"
+                                        required>
+										<option *ngFor="let folio of folios" value="{{ folio.NumeroFolio }}">{{ folio.NumeroFolio }} - {{ folio.FechaFolio }}</option>
+									</select>
+                                    <small class="invalid-feedback d-block font-weight-bold" *ngIf="selectFolio.invalid && selectFolio.touched">Debe selecionar un folio de la lista desplegable</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="request.folio">
+                            <div class="form-group">
+                                <div class="col col-sm-12 col-lg-3 d-inline-block align-top">
+                                    <label for="fechaFolio" class="labelForm">Fecha de Folio</label>
+                                    <input type="text" name="fechaFolio" class="form-control inputForm" #fechaFolio="ngModel" [(ngModel)]="request.fechaFolio" required disabled>
+                                </div>
+                                <div class="col col-sm-12 col-lg-4 d-inline-block align-top">
+                                    <label for="nombreMedico" class="labelForm">Nombre del Médico</label>
+                                    <input type="text" name="nombreMedico" class="form-control inputForm" #nombreMedico="ngModel" [(ngModel)]="request.nombreMedico" required disabled>
+                                </div>
+                                <div class="col col-sm-12 col-lg-5 d-inline-block align-top">
+                                    <label for="especialidadMedico" class="labelForm">Especialidad del Médico</label>
+                                    <input type="text" name="especialidadMedico" class="form-control inputForm" #especialidadMedico="ngModel" [(ngModel)]="request.especialidadMedico" required disabled>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col col-12 d-inline-block align-top">
+                                    <label for="diagnostico" class="labelForm">Diagnóstico</label>
+                                    <textarea name="diagnostico" rows="2" class="form-control inputForm" #diagnostico="ngModel" [(ngModel)]="request.diagnostico" required disabled></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="infoCups">
+                            <div class="form-group">
+                                <div class="col col-sm-12 d-inline-block align-top">
+                                    <label for="cups" class="labelForm">CUPS asociados al folio del paciente*</label>
+                                    <div class="col-12 d-inline-block pl-3 align-top checkbox">
+                                        <input type="checkbox" [(ngModel)]="flagSelectAll" name="selectAll" id="selectAll" (ngModelChange)="selectAll()"><label class="checkbox" for="selectAll">Todos/Ninguno</label>
+                                    </div>
+                                    <div class="col-12 d-inline-block pl-3 align-top checkbox" *ngFor="let info of infoCups">
+                                        <input type="checkbox" [(ngModel)]="info.isSelected" name="{{'info' + info.codigoCups}}" id="{{'info' + info.codigoCups}}" (ngModelChange)="validateSelectAll()"><label class="checkbox" for="{{'info' + info.codigoCups}}">{{info.codigoCups + '-' + info.nombreExamen}}</label>
+                                    </div>
+                                    <!-- <small class="invalid-feedback d-block font-weight-bold" *ngIf="cups.invalid && cups.touched">Debe selecionar un de la lista desplegable</small> -->
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col col-sm-12 col-lg-6 d-inline-block align-top">
+                                    <label for="ambulancia" class="labelForm">Seleccione el tipo de ambulancia*</label>
+                                    <select style="background-position-x: 95%" name="ambulancia" id="ambulancia" class="form-control inputForm" [ngClass]="{'is-invalid': ambulancia.invalid && ambulancia.touched}" #ambulancia="ngModel" [(ngModel)]="request.ambulancia" required>
+										<option *ngFor="let tipo of tiposAmbulancia" value="{{ tipo.id }}">{{ tipo.name }}</option>
+									</select>
+                                    <small class="invalid-feedback d-block font-weight-bold" *ngIf="ambulancia.invalid && ambulancia.touched">Debe selecionar un tipo de ambulancia de la lista desplegable</small>
+                                </div>
+                                <div class="col col-sm-12 col-lg-6 d-inline-block align-top">
+                                    <label for="prioridad" class="labelForm">Seleccione la prioridad*</label>
+                                    <select style="background-position-x: 95%" name="prioridad" id="prioridad" class="form-control inputForm" [ngClass]="{'is-invalid': prioridad.invalid && prioridad.touched}" #prioridad="ngModel" [(ngModel)]="request.prioridad" required>
+										<option *ngFor="let priori of prioridades" value="{{ priori.id }}">{{ priori.name }}</option>
+									</select>
+                                    <small class="invalid-feedback d-block font-weight-bold" *ngIf="ambulancia.invalid && ambulancia.touched">Debe selecionar una prioridad de la lista desplegable</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="margin-top: 3rem">
+                            <div class="col col-sm-12 buttonSubmit">
+                                <input type="submit" value="{{ buttonText }}" class="btn btn-success btnPrefer col-sm-12" [disabled]="referenceForm.invalid || !incomes || !checkboxSelected">
+                            </div>
+                        </div>
+                        <div class="mt-3 col col-sm-12 errorAlert" *ngIf="status=='error' && responseMessage">
+                            <div class="alert alert-danger" role="alert">
+                                {{ responseMessage }}
+                            </div>
+                        </div>
+                        <div class="deleteLoader" *ngIf="preloaderStatus">
+                            <div class="loader"></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

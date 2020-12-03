@@ -231,13 +231,6 @@ export var global = {
 		{ id: 2, name: 'HOSPITALIZADO' },
 		{ id: 3, name: 'FALLECIDO' },
 	],
-	temas: [
-		{ id: 1, name: 'HISTORIA CLÍNICA' },
-		{ id: 2, name: 'REGISTRO DE ENFERMERÍA' },
-		{ id: 3, name: 'MANEJO MÓDULOS FACTURACIÓN DGH' },
-		{ id: 4, name: 'MÓDULO DE CITAS MÉDICAS' },
-		{ id: 5, name: 'CONSULTAS DE REPORTES' },
-	],
 
 	// Mipres - Depende del servicio de consulta
 	afirmacion: [
@@ -283,5 +276,21 @@ export var global = {
 		{ id: '10', name: 'OCTUBRE', alias: 'OCT' },
 		{ id: '11', name: 'NOVIEMBRE', alias: 'NOV' },
 		{ id: '12', name: 'DICIEMBRE', alias: 'DIC' },
+	],
+
+	// Referencia
+	motivosTranslados: [
+		{ id: 1, name: 'INTERCONSULTA' },
+		{ id: 2, name: 'TRANSLADO DE UNIDAD DE ATENCIÓN' },
+		{ id: 3, name: 'APOYOS DIAGNÓSTICOS' },
+	],
+	tiposAmbulancia: [
+		{ id: 1, name: 'BÁSICA' },
+		{ id: 2, name: 'MEDICALIZADA' },
+	],
+	prioridades: [
+		{ id: 1, name: 'URGENTE' },
+		{ id: 2, name: 'PRIORITARIA' },
+		{ id: 3, name: 'REGULAR' },
 	],
 }

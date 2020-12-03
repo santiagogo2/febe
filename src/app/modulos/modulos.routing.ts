@@ -58,6 +58,12 @@ const pagesRoutes: Routes = [
 		loadChildren: () => import('./mipres/mipres.module').then(m => m.MipresModule),
 	},
 	{
+		path: 'referencia',
+		component: ModulosComponent,
+		canActivate: [ IdentityGuard ],
+		loadChildren: () => import('./referencia/referencia.module').then(m => m.ReferenciaModule),
+	},
+	{
 		path: 'sala-situacional',
 		component: ModulosComponent,
 		canActivate: [ IdentityGuard ],

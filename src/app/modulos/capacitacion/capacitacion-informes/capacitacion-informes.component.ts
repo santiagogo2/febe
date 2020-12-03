@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Training } from '../models/capacitacion-models.index';
 import { Profile, Unit } from '../../../models/models.index';
-import { TrainingService } from '../services/capacitacion-services.index';
+import { TrainingService, ThemeService } from '../services/capacitacion-services.index';
 import { AreaService, global, UserService, UnitService, ProfileService } from '../../../services/services.index';
 
 @Component({
@@ -28,6 +28,7 @@ export class CapacitacionInformesComponent implements OnInit {
 
 	constructor(
 		private areaService: AreaService,
+		private themeService: ThemeService,
 		private _trainingService: TrainingService,
 		private profileService: ProfileService,
 		private unitService: UnitService,
@@ -35,14 +36,14 @@ export class CapacitacionInformesComponent implements OnInit {
 	) {
 		this.token = this.userService.getToken();
 
-		this.themes = global.temas;
+		// this.themes = global.temas;
 	}
 
 	ngOnInit(): void {
 		this.infoLoaded = false;
 		this.responseMessage = undefined;
 
-		Promise.all( [this.eppTrackingList(), this.profilesList(), this.unitList(), this.areaList()] )
+		Promise.all( [this.eppTrackingList(), this.profilesList(), this.unitList(), this.areaList(), this.themeList()] )
 			   .then( resps => {
 				   this.setGraphics();
 				   this.infoLoaded = true;
@@ -140,6 +141,24 @@ export class CapacitacionInformesComponent implements OnInit {
 				res => {
 					if ( res.status === 'success' ) {
 						this.profiles = res.profiles;
+						resolve('ok');
+					}
+				},
+				error => {
+					console.log( error );
+					const err = error.message ? error.message : error.error.message;
+					reject( err );
+				}
+			);
+		});
+	}
+
+	themeList() {
+		return new Promise( (resolve, reject) => {
+			this.themeService.themeList().subscribe(
+				res => {
+					if ( res.status === 'success' ) {
+						this.themes = res.themes;
 						resolve('ok');
 					}
 				},
