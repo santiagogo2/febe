@@ -275,6 +275,13 @@ header .nav-item:hover {
     margin-bottom: 2rem;
 }
 
+.separator2 {
+    padding: 0.8rem 0;
+    background-color: #17A2B8;
+    opacity: 0.6;
+    margin: 0 1rem 2rem 1rem;
+}
+
 .registerCollaboratorButton {
     text-align: right;
     margin-bottom: 1rem;
@@ -311,6 +318,11 @@ header .nav-item:hover {
 
 .good {
     background-color: #58AD58;
+    color: #FFF;
+}
+
+.regular {
+    background-color: #856404;
     color: #FFF;
 }
 
@@ -373,6 +385,10 @@ header .nav-item:hover {
 
 .infoParagraph p {
     font-size: 0.8rem;
+}
+
+.list li {
+    font-size: 0.9rem;
 }
 
 

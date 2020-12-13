@@ -82,10 +82,14 @@ export class CipService {
 
 	setBarChartColors() {
 		return [
-			{ backgroundColor: 'rgba(1, 158, 172,  0.7)', hoverBackgroundColor: 'rgba(1, 158, 172,  1)' },
-			{ backgroundColor: 'rgba(24, 156, 217,  0.7)', hoverBackgroundColor: 'rgba(24, 156, 217,  1)' },
-			{ backgroundColor: 'rgba(1, 74, 146,  0.7)', hoverBackgroundColor: 'rgba(1, 74, 146,  1)' },
-			{ backgroundColor: 'rgba(158, 230, 235,  0.7)', hoverBackgroundColor: 'rgba(158, 230, 235,  1)' },
+			{ backgroundColor: 'rgba(243, 89, 91,  0.7)', hoverBackgroundColor: 'rgba(243, 89, 91,  1)' },
+			{ backgroundColor: 'rgba(245, 239, 63,  0.7)', hoverBackgroundColor: 'rgba(245, 239, 63,  1)' },
+			{ backgroundColor: 'rgba(39, 115, 70,  0.7)', hoverBackgroundColor: 'rgba(39, 115, 70,  1)' },
+			{ backgroundColor: 'rgba(19, 18, 21,  0.7)', hoverBackgroundColor: 'rgba(18, 18, 21,  1)' },
+			// { backgroundColor: 'rgba(1, 158, 172,  0.7)', hoverBackgroundColor: 'rgba(1, 158, 172,  1)' },
+			// { backgroundColor: 'rgba(24, 156, 217,  0.7)', hoverBackgroundColor: 'rgba(24, 156, 217,  1)' },
+			// { backgroundColor: 'rgba(1, 74, 146,  0.7)', hoverBackgroundColor: 'rgba(1, 74, 146,  1)' },
+			// { backgroundColor: 'rgba(158, 230, 235,  0.7)', hoverBackgroundColor: 'rgba(158, 230, 235,  1)' },
 		];
 	}
 }

@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 // Services
 import { global } from './global.service';
-import { Observable } from 'rxjs';
+import { UserService } from './user.service';
 
 // Models
 
@@ -11,15 +12,30 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class DinamicaService {
+	public url: string;
 	public urlDinamica: string;
+	public token: string;
 
 	constructor(
-		private _http: HttpClient,
+		private http: HttpClient,
+		private userService: UserService
 	) {
+		this.url = global.url;
 		this.urlDinamica = global.urlDinamica;
+		this.token = this.userService.getToken();
 	}
 
 	getByTernumdoc( ternumdoc ): Observable<any> {
-		return this._http.get( this.urlDinamica + 'third/ternumdoc/' + ternumdoc );
+		return this.http.get( this.urlDinamica + 'third/ternumdoc/' + ternumdoc );
+	}
+
+	getDataByPatientId( patientId ): Observable<any> {
+		const headers = new HttpHeaders().set( 'Authorization', this.token );
+		return this.http.get( this.url + 'dinamica/epicrisis/search/' + patientId, {headers});
+	}
+
+	getDoctorById( doctorId ): Observable<any> {
+		const headers = new HttpHeaders().set( 'Authorization', this.token );
+		return this.http.get( this.url + 'dinamica/epicrisis/search/doctor/' + doctorId, {headers});
 	}
 }

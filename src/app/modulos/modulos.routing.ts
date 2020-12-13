@@ -46,6 +46,12 @@ const pagesRoutes: Routes = [
 		loadChildren: () => import('./contratacion/contratacion.module').then( m => m.ContratacionModule ),
 	},
 	{
+		path: 'dgh',
+		component: ModulosComponent,
+		canActivate: [ IdentityGuard ],
+		loadChildren: () => import('./dgh/dgh.module').then( m => m.DghModule ),
+	},
+	{
 		path: 'epp',
 		component: ModulosComponent,
 		canActivate: [ IdentityGuard ],

@@ -68,6 +68,7 @@ export class SolicitudComponent implements OnInit {
 		this.dinamicaPatientService.getPatientByDocument( this.request.numeroIdentificacion ).subscribe(
 			res => {
 				if ( res.status === 'success' ) {
+					console.log(res);
 					const patient = res.third;
 					this.request.tipoIdentificacion = patient.TipoDocumento;
 					this.request.nombresApellidos = patient.NombreCompleto;

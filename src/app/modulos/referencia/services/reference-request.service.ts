@@ -20,6 +20,18 @@ export class ReferenceRequestService {
 		this.token = this.userService.getToken();
 	}
 
+	getOpenRequest(): Observable<any> {
+		const headers = new HttpHeaders().set( 'Authorization', this.token );
+
+		return this.http.get( this.url + 'referencia/get/open/cases', { headers } );
+	}
+
+	getRequest( id ): Observable<any> {
+		const headers = new HttpHeaders().set( 'Authorization', this.token );
+
+		return this.http.get( this.url + 'referencia/' + id, { headers } );
+	}
+
 	newRequest( request ): Observable<any> {
 		const json = JSON.stringify(request);
 		const params = 'json=' + json;

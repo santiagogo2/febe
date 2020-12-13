@@ -8,7 +8,7 @@ export class GlobalPipe implements PipeTransform {
 	transform(id: number, param: any): any {
 		let result = '-';
 		global[param].forEach(element => {
-			if ( element.id === id && (element.name || element.value) ) {
+			if ( element.id == id && (element.name || element.value) ) {
 				if (element.name) {
 					result = element.name;
 				}
