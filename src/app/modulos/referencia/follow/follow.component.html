@@ -131,7 +131,8 @@
                         </div>
                         <div class="form-group">
                             <div class="col col-sm-12 col-lg-3 d-inline-block pl-3 align-top checkbox">
-                                <input type="checkbox" [(ngModel)]="follow.negacionMedica" name="negacionMedica" id="negacionMedica"><label class="checkbox" for="negacionMedica">Negación Médica</label>
+                                <input type="checkbox" [(ngModel)]="follow.negacionMedica" name="negacionMedica" id="negacionMedica"><label class="checkbox" for="negacionMedica">Negación Médica</label> }
+
                             </div>
                             <div class="col col col-sm-12 col-lg-9 d-inline-block align-top" *ngIf="follow.negacionMedica">
                                 <textarea rows="1" name="justNegacionMedica" class="form-control inputForm" #justNegacionMedica="ngModel" [(ngModel)]="follow.justNegacionMedica" required placeholder="Ingrese la justificación de la negación médica"></textarea>
