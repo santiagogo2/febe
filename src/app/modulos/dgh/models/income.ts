@@ -1,0 +1,27 @@
+export class Income {
+	constructor(
+		public Documento: number,
+		public Nombres: string,
+		public Ingreso: number,
+		public Fecha_Ingreso: string,
+		public USS: string,
+		public Nombre_USS: string,
+		public Cama: string,
+		public Servicio: string,
+		public INgreso_Por: string,
+		public No_Epicrisis: number,
+		public Fecha_Epicrisis: string,
+		public Medico_Registra: string,
+		public No_Egreso: string,
+		public Fecha_Egreso: string,
+		public Usuario_registra: string,
+		public Estado_Ingreso: string,
+		public Triage: number,
+		public Clasificacion: string,
+		public Motivo_Consulta: string,
+		public Diagnostico: string,
+		public Descripcion_DX: string,
+		public EstadoPac: string,
+		public hceestpac: string,
+	){}
+}

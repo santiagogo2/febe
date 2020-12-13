@@ -1,0 +1,1 @@
+export { EpicrisisService } from './epicrisis.service';

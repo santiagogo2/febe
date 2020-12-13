@@ -1,0 +1,157 @@
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card border-0">
+            <div class="card-body">
+                <div class="formContainer">
+                    <div class="form-group col col-12">
+                        <form id="searchForm" class="form-container" #searchForm="ngForm" (ngSubmit)="getDataByPatientId(searchForm)">
+                            <div id="labelSearch" class="col col-sm-12 col-lg-8 d-inline-block pl-0 align-top">
+                                <label for="documento" class="labelForm">Número de documento del paciente*</label>
+                                <input type="text" name="documento" class="form-control inputForm " [ngClass]="{ 'is-invalid': documento.touched && documento.invalid}" #documento="ngModel" [(ngModel)]="numeroDocumento
+									" required pattern="[0-9]+" minlength="5" maxlength="20" placeholder="Ingrese el número de documento del paciente">
+                            </div>
+                            <div id="submitButton" class="col col-sm-12 col-lg-4 d-inline-block pr-0 align-bottom">
+                                <input type="submit" value="Buscar" class="btn btn-sm btn-info btnPrefer col-sm-12" [disabled]="searchForm.invalid">
+                            </div>
+                            <small class="invalid-feedback d-block font-weight-bold" *ngIf="documento.invalid && documento.touched">Debe ingresar un número de documento válido. Solo se admiten números. El campo es obligatorio</small>
+                        </form>
+                    </div>
+                    <small class="invalid-feedback d-block font-weight-bold col col-sm-12" *ngIf="searchResponseMessage">{{ searchResponseMessage }}</small>
+                    <div class="col-sm-12" *ngIf="searchPreloaderStatus">
+                        <fa-icon [icon]="faSpinner" class="d-block spin"></fa-icon>
+                    </div>
+                    <div *ngIf="income">
+                        <div class="form-group">
+                            <div class="col col-sm-12 col-md-4 d-inline-block align-top">
+                                <label for="numeroIdentificacion" class="labelForm">Número de Identificación</label>
+                                <input type="text" value="{{ income.Documento }}" class="form-control inputForm" disabled>
+                            </div>
+                            <div class="col col-sm-12 col-md-8 d-inline-block align-top">
+                                <label for="nombresApellidos" class="labelForm">Nombres y Apellidos</label>
+                                <input type="text" value="{{ income.Nombres }}" class="form-control inputForm" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col col-sm-6 col-md-2 d-inline-block align-top">
+                                <label for="ingreso" class="labelForm">Ingreso</label>
+                                <input type="text" value="{{ income.Ingreso }}" class="form-control inputForm" disabled>
+                            </div>
+                            <div class="col col-sm-6 col-md-2 d-inline-block align-top">
+                                <label for="estado" class="labelForm">Estado</label>
+                                <input type="text" value="{{ income.Estado_Ingreso }}" class="form-control inputForm" disabled>
+                            </div>
+                            <div class="col col-sm-12 col-md-3 d-inline-block align-top">
+                                <label for="fechaIngreso" class="labelForm">Fecha Ingreso</label>
+                                <input type="text" value="{{ income.Fecha_Ingreso }}" class="form-control inputForm" disabled>
+                            </div>
+                            <div class="col col-sm-6 col-md-2 d-inline-block align-top">
+                                <label for="ingresadoPor" class="labelForm">Ingresado por</label>
+                                <input type="text" value="{{ income.INgreso_Por }}" class="form-control inputForm" disabled>
+                            </div>
+                            <div class="col col-sm-6 col-md-3 d-inline-block align-top">
+                                <label for="uss" class="labelForm">USS</label>
+                                <input type="text" value="{{ income.Nombre_USS }}" class="form-control inputForm" disabled>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="form-group">
+                            <div class="col col-sm-6 col-md-2 d-inline-block align-top">
+                                <label for="epicrisis" class="labelForm">Epicrisis</label>
+                                <input type="text" value="{{ income.No_Epicrisis }}" class="form-control inputForm" disabled>
+                            </div>
+                            <div class="col col-sm-6 col-md-4 d-inline-block align-top">
+                                <label for="fechaEpicrisis" class="labelForm">Fecha</label>
+                                <input type="text" value="{{ income.Fecha_Epicrisis }}" class="form-control inputForm" disabled>
+                            </div>
+                            <div class="col col-sm-12 col-md-6 d-inline-block align-top">
+                                <label for="medicoEpicrisis" class="labelForm">Médico</label>
+                                <input type="text" value="{{ income.Medico_Registra }}" class="form-control inputForm" disabled>
+                            </div>
+                        </div>
+
+                        <div *ngIf="income.No_Egreso">
+                            <hr>
+                            <div class="form-group">
+                                <div class="col col-sm-6 col-md-2 d-inline-block align-top">
+                                    <label for="egreso" class="labelForm">Egreso</label>
+                                    <input type="text" value="{{ income.No_Epicrisis }}" class="form-control inputForm" disabled>
+                                </div>
+                                <div class="col col-sm-6 col-md-4 d-inline-block align-top">
+                                    <label for="fechaEgreso" class="labelForm">Fecha</label>
+                                    <input type="text" value="{{ income.Fecha_Egreso }}" class="form-control inputForm" disabled>
+                                </div>
+                                <div class="col col-sm-12 col-md-6 d-inline-block align-top">
+                                    <label for="usuarioEgreso" class="labelForm">Usuario</label>
+                                    <input type="text" value="{{ income.Usuario_registra }}" class="form-control inputForm" disabled>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col col-12 d-inline-block align-top">
+                                    <label for="egreso" class="labelForm">Observación</label>
+                                    <div class="invalid-feedback d-block font-weight-bold" style="font-size: 90% !important;">
+                                        Ya existe un egreso confirmado para el paciente. Por favor, comunicarse con el area de facturación y/o adminisiones para la validación correspondiente.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="separator2"></div>
+
+                        <div *ngIf="income.Triage && income.Triage != 0">
+                            <div class="form-group">
+                                <div class="col col-sm-4 col-md-4 d-inline-block align-top">
+                                    <label for="triage" class="labelForm">Triage No</label>
+                                    <input type="text" value="{{ income.Triage }}" class="form-control inputForm" disabled>
+                                </div>
+                                <div class="col col-sm-8 col-md-8 d-inline-block align-top">
+                                    <label for="clasificacion" class="labelForm">Clasificación</label>
+                                    <input type="text" value="{{ income.Clasificacion }}" class="form-control inputForm" disabled>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col col-12 d-inline-block align-top">
+                                    <label for="motivo" class="labelForm">Motivo</label>
+                                    <textarea name="motivo" id="motivo" rows="5" class="form-control inputForm" disabled>{{ income.Motivo_Consulta }}</textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col col-6 d-inline-block align-top">
+                                <label for="diagnostico" class="labelForm">Diagnóstico</label>
+                                <input type="text" value="{{ income.Diagnostico }}" class="form-control inputForm" disabled>
+                            </div>
+                            <div class="col col-6 d-inline-block align-top">
+                                <label for="estadoPaciente" class="labelForm">Estado Paciente</label>
+                                <input type="text" value="{{ income.EstadoPac }}" class="form-control inputForm" disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" *ngIf="income && !income.No_Egreso && income.No_Epicrisis">
+                        <form id="justificationForm" class="form-container" #justificationForm="ngForm" (ngSubmit)="changeStatus(justificationForm)">
+                            <div class="col col-12 d-inline-block align-top">
+                                <label for="justificacion" class="labelForm">Justificación del Cambio de estado*</label>
+                                <textarea name="justificacion" id="justificacion" rows="5" [ngClass]="{'is-invalid': justificacion.invalid && justificacion.touched}" #justificacion="ngModel" [(ngModel)]="userJustification" class="form-control inputForm" placeholder="Ingrese la justificación. Debe ingresar mínimo 50 caracteres"
+                                    minlength="50" required></textarea>
+                                <small class="invalid-feedback d-block font-weight-bold" *ngIf="justificacion.invalid && justificacion.touched">Debe ingresar una justificación para el cambio de epicrisis. El campo es obligatorio</small>
+                            </div>
+                            <div class="form-group" style="margin-top: 3rem">
+                                <div class="col col-sm-12 buttonSubmit">
+                                    <input type="submit" value="{{ buttonText }}" class="btn btn-info btnPrefer col-sm-12" [disabled]="justificationForm.invalid">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="mt-3 col col-sm-12 errorAlert" *ngIf="responseMessage">
+                        <div class="alert alert-danger" role="alert">
+                            {{ responseMessage }}
+                        </div>
+                    </div>
+                    <div class="deleteLoader" *ngIf="preloaderStatus">
+                        <div class="loader"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
