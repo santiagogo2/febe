@@ -1,0 +1,410 @@
+<div class="loaderBall" *ngIf="!referalRequest && !responseMessage">
+    <div class="ball-pulse-rise">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+
+
+<div class="mt-3 errorAlert" *ngIf="responseMessage && !referalRequest">
+    <div class="alert alert-danger" role="alert">
+        {{ responseMessage }}
+    </div>
+</div>
+
+
+<div class="row" *ngIf="referalRequest">
+    <div class="col-sm-12">
+        <div class="card border-0">
+            <div class="card-body">
+                <div class="backLink col col-sm-12" *ngIf="!requestId">
+                    <a class="col-sm-12" routerLink="/referencia/panel">Regresar</a>
+                </div>
+                <div class="formContainer">
+                    <div class="subtitle"><span>INFORMACIÓN GENERAL DEL PACIENTE - ID SOLICITUD: {{ referalRequest.id }}</span></div>
+                    <div class="form-group">
+                        <div class="col col-sm-6 col-lg-2 d-inline-block align-top">
+                            <label class="labelForm">Tipo de Identificación</label>
+                            <input type="text" class="form-control inputForm" value="{{ referalRequest.tipoIdentificacion }}" disabled>
+                        </div>
+                        <div class="col col-sm-6 col-lg-2 d-inline-block align-top">
+                            <label class="labelForm">Número de Documento</label>
+                            <input type="text" class="form-control inputForm" value="{{ referalRequest.numeroIdentificacion }}" disabled>
+                        </div>
+                        <div class="col col-sm-12 col-lg-5 d-inline-block align-top">
+                            <label class="labelForm">Nombres y Apellidos</label>
+                            <input type="text" class="form-control inputForm" value="{{ referalRequest.nombresApellidos }}" disabled>
+                        </div>
+                        <div class="col col-sm-6 col-lg-1 d-inline-block align-top">
+                            <label class="labelForm">Edad</label>
+                            <input type="text" class="form-control inputForm" value="{{ referalRequest.edadPaciente }}" disabled>
+                        </div>
+                        <div class="col col-sm-6 col-lg-2 d-inline-block align-top">
+                            <label class="labelForm">Genero</label>
+                            <input type="text" class="form-control inputForm" value="{{ referalRequest.genero }}" disabled>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col col-12 d-inline-block align-top">
+                            <label class="labelForm">Aseguradora</label>
+                            <input type="text" class="form-control inputForm" value="{{ referalRequest.aseguradora }}" disabled>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col col-sm-6 col-lg-2 d-inline-block align-top">
+                            <label class="labelForm">Ingreso</label>
+                            <input type="text" class="form-control inputForm" value="{{ referalRequest.ingreso }}" disabled>
+                        </div>
+                        <div class="col col-sm-6 col-lg-4 d-inline-block align-top">
+                            <label class="labelForm">Centro de Atención</label>
+                            <input type="text" class="form-control inputForm" value="{{ referalRequest.centroAtencion }}" disabled>
+                        </div>
+                        <div class="col col-sm-6 col-lg-2 d-inline-block align-top">
+                            <label class="labelForm">Número de Cama</label>
+                            <input type="text" class="form-control inputForm" value="{{ referalRequest.numeroCama }}" disabled>
+                        </div>
+                        <div class="col col-sm-6 col-lg-4 d-inline-block align-top">
+                            <label class="labelForm">Nombre de la Cama</label>
+                            <input type="text" class="form-control inputForm" value="{{ referalRequest.nombreCama }}" disabled>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col col-md-5 col-lg-2 d-inline-block align-top">
+                            <label class="labelForm">Motivo de Traslado</label>
+                            <input type="text" class="form-control inputForm" value="{{ referalRequest.motivoTraslado | global: 'motivosTraslados' }}" disabled>
+                        </div>
+                        <div class="col col-md-2 col-lg-1 d-inline-block align-top">
+                            <label class="labelForm">Folio</label>
+                            <input type="text" class="form-control inputForm" value="{{ referalRequest.folio }}" disabled>
+                        </div>
+                        <div class="col col-md-5 col-lg-2 d-inline-block align-top">
+                            <label class="labelForm">Fecha de Folio</label>
+                            <input type="text" class="form-control inputForm" value="{{ referalRequest.fechaFolio }}" disabled>
+                        </div>
+                        <div class="col col-md-12 col-lg-4 d-inline-block align-top">
+                            <label class="labelForm">Nombre del Médico</label>
+                            <input type="text" class="form-control inputForm" value="{{ referalRequest.nombreMedico }}" disabled>
+                        </div>
+                        <div class="col col-md-12 col-lg-3 d-inline-block align-top">
+                            <label class="labelForm">Especialidad del Médico</label>
+                            <input type="text" class="form-control inputForm" value="{{ referalRequest.especialidadMedico }}" disabled>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col col-12 d-inline-block align-top">
+                            <label class="labelForm">Diagnóstico</label>
+                            <textarea class="form-control inputForm" rows="3" disabled>{{ referalRequest.diagnostico }}</textarea>
+                        </div>
+                    </div>
+                    <div class="form-group" *ngIf="referalRequest.funcionarioContesta">
+                        <div class="subtitle"><span>INFORMACIÓN DE LA ACEPTACIÓN - {{ referalRequest.fechaHoraAceptacion }}</span></div>
+                        <div class="col col-sm-6 col-lg-4 d-inline-block align-top" *ngIf="referalRequest.funcionarioContesta">
+                            <label class="labelForm">Funcionario que Contestó la Solicitud</label>
+                            <input type="text" class="form-control inputForm" value="{{ referalRequest.funcionarioContesta }}" disabled>
+                        </div>
+                        <div class="col col-sm-6 col-lg-4 d-inline-block align-top" *ngIf="referalRequest.sedeContestan">
+                            <label class="labelForm">Sede que Aceptó la Solicitud</label>
+                            <input type="text" class="form-control inputForm" value="{{ referalRequest.sedeContestan }}" disabled>
+                        </div>
+                        <div class="col col-sm-6 col-lg-2 d-inline-block align-top" *ngIf="referalRequest.numeroMovil">
+                            <label class="labelForm">Número de la Móvil</label>
+                            <input type="text" class="form-control inputForm" value="{{ referalRequest.numeroMovil }}" disabled>
+                        </div>
+                        <div class="col col-sm-6 col-lg-2 d-inline-block align-top" *ngIf="referalRequest.tipoTraslado">
+                            <label class="labelForm">Tipo de Traslado</label>
+                            <input type="text" class="form-control inputForm" value="{{ referalRequest.tipoTraslado | global: 'tiposTraslado' }}" disabled>
+                        </div>
+                    </div>
+                    <div class="form-group" *ngIf="referalRequest.fechaDespacho || referalRequest.horaDespacho">
+                        <div class="col col-6 d-inline-block align-top" *ngIf="referalRequest.fechaDespacho">
+                            <label class="labelForm">Fecha Despacho</label>
+                            <input type="text" class="form-control inputForm" value="{{ referalRequest.fechaDespacho }}" disabled>
+                        </div>
+                        <div class="col col-6 d-inline-block align-top" *ngIf="referalRequest.horaDespacho">
+                            <label class="labelForm">Hora Despacho</label>
+                            <input type="text" class="form-control inputForm" value="{{ referalRequest.horaDespacho }}" disabled>
+                        </div>
+                    </div>
+                    <div class="form-group" *ngIf="
+						referalRequest.fechaLlegadaOrigen || referalRequest.horaLlegadaOrigen ||
+						referalRequest.fechaSalidaOrigen || referalRequest.horaSalidaOrigen
+					">
+                        <div class="subtitle"><span>INFORMACIÓN DE LA SEDE DE ORIGEN</span></div>
+                        <div class="col col-sm-6 col-md-3 d-inline-block align-top" *ngIf="referalRequest.fechaLlegadaOrigen">
+                            <label class="labelForm">Fecha de Llegada</label>
+                            <input type="text" class="form-control inputForm" value="{{ referalRequest.fechaLlegadaOrigen }}" disabled>
+                        </div>
+                        <div class="col col-sm-6 col-md-3 d-inline-block align-top" *ngIf="referalRequest.horaLlegadaOrigen">
+                            <label class="labelForm">Hora de Llegada</label>
+                            <input type="text" class="form-control inputForm" value="{{ referalRequest.horaLlegadaOrigen }}" disabled>
+                        </div>
+                        <div class="col col-sm-6 col-md-3 d-inline-block align-top" *ngIf="referalRequest.fechaSalidaOrigen">
+                            <label class="labelForm">Fecha de Salida</label>
+                            <input type="text" class="form-control inputForm" value="{{ referalRequest.fechaSalidaOrigen }}" disabled>
+                        </div>
+                        <div class="col col-sm-6 col-md-3 d-inline-block align-top" *ngIf="referalRequest.horaSalidaOrigen">
+                            <label class="labelForm">Hora de Salida</label>
+                            <input type="text" class="form-control inputForm" value="{{ referalRequest.horaSalidaOrigen }}" disabled>
+                        </div>
+                    </div>
+                    <div class="form-group" *ngIf="
+						referalRequest.fechaLlegadaDestino || referalRequest.horaLlegadaDestino ||
+						referalRequest.fechaSalidaDestino || referalRequest.horaSalidaDestino
+					">
+                        <div class="subtitle"><span>INFORMACIÓN DE LA SEDE DE DESTINO</span></div>
+                        <div class="col col-sm-6 col-md-3 d-inline-block align-top" *ngIf="referalRequest.fechaLlegadaDestino">
+                            <label class="labelForm">Fecha Llegada</label>
+                            <input type="text" class="form-control inputForm" value="{{ referalRequest.fechaLlegadaDestino }}" disabled>
+                        </div>
+                        <div class="col col-sm-6 col-md-3 d-inline-block align-top" *ngIf="referalRequest.horaLlegadaDestino">
+                            <label class="labelForm">Hora Llegada</label>
+                            <input type="text" class="form-control inputForm" value="{{ referalRequest.horaLlegadaDestino }}" disabled>
+                        </div>
+                        <div class="col col-sm-6 col-md-3 d-inline-block align-top" *ngIf="referalRequest.fechaSalidaDestino">
+                            <label class="labelForm">Fecha de Salida</label>
+                            <input type="text" class="form-control inputForm" value="{{ referalRequest.fechaSalidaDestino }}" disabled>
+                        </div>
+                        <div class="col col-sm-6 col-md-3 d-inline-block align-top" *ngIf="referalRequest.horaSalidaDestino">
+                            <label class="labelForm">Hora de Salida</label>
+                            <input type="text" class="form-control inputForm" value="{{ referalRequest.horaSalidaDestino }}" disabled>
+                        </div>
+                    </div>
+                    <div class="form-group" *ngIf="referalRequest.fechaRegreso || referalRequest.horaRegreso">
+                        <div class="subtitle"><span>INFORMACIÓN DEL RETORNO</span></div>
+                        <div class="col col-sm-6 col-md-6 d-inline-block align-top" *ngIf="referalRequest.fechaRegreso">
+                            <label class="labelForm">Fecha Llegada</label>
+                            <input type="text" class="form-control inputForm" value="{{ referalRequest.fechaRegreso }}" disabled>
+                        </div>
+                        <div class="col col-sm-6 col-md-6 d-inline-block align-top" *ngIf="referalRequest.horaRegreso">
+                            <label class="labelForm">Hora Llegada</label>
+                            <input type="text" class="form-control inputForm" value="{{ referalRequest.horaRegreso }}" disabled>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="subtitle"><span>CUPS</span></div>
+                        <div class="col col-12 d-inline-block align-top">
+                            <div *ngIf="referalRequest.cups.length > 0">
+                                <ul class="list">
+                                    <li *ngFor="let cup of referalRequest.cups">{{ cup.codigoCups + ' - ' + cup.nombreExamen }}</li>
+                                </ul>
+                            </div>
+                            <small class="invalid-feedback d-block font-weight-bold" *ngIf="referalRequest.cups.length == 0">No existen CUPS asociados a esta solicitud</small>
+                        </div>
+                    </div>
+                    <div class="form-group text-center" *ngIf="!caseAcepted && referalRequest.estado != 2 && referalRequest.cups.length > 0 && aceptCaseFlag">
+                        <button class="col col-5 btn btn-info btnPrefer" (click)="aceptCase( 1 )">{{ buttonTextStatus }}</button>
+                        <fa-icon [icon]="faSpinner" class="d-block spin" *ngIf="changePreloaderStatus"></fa-icon>
+                        <small class="invalid-feedback d-block font-weight-bold" *ngIf="changeStatusResponseMessage">{{ changeStatusResponseMessage }}</small>
+                    </div>
+                    <div class="col col-12 text-center">
+                        <span type="button" style="padding: 0.5rem;" class="ml-1 badge badge-pill badge-info col col-sm-12 col-md-5 d-inline-block" *ngIf="referalRequest.cups.length > 0 && caseAcepted && referalRequest.estado != 2 && newFollowFlag" data-toggle="modal" [attr.data-target]="'#newFollow'">+ Nuevo Seguimiento</span>
+                        <span type="button" style="padding: 0.5rem;" class="ml-1 mt-1 badge badge-pill badge-danger col col-sm-12 col-md-3 d-inline-block" *ngIf="referalRequest.estado == 1 && !requestId && closeCaseFlag" (click)="closeCase()">Cerrar Caso</span>
+                    </div>
+
+                    <div class="subtitle" *ngIf="requestFollows || responseMessage"><span>SEGUIMIENTOS</span></div>
+                    <div class="col col-12">
+                        <fa-icon [icon]="faSpinner" class="d-block spin" *ngIf="preloaderStatus"></fa-icon>
+                        <small class="invalid-feedback d-block font-weight-bold" *ngIf="responseMessage">{{ responseMessage }}</small>
+                    </div>
+                    <div class="col col-12" *ngIf="requestFollows">
+                        <div id="accordion">
+                            <div class="card mt-2" *ngFor="let request of requestFollows">
+                                <div class="card-header" id="headingOne">
+                                    <h5 class="mb-0">
+                                        <button class="btn btn-link" data-toggle="collapse" [attr.data-target]="'#collapse'+request.id" aria-expanded="true" [attr.aria-controls]="'collapse'+request.id">
+											{{ request.created_by.name + ' ' + request.created_by.surname + ' - ' + styleDate(request.created_at) }}
+										</button>
+                                    </h5>
+                                </div>
+                                <div id="{{'collapse'+request.id}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                                    <div class="card-body">
+                                        <div class="form-group" *ngIf="request.negacionMedica != 0">
+                                            <div class="col col-sm-12 col-md-4 d-inline-block"><b>Negación Médica: </b>{{ transformBoolean(request.negacionMedica) }}</div>
+                                            <div *ngIf="request.justificacionNegacionMedica" class="col col-sm-12 col-md-8 d-inline-block"><b>Justificación: </b>{{ request.justificacionNegacionMedica }}</div>
+                                        </div>
+                                        <div class="form-group" *ngIf="request.negacionAdministrativa != 0">
+                                            <div class="col col-sm-12 col-md-4 d-inline-block"><b>Negación Administrativa: </b>{{ transformBoolean(request.negacionAdministrativa) }}</div>
+                                            <div *ngIf="request.justificacionNegacionAdministrativa" class="col col-sm-12 col-md-8 d-inline-block"><b>Justificación: </b>{{ request.justificacionNegacionAdministrativa }}</div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div *ngIf="request.numeroMovil" class="col col-sm-12 col-md-6 d-inline-block"><b>Número de Movil: </b>{{ request.numeroMovil }}</div>
+                                            <div *ngIf="request.tipoTraslado" class="col col-sm-12 col-md-6 d-inline-block"><b>Tipo de Traslado: </b>{{ request.tipoTraslado | global: 'tiposTraslado' }}</div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div *ngIf="request.fechaSalida && request.horaSalida" class="col col-sm-12 col-md-4 d-inline-block"><b>Fecha y Hora de Salida: </b>{{ request.fechaSalida + ' / ' + request.horaSalida }}</div>
+                                            <div *ngIf="request.fechaLlegada && request.horaLlegada" class="col col-sm-12 col-md-4 d-inline-block"><b>Fecha y Hora de Llegada: </b>{{ request.fechaLlegada + ' / ' + request.horaLlegada }}</div>
+                                            <div *ngIf="request.fechaRetorno && request.horaRetorno" class=" col col-sm-12 col-md-4 d-inline-block"><b>Fecha y Hora de Retorno: </b>{{ request.fechaRetorno + ' / ' + request.horaRetorno }}</div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div *ngIf="request.observaciones" class="col col-12 d-inline-block"><b>Observaciones: </b>{{ request.observaciones }}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group text-center" *ngIf="referalRequest.estado == 2 && !requestId && reOpenFlag">
+                        <button class="col col-5 btn btn-success btnPrefer" (click)="reOpenCase()">Reabrir Caso</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- the Modal -->
+<div class="modal animated fadeIn faster" id="newFollow" *ngIf="follow && units">
+    <div class="modal-dialog" style="max-width: 90% !important;">
+        <div class="modal-content">
+            <form #followForm="ngForm" class="form-container" (ngSubmit)="newFollow(followForm)">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Agregar seguimiento al caso {{ caseId }}</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="form-group" *ngIf="!pacienteAceptadoStatus && !requestId">
+                        <div class="col col-sm-12 col-lg-5 d-inline-block align-top">
+                            <label for="funcionarioContesta" class="labelForm">Funcionario que Contesta la Solicitud*</label>
+                            <input type="text" name="funcionarioContesta" class="form-control inputForm" [ngClass]="{ 'is-invalid': funcionarioContesta.invalid && funcionarioContesta.touched}" #funcionarioContesta="ngModel" [(ngModel)]="follow.funcionarioContesta" (ngModelChange)="follow.funcionarioContesta=globalService.upperCase($event)"
+                                required>
+                            <small class="invalid-feedback d-block font-weight-bold" *ngIf="funcionarioContesta.invalid && funcionarioContesta.touched">Debe ingresar el nombre del funcionario que está contestando la solicitud</small>
+                        </div>
+                        <div class="col col-sm-12 col-lg-4 d-inline-block align-top">
+                            <label for="sedeContestan" class="labelForm">Sede (contestan)*</label>
+                            <select style="background-position-x: 95%" name="sedeContestan" id="sedeContestan" class="form-control inputForm" [ngClass]="{ 'is-invalid': sedeContestan.invalid && sedeContestan.touched}" #sedeContestan="ngModel" [(ngModel)]="follow.sedeContestan" required>
+									<option *ngFor="let unit of units" value="{{ unit.name }}">{{ unit.name }}</option>
+							</select>
+                            <small class="invalid-feedback d-block font-weight-bold" *ngIf="sedeContestan.invalid && sedeContestan.touched">Debe selecionar una sede de la lista desplegable</small>
+                        </div>
+                        <div class="col col-sm-12 col-lg-3 d-inline-block align-top">
+                            <label for="pacienteAceptado" class="labelForm">Paciente Aceptado*</label>
+                            <select style="background-position-x: 95%" name="pacienteAceptado" id="pacienteAceptado" class="form-control inputForm" [ngClass]="{ 'is-invalid': pacienteAceptado.invalid && pacienteAceptado.touched}" #pacienteAceptado="ngModel" [(ngModel)]="follow.pacienteAceptado"
+                                required>
+									<option *ngFor="let paciente of pacientesAceptado" value="{{ paciente.id }}">{{ paciente.name }}</option>
+							</select>
+                            <small class="invalid-feedback d-block font-weight-bold" *ngIf="pacienteAceptado.invalid && pacienteAceptado.touched">Debe selecionar un elemento de la lista desplegable</small>
+                        </div>
+                    </div>
+                    <div *ngIf="follow.pacienteAceptado && follow.pacienteAceptado !=1 && !requestId">
+                        <div class="form-group">
+                            <div class="col col-sm-12 col-lg-3 d-inline-block pl-3 align-top checkbox">
+                                <input type="checkbox" [(ngModel)]="follow.negacionMedica" name="negacionMedica" id="negacionMedica"><label class="checkbox" for="negacionMedica">Negación Médica</label>
+                            </div>
+                            <div class="col col col-sm-12 col-lg-9 d-inline-block align-top" *ngIf="follow.negacionMedica">
+                                <textarea rows="1" name="justificacionNegacionMedica" class="form-control inputForm" #justificacionNegacionMedica="ngModel" [(ngModel)]="follow.justificacionNegacionMedica" (ngModelChange)="follow.justificacionNegacionMedica=globalService.upperCase($event)"
+                                    required placeholder="Ingrese la justificación de la negación médica"></textarea>
+                                <small class="invalid-feedback d-block font-weight-bold" *ngIf="justificacionNegacionMedica.invalid && justificacionNegacionMedica.touched">Debe ingresar la justificación de la negación médica</small>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col col-sm-12 col-lg-3 d-inline-block pl-3 align-top checkbox">
+                                <input type="checkbox" [(ngModel)]="follow.negacionAdministrativa" name="negacionAdministrativa" id="negacionAdministrativa"><label class="checkbox" for="negacionAdministrativa">Negación Administrativa</label>
+                            </div>
+                            <div class="col col col-sm-12 col-lg-9 d-inline-block align-top" *ngIf="follow.negacionAdministrativa">
+                                <textarea rows="1" name="justificacionNegacionAdministrativa" class="form-control inputForm" #justificacionNegacionAdministrativa="ngModel" [(ngModel)]="follow.justificacionNegacionAdministrativa" (ngModelChange)="follow.justificacionNegacionAdministrativa=globalService.upperCase($event)"
+                                    required placeholder="Ingrese la justificación
+                                                de la negación administrativa"></textarea>
+                                <small class="invalid-feedback d-block font-weight-bold" *ngIf="justificacionNegacionAdministrativa.invalid && justificacionNegacionAdministrativa.touched">Debe ingresar la justificación de la negación administrativa</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="(follow.pacienteAceptado==1 || pacienteAceptadoStatus) && !requestId">
+                        <div class="form-group" *ngIf="!requestId">
+                            <div class="col col-sm-12 col-lg-6 d-inline-block align-top" *ngIf="!referalRequest.numeroMovil">
+                                <label for="numeroMovil" class="labelForm">Número de la movil</label>
+                                <input type="text" name="numeroMovil" class="form-control inputForm" [ngClass]="{ 'is-invalid': numeroMovil.invalid && numeroMovil.touched}" #numeroMovil="ngModel" [(ngModel)]="updateCaseData.numeroMovil" (ngModelChange)="updateCaseData.numeroMovil=globalService.upperCase($event)">
+                                <small class="invalid-feedback d-block font-weight-bold" *ngIf="numeroMovil.invalid && numeroMovil.touched">Debe ingresar el número de la movil donde va el paciente</small>
+                            </div>
+                            <div class="col col-sm-12 col-lg-6 d-inline-block align-top" *ngIf="!referalRequest.tipoTraslado">
+                                <label for="tipoTraslado" class="labelForm">Tipo de Traslado*</label>
+                                <select style="background-position-x: 95%" name="tipoTraslado" id="tipoTraslado" class="form-control inputForm" [ngClass]="{ 'is-invalid': tipoTraslado.invalid && tipoTraslado.touched}" #tipoTraslado="ngModel" [(ngModel)]="updateCaseData.tipoTraslado"
+                                    required>
+									<option *ngFor="let tipo of tiposTraslado" value="{{ tipo.id }}">{{ tipo.name }}</option>
+								</select>
+                                <small class="invalid-feedback d-block font-weight-bold" *ngIf="tipoTraslado.invalid && tipoTraslado.touched">Debe seleccionar un tipo de traslado de la lista desplegable</small>
+                            </div>
+                        </div>
+                        <div class="form-group" *ngIf="!requestId">
+                            <div class="col col-6 d-inline-block align-top" *ngIf="!referalRequest.fechaDespacho">
+                                <label for="fechaDespacho" class="labelForm">Fecha de Despacho</label>
+                                <input type="date" name="fechaDespacho" class="form-control inputForm" [ngClass]="{ 'is-invalid': fechaDespacho.invalid && fechaDespacho.touched}" #fechaDespacho="ngModel" [(ngModel)]="updateCaseData.fechaDespacho">
+                            </div>
+                            <div class="col col-6 d-inline-block align-top" *ngIf="!referalRequest.horaDespacho">
+                                <label for="horaDespacho" class="labelForm">Hora de Despacho</label>
+                                <input type="time" name="horaDespacho" class="form-control inputForm" [ngClass]="{ 'is-invalid': horaDespacho.invalid && horaDespacho.touched}" #horaDespacho="ngModel" [(ngModel)]="updateCaseData.horaDespacho">
+                            </div>
+                        </div>
+                        <div class="form-group" *ngIf="!requestId">
+                            <div class="col col-sm-6 col-lg-3 d-inline-block align-top" *ngIf="!referalRequest.fechaLlegadaOrigen">
+                                <label for="fechaLlegadaOrigen" class="labelForm">Fecha de Llegada al Origen</label>
+                                <input type="date" name="fechaLlegadaOrigen" class="form-control inputForm" [ngClass]="{ 'is-invalid': fechaLlegadaOrigen.invalid && fechaLlegadaOrigen.touched}" #fechaLlegadaOrigen="ngModel" [(ngModel)]="updateCaseData.fechaLlegadaOrigen">
+                            </div>
+                            <div class="col col-sm-6 col-lg-3 d-inline-block align-top" *ngIf="!referalRequest.horaLlegadaOrigen">
+                                <label for="horaLlegadaOrigen" class="labelForm">Hora de Llegada al Origen</label>
+                                <input type="time" name="horaLlegadaOrigen" class="form-control inputForm" [ngClass]="{ 'is-invalid': horaLlegadaOrigen.invalid && horaLlegadaOrigen.touched}" #horaLlegadaOrigen="ngModel" [(ngModel)]="updateCaseData.horaLlegadaOrigen">
+                            </div>
+                            <div class="col col-sm-6 col-lg-3 d-inline-block align-top" *ngIf="!referalRequest.fechaSalidaOrigen">
+                                <label for="fechaSalidaOrigen" class="labelForm">Fecha de Salida del Origen</label>
+                                <input type="date" name="fechaSalidaOrigen" class="form-control inputForm" [ngClass]="{ 'is-invalid': fechaSalidaOrigen.invalid && fechaSalidaOrigen.touched}" #fechaSalidaOrigen="ngModel" [(ngModel)]="updateCaseData.fechaSalidaOrigen">
+                            </div>
+                            <div class="col col-sm-6 col-lg-3 d-inline-block align-top" *ngIf="!referalRequest.horaSalidaOrigen">
+                                <label for="horaSalidaOrigen" class="labelForm">Hora de Salida del Origen</label>
+                                <input type="time" name="horaSalidaOrigen" class="form-control inputForm" [ngClass]="{ 'is-invalid': horaSalidaOrigen.invalid && horaSalidaOrigen.touched}" #horaSalidaOrigen="ngModel" [(ngModel)]="updateCaseData.horaSalidaOrigen">
+                            </div>
+                        </div>
+                        <div class="form-group" *ngIf="!requestId">
+                            <div class="col col-sm-6 col-lg-3 d-inline-block align-top" *ngIf="!referalRequest.fechaLlegadaDestino">
+                                <label for="fechaLlegadaDestino" class="labelForm">Fecha de Llegada al Destino</label>
+                                <input type="date" name="fechaLlegadaDestino" class="form-control inputForm" [ngClass]="{ 'is-invalid': fechaLlegadaDestino.invalid && fechaLlegadaDestino.touched}" #fechaLlegadaDestino="ngModel" [(ngModel)]="updateCaseData.fechaLlegadaDestino">
+                            </div>
+                            <div class="col col-sm-6 col-lg-3 d-inline-block align-top" *ngIf="!referalRequest.horaLlegadaDestino">
+                                <label for="horaLlegadaDestino" class="labelForm">Hora de Llegada al Destino</label>
+                                <input type="time" name="horaLlegadaDestino" class="form-control inputForm" [ngClass]="{ 'is-invalid': horaLlegadaDestino.invalid && horaLlegadaDestino.touched}" #horaLlegadaDestino="ngModel" [(ngModel)]="updateCaseData.horaLlegadaDestino">
+                            </div>
+                            <div class="col col-sm-6 col-lg-3 d-inline-block align-top" *ngIf="!referalRequest.fechaSalidaDestino">
+                                <label for="fechaSalidaDestino" class="labelForm">Fecha de Salida del Destino</label>
+                                <input type="date" name="fechaSalidaDestino" class="form-control inputForm" [ngClass]="{ 'is-invalid': fechaSalidaDestino.invalid && fechaSalidaDestino.touched}" #fechaSalidaDestino="ngModel" [(ngModel)]="updateCaseData.fechaSalidaDestino">
+                            </div>
+                            <div class="col col-sm-6 col-lg-3 d-inline-block align-top" *ngIf="!referalRequest.horaSalidaDestino">
+                                <label for="horaSalidaDestino" class="labelForm">Hora de Salida del Destino</label>
+                                <input type="time" name="horaSalidaDestino" class="form-control inputForm" [ngClass]="{ 'is-invalid': horaSalidaDestino.invalid && horaSalidaDestino.touched}" #horaSalidaDestino="ngModel" [(ngModel)]="updateCaseData.horaSalidaDestino">
+                            </div>
+                        </div>
+                        <div class="form-group" *ngIf="!requestId">
+                            <div class="col col-6 d-inline-block align-top" *ngIf="!referalRequest.fechaRegreso">
+                                <label for="fechaRegreso" class="labelForm">Fecha de Retorno</label>
+                                <input type="date" name="fechaRegreso" class="form-control inputForm" [ngClass]="{ 'is-invalid': fechaRegreso.invalid && fechaRegreso.touched}" #fechaRegreso="ngModel" [(ngModel)]="updateCaseData.fechaRegreso">
+                            </div>
+                            <div class="col col-6 d-inline-block align-top" *ngIf="!referalRequest.horaRegreso">
+                                <label for="horaRegreso" class="labelForm">Hora de Retorno</label>
+                                <input type="time" name="horaRegreso" class="form-control inputForm" [ngClass]="{ 'is-invalid': horaRegreso.invalid && horaRegreso.touched}" #horaRegreso="ngModel" [(ngModel)]="updateCaseData.horaRegreso">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col col-12 d-inline-block align-top">
+                            <label for="observaciones" class="labelForm">Observaciones*</label>
+                            <textarea rows="3" name="observaciones" class="form-control inputForm" #observaciones="ngModel" [(ngModel)]="follow.observaciones" (ngModelChange)="follow.observaciones=globalService.upperCase($event)" required></textarea>
+                            <small class="invalid-feedback d-block font-weight-bold" *ngIf="observaciones.invalid && observaciones.touched">Debe ingresar las observaciones correspondientes</small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button (click)="newFollow( followForm )" class="btn btn-info" data-dismiss="modal" [disabled]="followForm.invalid">Agregar Seguimiento</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { global } from '../../../services/services.index';
 import { BscIndicatorService } from '../services/business-services.index';
 import { ViewportScroller } from '@angular/common';
-// import { BscIndicatorFollow } from '../models/business-models.index';
 
 @Component({
 	selector: 'app-business-dashboard',

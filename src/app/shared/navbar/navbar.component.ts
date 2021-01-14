@@ -134,6 +134,14 @@ export class NavbarComponent implements OnInit {
 				{ title: 'Tablero CIP', url: '/cip/tablero', operationId: 69 },
 			]
 		},
+		{
+			title: 'Seguridad del Paciente',
+			url: '/seguridad-paciente',
+			operationId: 71,
+			dropdown: [
+				{ title: 'Generar Reporte Provisional', url: '/seguridad-paciente/reporte', operationId: 72 },
+			]
+		},
 	];
 
 	constructor() {

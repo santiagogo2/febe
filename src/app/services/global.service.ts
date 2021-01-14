@@ -1,10 +1,12 @@
+import { Injectable } from '@angular/core';
+
 export var global = {
 
 	// url: 'http://www.backend-rendicion-de-cuentas.subredsur.gov.co/public/api/',
 	appName: 'SIASUR',
 	url: 'http://info-utilitario.subredsur.gov.co/public/api/',
 	urlDinamica: 'http://172.17.2.81/api-rest-dinamica/public/api/',
-	cipNote: 'Periodo 2020 Enero - Septiembre',
+	cipNote: 'Periodo 2020 Enero - Noviembre',
 
 	iconsArray: [
 		{ title: 'Capacitaciones', imageUrl: 'assets/images/modulos/capacitacion.png', class: 'imageContainer color-violet', url: '/capacitaciones' },
@@ -15,6 +17,7 @@ export var global = {
 		{ title: 'contratacion', imageUrl: 'assets/images/modulos/contracts.png', class: 'imageContainer color-pink', url: '/contratacion' },
 		{ title: 'business', imageUrl: 'assets/images/modulos/business.png', class: 'imageContainer color-dark-pink', url: '/business' },
 		{ title: 'CIP', imageUrl: 'assets/images/modulos/cip.png', class: 'imageContainer color-pink', url: '/cip' },
+		{ title: 'Seguridad del Paciente', imageUrl: 'assets/images/modulos/seguridadPaciente.png', class: 'imageContainer color-soft-brown', url: '/seguridad-paciente' },
 	],
 	estados: [
 		{id: 1, value: 'CUARENTENA'},
@@ -39,6 +42,7 @@ export var global = {
 	respuestas: [
 		{id: 1, value: 'SI'},
 		{id: 2, value: 'NO'},
+		{id: 3, value: 'NO APLICA'},
 	],
 	sexo: [
 		{id: 1, value: 'FEMENINO'},
@@ -279,7 +283,7 @@ export var global = {
 	],
 
 	// Referencia
-	motivosTranslados: [
+	motivosTraslados: [
 		{ id: 1, name: 'INTERCONSULTA' },
 		{ id: 2, name: 'TRANSLADO DE UNIDAD DE ATENCIÓN' },
 		{ id: 3, name: 'APOYOS DIAGNÓSTICOS' },
@@ -293,4 +297,441 @@ export var global = {
 		{ id: 2, name: 'PRIORITARIA' },
 		{ id: 3, name: 'REGULAR' },
 	],
+	pacientesAceptado: [
+		{ id: 1, name: 'SI' },
+		{ id: 2, name: 'NO' },
+		{ id: 3, name: 'PENDIENTE' },
+	],
+	tiposTraslado: [
+		{ id: 1, name: 'DEFINITIVO' },
+		{ id: 2, name: 'PARCIAL' },
+	],
+	estadosReferencia: [
+		{ id: 0, name: 'NUEVO' },
+		{ id: 1, name: 'ACEPTADO' },
+		{ id: 2, name: 'CERRADO' },
+	],
+
+	// Variables seguridad del paciente
+	sucesoRelacionado: [
+		{
+			id: 1,
+			name: 'Cuidado de la Salud (Seguridad en la prestación de servicios)',
+			description: 'Cuando el suceso se relaciona con acciones u omisiones del personal colaborador de la institución y que como resultado se genera un error.'
+		},
+		{
+			id: 2,
+			name: 'Infecciones Asociadas a la Atención en Salud (Programa IAAS)',
+			description: 'Cuando el suceso se relaciona presencia de sintomatología infecciosa diferente al motivo de ingreso. (Después de la 72 horas de su ingreso a la Subred Integrada de Servicios de Salud.'
+		},
+		{
+			id: 3,
+			name: 'Medicamentos (Farmacovigilancia)',
+			description: 'Cuando el suceso es una reacción adversa al medicamento, igualmente, con errores en la dispensación o entrega de insumos o medicamentos únicamente. La administración de medicamentos se debe reportar en: Cuidado de la Salud (Seguridad en la prestación de servicios).'
+		},
+		{
+			id: 4,
+			name: 'Equipos y Dispositivos Biomédicos (Tecnovigilancia)',
+			description: 'Cuando el suceso se relaciona con el uso o funionamiento de equipos y dispositivos.'
+		},
+		{
+			id: 5,
+			name: 'Hemocomponentes (Hemovigilancia)',
+			description: 'Cuando el suceso se relaciona con la prescripción, dispensación, administración y efectos postransfusionales de Hemocomponentes.'
+		},
+		{
+			id: 6,
+			name: 'Donación y/o Trasplantes (Biovigilancia)',
+			description: 'Cuando el suceso se relaciona con el proceso de donación y trasplantes órganos.'
+		},
+		{
+			id: 7,
+			name: 'Reactivos (Reactivovigilancia)',
+			description: 'Cuando el suceso se relaciona con la identificación y cualificación de eventos ocasionados por defectos en la calidad de los reactivos de diagnóstico In Vitro.'
+		},
+		{
+			id: 8,
+			name: 'Ayudas Diagnósticas (Servicios Complementarios de Apoyo)',
+			description: 'Cuando el suceso se relaciona con fallas o errores en la prestación de servicios de ayudas diagnósticas, tales como: Laboratório Clínico, Imágenes Diagnósticas, Procedimientos de Gastroenterología, Hemodinámia, Diagnóstico Cardiovascular entre otras ayudas diagnósticas.'
+		},
+	],
+	perfilReportante: [
+		{ id: 1, name: 'Auxiliar de Enfermería' },
+		{ id: 2, name: 'Enfermera/o' },
+		{ id: 3, name: 'Personal en Formación' },
+		{ id: 4, name: 'Medicina General' },
+		{ id: 5, name: 'Medicina Especialista' },
+		{ id: 6, name: 'Auxiliar de Farmacia' },
+		{ id: 7, name: 'Higienista Oral' },
+		{ id: 8, name: 'Bacteriología' },
+		{ id: 9, name: 'Biomédica' },
+		{ id: 10, name: 'Camillero' },
+		{ id: 11, name: 'Fisioterapeuta' },
+		{ id: 12, name: 'Fonoaudiología' },
+		{ id: 13, name: 'Terapeuta Ocupacional' },
+		{ id: 14, name: 'Terapeuta Respiratorio' },
+		{ id: 15, name: 'Informador/a' },
+		{ id: 16, name: 'Instrumentador Quirúrgico' },
+		{ id: 17, name: 'Personal de Servicios Generales' },
+		{ id: 18, name: 'Químico Farmacéutico' },
+		{ id: 19, name: 'Regente de Farmacia' },
+		{ id: 20, name: 'Técnico o Tecnólogo en Radiología' },
+		{ id: 21, name: 'Trabajo Social' },
+		{ id: 22, name: 'Personal de Seguridad / Vigilancia' },
+		{ id: 23, name: 'Otro (Usuario, Familia, aseguradoras, entre otros)' },
+	],
+	unidadPresento: [
+		{ id: 1, name: 'Abraham Lincoln' },
+		{ id: 2, name: 'Betania' },
+		{ id: 3, name: 'Candelaria' },
+		{ id: 4, name: 'Casa de teja' },
+		{ id: 5, name: 'Danubio azul' },
+		{ id: 6, name: 'Destino' },
+		{ id: 7, name: 'El Carmen' },
+		{ id: 8, name: 'Isla del Sol' },
+		{ id: 9, name: 'Ismael Perdomo' },
+		{ id: 10, name: 'Jerusalén' },
+		{ id: 11, name: 'La Estrella' },
+		{ id: 12, name: 'La Flora' },
+		{ id: 13, name: 'La Reforma' },
+		{ id: 14, name: 'Limonar' },
+		{ id: 15, name: 'Lorenzo Alcantuz' },
+		{ id: 16, name: 'Manuela Beltrán ' },
+		{ id: 17, name: 'Marichuela' },
+		{ id: 18, name: 'Meissen' },
+		{ id: 19, name: 'Meissen apoyo diagnóstico' },
+		{ id: 20, name: 'Mochuelo' },
+		{ id: 21, name: 'Nazareth' },
+		{ id: 22, name: 'Paraiso' },
+		{ id: 23, name: 'Pasquilla' },
+		{ id: 24, name: 'Potosí' },
+		{ id: 25, name: 'San Benito' },
+		{ id: 26, name: 'San Francisco' },
+		{ id: 27, name: 'San Isidro' },
+		{ id: 28, name: 'San Juan de Sumapaz' },
+		{ id: 29, name: 'Santa Librada' },
+		{ id: 30, name: 'Santa Martha' },
+		{ id: 31, name: 'Sierra Morena' },
+		{ id: 32, name: 'Tunal' },
+		{ id: 33, name: 'Tunjuelito Medicina Interna' },
+		{ id: 34, name: 'Usme' },
+		{ id: 35, name: 'Vista Hermosa' },
+		{ id: 36, name: 'Yomasa' },
+	],
+	servicioPresento: [
+		{ id: 1, name: 'APH' },
+		{ id: 2, name: 'Cardiología' },
+		{ id: 3, name: 'Clínica de Heridas' },
+		{ id: 4, name: 'Consulta Externa' },
+		{ id: 5, name: 'Esterilización' },
+		{ id: 6, name: 'Fisioterapia' },
+		{ id: 7, name: 'Gastroenterología' },
+		{ id: 8, name: 'Hemodinamía' },
+		{ id: 9, name: 'Hospital Día' },
+		{ id: 10, name: 'Hospitalización Adultos' },
+		{ id: 11, name: 'Hospitalización Ginecoobstetricia' },
+		{ id: 12, name: 'Hospitalización Pediatría' },
+		{ id: 13, name: 'Hospitalización Salud Mental' },
+		{ id: 14, name: 'Imágenes Diagnósticas' },
+		{ id: 15, name: 'Laboratorio Clínico' },
+		{ id: 16, name: 'Odontología' },
+		{ id: 17, name: 'Oficina Administrativa' },
+		{ id: 18, name: 'PAI Intramural' },
+		{ id: 19, name: 'PAI Extramural' },
+		{ id: 20, name: 'Patología' },
+		{ id: 21, name: 'Salas de Cirugía' },
+		{ id: 22, name: 'Salas de Partos ' },
+		{ id: 23, name: 'Servicio Farmacéutico' },
+		{ id: 24, name: 'Toma de Muestras' },
+		{ id: 25, name: 'UCI Adultos' },
+		{ id: 26, name: 'UCI Neonatal' },
+		{ id: 27, name: 'UCI Pediátrica' },
+		{ id: 28, name: 'Unidad Renal' },
+		{ id: 29, name: 'Unidad Transfusional' },
+		{ id: 30, name: 'Urgencias Adultos' },
+		{ id: 31, name: 'Urgencias Pediatría' },
+		{ id: 32, name: 'Otro' },
+	],
+	direccionAsistencial: [
+		{ id: 1, name: 'Dirección de Servicios de Hospitalarios' },
+		{ id: 2, name: 'Dirección de Servicios de Urgencias' },
+		{ id: 3, name: 'Dirección de Servicios de Complementarios' },
+		{ id: 4, name: 'Dirección de Servicios de Ambulatorios' },
+		{ id: 5, name: 'Dirección de Servicios de Gestión del Riesgo' },
+	],
+	tipoIdentificacion: [
+		{ id: 1, name: 'RC - Registro Civil' },
+		{ id: 2, name: 'TI - Tarjeta de identidad' },
+		{ id: 3, name: 'CC - Cédula de ciudadanía' },
+		{ id: 4, name: 'CE - Cédula de extranjería' },
+		{ id: 5, name: 'PA - Pasaporte' },
+		{ id: 6, name: 'MS - Menor sin identificación' },
+		{ id: 7, name: 'AS - Adulto sin identidad' },
+		{ id: 8, name: 'No Aplica' },
+	],
+	genero: [
+		{ id: 1, name: 'Masculino' },
+		{ id: 2, name: 'Femenino' },
+	],
+	aseguradora: [
+		{ id: 1, name: 'prueba1' },
+		{ id: 2, name: 'prueba2' },
+	],
+	nombreHemocomponente: [
+		{ id: 1, name: 'Plasma congelado' },
+		{ id: 2, name: 'Plasma freco congelado' },
+		{ id: 3, name: 'Eritrocitos' },
+		{ id: 4, name: 'Glóblus rojos' },
+		{ id: 5, name: 'Crioprecipitado' },
+		{ id: 6, name: 'Glóbulos blancos' },
+		{ id: 7, name: 'Sangre completa' },
+
+	],
+	grupoSanguineo: [
+		{ id: 1, name: 'A+' },
+		{ id: 2, name: 'B+' },
+		{ id: 3, name: 'AB+' },
+		{ id: 4, name: 'O-' },
+		{ id: 5, name: 'A-' },
+		{ id: 6, name: 'B-' },
+		{ id: 7, name: 'AB-' },
+	],
+	preclasificacionTaxonomia: [
+		{ id: 1, name: 'RIESGO' },
+		{ id: 2, name: 'INCIDENTE' },
+		{ id: 3, name: 'PRESUNTO EVENTO ADVERSO' },
+		{ id: 4, name: 'COMPLICACIÓN' },
+		{ id: 5, name: 'NO ES UN SUCESO DE SEGURIDAD' },
+	],
+	severidad: [
+		{ id: 1, name: 'LEVE' },
+		{ id: 2, name: 'MODERADO' },
+		{ id: 3, name: 'GRAVE' },
+	],
+	// ------
+	clasificacionAyudasDiagnosticas: [
+		{ id: 1, name: 'LABORATÓRIO CLÍNICO' },
+		{ id: 2, name: 'IMÁGENES DIAGNÓSTICAS' },
+		{ id: 3, name: 'GASTROENTEROLOGÍA' },
+		{ id: 4, name: 'HEMODINÁMIA' },
+	],
+	clasificacionLaboratorioClinico: [
+		{ id: 1, name: 'FALLAS PRENALÍTICAS: MUESTRA HEMOLIZADA' },
+		{ id: 2, name: 'FALLAS PRENALÍTICAS: MUESTRA COAGULADA' },
+		{ id: 3, name: 'FALLAS PRENALÍTICAS: MUESTRA CON VOLUMEN INADECUADO' },
+		{ id: 4, name: 'FALLAS PRENALÍTICAS: MUESTRA MAL ETIQUETADA CON INFORMACIÓN INSUFICIENTE' },
+		{ id: 5, name: 'FALLAS PRENALÍTICAS: MUESTRA MAL ETIQUETADA CON INFORMACIÓN INDECUADA' },
+		{ id: 6, name: 'FALLAS PRENALÍTICAS: MUESTRA SIN MARCAR' },
+		{ id: 7, name: 'FALLAS PRENALÍTICAS: MUESTRA CON RECIPIENTE INADECUADO' },
+		{ id: 8, name: 'FALLAS PRENALÍTICAS: INADECUADA PREPARACIÓN DEL PACIENTE' },
+		{ id: 9, name: 'FALLAS PRENALÍTICAS: INADECUADA RECOGIDA DE ORINA EN 24 HORAS' },
+		{ id: 10, name: 'FALLAS ANALÍTICAS: INTERFERENCIAS (POR PROPIEDADES INFLUYENTES)' },
+		{ id: 11, name: 'FALLAS POR ANALÍTICAS: ERRORES EN LA INTERPRETACIÓN DE RESULTADOS' },
+		{ id: 12, name: 'FALLAS POR ANALÍTICAS: INADECUADA CORRELACIÓN CLÍNICA' },
+		{ id: 13, name: 'FALLAS POR ANALÍTICAS: ENTREGA DE RESULTADOS A PACIENTE EQUIVOCADO' },
+	],
+	clasificacionImagenesDiagnosticas: [
+		{ id: 1, name: 'INOPORTUNIDAD EN LA TOMA DEL EXÁMEN' },
+		{ id: 2, name: 'INOPORTUNIDAD EN LA PUBLICACIÓN DE RESULTADOS' },
+		{ id: 3, name: 'INADECUADA LECTURA DE IMÁGENES POR FALTA DE CORRELACIÓN CLÍNICA' },
+		{ id: 4, name: 'EXTRAVASACIÓN INTRAVENOSA EN MEDIOS DE CONTRASTE' },
+		{ id: 5, name: 'ERRORES EN LA ADMINISTRACIÓN DE MEDIOS DE CONTRASTE' },
+		{ id: 6, name: 'ERRORES EN LA PRESCRIPCIÓN DE IMÁGENES DIAGNÓSTICAS' },
+		{ id: 7, name: 'ERRORES EN LA IDENTIFICACIÓN' },
+		{ id: 8, name: 'ERRORES EN LA CAPTURA' },
+		{ id: 9, name: 'ERRORES EN LA IDENTIFICACIÓN DEL PACIENTE' },
+		{ id: 10, name: 'ERRORES EN LA TRANSCRIPCIÓN' },
+		{ id: 11, name: 'ERRORES EN EL DIAGNÓSTICO' },
+		{ id: 12, name: 'INADECUADA PREPARACIÓN DEL PACIENTE' },
+		{ id: 13, name: 'CAÍDA EN ÁREA DE IMÁGENES DIAGNÓSTICAS' },
+	],
+	clasificacionGastroenterologia: [
+		{ id: 1, name: 'CAIDA EN ÁREA DE GASTROENTEROLOGÍA' },
+		{ id: 2, name: 'SANGRADO' },
+		{ id: 3, name: 'INFECCIÓN SECUNDARIA A PROCEDIMIENTOS ENDOSCÓPICOS' },
+		{ id: 4, name: 'EFISEMAS SUBCUTÁNEOS' },
+		{ id: 5, name: 'PERFORACIÓN DE VISCERAS' },
+		{ id: 6, name: 'HEMATOMAS' },
+		{ id: 7, name: 'TRAUMA SECUNDÁRIO A PROCEDIMIENTOS ENDOSCÓPICOS' },
+		{ id: 8, name: 'COMPLICACIONES ANESTÉSICAS' },
+		{ id: 9, name: 'DAÑOS EN LOS EQUIPOS E INSUMOS UTILIZADOS EN LOS PROCEDIMIENTOS' },
+		{ id: 10, name: 'HEMORRAGIA POR PROCEDIMIENTO' },
+	],
+	clasificacionHemodinamia: [
+		{ id: 1, name: 'HEMATOMAS' },
+		{ id: 2, name: 'RUPTURAS DE BALÓN' },
+		{ id: 3, name: 'DAÑOS EN LOS EQUIPOS E INSUMOS UTILIZADOS EN LOS PROCEDIMIENTOS' },
+		{ id: 4, name: 'ARRITMIAS ESTABLES' },
+		{ id: 5, name: 'ARRITMIAS INESTABLES' },
+		{ id: 6, name: 'PARO CARDIORESPIRATORIO' },
+		{ id: 7, name: 'HEMORRAGIA POS PROCEDIMIENTO' },
+	],
+	// -----
+	clasificacionCuidadoSalud: [
+		{ id: 1, name: 'EVENTOS RELACIONADOS CON EL CUIDADO' },
+		{ id: 2, name: 'EVENTOS RELACIONADOS CON LA ADMINISTRACIÓN DE MEDICAMENTOS O LÍQUIDOS PARENTERALES' },
+		{ id: 3, name: 'EVENTOS RELACIONADOS CON LA ELABORACIÓN DE DIETAS O DISPENSACIÓN DE ALIMENTOS' },
+		{ id: 4, name: 'EVENTOS RELACIONADOS CON ACTOS QUIRÚRGICOS' },
+	],
+	clasificacionCuidado: [
+		{ id: 1, name: 'FLEBITIS QUÍMICA EN SITIO DE PUNCIÓN' },
+		{ id: 2, name: 'FLEBITIS MECÁNICA EN SITIO DE PUNCIÓN' },
+		{ id: 3, name: 'LESIONES CAUSADAS POR CAÍDAS INSTITUCIONAL' },
+		{ id: 4, name: 'DESALOJO DE DISPOSITIVO BIOMÉDICO' },
+		{ id: 5, name: 'ULCERA POR PRESIÓN' },
+		{ id: 6, name: 'LESIÓNES EN PIEL' },
+		{ id: 7, name: 'HEMORRAGÍAS POR SOBREANTICOAGULACIÓN' },
+		{ id: 8, name: 'ASALTO SEXUAL EN LA INSTITUCIÓN' },
+		{ id: 9, name: 'PÉRDIDA DE PERTENENCIAS DE USUARIOS' },
+		{ id: 10, name: 'SUICIDIO DE PACIENTES INTERNADOS' },
+		{ id: 11, name: 'INGRESO NO PROGRAMADO A UCI LUEGO DE PROCEDIMIENTO QUE IMPLICA LA ADMINISTRACIÓN DE ANESTESIA' },
+		{ id: 12, name: 'PARO CARDIORRESPIRATORIO' },
+		{ id: 13, name: 'ROBO INTRAINSTITUCIONAL DE NIÑOS' },
+		{ id: 14, name: 'ENTREGA EQUIVOCADA DE UN NEONATO' },
+		{ id: 15, name: 'REINGRESO A HOSPITALIZACIÓN POR LA MISMA CAUSA ANTES DE 15 DÍAS' },
+		{ id: 16, name: 'PRESUNTOS EFECTOS ADVERSOS ATRIBUIBLES A VACUNACIÓN E INMUNIZACIÓN' },
+		{ id: 17, name: 'FUGA DE PACIENTES (GESTANTE DE ALTO RIESGO, MENORES DE EDAD, ADULTOS MAYORES, PACIENTES PSIQUIÁTRICOS)' },
+		{ id: 18, name: 'SUICIDIO DE PACIENTES INSTITUCIONALIZADOS' },
+		{ id: 19, name: 'CONSUMO INTRAINSTITUCIONAL DE PSICOACTIVOS' },
+		{ id: 20, name: 'PERDIDA FUNCIONAL DE ALGUNA EXTREMIDAD' },
+		{ id: 21, name: 'PERDIDA FUNCIONAL DE ALGUN ÓRGANO' },
+		{ id: 22, name: 'PENDIENTE ORDENES MÉDICAS EN LA HISTORIA CLÍNICA' },
+		{ id: 23, name: 'INOPORTUNIDAD DIAGNÓSTICA' },
+		{ id: 24, name: 'INOPORTUNIDAD TERAPÉUTICA' },
+	],
+	clasificacionAdministracionMedicamentos: [
+		{ id: 1, name: 'ADMINISTRACIÓN DE MEDICAMENTOS A PACIENTE EQUIVOCADO' },
+		{ id: 2, name: 'ADMINISTRACIÓN DE MEDICAMENTO EQUIVOCADO' },
+		{ id: 3, name: 'ADMINISTRACIÓN DE DOSIS INCORRECTA' },
+		{ id: 4, name: 'ADMINISTRACIÓN DE VÍA INCORRECTA' },
+		{ id: 5, name: 'ADMINISTRACIÓN DE MEDICAMENTO VENCIDO' },
+		{ id: 6, name: 'ALMACENAMIENTO EN EL CARRO DE MEDICAMENTOS INCORRECTO' },
+		{ id: 7, name: 'OMISIÓN EN LA ADMINISTRACIÓN DE UNA DOSIS' },
+	],
+	clasificacionDietas: [
+		{ id: 1, name: 'ADMINISTRACIÓN DE NUTRICIÓN A PACIENTE EQUIVOCADO' },
+		{ id: 2, name: 'ADMINISTRACIÓN DE NUTRICIÓN EQUIVOCADA' },
+		{ id: 3, name: 'ADMINISTRACIÓN DE DOSIS INCORRECTA' },
+		{ id: 4, name: 'ADMINISTRACIÓN DE VÍA INCORRECTA' },
+		{ id: 5, name: 'ADMINISTRACIÓN DE NUTRICIÓN VENCIDA' },
+		{ id: 6, name: 'ALMACENAMIENTO INCORRECTO' },
+		{ id: 7, name: 'OMISIÓN EN LA ADMINISTRACIÓN DE UNA DOSIS' },
+	],
+	clasificacionQuirurgicos: [
+		{ id: 1, name: 'CIRUGÍA EN PARTE EQUIVOCADA O EN PACIENTE EQUIVOCADO' },
+		{ id: 2, name: 'PACIENTES CON HIPOTENSIÓN SEVERA EN POSTQUIRÚRGICO' },
+		{ id: 3, name: 'PACIENTES CON INFARTO EN LAS SIGUIENTES 72 HORAS POSTQUIRÚRGICO' },
+		{ id: 4, name: 'QUEMADURA POR DIFERENTES DISPOSITIVOS' },
+		{ id: 5, name: 'REINGRESO A HOSPITALIZACIÓN POR LA MISMA CAUSA ANTES DE 15 DÍAS' },
+		{ id: 6, name: 'CIRUGÍA CANCELADA POR FACTORES ATRIBUIBLES AL DESEMPEÑO DE LA SUBRED' },
+		{ id: 7, name: 'REINTERVENCIÓN QUIRÚRGICA' },
+		{ id: 8, name: 'COMPLICACIONES ANESTÉSICAS' },
+		{ id: 9, name: 'INFARTO AGUDO AL MIOCARDIO EN LAS SIGUIENTES 72 HORAS POSTQUIRÚRGICO' },
+		{ id: 10, name: 'TROMBOEMBOLISMO PULMONAR  EN LAS SIGUIENTES 72 HORAS POSTQUIRÚRGICO' },
+		{ id: 11, name: 'FRACTURA O LUXACIONES POSQUIRURGICAS' },
+	],
+	// -----
+	clasificacionIAAS: [
+		{ id: 1, name: 'INFECCIONES DEL SISTEMA NERVIOSO CENTRAL (SNC)' },
+		{ id: 2, name: 'INFECCIONES DEL TRACTO URINARIO (ITU)' },
+		{ id: 3, name: 'INFECCIONES DEL TORRENTE SANGUÍNEO (ITS)' },
+		{ id: 4, name: 'INFECCIONES ÓSEA Y DE LAS ARTICULACIONES (OA)' },
+		{ id: 5, name: 'INFECCIONES DEL SISTEMA CARDIOVASCULAR (SCV)' },
+		{ id: 6, name: 'NEUMONÍA (NEU)' },
+		{ id: 7, name: 'INFECCIONES DEL TRACTO REPRODUCTOR (REPR)' },
+		{ id: 8, name: 'INFECCIONES DE LA PIEL Y LOS TEJIDOS BLANDOS (PTB)' },
+		{ id: 9, name: 'INFECCIONES DEL SITIO QUIRÚRGICO (ISQ)' },
+		{ id: 10, name: 'INFECCIONES DE OJO, OÍDO Y NARIZ' },
+		{ id: 11, name: 'INFECCIONES DE LA CAVIDAD ORAL: BOCA LENGUA O ENCÍAS (ORAL)' },
+		{ id: 12, name: 'INFECCIONES DE TRACTO RESPIRATORIO SUPERIOR, FARINGITIS, LARINGITIS, EPIGLOTITIS (TRS)' },
+		{ id: 13, name: 'INFECCIONES DEL SISTEMA GASTROINTESTINAL (GI)' },
+		{ id: 14, name: 'INFECCIONES DEL TRACTO RESPIRATORIO INFERIOR, DIFERENTE A NEUMONÍA (TRI)' },
+		{ id: 15, name: 'INFECCIÓN SISTÉMICA (IS)' },
+	],
+	// -----
+	casificacionEquiposBiomedicos: [
+		{ id: 1, name: 'EVENTO ADVERSO SERIO' },
+		{ id: 2, name: 'EVENTO ADVERSO NO SERIO' },
+		{ id: 3, name: 'INCIDENTE ADVERSO SERIO' },
+		{ id: 4, name: 'INCIDENTE ADVERSO NO SERIO' },
+	],
+	// -----
+	casificacionHemocomponentes: [
+		{ id: 1, name: 'ADMINISTRACIÓN DE HEMOCOMPONENTE A PACIENTE EQUIVOCADO' },
+		{ id: 2, name: 'ADMINISTRACIÓN DE HEMOCOMPONENTE A EQUIVOCADO' },
+		{ id: 3, name: 'ADMINISTRACIÓN DE HEMOCOMPONENTE A DOSIS EQUIVOCADA' },
+		{ id: 4, name: 'ADMINISTRACIÓN DE HEMOCOMPONENTE A FRECUENCIA EQUIVOCADA' },
+		{ id: 5, name: 'ETIQUETADO INCORRECTO' },
+		{ id: 6, name: 'REACCIONES ALÉRGICAS ANAFILÁCTICAS' },
+		{ id: 7, name: 'REACCIONES HEMOLÍTICAS AGUDAS' },
+		{ id: 8, name: 'SÍNDROME DE INSUFICIENCIA RESPIRATORIA AGUDA SECUNDARIA A TRANSFUSIÓN (TRALI)' },
+		{ id: 9, name: 'SOBRECARGA CIRCULATORIA POR TRANSFUSIÓN (SÍNDROME TACO)' },
+		{ id: 10, name: 'ENFERMEDAD INJERTO CONTRA HUÉSPED' },
+		{ id: 11, name: 'CONTAMINACIÓN BACTERIANA DE COMPONENTES' },
+		{ id: 12, name: 'INFECCIONES TRANSMITIDAS POR LA TRANSFUSIÓN (ITT)' },
+		{ id: 13, name: 'REACCIONES FEBRILES NO HEMOLÍTICAS' },
+		{ id: 14, name: 'REACCIONES ALÉRGICAS URTICARIFORMES' },
+		{ id: 15, name: 'HEMÓLISIS NO INMUNE' },
+		{ id: 16, name: 'REACCIONES METABÓLICAS' },
+		{ id: 17, name: 'REACCIONES HIPOTENSORAS' },
+		{ id: 18, name: 'REACCIONES HEMOLÍTICAS TARDÍAS' },
+		{ id: 19, name: 'PÚRPURA POSTRANSFUSIONAL' },
+		{ id: 20, name: 'INMUNOMODULACIÓN (TRIM)' },
+		{ id: 21, name: 'SOBRECARGA DE HIERRO' },
+	],	
+	// -----
+	clasificacionDonacion: [
+		{ id: 1, name: 'INFECCIÓN PRIMARIA POSIBLEMENTE TRANSFERIDA DESDE EL DONANTE HASTA EL RECEPTOR (POR EJEMPLO, VIRUS, BACTERIAS, PARÁSITOS, HONGOS, PRIONES)' },
+		{ id: 1, name: 'INFECCIÓN TRANSMITIDA (VIRUS, BACTERIAS, PARÁSITOS, HONGOS, PRIONES) POSIBLEMENTE DEBIDO A LA CONTAMINACIÓN CRUZADA POR UN AGENTE INFECCIOSO EN LOS TEJIDOS O MATERIALES RELACIONADOS DESDE LA OBTENCIÓN HASTA LA APLICACIÓN CLÍNICA' },
+		{ id: 1, name: 'LAS REACCIONES DE HIPERSENSIBILIDAD, INCLUYENDO ALERGIAS, REACCIONES ANAFILÁCTICAS (HIPERSENSIBILIDAD)' },
+		{ id: 1, name: 'NEOPLASIA MALIGNA, POSIBLEMENTE TRANSFERIDA O GENERADA POR LOS TEJIDOS DE UN DONANTE (MALIGNIDAD)' },
+		{ id: 1, name: 'FALLA PRIMARIA O PERDIDA DEL INJERTO (INCLUYENDO FALLA ESTRUCTURAL Y UTILIZACIÓN INADECUADA DEL TEJIDO)' },
+		{ id: 1, name: 'RECHAZO DEL TRASPLANTE' },
+		{ id: 1, name: 'EFECTOS TÓXICOS DE LOS TEJIDOS (TOXICIDAD)' },
+		{ id: 1, name: 'REACCIONES INMUNOLÓGICAS INESPERADOS DEBIDO AL MISMATCH' },
+		{ id: 1, name: 'PROCEDIMIENTO CANCELADO QUE GENERÓ LA EXPOSICIÓN INNECESARIA A UN RIESGO EN UN PACIENTE ANESTESIADO; POR TEJIDO NO CONFORME PARA EL TRASPLANTE Y/O POR UNA MANIPULACIÓN INADECUADA DEL TEJIDO EN EL MARCO DE LA PRESTACIÓN DEL SERVICIO QUE IMPIDE SU TRASPLANTE, ENTRE OTROS' },
+		{ id: 1, name: 'SOSPECHA DE TRANSMISIÓN DE UN TRASTORNO GENÉTICO (ANORMALIDAD GENÉTICA)' },
+		{ id: 1, name: 'SOSPECHA DE TRANSMISIÓN DE OTRA PATOLOGÍA (EXCLUYENDO LAS CONTEMPLADAS EN EL LISTADO ANTERIOR)' },
+		{ id: 1, name: 'EL INCIDENTE PODRÍA TENER IMPLICACIONES PARA OTROS PACIENTES O DONANTES DEBIDO A PROCEDIMIENTOS, SERVICIOS, SUMINISTROS O DONANTES RELACIONADOS' },
+		{ id: 1, name: 'EL INCIDENTE DIO LUGAR A UNA CONFUSIÓN DE LOS TEJIDOS' },
+		{ id: 1, name: 'EL INCIDENTE DIO COMO RESULTADO LA PÉRDIDA DE LOS TEJIDOS AUTÓLOGOS IRREMPLAZABLES (ES DECIR, RECEPTORES ESPECÍFICOS) O TEJIDOS ALOGÉNICAS ALTAMENTE COINCIDENTES' },
+		{ id: 1, name: 'EL INCIDENTE RESULTÓ EN LA PÉRDIDA DE UNA CANTIDAD SIGNIFICATIVA DE LOS TEJIDOS ALOGÉNICOS NO COINCIDENTES' },
+		{ id: 1, name: 'CUALQUIER INCIDENTE QUE SE HAYA GENERADO ANTES QUE LOS TEJIDOS SALIERAN DEL BANCO Y PUEDA CONSTITUIRSE COMO UN RIESGO POTENCIAL EN OTROS BANCOS DE TEJIDOS, DONANTES O RECEPTORES' },
+	]
+}
+
+@Injectable({
+	providedIn: 'root'
+})
+
+export class GlobalService {
+	setMaxDate() {
+		const date = new Date();
+		const day = this.addZero( date.getDate() );
+		let month = date.getMonth() + 1;
+		month = this.addZero( month );
+		const year = date.getFullYear();
+		return year + '-' + month + '-' + day;
+	}
+
+	setActualTime() {
+		const date = new Date();
+		const h = this.addZero( date.getHours() );
+		const m = this.addZero( date.getMinutes() );
+		const s = this.addZero( date.getSeconds() );
+		return h + ':' + m + ':' + s;
+	}
+
+	addZero(numero: any) {
+		if ( numero < 10 ) {
+			numero = '0' + numero.toString();
+		}
+		return numero;
+	}
+
+	upperCase($event) {
+		if ( $event ) {
+			return $event.toUpperCase();
+		}
+	}
 }

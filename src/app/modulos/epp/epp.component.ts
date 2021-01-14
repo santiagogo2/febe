@@ -15,7 +15,7 @@ export class EppComponent implements OnInit {
 	public identity: any;
 
 	public epp: any[] = [
-		{ titulo: 'Seguimiento', url: 'seguimiento/listar', class: 'card-4FB96F', description: 'Seguimiento de las capacitaciones realizadas' },
+		{ titulo: 'Seguimiento', url: 'seguimiento/listar', class: 'card-4FB96F', description: 'Seguimiento a las entregas de Elementos de Protección Personal' },
 		{ titulo: 'Informes', url: 'informes', class: 'card-EC8993', description: 'Reportes gráficos de los datos almacenados en el sistema' },
 		{ titulo: 'Administración', url: 'admin', class: 'card-924E4E', description: 'Sección que le permite administrar las listas desplegables de esta sección' },
 	];

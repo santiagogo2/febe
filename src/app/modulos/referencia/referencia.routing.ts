@@ -4,29 +4,49 @@ import { Routes, RouterModule } from '@angular/router';
 // Components
 import { ReferenciaComponent } from './referencia.component';
 import { SolicitudComponent } from './solicitud/solicitud.component';
-import { PanelComponent } from './panel/panel.component';
-import { FollowComponent } from './follow/follow.component';
+import { PanelComponent } from './operadores/panel/panel.component';
+import { FollowComponent } from './operadores/follow/follow.component';
+import { AsistencialComponent } from './asistencial/asistencial.component';
+
+// Guards
+import { 
+	ReferenciaAsistencialGuard,
+	ReferenciaFollowGuard,
+	ReferenciaGuard,
+	ReferenciaPanelGuard,
+	ReferenciaSolicitudGuard,
+} from './guards/referencia-guards.index';
 
 const referenciaRoutes: Routes = [
 	{
 		path: '',
 		component: ReferenciaComponent,
-		data: { titulo: 'Referencia' }
+		data: { titulo: 'Referencia Interna Subred Sur' },
+		canActivate: [ ReferenciaGuard ],
 	},
 	{
 		path: 'solicitud',
 		component: SolicitudComponent,
-		data: { titulo: 'Formulario de Solicitud Referencia' }
+		data: { titulo: 'Formulario de Solicitud Referencia' },
+		canActivate: [ ReferenciaSolicitudGuard ],
 	},
 	{
 		path: 'panel',
 		component: PanelComponent,
-		data: { titulo: 'Panel Solicitudes del Sistema' }
+		data: { titulo: 'Panel Solicitudes del Sistema' },
+		canActivate: [ ReferenciaPanelGuard ],
 	},
 	{
-		path: 'solicitud/seguimiento/:id',
+		path: 'panel/seguimiento/:id',
 		component: FollowComponent,
-		data: { titulo: 'Seguimiento del Caso' }
+		data: { titulo: 'Seguimiento del Caso' },
+		canActivate: [ ReferenciaFollowGuard ],
+	},
+	{
+		path: 'asistencial',
+		component: AsistencialComponent,
+		data: { titulo: 'Seguimiento del Caso Usuarios Asistenciales' },
+		canActivate: [ ReferenciaAsistencialGuard ],
 	},
 ];
 

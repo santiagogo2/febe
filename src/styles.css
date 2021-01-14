@@ -311,6 +311,10 @@ header .nav-item:hover {
     color: #3C763D;
 }
 
+.swal2-textarea {
+    font-size: 1rem !important;
+}
+
 .bad {
     background-color: #D23C4A;
     color: #FFF;
@@ -416,6 +420,16 @@ header .nav-item:hover {
     font-size: 0.9rem;
 }
 
+.addonStyle {
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+}
+
+.addonInput {
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+}
+
 
 /*---------------------------------------------
  Cards Styles
@@ -501,6 +515,22 @@ header .nav-item:hover {
 
 .card-ECC350:hover h4 {
     color: #77454a;
+}
+
+.subtitle {
+    color: #019EAC;
+    border-top: 2px solid #019EAC;
+    font-weight: 600;
+    line-height: 0px;
+    margin: 2rem 0rem 1.5rem;
+    text-align: center;
+    font-style: oblique;
+    text-transform: uppercase;
+}
+
+.subtitle span {
+    padding: 0 1.5rem;
+    background-color: #FFF;
 }
 
 
@@ -1090,6 +1120,9 @@ footer p {
     }
     #searchForm #submitButton {
         margin-top: 1rem;
+    }
+    .addonStyle {
+        min-width: 89px;
     }
 }
 

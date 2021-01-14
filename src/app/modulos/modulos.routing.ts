@@ -76,6 +76,12 @@ const pagesRoutes: Routes = [
 		loadChildren: () => import('./sala-situacional/sala-situacional.module').then( m => m.SalaSituacionalModule ),
 	},
 	{
+		path: 'seguridad-paciente',
+		component: ModulosComponent,
+		canActivate: [ IdentityGuard ],
+		loadChildren: () => import('./seguridad-paciente/seguridad-paciente.module').then( m => m.SeguridadPacienteModule ),
+	},
+	{
 		path: 'uci',
 		component: ModulosComponent,
 		canActivate: [ IdentityGuard ],

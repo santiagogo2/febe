@@ -11,15 +11,17 @@ import { SolicitudComponent } from './solicitud/solicitud.component';
 
 // Routes
 import { ReferenciaRouting } from './referencia.routing';
-import { PanelComponent } from './panel/panel.component';
-import { FollowComponent } from './follow/follow.component';
+import { PanelComponent } from './operadores/panel/panel.component';
+import { FollowComponent } from './operadores/follow/follow.component';
+import { AsistencialComponent } from './asistencial/asistencial.component';
 
 @NgModule({
 	declarations: [
 		ReferenciaComponent,
 		SolicitudComponent,
 		PanelComponent,
-		FollowComponent
+		FollowComponent,
+		AsistencialComponent
 	],
 	imports: [
 		CommonModule,

@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
+// Services
 import { global, RoleOperationService, UserService } from '../services/services.index';
 import { TrainingService } from '../modulos/capacitacion/services/capacitacion-services.index';
+import { PreClasificacionSucesoService } from '../modulos/seguridad-paciente/services/seguridad-paciente-services.index';
+
+// Models
 import { User } from '../models/user';
 
 @Component({
@@ -24,6 +28,7 @@ export class LoginComponent implements OnInit {
 	public identity: any[];
 
 	constructor(
+		private preClasificacionService: PreClasificacionSucesoService,
 		private roleOperationService: RoleOperationService,
 		private trainingService: TrainingService,
 		private userService: UserService,
@@ -56,10 +61,10 @@ export class LoginComponent implements OnInit {
 							if (res.status === 'success') {
 								this.identity = res.signup;
 
-								localStorage.setItem('febeToken', this.token);
-								localStorage.setItem('febeIdentity', JSON.stringify(this.identity));
+								localStorage.setItem('siasurToken', this.token);
+								localStorage.setItem('siasurIdentity', JSON.stringify(this.identity));
 								const expirationtime = (12 * 60 * 60 * 1000) + new Date().getTime();
-								localStorage.setItem('febeExpiration', expirationtime.toString());
+								localStorage.setItem('siasurExpiration', expirationtime.toString());
 
 								this.roleOperationService.getOperationsByRole( res.signup.role_id, this.token ).subscribe(
 									resp => {
@@ -101,8 +106,11 @@ export class LoginComponent implements OnInit {
 
 			if (logout === 1) {
 				const document = localStorage.getItem('trainingLoadedDocument');
+				const document1 = localStorage.getItem('preClasificationLoadedDocument');
 				if ( document ) {
 					this.trainingService.deleteFile( document, this.userService.getToken() ).subscribe();
+				} if ( document1 ) {
+					this.preClasificacionService.deleteFile( document ).subscribe();
 				}
 				localStorage.clear();
 				this.token = null;

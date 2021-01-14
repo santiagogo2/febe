@@ -29,7 +29,7 @@ export class SolicitudComponent implements OnInit {
 
 
 	public incomes: any;
-	public motivosTranslados: any;
+	public motivosTraslados: any;
 	public tiposAmbulancia: any;
 	public prioridades: any;
 
@@ -47,8 +47,10 @@ export class SolicitudComponent implements OnInit {
 		private referenceRequestService: ReferenceRequestService,
 	) {
 		this.request = new ReferalRequest(null, null, null, null, null, null, null, null, null, null,
-										  null, null, null, null, null, null, null, null, null);
-		this.motivosTranslados = global.motivosTranslados;
+										  null, null, null, null, null, null, null, null, null, null,
+										  null, null, null, null, null, null, null, null, null, null,
+										  null, null, null, null, null, null, null, null);
+		this.motivosTraslados = global.motivosTraslados;
 		this.tiposAmbulancia = global.tiposAmbulancia;
 		this.prioridades = global.prioridades;
 	}

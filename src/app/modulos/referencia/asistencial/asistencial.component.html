@@ -1,0 +1,75 @@
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card border-0">
+            <div class="card-body">
+                <div class="formContainer">
+                    <div class="backLink col col-sm-12">
+                        <a class="col-sm-12" routerLink="/referencia">Regresar</a>
+                    </div>
+                    <div class="form-group col col-12">
+                        <form id="searchForm" #searchForm="ngForm" (ngSubmit)="searchPatient()">
+                            <div id="labelSearch" class="col col-sm-12 col-lg-8 d-inline-block pl-0 align-top">
+                                <label for="documento" class="labelForm">Número de documento del paciente*</label>
+                                <input type="text" name="documento" class="form-control inputForm " [ngClass]="{ 'is-invalid': documento.touched && documento.invalid}" #documento="ngModel" [(ngModel)]="documentId
+								" required pattern="[0-9]+" minlength="5" maxlength="15" placeholder="Ingrese el número de documento del paciente ">
+                            </div>
+                            <div id="submitButton" class="col col-sm-12 col-lg-4 d-inline-block pr-0 align-bottom">
+                                <input type="submit" value="Buscar" class="btn btn-sm btn-info btnPrefer col-sm-12" [disabled]="searchForm.invalid">
+                            </div>
+                            <small class="invalid-feedback d-block font-weight-bold" *ngIf="documento.invalid && documento.touched">Debe ingresar un número de documento válido. Solo se admiten números. El campo es obligatorio</small>
+                        </form>
+                        <small class="invalid-feedback d-block font-weight-bold" *ngIf="searchResponseMessage">{{ searchResponseMessage }}</small>
+                        <div *ngIf="searchPreloaderStatus">
+                            <fa-icon [icon]="faSpinner" class="d-block spin"></fa-icon>
+                        </div>
+                    </div>
+
+                    <div class="tableContainer col col-12 mb-0" *ngIf="request">
+                        <div class="form-group">
+                            <label for="nombrePaciente" class="labelForm">Nombre del Paciente</label>
+                            <input type="text" class="form-control inputForm" value="{{ nombrePaciente }}" disabled>
+                        </div>
+                        <div class="tableContainerAll col col-12">
+                            <table class="table table-bordered">
+                                <thead class="thead_styles">
+                                    <tr>
+                                        <th>Consecutivo</th>
+                                        <th>Ingreso</th>
+                                        <th>Número de Folio</th>
+                                        <th>Motivo de Traslado</th>
+                                        <th>Nombre del Médico</th>
+                                        <th>CUPS</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="tbody_styles">
+                                    <ng-container *ngFor="let req of request | paginate: {itemsPerPage: 5, currentPage: actualPage}">
+                                        <tr *ngIf="req.cups.length > 0" class="tableStyles" (click)="changeValue( req.id )">
+                                            <td>{{ req.id }}</td>
+                                            <td>{{ req.ingreso }}</td>
+                                            <td>{{ req.folio }}</td>
+                                            <td>{{ req.motivoTraslado | global: 'motivosTraslados' }}</td>
+                                            <td>{{ req.nombreMedico }}</td>
+                                            <td class="text-left">
+                                                <ul>
+                                                    <li *ngFor="let cup of req.cups">{{ cup.nombreExamen }}</li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                    </ng-container>
+                                </tbody>
+                            </table>
+                            <div class="paginationControls" *ngIf="request && request.length > 5">
+                                <pagination-controls (pageChange)="pageChange($event)" previousLabel="Anterior" nextLabel="Siguiente" maxSize="4">
+                                </pagination-controls>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="principalInfo">
+                        <app-follow [requestId]="requestSelected" *ngIf="requestSelected"></app-follow>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

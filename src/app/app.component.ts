@@ -23,11 +23,11 @@ export class AppComponent {
 
 	loadUser() {
 		const actualDate = new Date().getTime();
-		const expiresDate = +localStorage.getItem('febeExpiration');
+		const expiresDate = +localStorage.getItem('siasurExpiration');
 		if ( expiresDate && actualDate >= expiresDate ) {
-			localStorage.removeItem('febeToken');
-			localStorage.removeItem('febeIdentity');
-			localStorage.removeItem('febeExpiration');
+			localStorage.removeItem('siasurToken');
+			localStorage.removeItem('siasurIdentity');
+			localStorage.removeItem('siasurExpiration');
 
 			this.token = null;
 			this.identity = null;

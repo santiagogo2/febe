@@ -20,16 +20,25 @@ export class ReferenceRequestService {
 		this.token = this.userService.getToken();
 	}
 
-	getOpenRequest(): Observable<any> {
+	getRequestByDocumentId( $documentId ): Observable<any> {
 		const headers = new HttpHeaders().set( 'Authorization', this.token );
 
-		return this.http.get( this.url + 'referencia/get/open/cases', { headers } );
+		return this.http.get( this.url + 'referencia/get/cases/byDocumentId/' + $documentId, { headers } );
 	}
 
 	getRequest( id ): Observable<any> {
 		const headers = new HttpHeaders().set( 'Authorization', this.token );
 
 		return this.http.get( this.url + 'referencia/' + id, { headers } );
+	}
+
+	getCasesByFilters( filters ): Observable<any> {
+		const json = JSON.stringify( filters );
+		const params = 'json=' + json;
+		const headers = new HttpHeaders().set( 'Authorization', this.token )
+										 .set( 'Content-Type', 'application/x-www-form-urlencoded' );
+
+		return this.http.post( this.url + 'referencia/get/cases/by/filters', params, { headers });
 	}
 
 	newRequest( request ): Observable<any> {
@@ -48,5 +57,20 @@ export class ReferenceRequestService {
 										 .set( 'Content-Type', 'application/x-www-form-urlencoded' );
 
 		return this.http.post( this.url + 'cups', params, {headers} );
+	}
+
+	changeCaseStatus( id, estado ): Observable<any> {
+		const headers = new HttpHeaders().set( 'Authorization', this.token );
+
+		return this.http.get( this.url + 'referencia/change/case/satus/' + id + '/' + estado, {headers} );
+	}
+
+	updateFollowCase( id, updateInfo ): Observable<any> {
+		const json = JSON.stringify(updateInfo);
+		const params = 'json=' + json;
+		const headers = new HttpHeaders().set( 'Authorization', this.token )
+										 .set( 'Content-Type', 'application/x-www-form-urlencoded' );
+
+		return this.http.put( this.url + 'referencia/update/case/follow/' + id , params, {headers} );
 	}
 }

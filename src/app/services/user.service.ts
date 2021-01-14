@@ -73,7 +73,7 @@ export class UserService {
 	}
 
 	getIdentity() {
-		const identity = JSON.parse(localStorage.getItem('febeIdentity'));
+		const identity = JSON.parse(localStorage.getItem('siasurIdentity'));
 
 		if (identity && identity !== undefined) {
 			this.identity = identity;
@@ -85,7 +85,7 @@ export class UserService {
 	}
 
 	getToken() {
-		const token = localStorage.getItem('febeToken');
+		const token = localStorage.getItem('siasurToken');
 
 		if (token && token !== undefined) {
 			this.token = token;

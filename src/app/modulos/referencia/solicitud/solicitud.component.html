@@ -1,23 +1,11 @@
-<!-- <div class="loaderBall" *ngIf="!eppTracking && !responseMessage">
-    <div class="ball-pulse-rise">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-    </div>
-</div>
-<div class="mt-3 errorAlert" *ngIf="status=='error' && responseMessage && !eppTracking">
-    <div class="alert alert-danger" role="alert">
-        {{ responseMessage }} <a routerLink="/epp/seguimiento/listar" *ngIf="viewFlag">listar seguimientos EPP</a>
-    </div>
-</div> -->
-
 <div class="row">
     <div class="col-sm-12">
         <div class="card border-0">
             <div class="card-body cardContainer">
                 <div class="formContainer">
+                    <div class="backLink col col-sm-12">
+                        <a class="col-sm-12" routerLink="/referencia">Regresar</a>
+                    </div>
                     <form #referenceForm="ngForm" class="form-container" (ngSubmit)="onSubmit(referenceForm)" style="text-align: left;">
                         <div class="form-group">
                             <div class="col col-12 d-inline-block align-top">
@@ -93,12 +81,12 @@
                             </div>
                             <div class="form-group">
                                 <div class="col col-sm-12 col-lg-6 d-inline-block align-top">
-                                    <label for="motivoTranslado" class="labelForm">Motivo de Translado*</label>
-                                    <select style="background-position-x: 95%" name="motivoTranslado" id="motivoTranslado" class="form-control inputForm" [ngClass]="{'is-invalid': motivoTranslado.invalid && motivoTranslado.touched}" #motivoTranslado="ngModel" [(ngModel)]="request.motivoTranslado"
+                                    <label for="motivoTraslado" class="labelForm">Motivo de Traslado*</label>
+                                    <select style="background-position-x: 95%" name="motivoTraslado" id="motivoTraslado" class="form-control inputForm" [ngClass]="{'is-invalid': motivoTraslado.invalid && motivoTraslado.touched}" #motivoTraslado="ngModel" [(ngModel)]="request.motivoTraslado"
                                         required>
-										<option *ngFor="let motivo of motivosTranslados" value="{{ motivo.id }}">{{ motivo.name }}</option>
+										<option *ngFor="let motivo of motivosTraslados" value="{{ motivo.id }}">{{ motivo.name }}</option>
 									</select>
-                                    <small class="invalid-feedback d-block font-weight-bold" *ngIf="motivoTranslado.invalid && motivoTranslado.touched">Debe selecionar un motivo de la lista desplegable</small>
+                                    <small class="invalid-feedback d-block font-weight-bold" *ngIf="motivoTraslado.invalid && motivoTraslado.touched">Debe selecionar un motivo de la lista desplegable</small>
                                 </div>
                                 <div class="col col-sm-12 col-lg-6 align-bottom d-inline-block" *ngIf="searchFolioPreloaderStatus || searchFolioResponseMessage">
                                     <fa-icon [icon]="faSpinner" class="d-block spin" *ngIf="searchFolioPreloaderStatus"></fa-icon>
