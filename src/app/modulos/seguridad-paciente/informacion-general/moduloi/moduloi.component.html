@@ -1,0 +1,317 @@
+<div class="col col-12" *ngIf="securityEvent">
+    <div id="accordion">
+        <div class="card mt-2">
+            <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+						Información del Suceso Reportado
+					</button>
+                </h5>
+            </div>
+            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                <div class="card-body pr-0 pl-0">
+                    <div class="form-group">
+                        <div class="col col-sm-12 col-md-3 d-inline-block align-top">
+                            <label for="perfilReportante" class="labelForm">Perfil del Reportante</label>
+                            <input type="text" name="perfilReportante" class="form-control inputForm" value="{{ securityEvent.perfilReportante | global: 'perfilReportante' }}" disabled>
+                        </div>
+                        <div class="col col-sm-12 col-md-3 d-inline-block align-top">
+                            <label for="unidadPresento" class="labelForm">Unidad donde se presentó</label>
+                            <input type="text" name="unidadPresento" class="form-control inputForm" value="{{ securityEvent.unidadPresento | global: 'unidadPresento' }}" disabled>
+                        </div>
+                        <div class="col col-sm-12 col-md-3 d-inline-block align-top">
+                            <label for="unidadReporto" class="labelForm">Unidad donde se reportó</label>
+                            <input type="text" name="unidadReporto" class="form-control inputForm" value="{{ securityEvent.unidadReporto | global: 'unidadPresento' }}" disabled>
+                        </div>
+                        <div class="col col-sm-12 col-md-3 d-inline-block align-top">
+                            <label for="servicioPresento" class="labelForm">Servicio donde se presentó</label>
+                            <input type="text" name="servicioPresento" class="form-control inputForm" value="{{ securityEvent.servicioPresento | global: 'servicioPresento' }}" disabled>
+                        </div>
+                        <div class="col col-12 d-inline-block align-top">
+                            <label for="direccionAsistencial" class="labelForm">Dirección asistencial correspondiente al suceso</label>
+                            <input type="text" name="direccionAsistencial" class="form-control inputForm" value="{{ securityEvent.direccionAsistencial | global: 'direccionAsistencial' }}" disabled>
+                        </div>
+                        <div class="col col-sm-12 col-md-6 d-inline-block align-top">
+                            <label for="fechaSuceso" class="labelForm">Fecha del Suceso</label>
+                            <input type="text" name="fechaSuceso" class="form-control inputForm" value="{{ securityEvent.fechaSuceso }}" disabled>
+                        </div>
+                        <div class="col col-sm-12 col-md-6 d-inline-block align-top">
+                            <label for="horaSuceso" class="labelForm">Hora del Suceso</label>
+                            <input type="text" name="horaSuceso" class="form-control inputForm" value="{{ securityEvent.horaSuceso }}" disabled>
+                        </div>
+                    </div>
+                    <div class="form-group" *ngIf="securityEvent.numeroIdentificacion">
+                        <div class="subtitle"><span>DATOS DEL PACIENTE</span></div>
+                        <div class="col col-sm-12 col-md-3 d-inline-block align-top">
+                            <label for="tipoIdentificacion" class="labelForm">Tipo de Identificación</label>
+                            <input type="text" name="tipoIdentificacion" class="form-control inputForm" value="{{ securityEvent.tipoIdentificacion }}" disabled>
+                        </div>
+                        <div class="col col-sm-12 col-md-3 d-inline-block align-top">
+                            <label for="numeroIdentificacion" class="labelForm">Número de Identificación</label>
+                            <input type="text" name="numeroIdentificacion" class="form-control inputForm" value="{{ securityEvent.numeroIdentificacion }}" disabled>
+                        </div>
+                        <div class="col col-sm-12 col-md-6 d-inline-block align-top">
+                            <label for="nombresApellidos" class="labelForm">Nombres y Apellidos</label>
+                            <input type="text" name="nombresApellidos" class="form-control inputForm" value="{{ securityEvent.nombresApellidos }}" disabled>
+                        </div>
+                        <div class="col col-sm-12 col-md-2 d-inline-block align-top">
+                            <label for="edadPaciente" class="labelForm">Edad</label>
+                            <input type="text" name="edadPaciente" class="form-control inputForm" value="{{ securityEvent.edadPaciente }}" disabled>
+                        </div>
+                        <div class="col col-sm-12 col-md-2 d-inline-block align-top">
+                            <label for="genero" class="labelForm">Genero</label>
+                            <input type="text" name="genero" class="form-control inputForm" value="{{ securityEvent.genero }}" disabled>
+                        </div>
+                        <div class="col col-sm-12 col-md-6 d-inline-block align-top">
+                            <label for="genero" class="labelForm">Aseguradora</label>
+                            <input type="text" name="genero" class="form-control inputForm" value="{{ securityEvent.aseguradora }}" disabled>
+                        </div>
+                        <div class="col col-sm-12 col-md-2 d-inline-block align-top mb-4">
+                            <label for="gestante" class="labelForm">Gestante</label>
+                            <input type="text" name="gestante" class="form-control inputForm" value="{{ securityEvent.gestante | global: 'respuestas' }}" disabled>
+                        </div>
+                        <div class="col col-sm-6 col-lg-3 input-group d-inline-block align-top">
+                            <label for="tensionArterial" class="labelForm">Tensión arterial</label>
+                            <div class="d-flex">
+                                <input type="text" name="tensionArterial" class="form-control addonInput inputForm" value="{{ securityEvent.tensionArterial }}" aria-describedby="basic-addon2" disabled>
+                                <div class="input-group-append">
+                                    <span class="input-group-text addonStyle inputForm" id="basic-addon2">mmHg</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col col-sm-6 col-lg-3 input-group d-inline-block align-top">
+                            <label for="temperatura" class="labelForm">Temperatura</label>
+                            <div class="d-flex">
+                                <input type="text" name="temperatura" class="form-control addonInput inputForm" value="{{ securityEvent.temperatura }}" aria-describedby="basic-addon2" disabled>
+                                <div class="input-group-append">
+                                    <span class="input-group-text addonStyle inputForm" id="basic-addon2">°C</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col col-sm-6 col-lg-3 input-group d-inline-block align-top">
+                            <label for="frecuenciaRespiratoria" class="labelForm">Frecuencia Respiratória</label>
+                            <div class="d-flex">
+                                <input type="text" name="frecuenciaRespiratoria" class="form-control addonInput inputForm" value="{{ securityEvent.frecuenciaRespiratoria }}" aria-describedby="basic-addon2" disabled>
+                                <div class="input-group-append">
+                                    <span class="input-group-text addonStyle inputForm" id="basic-addon2">Resp x min</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col col-sm-6 col-lg-3 input-group d-inline-block align-top">
+                            <label for="frecuenciaCardiaca" class="labelForm">Pulsaciones por minuto</label>
+                            <div class="d-flex">
+                                <input type="text" name="frecuenciaCardiaca" class="form-control addonInput inputForm" value="{{ securityEvent.frecuenciaCardiaca }}" aria-describedby="basic-addon2" disabled>
+                                <div class="input-group-append">
+                                    <span class="input-group-text addonStyle inputForm" id="basic-addon2">Puls x min</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col col-sm-6 col-lg-3 input-group d-inline-block align-top">
+                            <label for="SPO2" class="labelForm">SPO2</label>
+                            <div class="d-flex">
+                                <input type="text" name="SPO2" class="form-control addonInput inputForm" value="{{ securityEvent.SPO2 }}" aria-describedby="basic-addon2" disabled>
+                                <div class="input-group-append">
+                                    <span class="input-group-text addonStyle inputForm" id="basic-addon2">%</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col col-sm-6 col-lg-3 input-group d-inline-block align-top">
+                            <label for="glucometria" class="labelForm">Glucometría</label>
+                            <div class="d-flex">
+                                <input type="text" name="glucometria" class="form-control addonInput inputForm" value="{{ securityEvent.glucometria }}" aria-describedby="basic-addon2" disabled>
+                                <div class="input-group-append">
+                                    <span class="input-group-text addonStyle inputForm" id="basic-addon2">mg/dL</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col col-sm-6 col-lg-3 input-group d-inline-block align-top">
+                            <label for="glasgow" class="labelForm">Escala de Coma de Glasgow</label>
+                            <div class="d-flex">
+                                <input type="text" name="glasgow" class="form-control addonInput inputForm" value="{{ securityEvent.glasgow }}" aria-describedby="basic-addon2" disabled>
+                                <div class="input-group-append">
+                                    <span class="input-group-text addonStyle inputForm" id="basic-addon2">/15</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col col-sm-6 col-lg-3 input-group d-inline-block align-top">
+                            <label for="peso" class="labelForm">Peso (solo pediátricos)</label>
+                            <div class="d-flex">
+                                <input type="text" name="peso" class="form-control addonInput inputForm" value="{{ securityEvent.peso }}" aria-describedby="basic-addon2" disabled>
+                                <div class="input-group-append">
+                                    <span class="input-group-text addonStyle inputForm" id="basic-addon2">Kg</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="subtitle"><span>DESCRIPCIÓN DEL SUCESO</span></div>
+                        <div class="col col-12 d-inline-block align-top">
+                            <textarea name="descripcionSuceso" id="descripcionSuceso" rows="10" class="form-control inputForm" disabled>{{ securityEvent.descripcionSuceso }}</textarea>
+                        </div>
+                    </div>
+                    <div class="form-group" *ngIf="eventId==3">
+                        <div class="subtitle"><span>MEDICAMENTOS (FARMACOVIGILANCIA)</span></div>
+                        <div class="col col-sm-12 col-md-4 d-inline-block align-top">
+                            <label for="tipoMedicamento" class="labelForm">Tipo de Medicamento</label>
+                            <input type="text" name="tipoMedicamento" class="form-control inputForm" value="{{ securityEvent.tipoMedicamento }}" disabled>
+                        </div>
+                        <div class="col col-sm-12 col-md-4 d-inline-block align-top">
+                            <label for="nombreGenericoMedicamento" class="labelForm">Nombre Genérico del Medicamento</label>
+                            <input type="text" name="nombreGenericoMedicamento" class="form-control inputForm" value="{{ securityEvent.nombreGenericoMedicamento }}" disabled>
+                        </div>
+                        <div class="col col-sm-12 col-md-4 d-inline-block align-top">
+                            <label for="nombreComercialMedicamento" class="labelForm">Nombre Comercial del Medicamento</label>
+                            <input type="text" name="nombreComercialMedicamento" class="form-control inputForm" value="{{ securityEvent.nombreComercialMedicamento }}" disabled>
+                        </div>
+                        <div class="col col-sm-12 col-md-3 d-inline-block align-top">
+                            <label for="laboratorioComercialMedicamento" class="labelForm">Laboratorio Comercial</label>
+                            <input type="text" name="laboratorioComercialMedicamento" class="form-control inputForm" value="{{ securityEvent.laboratorioComercialMedicamento }}" disabled>
+                        </div>
+                        <div class="col col-sm-12 col-md-3 d-inline-block align-top">
+                            <label for="loteMedicamento" class="labelForm">Lote</label>
+                            <input type="text" name="loteMedicamento" class="form-control inputForm" value="{{ securityEvent.loteMedicamento }}" disabled>
+                        </div>
+                        <div class="col col-sm-12 col-md-3 d-inline-block align-top">
+                            <label for="registroSanitarioMedicamento" class="labelForm">Registro sanitário INVIMA</label>
+                            <input type="text" name="registroSanitarioMedicamento" class="form-control inputForm" value="{{ securityEvent.registroSanitarioMedicamento }}" disabled>
+                        </div>
+                        <div class="col col-sm-12 col-md-3 d-inline-block align-top">
+                            <label for="fechaVencimientoMedicamento" class="labelForm">Fecha de vencimiento</label>
+                            <input type="text" name="fechaVencimientoMedicamento" class="form-control inputForm" value="{{ securityEvent.fechaVencimientoMedicamento }}" disabled>
+                        </div>
+                    </div>
+                    <div class="form-group" *ngIf="eventId==4">
+                        <div class="subtitle"><span>EQUÍPOS Y DISPOSITIVOS BIOMÉDICOS (TECNOVIGILANCIA)</span></div>
+                        <div class="col col-12 d-inline-block align-top">
+                            <label for="equipoMedico" class="labelForm">Equipo o dispositivo biomédico</label>
+                            <input type="text" name="equipoMedico" class="form-control inputForm" value="{{ securityEvent.equipoMedico }}" disabled>
+                        </div>
+                        <div class="col col-sm-12 col-md-6 d-inline-block align-top">
+                            <label for="marca" class="labelForm">Marca</label>
+                            <input type="text" name="marca" class="form-control inputForm" value="{{ securityEvent.marca }}" disabled>
+                        </div>
+                        <div class="col col-sm-12 col-md-6 d-inline-block align-top">
+                            <label for="referencia" class="labelForm">Referencia</label>
+                            <input type="text" name="referencia" class="form-control inputForm" value="{{ securityEvent.referencia }}" disabled>
+                        </div>
+                        <div class="col col-sm-12 col-md-4 d-inline-block align-top">
+                            <label for="modelo" class="labelForm">Modelo</label>
+                            <input type="text" name="modelo" class="form-control inputForm" value="{{ securityEvent.modelo }}" disabled>
+                        </div>
+                        <div class="col col-sm-12 col-md-4 d-inline-block align-top">
+                            <label for="lote" class="labelForm">Lote</label>
+                            <input type="text" name="lote" class="form-control inputForm" value="{{ securityEvent.lote }}" disabled>
+                        </div>
+                        <div class="col col-sm-12 col-md-4 d-inline-block align-top">
+                            <label for="serial" class="labelForm">Serial</label>
+                            <input type="text" name="serial" class="form-control inputForm" value="{{ securityEvent.serial }}" disabled>
+                        </div>
+                    </div>
+                    <div class="form-group" *ngIf="eventId==5">
+                        <div class="subtitle"><span>HEMOCOMPONENTES (HEMOVIGILANCIA)</span></div>
+                        <div class="col col-12 d-inline-block align-top">
+                            <label for="nombreHemocomponente" class="labelForm">Nombre del hemocomponente</label>
+                            <input type="text" name="nombreHemocomponente" class="form-control inputForm" value="{{ securityEvent.nombreHemocomponente | global: 'nombreHemocomponente' }}" disabled>
+                        </div>
+                        <div class="col col-sm-12 col-md-3 d-inline-block align-top">
+                            <label for="loteHemocomponente" class="labelForm">Lote</label>
+                            <input type="text" name="loteHemocomponente" class="form-control inputForm" value="{{ securityEvent.loteHemocomponente }}" disabled>
+                        </div>
+                        <div class="col col-sm-12 col-md-3 d-inline-block align-top">
+                            <label for="fechaVencimientoHemocomponente" class="labelForm">Fecha de vencimiento</label>
+                            <input type="text" name="fechaVencimientoHemocomponente" class="form-control inputForm" value="{{ securityEvent.fechaVencimientoHemocomponente }}" disabled>
+                        </div>
+                        <div class="col col-sm-12 col-md-3 d-inline-block align-top">
+                            <label for="numeroAdministradoHemocomponente" class="labelForm">Número de la unidad administrada al paciente</label>
+                            <input type="text" name="numeroAdministradoHemocomponente" class="form-control inputForm" value="{{ securityEvent.numeroAdministradoHemocomponente }}" disabled>
+                        </div>
+                        <div class="col col-sm-12 col-md-3 d-inline-block align-top">
+                            <label for="grupoSanguineo" class="labelForm">Grupo Sanguíneo</label>
+                            <input type="text" name="grupoSanguineo" class="form-control inputForm" value="{{ securityEvent.grupoSanguineo | global: 'grupoSanguineo' }}" disabled>
+                        </div>
+                        <div class="col col-sm-12 col-md-3 d-inline-block align-top">
+                            <label for="fechaAdministradoHemocomponente" class="labelForm">Fecha de administración</label>
+                            <input type="text" name="fechaAdministradoHemocomponente" class="form-control inputForm" value="{{ securityEvent.fechaAdministradoHemocomponente }}" disabled>
+                        </div>
+                        <div class="col col-sm-12 col-md-3 d-inline-block align-top">
+                            <label for="horaAdministradoHemocomponente" class="labelForm">Hora de administración</label>
+                            <input type="text" name="horaAdministradoHemocomponente" class="form-control inputForm" value="{{ securityEvent.horaAdministradoHemocomponente }}" disabled>
+                        </div>
+                        <div class="col col-sm-12 col-md-3 d-inline-block align-top">
+                            <label for="fechaReaccionHemocomponente" class="labelForm">Fecha de la reacción</label>
+                            <input type="text" name="fechaReaccionHemocomponente" class="form-control inputForm" value="{{ securityEvent.fechaReaccionHemocomponente }}" disabled>
+                        </div>
+                        <div class="col col-sm-12 col-md-3 d-inline-block align-top">
+                            <label for="horaReaccionHemocomponente" class="labelForm">Hora de la reacción</label>
+                            <input type="text" name="horaReaccionHemocomponente" class="form-control inputForm" value="{{ securityEvent.horaReaccionHemocomponente }}" disabled>
+                        </div>
+                        <div class="col col-12 d-inline-block align-top">
+                            <textarea name="antecedentesTransfusionales" id="antecedentesTransfusionales" rows="2" class="form-control inputForm" disabled>{{ securityEvent.antecedentesTransfusionales }}</textarea>
+                        </div>
+                        <div class="col col-12 d-inline-block align-top">
+                            <textarea name="identificacionReaccionAdverso" id="identificacionReaccionAdverso" rows="2" class="form-control inputForm" disabled>{{ securityEvent.identificacionReaccionAdverso }}</textarea>
+                        </div>
+                    </div>
+                    <div class="form-group" *ngIf="eventId==7">
+                        <div class="subtitle"><span>REACTIVOS (REACTOVIGILANCIA)</span></div>
+                        <div class="col col-12 d-inline-block align-top">
+                            <label for="nombreComercialReactivo" class="labelForm">Nombre comercial del reactivo</label>
+                            <input type="text" name="nombreComercialReactivo" class="form-control inputForm" value="{{ securityEvent.nombreComercialReactivo }}" disabled>
+                        </div>
+                        <div class="col col-sm-12 col-md-3 d-inline-block align-top">
+                            <label for="registroSanitarioReactivo" class="labelForm">Registro sanitário</label>
+                            <input type="text" name="registroSanitarioReactivo" class="form-control inputForm" value="{{ securityEvent.registroSanitarioReactivo }}" disabled>
+                        </div>
+                        <div class="col col-sm-12 col-md-3 d-inline-block align-top">
+                            <label for="loteReactivo" class="labelForm">Lote</label>
+                            <input type="text" name="loteReactivo" class="form-control inputForm" value="{{ securityEvent.loteReactivo }}" disabled>
+                        </div>
+                        <div class="col col-sm-12 col-md-3 d-inline-block align-top">
+                            <label for="fechaVencimientoReactivo" class="labelForm">Fecha de vencimiento</label>
+                            <input type="text" name="fechaVencimientoReactivo" class="form-control inputForm" value="{{ securityEvent.fechaVencimientoReactivo }}" disabled>
+                        </div>
+                        <div class="col col-sm-12 col-md-3 d-inline-block align-top">
+                            <label for="procedenciaReactivo" class="labelForm">Procedencia</label>
+                            <input type="text" name="procedenciaReactivo" class="form-control inputForm" value="{{ securityEvent.procedenciaReactivo }}" disabled>
+                        </div>
+                        <div class="col col-sm-12 col-md-3 d-inline-block align-top">
+                            <label for="cadenaFrioReactivo" class="labelForm">Requiere cadena de frío</label>
+                            <input type="text" name="cadenaFrioReactivo" class="form-control inputForm" value="{{ securityEvent.cadenaFrioReactivo | global: 'respuestas' }}" disabled>
+                        </div>
+                        <div class="col col-sm-6 col-lg-3 input-group d-inline-block align-top">
+                            <label for="temperaturaAlmacenadoReactivo" class="labelForm">Temperatura de almacenamiento</label>
+                            <div class="d-flex">
+                                <input type="text" name="temperaturaAlmacenadoReactivo" class="form-control addonInput inputForm" value="{{ securityEvent.temperaturaAlmacenadoReactivo }}" aria-describedby="basic-addon2" disabled>
+                                <div class="input-group-append">
+                                    <span class="input-group-text addonStyle inputForm" id="basic-addon2">°C</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col col-sm-12 col-md-3 d-inline-block align-top">
+                            <label for="nombreImportadorReactivo" class="labelForm">Nombre o razón social del importador y/o distribuidor</label>
+                            <input type="text" name="nombreImportadorReactivo" class="form-control inputForm" value="{{ securityEvent.nombreImportadorReactivo }}" disabled>
+                        </div>
+                        <div class="col col-12 d-inline-block align-top">
+                            <label for="condicionesAlmacenadoReactivo" class="labelForm">¿Se cumplieron con las condiciones de almacenamiento según especificaciones del fabricante?</label>
+                            <input type="text" name="condicionesAlmacenadoReactivo" class="form-control inputForm" value="{{ securityEvent.condicionesAlmacenadoReactivo | global: 'respuestas' }}" disabled>
+                        </div>
+                        <div class="col col-12 d-inline-block align-top">
+                            <label for="servicioFuncionamientoReactivo" class="labelForm">Servicio o Área de funcionamiento del reactivo en el momento del efecto indeseado</label>
+                            <input type="text" name="servicioFuncionamientoReactivo" class="form-control inputForm" value="{{ securityEvent.servicioFuncionamientoReactivo | global: 'respuestas' }}" disabled>
+                        </div>
+                        <div class="col col-12 d-inline-block align-top">
+                            <label for="certificadoAnalisisReactivo" class="labelForm">¿El producto cuenta con certificado de análisis?</label>
+                            <input type="text" name="certificadoAnalisisReactivo" class="form-control inputForm" value="{{ securityEvent.certificadoAnalisisReactivo | global: 'respuestas' }}" disabled>
+                        </div>
+                    </div>
+                    <div class="form-group" *ngIf="securityEvent.archivo">
+                        <div class="col col-12">
+                            <div (click)="downloadFile()" class="badge badge-info d-block personalizedBadge" *ngIf="securityEvent.archivo">{{'Descargar archivo: ' + securityEvent.archivo }}</div>
+                            <small *ngIf="fileMessage" class="invalid-feedback d-block">{{ fileMessage }}</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,77 @@
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card border-0">
+            <div class="card-body">
+                <div class="formContainer">
+                    <div class="backLink col col-sm-12">
+                        <a class="col-sm-12" routerLink="/referencia">Regresar</a>
+                    </div>
+                    <div class="form-group">
+                        <div class="col col-sm-12 col-lg-6 d-inline-block align-top">
+                            <label for="sucRelacionado" class="labelForm">Suceso Relacionado Con*</label>
+                            <select style="background-position-x: 95%" name="sucRelacionado" id="sucRelacionado" class="form-control inputForm" [ngClass]="{'is-invalid': sucRelacionado.invalid && sucRelacionado.touched}" #sucRelacionado="ngModel" [(ngModel)]="eventId" (ngModelChange)="getSucesosSeguridadByEventId()"
+                                required>
+								<option *ngFor="let suceso of global.sucesoRelacionado" value="{{ suceso.id }}">{{ suceso.name }}</option>
+							</select>
+                            <small class="invalid-feedback d-block font-weight-bold" *ngIf="sucRelacionado.invalid && sucRelacionado.touched">Debe selecionar un suceso relacionado de la lista desplegable</small>
+                        </div>
+                        <div class="col col-sm-12 col-lg-6 d-inline-block align-bottom" *ngIf="preloaderStatus || responseMessage">
+                            <fa-icon [icon]="faSpinner" class="d-block spin" *ngIf="preloaderStatus"></fa-icon>
+                            <small class="d-block invalid-feedback">{{ responseMessage }}</small>
+                        </div>
+
+                        <div class="col col-sm-12 col-lg-6 d-inline-block align-top" *ngIf="securityEvents">
+                            <label for="secEvent" class="labelForm">Eventos de Seguridad*</label>
+                            <select style="background-position-x: 95%" name="secEvent" id="secEvent" class="form-control inputForm" [ngClass]="{'is-invalid': secEvent.invalid && secEvent.touched}" #secEvent="ngModel" [(ngModel)]="securityEventId" (ngModelChange)="setSecurityEvent()"
+                                required>
+								<option *ngFor="let security of securityEvents" value="{{ security.id }}">{{ security.id }} - {{ security.numeroIdentificacion }} - {{ security.nombresApellidos }}</option>
+							</select>
+                            <small class="invalid-feedback d-block font-weight-bold" *ngIf="secEvent.invalid && secEvent.touched">Debe selecionar un evento de seguridad de la lista desplegable</small>
+                        </div>
+                    </div>
+                    <div class="form-group" *ngIf="searchPreclasificationMessage || searchPreclasificationPreloaderStatus">
+                        <div class="mt-3 col col-sm-12 errorAlert" *ngIf="searchPreclasificationMessage">
+                            <div class="alert alert-danger" role="alert">
+                                {{ searchPreclasificationMessage }}
+                            </div>
+                        </div>
+                        <div class="deleteLoader" *ngIf="searchPreclasificationPreloaderStatus">
+                            <div class="loader"></div>
+                        </div>
+                    </div>
+
+                    <ng-container *ngIf="securityEvent && preclasification">
+                        <app-moduloi [securityEvent]="securityEvent" [eventId]="eventId"></app-moduloi>
+                        <div style="margin-top: -1.5rem;">
+                            <app-moduloii [preclasification]="preclasification" [eventId]="eventId"></app-moduloii>
+                        </div>
+
+                        <form #investigationForm="ngForm" (ngSubmit)="onSubmit(investigationForm)" class="mt-4">
+                            <div class="form-group">
+                                <div class="col col-12 d-inline-block align-top">
+                                    <label for="resumenHClinica" class="labelForm">Resumen Historia Clínica de Manera Cronológica Incluidas Todas las Disciplinas</label>
+                                    <textarea name="resumenHClinica" id="resumenHClinica" rows="8" class="form-control inputForm" [ngClass]="{'is-invalid': investigation.invalid && investigation.touched}" #resumenHClinica="ngModel" [(ngModel)]="investigation.resumenHClinica" minlength="20"
+                                        required placeholder="Ingrese el resumen de la historia clínica de manera cronológica e incluyendo todas las disciplinas. La descripción debe tener al menos 20 caracteres."></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-group" style="margin-top: 3rem">
+                                <div class="col col-sm-12 buttonSubmit">
+                                    <input type="submit" value="{{ buttonText }}" class="btn btn-success btnPrefer col-sm-12" [disabled]="investigationForm.invalid">
+                                </div>
+                            </div>
+                            <!-- <div class="mt-3 col col-sm-12 errorAlert" *ngIf="storeResponseMessage">
+								<div class="alert alert-danger" role="alert">
+									{{ storeResponseMessage }}
+								</div>
+							</div>
+							<div class="deleteLoader" *ngIf="storePreloaderStatus">
+								<div class="loader"></div>
+							</div> -->
+                        </form>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

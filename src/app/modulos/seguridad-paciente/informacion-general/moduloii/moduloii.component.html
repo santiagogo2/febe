@@ -1,0 +1,64 @@
+<div class="col col-12" *ngIf="preclasification">
+    <div id="accordionTwo">
+        <div class="card mt-2">
+            <div class="card-header" id="headingTwo">
+                <h5 class="mb-0">
+                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+						Preclasificación del Suceso Reportado
+					</button>
+                </h5>
+            </div>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionTwo">
+                <div class="card-body pr-0 pl-0">
+                    <div class="form-group">
+                        <div class="col col-12 d-inline-block align-top">
+                            <label for="perfilReportante" class="labelForm">Clasificación Taxonomía</label>
+                            <input type="text" name="perfilReportante" class="form-control inputForm" value="{{ preclasification.clasificacionTaxonomia | global: 'preclasificacionTaxonomia' }}" disabled>
+                        </div>
+                    </div>
+                    <div class="form-group" *ngIf="preclasification.clasificacionTaxonomia != 3">
+                        <div class="col col-12 d-inline-block align-top">
+                            <label for="descripcion" class="labelForm">Descripción</label>
+                            <textarea name="descripcion" id="descripcion" rows="5" class="form-control inputForm" disabled>{{ preclasification.descripcion }}</textarea>
+                        </div>
+                    </div>
+                    <div class="form-group" *ngIf="preclasification.clasificacionTaxonomia == 3">
+                        <div class="col col-sm-12 col-md-6 d-inline-block align-top">
+                            <label for="unidadPresento" class="labelForm">Severidad</label>
+                            <input type="text" name="unidadPresento" class="form-control inputForm" value="{{ preclasification.severidad | global: 'severidad' }}" disabled>
+                        </div>
+                        <div class="col col-sm-12 col-md-6 d-inline-block align-top">
+                            <label for="unidadReporto" class="labelForm">¿El evento fue prevenible o no prevenible?</label>
+                            <input type="text" name="unidadReporto" class="form-control inputForm" value="{{ preclasification.preguntaEventoPrevenible | global: 'respuestas' }}" disabled>
+                        </div>
+                        <ng-container *ngIf="preclasification.primeraClasificacion || preclasification.segundaClasificacion">
+                            <div class="subtitle"><span>CLASIFICACIÓN</span></div>
+                            <div class="form-group">
+                                <div class="col col-12 d-inline-block align-top" *ngIf="preclasification.primeraClasificacion">
+                                    <input type="text" name="servicioPresento" class="form-control inputForm" value="{{ preclasification.primeraClasificacion | global: primeraClasificacion }}" disabled>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col col-12 d-inline-block align-top" *ngIf="preclasification.segundaClasificacion">
+                                    <input type="text" name="direccionAsistencial" class="form-control inputForm" value="{{ preclasification.segundaClasificacion | global: segundaClasificacion }}" disabled>
+                                </div>
+                            </div>
+                        </ng-container>
+                        <ng-container *ngIf="preclasification.algoritmoNaranjo">
+                            <div class="subtitle"><span>RESULTADO ALGORITMO NARANJO</span></div>
+                            <div class="col col-12 d-inline-block align-top">
+                                <input type="text" name="servicioPresento" class="form-control inputForm" value="{{ preclasification.algoritmoNaranjo }}" disabled>
+                            </div>
+                        </ng-container>
+                    </div>
+                    <div class="form-group" *ngIf="preclasification.archivo">
+                        <div class="col col-12">
+                            <div (click)="downloadFile()" class="badge badge-info d-block personalizedBadge" *ngIf="preclasification.archivo">{{'Descargar archivo: ' + preclasification.archivo }}</div>
+                            <small *ngIf="fileMessage" class="invalid-feedback d-block">{{ fileMessage }}</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

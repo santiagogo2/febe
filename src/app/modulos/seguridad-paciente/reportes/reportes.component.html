@@ -1,0 +1,19 @@
+<div class="loaderBall" *ngIf="!reporteSucesoSeguridad && !responseMessage">
+    <div class="ball-pulse-rise">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+<div class="row" *ngIf="reporteSucesoSeguridad || responseMessage">
+    <div class="col-sm-12">
+        <div class="card border-0">
+            <div class="alert" role="alert" *ngIf="responseMessage">
+                {{ responseMessage }}
+            </div>
+            <p *ngIf="reporteSucesoSeguridad" class="col col-12 mt-2">Componente provicional para la generación de reportes. Para generar el reporte haga click en el siguiente <span style="cursor: pointer;" class="badge badge-primary" (click)="exportAsXLSX()">enlace</span></p>
+        </div>
+    </div>
+</div>
