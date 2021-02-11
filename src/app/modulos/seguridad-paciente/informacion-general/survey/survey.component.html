@@ -1,0 +1,107 @@
+<div class="card mt-2">
+    <div class="card-header" id="headingThree">
+        <h5 class="mb-0">
+            <button class="btn btn-link" data-toggle="collapse" [attr.data-target]="'#collapseThree'+numeroEncuesta" aria-expanded="true" [attr.aria-controls]="'collapseThree'+numeroEncuesta" (click)="prueba()">
+				Encuesta {{ numeroEncuesta }} - {{ survey.tipoEncuesta | global: 'tiposEncuesta' }}
+			</button>
+        </h5>
+    </div>
+    <div id="{{'collapseThree'+numeroEncuesta}}" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+        <div class="card-body pr-0 pl-0">
+            <ng-container *ngIf="survey.tipoEncuesta == 1">
+                <div class="form-group col col-12">
+                    <label for="pregunta1" class="labelForm">Por favor recuérdeme su perfil</label>
+                    <input type="text" class="form-control inputForm" value="{{ survey.pregunta1 }}" disabled>
+                </div>
+                <div class="form-group col col-12">
+                    <label for="pregunta2" class="labelForm">¿Cuánto tiempo lleva en el servicio?</label>
+                    <input type="text" class="form-control inputForm" value="{{ survey.pregunta2 }}" disabled>
+                </div>
+                <div class="form-group col col-12">
+                    <label for="pregunta3" class="labelForm">¿Cree usted que lo sucedido fue un error del equipo de salud?</label>
+                    <textarea rows="2" class="form-control inputForm" disabled>{{ survey.pregunta3 }}</textarea>
+                </div>
+                <div class="form-group col col-12">
+                    <label for="pregunta4" class="labelForm">¿Qué error cree usted que se cometió?</label>
+                    <textarea rows="2" class="form-control inputForm" disabled>{{ survey.pregunta4 }}</textarea>
+                </div>
+                <div class="form-group col col-12">
+                    <label for="pregunta5" class="labelForm">¿Cuáles son los errores más frecuentes que se cometen en su servicio?</label>
+                    <textarea rows="2" class="form-control inputForm" disabled>{{ survey.pregunta5 }}</textarea>
+                </div>
+                <div class="form-group col col-12">
+                    <label for="pregunta6" class="labelForm">¿Existe alguna condición del hospital, de los médicos o de los pacientes que haga más frecuentes los errores?</label>
+                    <textarea rows="2" class="form-control inputForm" disabled>{{ survey.pregunta6 }}</textarea>
+                </div>
+                <div class="form-group col col-12">
+                    <label for="pregunta7" class="labelForm">¿Qué educación le brindo usted al usuario o su familia, al ingresar?</label>
+                    <textarea rows="2" class="form-control inputForm" disabled>{{ survey.pregunta7 }}</textarea>
+                </div>
+                <div class="form-group col col-12">
+                    <label for="pregunta8" class="labelForm">¿Cuáles fueron las barreras de seguridad aplicadas para evitar este error?</label>
+                    <textarea rows="2" class="form-control inputForm" disabled>{{ survey.pregunta8 }}</textarea>
+                </div>
+                <div class="form-group col col-12">
+                    <label for="pregunta9" class="labelForm">¿Describa brevemente lo sucedido con el paciente durante el suceso de seguridad?</label>
+                    <textarea rows="2" class="form-control inputForm" disabled>{{ survey.pregunta9 }}</textarea>
+                </div>
+                <div class="form-group col col-12">
+                    <label for="pregunta10" class="labelForm">¿Cuál considera usted que fue la Falla Activa (La última oportunidad que tuvo el paciente de no sufrir el Evento Adverso)?</label>
+                    <textarea rows="2" class="form-control inputForm" disabled>{{ survey.pregunta10 }}</textarea>
+                </div>
+                <div class="form-group col col-12">
+                    <label for="pregunta11" class="labelForm">¿El médico le informo lo  sucedido al paciente y su familia y adicionalmente lo dejo registrado en  historia Clínica?</label>
+                    <textarea rows="2" class="form-control inputForm" disabled>{{ survey.pregunta11 }}</textarea>
+                </div>
+                <div class="form-group col col-12">
+                    <label for="pregunta12" class="labelForm">¿Qué podría mejorar el personal en formación para lograr una atención en salud segura?</label>
+                    <textarea rows="2" class="form-control inputForm" disabled>{{ survey.pregunta12 }}</textarea>
+                </div>
+            </ng-container>
+            <ng-container *ngIf="survey.tipoEncuesta == 2">
+                <div class="form-group">
+                    <div class="col col-sm-12 col-md-4 d-inline-block align-top">
+                        <label for="fecha" class="labelForm">Fecha</label>
+                        <input type="date" class="form-control inputForm" value="{{ fechaEncuesta }}" disabled>
+                    </div>
+                    <div class="col col-sm-12 col-md-4 d-inline-block align-top">
+                        <label for="hora" class="labelForm">Hora</label>
+                        <input type="time" class="form-control inputForm" value="{{ horaEncuesta }}" disabled>
+                    </div>
+                    <div class="col col-sm-12 col-md-4 d-inline-block align-top">
+                        <label for="medio" class="labelForm">Medio</label>
+                        <input type="text" class="form-control inputForm" value="{{ medioEncuesta }}" disabled>
+                    </div>
+                </div>
+                <div class="form-group col col-12 d-inline-block align-top">
+                    <label for="pregunta2" class="labelForm">Realice comunicación redundante e identificación redundante al usuario y/o familia</label>
+                    <input type="text" class="form-control inputForm" value="{{ survey.pregunta2 }}" disabled>
+                </div>
+                <div class="form-group col col-12 d-inline-block align-top">
+                    <label for="pregunta3" class="labelForm">Solicite al usuario y/o familia que informe, ¿qué recuerda de la educación entregada el día de su ingreso al servicio?</label>
+                    <textarea rows="2" class="form-control inputForm" disabled>{{ survey.pregunta3 }}</textarea>
+                </div>
+                <div class="form-group col col-12 d-inline-block align-top">
+                    <label for="pregunta4" class="labelForm">Solicite al usuario y/o familia describir ¿cómo percibió la prestación del servicio en salud el día del caso analizar?. Considere que aspectos relevantes y/o diferentes sucedieron</label>
+                    <textarea rows="2" class="form-control inputForm" disabled>{{ survey.pregunta4 }}</textarea>
+                </div>
+                <div class="form-group col col-12 d-inline-block align-top">
+                    <label for="pregunta5" class="labelForm">Pregunte al usuario y/o familia si se encontraba acompañado durante el suceso presentado y si requiere de acompañamiento permanente</label>
+                    <textarea rows="2" class="form-control inputForm" disabled>{{ survey.pregunta5 }}</textarea>
+                </div>
+                <div class="form-group col col-12 d-inline-block align-top">
+                    <label for="pregunta6" class="labelForm">Solicite al usuario y/o familia que indique si recuerda ¿cada cuanto el personal de Enfermeria realiza toma de signos vitales? y ¿cada cuanto le dan información acerca de su estado de salud?</label>
+                    <textarea rows="2" class="form-control inputForm" disabled>{{ survey.pregunta6 }}</textarea>
+                </div>
+                <div class="form-group col col-12 d-inline-block align-top">
+                    <label for="pregunta7" class="labelForm">Indague con el usuario y/o familia, si el médico tratante le informo que había presentado una falla en la prestación del servicio</label>
+                    <textarea rows="2" class="form-control inputForm" disabled>{{ survey.pregunta7 }}</textarea>
+                </div>
+            </ng-container>
+            <div class="form-group col col-12 d-inline-block align-top" *ngIf="survey.descripcion">
+                <label for="descripcion" class="labelForm">Descripción de la entrevista</label>
+                <textarea rows="2" class="form-control inputForm" disabled>{{ survey.descripcion }}</textarea>
+            </div>
+        </div>
+    </div>
+</div>
