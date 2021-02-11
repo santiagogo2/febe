@@ -1,0 +1,217 @@
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card border-0">
+            <div class="card-body">
+                <div class="formContainer">
+                    <div class="backLink col col-sm-12">
+                        <a class="col-sm-12" routerLink="/seguridad-paciente">Regresar</a>
+                    </div>
+                    <div class="form-group col col-12" *ngIf="!inheritedId">
+                        <form id="searchForm" #searchForm="ngForm" (ngSubmit)="searchReportEvent(searchForm)">
+                            <div id="labelSearch" class="col col-sm-12 col-lg-8 d-inline-block pl-0 align-top">
+                                <label for="documento" class="labelForm">Parámetro de Búsqueda*</label>
+                                <input type="text" name="documento" class="form-control inputForm " [ngClass]="{ 'is-invalid': documento.touched && documento.invalid}" #documento="ngModel" [(ngModel)]="searchInput
+								" required minlength="1" maxlength="15" placeholder="Puede realizar la busqueda por número de documento del paciente o número de radicado">
+                            </div>
+                            <div id="submitButton" class="col col-sm-12 col-lg-4 d-inline-block pr-0 align-bottom">
+                                <input type="submit" value="Buscar" class="btn btn-sm btn-info btnPrefer col-sm-12" [disabled]="searchForm.invalid">
+                            </div>
+                            <small class="invalid-feedback d-block font-weight-bold" *ngIf="documento.invalid && documento.touched">Debe ingresar un número de documento válido. El campo es obligatorio</small>
+                            <ng-container>
+                                <div class="deleteLoader mt-3 mb-3" *ngIf="searchPreloaderStatus">
+                                    <div class="loader"></div>
+                                </div>
+                                <div class="mt-3 errorAlert alert-danger" *ngIf="searchResponseMessage">
+                                    <div class="alert" role="alert">
+                                        {{ searchResponseMessage }}
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </form>
+                    </div>
+
+                    <!-- Se realiza la encuesta cuando sea seleccionado un usuario -->
+                    <form id="surveyForm" #surveyForm="ngForm" (ngSubmit)="onSubmit(surveyForm)" *ngIf="securityEvents || inheritedId">
+                        <ng-container *ngIf="securityEvents">
+                            <div class="form-group col col-12 d-inline-block align-top">
+                                <label for="eventId" class="labelForm">Seleccione el reporte al que le desea realizar la encuesta*</label>
+                                <select style="background-position-x: 98%" name="eventId" id="eventId" class="form-control inputForm" [ngClass]="{ 'is-invalid': eventId.invalid && eventId.touched}" #eventId="ngModel" [(ngModel)]="survey.eventId" (ngModelChange)="validateSurvey()" required>
+										<option *ngFor="let event of securityEvents" value="{{ event.id }}">{{ event.id }} - {{ event.numeroIdentificacion }} - {{ event.nombresApellidos }}</option>
+								</select>
+                                <small class="invalid-feedback d-block font-weight-bold" *ngIf="eventId.invalid && eventId.touched">Debe selecionar una reporte de seguridad de la lista desplegable</small>
+                            </div>
+                        </ng-container>
+                        <div class="subtitle" *ngIf="survey.eventId"><span>ENCUESTA PARA EL SUCESO DE SEGURIDAD CON RADICADO {{ survey.eventId }}</span></div>
+                        <div class="col col-12">
+                            <div class="deleteLoader mt-3 mb-3" *ngIf="searchSurveyPreloaderStatus">
+                                <div class="loader"></div>
+                            </div>
+                            <div class="mt-3 errorAlert alert-danger" *ngIf="searchSurveyResponseMessage">
+                                <div class="alert" role="alert">
+                                    {{ searchSurveyResponseMessage }}
+                                </div>
+                            </div>
+                        </div>
+                        <ng-container *ngIf="survey.eventId && surveyFlag">
+                            <div class="form-group col col-12 d-inline-block align-top">
+                                <label for="tipoEncuesta" class="labelForm">Seleccione el tipo de encuesta que desea realizar*</label>
+                                <select style="background-position-x: 98%" name="tipoEncuesta" id="tipoEncuesta" class="form-control inputForm" [ngClass]="{ 'is-invalid': tipoEncuesta.invalid && tipoEncuesta.touched}" #tipoEncuesta="ngModel" [(ngModel)]="survey.tipoEncuesta" required>
+										<option *ngFor="let tipo of global.tiposEncuesta" value="{{ tipo.id }}">{{ tipo.name }}</option>
+								</select>
+                                <small class="invalid-feedback d-block font-weight-bold" *ngIf="tipoEncuesta.invalid && tipoEncuesta.touched">Debe selecionar un tipo de encuesta de la lista desplegable</small>
+                            </div>
+                            <ng-container *ngIf="survey.tipoEncuesta && survey.tipoEncuesta == 1">
+                                <div class="form-group col col-12 d-inline-block align-top">
+                                    <label for="pregunta1" class="labelForm">Por favor recuérdeme su perfil*</label>
+                                    <input type="text" name="pregunta1" id="pregunta1" class="form-control inputForm" [ngClass]="{'is-invalid': pregunta1.invalid && pregunta1.touched}" #pregunta1="ngModel" [(ngModel)]="survey.pregunta1" (ngModelChange)="survey.pregunta1=globalService.upperCase($event)"
+                                        required>
+                                    <small class="invalid-feedback d-block font-weight-bold" *ngIf="pregunta1.invalid && pregunta1.touched">Debe escribir el perfil del colaborador</small>
+                                </div>
+                                <div class="form-group col col-12 d-inline-block align-top">
+                                    <label for="pregunta2" class="labelForm">¿Cuánto tiempo lleva en el servicio?*</label>
+                                    <input type="text" name="pregunta2" id="pregunta2" class="form-control inputForm" [ngClass]="{'is-invalid': pregunta2.invalid && pregunta2.touched}" #pregunta2="ngModel" [(ngModel)]="survey.pregunta2" (ngModelChange)="survey.pregunta2=globalService.upperCase($event)"
+                                        required>
+                                    <small class="invalid-feedback d-block font-weight-bold" *ngIf="pregunta2.invalid && pregunta2.touched">Debe responder la pregunta ¿Cuanto tiempo lleva en el servicio?</small>
+                                </div>
+                                <div class="form-group col col-12 d-inline-block align-top">
+                                    <label for="pregunta3" class="labelForm">¿Cree usted que lo sucedido fue un error del equipo de salud?*</label>
+                                    <textarea name="pregunta3" id="pregunta3" rows="2" [ngClass]="{'is-invalid': pregunta3.invalid && pregunta3.touched}" class="form-control inputForm" #pregunta3="ngModel" [(ngModel)]="survey.pregunta3" (ngModelChange)="survey.pregunta3=globalService.upperCase($event)"
+                                        required></textarea>
+                                    <small class="invalid-feedback d-block font-weight-bold" *ngIf="pregunta3.invalid && pregunta3.touched">Debe responder la pregunta ¿Cree usted que lo sucedido fue un error del equipo de salud?</small>
+                                </div>
+                                <div class="form-group col col-12 d-inline-block align-top">
+                                    <label for="pregunta4" class="labelForm">¿Qué error cree usted que se cometió?*</label>
+                                    <textarea name="pregunta4" id="pregunta4" rows="2" [ngClass]="{'is-invalid': pregunta4.invalid && pregunta4.touched}" class="form-control inputForm" #pregunta4="ngModel" [(ngModel)]="survey.pregunta4" (ngModelChange)="survey.pregunta4=globalService.upperCase($event)"
+                                        required></textarea>
+                                    <small class="invalid-feedback d-block font-weight-bold" *ngIf="pregunta4.invalid && pregunta4.touched">Debe responder la pregunta ¿Qué error cree usted que se cometió?</small>
+                                </div>
+                                <div class="form-group col col-12 d-inline-block align-top">
+                                    <label for="pregunta5" class="labelForm">¿Cuáles son los errores más frecuentes que se cometen en su servicio?*</label>
+                                    <textarea name="pregunta5" id="pregunta5" rows="2" [ngClass]="{'is-invalid': pregunta5.invalid && pregunta5.touched}" class="form-control inputForm" #pregunta5="ngModel" [(ngModel)]="survey.pregunta5" (ngModelChange)="survey.pregunta5=globalService.upperCase($event)"
+                                        required></textarea>
+                                    <small class="invalid-feedback d-block font-weight-bold" *ngIf="pregunta5.invalid && pregunta5.touched">Debe responder la pregunta ¿Cuáles son los errores más frecuentes que se cometen en su servicio?</small>
+                                </div>
+                                <div class="form-group col col-12 d-inline-block align-top">
+                                    <label for="pregunta6" class="labelForm">¿Existe alguna condición del hospital, de los médicos o de los pacientes que haga más frecuentes los errores?*</label>
+                                    <textarea name="pregunta6" id="pregunta6" rows="2" [ngClass]="{'is-invalid': pregunta6.invalid && pregunta6.touched}" class="form-control inputForm" #pregunta6="ngModel" [(ngModel)]="survey.pregunta6" (ngModelChange)="survey.pregunta6=globalService.upperCase($event)"
+                                        required></textarea>
+                                    <small class="invalid-feedback d-block font-weight-bold" *ngIf="pregunta6.invalid && pregunta6.touched">Debe responder la pregunta ¿Existe alguna condición del hospital, de los médicos o de los pacientes que haga más frecuentes los errores?</small>
+                                </div>
+                                <div class="form-group col col-12 d-inline-block align-top">
+                                    <label for="pregunta7" class="labelForm">¿Qué educación le brindo usted al usuario o su familia, al ingresar?*</label>
+                                    <textarea name="pregunta7" id="pregunta7" rows="2" [ngClass]="{'is-invalid': pregunta7.invalid && pregunta7.touched}" class="form-control inputForm" #pregunta7="ngModel" [(ngModel)]="survey.pregunta7" (ngModelChange)="survey.pregunta7=globalService.upperCase($event)"
+                                        required></textarea>
+                                    <small class="invalid-feedback d-block font-weight-bold" *ngIf="pregunta7.invalid && pregunta7.touched">Debe responder la pregunta ¿Qué educación le brindo usted al usuario o su familia, al ingresar?</small>
+                                </div>
+                                <div class="form-group col col-12 d-inline-block align-top">
+                                    <label for="pregunta8" class="labelForm">¿Cuáles fueron las barreras de seguridad aplicadas para evitar este error?*</label>
+                                    <textarea name="pregunta8" id="pregunta8" rows="2" [ngClass]="{'is-invalid': pregunta8.invalid && pregunta8.touched}" class="form-control inputForm" #pregunta8="ngModel" [(ngModel)]="survey.pregunta8" (ngModelChange)="survey.pregunta8=globalService.upperCase($event)"
+                                        required></textarea>
+                                    <small class="invalid-feedback d-block font-weight-bold" *ngIf="pregunta8.invalid && pregunta8.touched">Debe responder la pregunta ¿Cuáles fueron las barreras de seguridad aplicadas para evitar este error?</small>
+                                </div>
+                                <div class="form-group col col-12 d-inline-block align-top">
+                                    <label for="pregunta9" class="labelForm">¿Describa brevemente lo sucedido con el paciente durante el suceso de seguridad?*</label>
+                                    <textarea name="pregunta9" id="pregunta9" rows="2" [ngClass]="{'is-invalid': pregunta9.invalid && pregunta9.touched}" class="form-control inputForm" #pregunta9="ngModel" [(ngModel)]="survey.pregunta9" (ngModelChange)="survey.pregunta9=globalService.upperCase($event)"
+                                        required></textarea>
+                                    <small class="invalid-feedback d-block font-weight-bold" *ngIf="pregunta9.invalid && pregunta9.touched">Debe responder la pregunta ¿Describa brevemente lo sucedido con el paciente durante el suceso de seguridad?</small>
+                                </div>
+                                <div class="form-group col col-12 d-inline-block align-top">
+                                    <label for="pregunta10" class="labelForm">¿Cuál considera usted que fue la Falla Activa (La última oportunidad que tuvo el paciente de no sufrir el Evento Adverso)?*</label>
+                                    <textarea name="pregunta10" id="pregunta10" rows="2" [ngClass]="{'is-invalid': pregunta10.invalid && pregunta10.touched}" class="form-control inputForm" #pregunta10="ngModel" [(ngModel)]="survey.pregunta10" (ngModelChange)="survey.pregunta10=globalService.upperCase($event)"
+                                        required></textarea>
+                                    <small class="invalid-feedback d-block font-weight-bold" *ngIf="pregunta10.invalid && pregunta10.touched">Debe responder la pregunta ¿Cuál considera usted que fue la Falla Activa?</small>
+                                </div>
+                                <div class="form-group col col-12 d-inline-block align-top">
+                                    <label for="pregunta11" class="labelForm">¿El médico le informo lo  sucedido al paciente y su familia y adicionalmente lo dejo registrado en  historia Clínica?*</label>
+                                    <textarea name="pregunta11" id="pregunta11" rows="2" [ngClass]="{'is-invalid': pregunta11.invalid && pregunta11.touched}" class="form-control inputForm" #pregunta11="ngModel" [(ngModel)]="survey.pregunta11" (ngModelChange)="survey.pregunta11=globalService.upperCase($event)"
+                                        required></textarea>
+                                    <small class="invalid-feedback d-block font-weight-bold" *ngIf="pregunta11.invalid && pregunta11.touched">Debe responder la pregunta ¿El médico le informo lo  sucedido al paciente y su familia y adicionalmente lo dejo registrado en  historia Clínica?</small>
+                                </div>
+                                <div class="form-group col col-12 d-inline-block align-top">
+                                    <label for="pregunta12" class="labelForm">¿Qué podría mejorar el personal en formación para lograr una atención en salud segura?*</label>
+                                    <textarea name="pregunta12" id="pregunta12" rows="2" [ngClass]="{'is-invalid': pregunta12.invalid && pregunta12.touched}" class="form-control inputForm" #pregunta12="ngModel" [(ngModel)]="survey.pregunta12" (ngModelChange)="survey.pregunta12=globalService.upperCase($event)"
+                                        required></textarea>
+                                    <small class="invalid-feedback d-block font-weight-bold" *ngIf="pregunta12.invalid && pregunta12.touched">Debe responder la pregunta ¿Qué podría mejorar el personal en formación para lograr una atención en salud segura?</small>
+                                </div>
+                            </ng-container>
+                            <ng-container *ngIf="survey.tipoEncuesta && survey.tipoEncuesta == 2">
+                                <div class="form-group">
+                                    <div class="col col-sm-12 col-md-4 d-inline-block align-top">
+                                        <label for="fecha" class="labelForm">Fecha*</label>
+                                        <input type="date" name="fecha" id="fecha" class="form-control inputForm" [ngClass]="{'is-invalid': fecha.invalid && fecha.touched}" #fecha="ngModel" [(ngModel)]="fechaEncuesta" required>
+                                        <small class="invalid-feedback d-block font-weight-bold" *ngIf="fecha.invalid && fecha.touched">Debe ingresar la fecha de la presente entrevista</small>
+                                    </div>
+                                    <div class="col col-sm-12 col-md-4 d-inline-block align-top">
+                                        <label for="hora" class="labelForm">Hora*</label>
+                                        <input type="time" name="hora" id="hora" class="form-control inputForm" [ngClass]="{'is-invalid': hora.invalid && hora.touched}" #hora="ngModel" [(ngModel)]="horaEncuesta" required>
+                                        <small class="invalid-feedback d-block font-weight-bold" *ngIf="hora.invalid && hora.touched">Debe ingresar la hora de la presente entrevista</small>
+                                    </div>
+                                    <div class="col col-sm-12 col-md-4 d-inline-block align-top">
+                                        <label for="medio" class="labelForm">Medio*</label>
+                                        <input type="text" name="medio" id="medio" class="form-control inputForm" [ngClass]="{'is-invalid': medio.invalid && medio.touched}" #medio="ngModel" [(ngModel)]="medioEncuesta" (ngModelChange)="medioEncuesta=globalService.upperCase($event)" required>
+                                        <small class="invalid-feedback d-block font-weight-bold" *ngIf="medio.invalid && medio.touched">Debe ingresar el medio de la presente entrevista</small>
+                                    </div>
+                                </div>
+                                <div class="form-group col col-12 d-inline-block align-top">
+                                    <label for="pregunta2" class="labelForm">Realice comunicación redundante e identificación redundante al usuario y/o familia*</label>
+                                    <input type="text" name="pregunta2" id="pregunta2" class="form-control inputForm" [ngClass]="{'is-invalid': pregunta2.invalid && pregunta2.touched}" #pregunta2="ngModel" [(ngModel)]="survey.pregunta2" (ngModelChange)="survey.pregunta2=globalService.upperCase($event)"
+                                        required>
+                                    <small class="invalid-feedback d-block font-weight-bold" *ngIf="pregunta2.invalid && pregunta2.touched">El campo es obligatorio</small>
+                                </div>
+                                <div class="form-group col col-12 d-inline-block align-top">
+                                    <label for="pregunta3" class="labelForm">Solicite al usuario y/o familia que informe, ¿qué recuerda de la educación entregada el día de su ingreso al servicio?*</label>
+                                    <textarea name="pregunta3" id="pregunta3" rows="2" class="form-control inputForm" [ngClass]="{'is-invalid': pregunta3.invalid && pregunta3.touched}" #pregunta3="ngModel" [(ngModel)]="survey.pregunta3" (ngModelChange)="survey.pregunta3=globalService.upperCase($event)"
+                                        required></textarea>
+                                    <small class="invalid-feedback d-block font-weight-bold" *ngIf="pregunta3.invalid && pregunta3.touched">Debe escribir la respuesta del usuario</small>
+                                </div>
+                                <div class="form-group col col-12 d-inline-block align-top">
+                                    <label for="pregunta4" class="labelForm">Solicite al usuario y/o familia describir ¿cómo percibió la prestación del servicio en salud el día del caso analizar?. Considere que aspectos relevantes y/o diferentes sucedieron*</label>
+                                    <textarea name="pregunta4" id="pregunta4" rows="2" class="form-control inputForm" [ngClass]="{'is-invalid': pregunta4.invalid && pregunta4.touched}" #pregunta4="ngModel" [(ngModel)]="survey.pregunta4" (ngModelChange)="survey.pregunta4=globalService.upperCase($event)"
+                                        required></textarea>
+                                    <small class="invalid-feedback d-block font-weight-bold" *ngIf="pregunta4.invalid && pregunta4.touched">Debe escribir la respuesta del usuario</small>
+                                </div>
+                                <div class="form-group col col-12 d-inline-block align-top">
+                                    <label for="pregunta5" class="labelForm">Pregunte al usuario y/o familia si se encontraba acompañado durante el suceso presentado y si requiere de acompañamiento permanente*</label>
+                                    <textarea name="pregunta5" id="pregunta5" rows="2" class="form-control inputForm" [ngClass]="{'is-invalid': pregunta5.invalid && pregunta5.touched}" #pregunta5="ngModel" [(ngModel)]="survey.pregunta5" (ngModelChange)="survey.pregunta5=globalService.upperCase($event)"
+                                        required></textarea>
+                                    <small class="invalid-feedback d-block font-weight-bold" *ngIf="pregunta5.invalid && pregunta5.touched">Debe escribir la respuesta del usuario</small>
+                                </div>
+                                <div class="form-group col col-12 d-inline-block align-top">
+                                    <label for="pregunta6" class="labelForm">Solicite al usuario y/o familia que indique si recuerda ¿cada cuanto el personal de Enfermeria realiza toma de signos vitales? y ¿cada cuanto le dan información acerca de su estado de salud?*</label>
+                                    <textarea name="pregunta6" id="pregunta6" rows="2" class="form-control inputForm" [ngClass]="{'is-invalid': pregunta6.invalid && pregunta6.touched}" #pregunta6="ngModel" [(ngModel)]="survey.pregunta6" (ngModelChange)="survey.pregunta6=globalService.upperCase($event)"
+                                        required></textarea>
+                                    <small class="invalid-feedback d-block font-weight-bold" *ngIf="pregunta6.invalid && pregunta6.touched">Debe escribir la respuesta del usuario</small>
+                                </div>
+                                <div class="form-group col col-12 d-inline-block align-top">
+                                    <label for="pregunta7" class="labelForm">Indague con el usuario y/o familia, si el médico tratante le informo que había presentado una falla en la prestación del servicio*</label>
+                                    <textarea name="pregunta7" id="pregunta7" rows="2" class="form-control inputForm" [ngClass]="{'is-invalid': pregunta7.invalid && pregunta7.touched}" #pregunta7="ngModel" [(ngModel)]="survey.pregunta7" (ngModelChange)="survey.pregunta7=globalService.upperCase($event)"
+                                        required></textarea>
+                                    <small class="invalid-feedback d-block font-weight-bold" *ngIf="pregunta7.invalid && pregunta7.touched">Debe escribir la respuesta del usuario</small>
+                                </div>
+                            </ng-container>
+                            <div class="form-group col col-12 d-inline-block align-top">
+                                <label for="descripcion" class="labelForm">Descripción de la entrevista</label>
+                                <textarea name="descripcion" id="descripcion" rows="2" class="form-control inputForm" [ngClass]="{'is-invalid': descripcion.invalid && descripcion.touched}" #descripcion="ngModel" [(ngModel)]="survey.descripcion" (ngModelChange)="survey.descripcion=globalService.upperCase($event)"></textarea>
+                                <small class="invalid-feedback d-block font-weight-bold " *ngIf="descripcion.invalid && descripcion.touched ">Debe escribir la respuesta del usuario</small>
+                            </div>
+
+                            <div class="form-group " style="margin-top: 2rem ">
+                                <div class="col col-sm-12 buttonSubmit ">
+                                    <input type="submit" value="{{ buttonText }} " class="btn btn-success btnPrefer col-sm-12" [disabled]="surveyForm.invalid || !surveyFlag">
+                                </div>
+                            </div>
+                            <div class="mt-3 col col-sm-12 errorAlert " *ngIf="responseMessage ">
+                                <div class="alert alert-danger " role="alert ">
+                                    {{ responseMessage }}
+                                </div>
+                            </div>
+                            <div class="deleteLoader " *ngIf="preloaderStatus ">
+                                <div class="loader "></div>
+                            </div>
+                        </ng-container>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
