@@ -1,0 +1,126 @@
+<div class="loaderBall" *ngIf="!infoFlag && !infoMessage">
+    <div class="ball-pulse-rise">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+
+
+<div class="mt-3 errorAlert" *ngIf="infoMessage">
+    <div class="alert alert-danger" role="alert">
+        {{ infoMessage }}
+    </div>
+</div>
+
+<div class="row" *ngIf="infoFlag">
+    <div class="col-sm-12">
+        <div class="card border-0">
+            <div class="card-body cardContainer">
+                <div class="formContainer">
+                    <div class="backLink col col-sm-12">
+                        <a class="col-sm-12" routerLink="/referencia">Regresar</a>
+                    </div>
+                    <form #referenceForm="ngForm" class="form-container" (ngSubmit)="onSubmit(referenceForm)" style="text-align: left;">
+                        <div class="form-group">
+                            <div class="col col-12 d-inline-block align-top">
+                                <form id="searchForm" #searchForm="ngForm" (ngSubmit)="searchPatient()">
+                                    <div id="labelSearch" class="col col-sm-12 col-lg-8 d-inline-block pl-0 align-top">
+                                        <label for="documento" class="labelForm">Número de documento del paciente*</label>
+                                        <input type="text" name="documento" class="form-control inputForm" [ngClass]="{ 'is-invalid': documento.touched && documento.invalid}" #documento="ngModel" [(ngModel)]="request.numeroIdentificacion
+                                    " required minlength="5" maxlength="15" placeholder="Ingrese el número de documento del paciente" (ngModelChange)="validateDocument()">
+                                    </div>
+                                    <div id="submitButton" class="col col-sm-12 col-lg-4 d-inline-block pr-0 align-bottom">
+                                        <input type="submit" value="Buscar" class="btn btn-sm btn-info btnPrefer col-sm-12" [disabled]="searchForm.invalid">
+                                    </div>
+                                    <small class="invalid-feedback d-block font-weight-bold" *ngIf="documento.invalid && documento.touched">Debe ingresar un número de documento válido. Solo se admiten números. El campo es obligatorio</small>
+                                    <small class="invalid-feedback d-block font-weight-bold" *ngIf="diferentDocumentFlag">El documento buscado no coincide con el documento del campo</small>
+                                </form>
+                            </div>
+                            <small class="invalid-feedback d-block font-weight-bold col col-sm-12" *ngIf="searchResponseMessage">{{ searchResponseMessage }}</small>
+                        </div>
+                        <div class="col-sm-12" *ngIf="searchPreloaderStatus">
+                            <fa-icon [icon]="faSpinner" class="d-block spin"></fa-icon>
+                        </div>
+                        <ng-container *ngIf="documentSearched && !searchPreloaderStatus">
+                            <div class="form-group">
+                                <div class="col col-sm-4 col-lg-3 d-inline-block align-top">
+                                    <label for="tipoIdentificacion" class="labelForm">Tipo de Identificación</label>
+                                    <select style="background-position-x: 95%" name="tipoIdentificacion" id="tipoIdentificacion" class="form-control inputForm" [ngClass]="{'is-invalid': tipoIdentificacion.invalid && tipoIdentificacion.touched}" #tipoIdentificacion="ngModel" [(ngModel)]="request.tipoIdentificacion"
+                                        required [disabled]="disabledFlag">
+										<option *ngFor="let tipo of types" value="{{ tipo.TipoDocumento }}">{{ tipo.TipoDocumento }}</option>
+									</select>
+                                    <small class="invalid-feedback d-block font-weight-bold" *ngIf="tipoIdentificacion.invalid && tipoIdentificacion.touched">Debe seleccionar un tipo de identificación de la lista desplegable</small>
+                                </div>
+                                <div class="col col-sm-8 col-lg-6 d-inline-block align-top">
+                                    <label for="nombresApellidos" class="labelForm">Nombres y Apellidos</label>
+                                    <input type="text" name="nombresApellidos" class="form-control inputForm" [ngClass]="{'is-invalid': nombresApellidos.touched && nombresApellidos.invalid}" #nombresApellidos="ngModel" [(ngModel)]="request.nombresApellidos" required [disabled]="disabledFlag"
+                                        pattern="[a-zA-ZÀ-ÿ ]+" (ngModelChange)="request.nombresApellidos=globalService.upperCase($event)">
+                                    <small class="invalid-feedback d-block font-weight-bold" *ngIf="nombresApellidos.invalid && nombresApellidos.touched">Debe ingresar un nombre válido</small>
+                                </div>
+                                <div class="col col-sm-6 col-lg-1 d-inline-block align-top">
+                                    <label for="edadPaciente" class="labelForm">Edad</label>
+                                    <input type="text" name="edadPaciente" class="form-control inputForm" [ngClass]="{'is-invalid': edadPaciente.touched && edadPaciente.invalid}" #edadPaciente="ngModel" [(ngModel)]="request.edadPaciente" required [disabled]="disabledFlag" maxlength="3"
+                                        pattern="[0-9]+">
+                                    <small class="invalid-feedback d-block font-weight-bold" *ngIf="edadPaciente.invalid && edadPaciente.touched">Debe ingresar la edad del paciente</small>
+                                </div>
+                                <div class="col col-sm-6 col-lg-2 d-inline-block align-top">
+                                    <label for="genero" class="labelForm">Genero</label>
+                                    <select style="background-position-x: 95%" name="genero" id="genero" class="form-control inputForm" [ngClass]="{'is-invalid': genero.invalid && genero.touched}" #genero="ngModel" [(ngModel)]="request.genero" required [disabled]="disabledFlag">
+										<option *ngFor="let gender of genders" value="{{ gender.name }}">{{ gender.name }}</option>
+									</select>
+                                    <small class="invalid-feedback d-block font-weight-bold" *ngIf="genero.invalid && genero.touched">Debe seleccionar el género del paciente de la lista desplegable</small>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col col-sm-12 col-lg-6 d-inline-block align-top">
+                                    <label for="aseguradora" class="labelForm">Aseguradora*</label>
+                                    <select style="background-position-x: 95%" name="aseguradora" id="aseguradora" class="form-control inputForm" [ngClass]="{'is-invalid': aseguradora.invalid && aseguradora.touched}" #aseguradora="ngModel" [(ngModel)]="request.aseguradora" required [disabled]="disabledFlag">
+										<option *ngFor="let aseguradora of eps" value="{{ aseguradora.eps }}">{{ aseguradora.eps }}</option>
+									</select>
+                                    <small class="invalid-feedback d-block font-weight-bold" *ngIf="aseguradora.invalid && aseguradora.touched">Debe seleccionar la aseguradora de la lista desplegable</small>
+                                </div>
+                                <div class="col col-sm-12 col-lg-6 d-inline-block align-top">
+                                    <label for="motivoTraslado" class="labelForm">Motivo de Traslado*</label>
+                                    <input type="text" name="motivoTraslado" class="form-control inputForm" value="{{ request.motivoTraslado | global:'motivosTraslados' }}" required disabled>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col col-sm-12 col-lg-6 d-inline-block align-top">
+                                    <label for="ambulancia" class="labelForm">Seleccione el tipo de ambulancia*</label>
+                                    <select style="background-position-x: 95%" name="ambulancia" id="ambulancia" class="form-control inputForm" [ngClass]="{'is-invalid': ambulancia.invalid && ambulancia.touched}" #ambulancia="ngModel" [(ngModel)]="request.ambulancia" required>
+										<option *ngFor="let tipo of tiposAmbulancia" value="{{ tipo.id }}">{{ tipo.name }}</option>
+									</select>
+                                    <small class="invalid-feedback d-block font-weight-bold" *ngIf="ambulancia.invalid && ambulancia.touched">Debe selecionar un tipo de ambulancia de la lista desplegable</small>
+                                </div>
+                                <div class="col col-sm-12 col-lg-6 d-inline-block align-top">
+                                    <label for="prioridad" class="labelForm">Seleccione la prioridad*</label>
+                                    <select style="background-position-x: 95%" name="prioridad" id="prioridad" class="form-control inputForm" [ngClass]="{'is-invalid': prioridad.invalid && prioridad.touched}" #prioridad="ngModel" [(ngModel)]="request.prioridad" required>
+										<option *ngFor="let priori of prioridades" value="{{ priori.id }}">{{ priori.name }}</option>
+									</select>
+                                    <small class="invalid-feedback d-block font-weight-bold" *ngIf="prioridad.invalid && prioridad.touched">Debe selecionar una prioridad de la lista desplegable</small>
+                                </div>
+                            </div>
+                        </ng-container>
+
+                        <div class="form-group" style="margin-top: 3rem">
+                            <div class="col col-sm-12 buttonSubmit">
+                                <input type="submit" value="{{ buttonText }}" class="btn btn-success btnPrefer col-sm-12" [disabled]="referenceForm.invalid || diferentDocumentFlag || !documentSearched">
+                            </div>
+                        </div>
+                        <div class="mt-3 col col-sm-12 errorAlert" *ngIf="responseMessage">
+                            <div class="alert alert-danger" role="alert">
+                                {{ responseMessage }}
+                            </div>
+                        </div>
+                        <div class="deleteLoader" *ngIf="preloaderStatus">
+                            <div class="loader"></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
