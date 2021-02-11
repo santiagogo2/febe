@@ -1,0 +1,31 @@
+export class Investigation {
+	constructor (
+		public id: number,
+		public eventId: number,
+		public resumenHClinica: string,
+		public indagacionDocumental: string,
+		public archivo: string,
+		public accionInsegura1: string,
+		public accionInsegura2: string,
+		public accionInsegura3: string,
+		public accionInsegura4: string,
+		public descripcionAccionInsegura: string,
+		public riesgoAccionInsegura1: number,
+		public costoAccionInsegura1: number,
+		public volumenAccionInsegura1: number,
+		public riesgoAccionInsegura2: number,
+		public costoAccionInsegura2: number,
+		public volumenAccionInsegura2: number,
+		public riesgoAccionInsegura3: number,
+		public costoAccionInsegura3: number,
+		public volumenAccionInsegura3: number,
+		public riesgoAccionInsegura4: number,
+		public costoAccionInsegura4: number,
+		public volumenAccionInsegura4: number,
+		public factorContributivo: number,
+		public factoresSeleccionados: string,
+		public barrerasImplementadas: string,
+		public conclusionInvestigacion: string,
+		public clasificacionInvestigacion: number
+	) {}
+}
