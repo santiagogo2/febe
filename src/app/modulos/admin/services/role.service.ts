@@ -2,17 +2,21 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { global } from '../../../services/global.service';
+import { UserService } from '../../../services/services.index';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class RoleService {
 	public url: string;
+	token: string;
 
 	constructor(
-		private http: HttpClient
+		private http: HttpClient,
+		private userService: UserService,
 	) {
 		this.url = global.url;
+		this.token = this.userService.getToken();
 	}
 
 	roleList(token): Observable<any> {
@@ -23,6 +27,11 @@ export class RoleService {
 	getRole(id, token): Observable<any> {
 		const headers = new HttpHeaders().set('Authorization', token);
 		return this.http.get( this.url + 'role/' + id, { headers } );
+	}
+
+	showRolesByChain( chain ): Observable<any> {
+		const headers = new HttpHeaders().set( 'Authorization', this.token );
+		return this.http.get( this.url + 'role/chain/' + chain, { headers } );
 	}
 
 	newRole(role, token): Observable<any> {

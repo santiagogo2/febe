@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
-import { ReferalRequest } from '../models/referencia-models.index';
 import Swal from 'sweetalert2';
+
+// Models
+import { ReferalRequest } from '../models/referencia-models.index';
 
 // Services
 import { DinamicaPatientService, ReferenceRequestService } from '../services/referencia-services.index';
@@ -26,7 +28,8 @@ export class SolicitudComponent implements OnInit {
 	public requestSave: boolean;
 	public solicitudId: number;
 	public preMessage: string;
-
+	documentSearched: string;
+	diferentDocumentFlag: boolean;
 
 	public incomes: any;
 	public motivosTraslados: any;
@@ -66,11 +69,12 @@ export class SolicitudComponent implements OnInit {
 		this.request.folio = null;
 		this.infoCups = null;
 		this.incomes = null;
+		this.diferentDocumentFlag = false;
+		this.documentSearched = this.request.numeroIdentificacion;
 
 		this.dinamicaPatientService.getPatientByDocument( this.request.numeroIdentificacion ).subscribe(
 			res => {
 				if ( res.status === 'success' ) {
-					console.log(res);
 					const patient = res.third;
 					this.request.tipoIdentificacion = patient.TipoDocumento;
 					this.request.nombresApellidos = patient.NombreCompleto;
@@ -83,7 +87,6 @@ export class SolicitudComponent implements OnInit {
 			error => {
 				this.searchPreloaderStatus = false;
 				this.searchResponseMessage = error.error.message;
-				console.log( error );
 			}
 		);
 	}
@@ -99,7 +102,6 @@ export class SolicitudComponent implements OnInit {
 			error => {
 				this.searchPreloaderStatus = false;
 				this.searchResponseMessage = error.error.message;
-				console.log( error );
 			}
 		);
 	}
@@ -134,7 +136,6 @@ export class SolicitudComponent implements OnInit {
 				error => {
 					this.searchFolioPreloaderStatus = false;
 					this.searchFolioResponseMessage = error.error.message;
-					console.log(error);
 				}
 			);
 		}
@@ -292,5 +293,12 @@ export class SolicitudComponent implements OnInit {
 				});
 			}
 		);
+	}
+
+	validateDocument() {
+		this.diferentDocumentFlag = false;
+		if ( this.documentSearched != this.request.numeroIdentificacion ) {
+			this.diferentDocumentFlag = true;
+		}
 	}
 }

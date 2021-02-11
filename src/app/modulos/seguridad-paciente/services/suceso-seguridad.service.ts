@@ -24,10 +24,16 @@ export class SucesoSerguridadService {
 		return this.http.get( this.url + 'securityevent', { headers } );
 	}
 
-	getSucesosSeguridadByEventId( eventId ): Observable<any> {
+	getSucesosSeguridadByEventId( eventId, estado ): Observable<any> {
 		let headers = new HttpHeaders().set( 'Authorization', this.token );
 
-		return this.http.get( this.url + 'securityevent/get-event/' +  eventId, { headers } );
+		return this.http.get( this.url + 'securityevent/get-event/' +  eventId + '/' + estado, { headers } );
+	}
+
+	showByDiferentInputs( search ): Observable<any> {
+		let headers = new HttpHeaders().set( 'Authorization', this.token );
+
+		return this.http.get( this.url + 'securityevent/search/diferent-inputs/' + search, { headers } );
 	}
 
 	//==========================================================================

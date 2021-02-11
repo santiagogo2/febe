@@ -27,6 +27,10 @@ export class OperationsListComponent implements OnInit {
 	public registerFlag: boolean;
 	public deleteFlag: boolean;
 
+	chain: string;
+	searchResponseMessage: string;
+	searchLoaderStatus: boolean;
+
 	constructor(
 		private userService: UserService,
 		private operationService: OperationService,
@@ -44,13 +48,20 @@ export class OperationsListComponent implements OnInit {
 	}
 
 	operationsList() {
+		this.responseMessage = null;
+		this.status = null;
+		this.searchResponseMessage = null;
+		this.searchLoaderStatus = true;
+
 		this.operationService.operationsList( this.token ).subscribe(
 			res => {
+				this.searchLoaderStatus = false;
 				if ( res.status === 'success' ) {
 					this.operations = res.operations;
 				}
 			},
 			error => {
+				this.searchLoaderStatus = false;
 				this.status = 'error';
 				this.responseMessage = error.message ? error.message : error.error.message;
 				console.log(error);
@@ -102,6 +113,31 @@ export class OperationsListComponent implements OnInit {
 					this.registerFlag = true;
 				}
 			});
+		}
+	}
+
+	search( searchForm ) {
+		this.searchResponseMessage = null;
+		this.searchLoaderStatus = true;
+		this.actualPage = 1;
+
+		if ( !this.chain ) {
+			this.searchLoaderStatus = false;
+			this.searchResponseMessage = 'Debe ingresar un parametro de busqueda para realizar la solicitud.';
+		} else {
+			this.operationService.showOperationsByChain( this.chain ).subscribe(
+				res => {
+					this.searchLoaderStatus = false;
+					if ( res.status === 'success' ) {
+						this.operations = res.operations;
+						searchForm.reset();
+					}
+				},
+				error => {
+					this.searchLoaderStatus = false;
+					this.searchResponseMessage = error.error.message;
+				}
+			);
 		}
 	}
 

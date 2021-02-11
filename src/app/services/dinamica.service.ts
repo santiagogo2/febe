@@ -38,4 +38,14 @@ export class DinamicaService {
 		const headers = new HttpHeaders().set( 'Authorization', this.token );
 		return this.http.get( this.url + 'dinamica/epicrisis/search/doctor/' + doctorId, {headers});
 	}
+
+	// General info
+	getAllEPS(): Observable<any> {
+		const headers = new HttpHeaders().set( 'Authorization', this.token );
+		return this.http.get( this.url + 'dinamica/general/eps' , { headers } );
+	}
+	getAllDocumentTypes(): Observable<any> {
+		const headers = new HttpHeaders().set( 'Authorization', this.token );
+		return this.http.get( this.url + 'dinamica/general/document-types' , { headers } );
+	}
 }

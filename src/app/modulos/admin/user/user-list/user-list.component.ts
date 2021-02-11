@@ -26,6 +26,10 @@ export class UserListComponent implements OnInit {
 	public registerFlag: boolean;
 	public deleteFlag: boolean;
 
+	chain: string;
+	searchLoaderStatus: boolean;
+	searchResponseMessage: string;
+
 	constructor(
 		private userService: UserService
 	) {
@@ -40,13 +44,20 @@ export class UserListComponent implements OnInit {
 	}
 
 	getUsers(){
+		this.searchLoaderStatus = true;
+		this.searchResponseMessage = null;
+		this.responseMessage = null;
+		this.status = null;
+
 		this.userService.userList().subscribe(
 			res => {
+				this.searchLoaderStatus = false;
 				if ( res.status === 'success' ) {
 					this.users = res.users;
 				}
 			},
 			error => {
+				this.searchLoaderStatus = false;
 				this.status = error.error.status;
 				this.responseMessage = error.error.message;
 				console.log(error);
@@ -98,6 +109,31 @@ export class UserListComponent implements OnInit {
 					this.registerFlag = true;
 				}
 			});
+		}
+	}
+
+	search( searchForm ) {
+		this.searchResponseMessage = null;
+		this.searchLoaderStatus = true;
+		this.actualPage = 1;
+
+		if ( !this.chain ) {
+			this.searchLoaderStatus = false;
+			this.searchResponseMessage = 'Debe ingresar un parametro de busqueda para realizar la solicitud.';
+		} else {
+			this.userService.getUserByChain( this.chain ).subscribe(
+				res => {
+					this.searchLoaderStatus = false;
+					if ( res.status === 'success' ) {
+						this.users = res.users;
+						searchForm.reset();
+					}
+				},
+				error => {
+					this.searchLoaderStatus = false;
+					this.searchResponseMessage = error.error.message;
+				}
+			);
 		}
 	}
 

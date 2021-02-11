@@ -17,6 +17,7 @@ export class FollowComponent implements OnInit, OnChanges {
 	@Input() requestId: number;
 	responseMessage: string;
 	preloaderStatus: boolean;
+	storePreloaderStatus: boolean;
 	faSpinner = faSpinner;
 	units: Array<Unit>;
 
@@ -40,6 +41,9 @@ export class FollowComponent implements OnInit, OnChanges {
 	closeCaseFlag: boolean;
 	reOpenFlag: boolean;
 
+	fechaCitas: Array<string>;
+	horaCitas: Array<string>;
+
 	constructor(
 		private unitService: UnitService,
 		private followRequestService: ReferenceFollowService,
@@ -55,6 +59,9 @@ export class FollowComponent implements OnInit, OnChanges {
 		this.pacienteAceptadoStatus = false;
 
 		this.loadPermissions();
+
+		this.fechaCitas = [];
+		this.horaCitas = [];
 	}
 
 	ngOnChanges( changes: SimpleChanges ) {
@@ -132,6 +139,7 @@ export class FollowComponent implements OnInit, OnChanges {
 	newFollow( followForm ) {
 		this.responseMessage = null;
 		this.preloaderStatus = true;
+		this.storePreloaderStatus = true;
 
 		if( this.pacienteAceptadoStatus ) {
 			this.follow.funcionarioContesta = this.referalRequest.funcionarioContesta;
@@ -141,26 +149,29 @@ export class FollowComponent implements OnInit, OnChanges {
 
 		this.followRequestService.newFollow( this.follow ).subscribe(
 			res => {
-				this.preloaderStatus = false;
 				if( res.status === 'success' ) {
-					Swal.fire({
-						position: 'center',
-						icon: 'success',
-						title: res.message,
-						showConfirmButton: true,
-					});
 					if( this.follow.pacienteAceptado == 1 ) {
 						this.updateCaseData.funcionarioContesta = this.follow.funcionarioContesta;
 						this.updateCaseData.sedeContestan = this.follow.sedeContestan;
-						this.updateFollowCase();
+						this.updateCups(res.message);
+					} else {
+						this.preloaderStatus = false;
+						this.storePreloaderStatus = false;
+						Swal.fire({
+							position: 'center',
+							icon: 'success',
+							title: res.message,
+							showConfirmButton: true,
+						});
+						this.getFollowsByRequestId( this.caseId );
 					}
-					this.getFollowsByRequestId( this.caseId );
 					followForm.reset();
 					this.resetFollow();
 				}
 			},
 			error => {
 				this.preloaderStatus = false;
+				this.storePreloaderStatus = false;
 				this.responseMessage = error.error.message;
 				if (error.error.errors) {
 					this.responseMessage = this.responseMessage + '. ' + JSON.stringify(error.error.errors);
@@ -172,20 +183,63 @@ export class FollowComponent implements OnInit, OnChanges {
 					text: this.responseMessage,
 					showConfirmButton: true,
 				});
-				console.log( error );
 			}
 		);
 	}
 
-	updateFollowCase() {
-		this.referalService.updateFollowCase(  this.caseId, this.updateCaseData ).subscribe(
+	updateCups(message) {
+		this.referalService.updateCUPS( this.referalRequest.cups ).subscribe(
 			res => {
 				if ( res.status === 'success' ) {
+					if ( res.errors && res.errors > 0 ) {
+						this.preloaderStatus = false;
+						this.storePreloaderStatus = false;
+						this.responseMessage = 'No se ha podido actualizar la fecha y la hora de todos los cups de la solicitud';
+						Swal.fire({
+							position: 'center',
+							icon: 'error',
+							title: 'Ha ocurrido un error al actualizar las fechas de las citas',
+							text: this.responseMessage,
+							showConfirmButton: true,
+						});
+					} else {
+						this.updateFollowCase(message);
+					}
+				}
+			},
+			error => {
+				this.preloaderStatus = false;
+				this.storePreloaderStatus = false;
+				this.responseMessage = error.error.message ? error.error.message : 'No se ha podido actualizar la fecha y la hora de todos los cups de la solicitud';
+				Swal.fire({
+					position: 'center',
+					icon: 'error',
+					title: 'Ha ocurrido un error al actualizar las fechas de las citas',
+					text: this.responseMessage,
+					showConfirmButton: true,
+				});
+				console.log( error );
+			}
+		);		
+	}
+
+	updateFollowCase(message) {
+		this.referalService.updateFollowCase(  this.caseId, this.updateCaseData ).subscribe(
+			res => {
+				this.storePreloaderStatus = false;
+				if ( res.status === 'success' ) {
+					Swal.fire({
+						position: 'center',
+						icon: 'success',
+						title: message,
+						showConfirmButton: true,
+					});
 					this.getRequest( this.caseId );
 				}
 			},
 			error => {
 				this.preloaderStatus = false;
+				this.storePreloaderStatus = false;
 				this.responseMessage = error.error.message;
 				if (error.error.errors) {
 					this.responseMessage = this.responseMessage + '. ' + JSON.stringify(error.error.errors);

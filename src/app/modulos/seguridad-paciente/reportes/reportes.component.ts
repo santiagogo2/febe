@@ -43,6 +43,7 @@ export class ReportesComponent implements OnInit {
 		let infoToExcelExport: any;
 		infoToExcelExport = this.reporteSucesoSeguridad;
 		const names: any = {};
+		names.id = 'NÚMERO DE RADICADO';
 		names.sucesoRelacionado = 'SUCESO RELACIONADO';
 		names.perfilReportante = 'PERFIL DEL REPORTANTE';
 		names.unidadPresento = 'UNIDAD DONDE SE PRESENTÓ EL SUCESO DE SEGURIDAD';

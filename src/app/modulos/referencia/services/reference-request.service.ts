@@ -59,6 +59,15 @@ export class ReferenceRequestService {
 		return this.http.post( this.url + 'cups', params, {headers} );
 	}
 
+	updateCUPS( cups ): Observable<any> {
+		const json = JSON.stringify( cups );
+		const params = 'json=' + json;
+		const headers = new HttpHeaders().set( 'Authorization', this.token )
+										 .set( 'Content-Type', 'application/x-www-form-urlencoded' );
+
+		return this.http.post( this.url + 'cups/update-cups', params, { headers } );
+	}
+
 	changeCaseStatus( id, estado ): Observable<any> {
 		const headers = new HttpHeaders().set( 'Authorization', this.token );
 

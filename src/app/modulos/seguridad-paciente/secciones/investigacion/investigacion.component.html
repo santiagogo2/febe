@@ -4,40 +4,36 @@
             <div class="card-body">
                 <div class="formContainer">
                     <div class="backLink col col-sm-12">
-                        <a class="col-sm-12" routerLink="/referencia">Regresar</a>
+                        <a class="col-sm-12" routerLink="/seguridad-paciente">Regresar</a>
                     </div>
-                    <div class="form-group">
-                        <div class="col col-sm-12 col-lg-6 d-inline-block align-top">
-                            <label for="sucRelacionado" class="labelForm">Suceso Relacionado Con*</label>
-                            <select style="background-position-x: 95%" name="sucRelacionado" id="sucRelacionado" class="form-control inputForm" [ngClass]="{'is-invalid': sucRelacionado.invalid && sucRelacionado.touched}" #sucRelacionado="ngModel" [(ngModel)]="eventId" (ngModelChange)="getSucesosSeguridadByEventId()"
-                                required>
-								<option *ngFor="let suceso of global.sucesoRelacionado" value="{{ suceso.id }}">{{ suceso.name }}</option>
-							</select>
-                            <small class="invalid-feedback d-block font-weight-bold" *ngIf="sucRelacionado.invalid && sucRelacionado.touched">Debe selecionar un suceso relacionado de la lista desplegable</small>
-                        </div>
-                        <div class="col col-sm-12 col-lg-6 d-inline-block align-bottom" *ngIf="preloaderStatus || responseMessage">
-                            <fa-icon [icon]="faSpinner" class="d-block spin" *ngIf="preloaderStatus"></fa-icon>
-                            <small class="d-block invalid-feedback">{{ responseMessage }}</small>
-                        </div>
+                    <div class="subtitle"><span>1. DESCRIPCIÓN DEL REPORTE</span></div>
+                    <form #searchForm="ngForm">
+                        <div class="form-group">
+                            <div class="col col-sm-12 col-lg-6 d-inline-block align-top">
+                                <label for="sucRelacionado" class="labelForm">Suceso Relacionado Con*</label>
+                                <select style="background-position-x: 98%" name="sucRelacionado" id="sucRelacionado" class="form-control inputForm" [ngClass]="{'is-invalid': sucRelacionado.invalid && sucRelacionado.touched}" #sucRelacionado="ngModel" [(ngModel)]="eventId" (ngModelChange)="getSucesosSeguridadByEventId()"
+                                    required>
+									<option *ngFor="let suceso of global.sucesoRelacionado" value="{{ suceso.id }}">{{ suceso.name }}</option>
+								</select>
+                                <small class="invalid-feedback d-block font-weight-bold" *ngIf="sucRelacionado.invalid && sucRelacionado.touched">Debe selecionar un suceso relacionado de la lista desplegable</small>
+                            </div>
+                            <div class="col col-sm-12 col-lg-6 d-inline-block align-bottom" *ngIf="preloaderStatus || responseMessage">
+                                <fa-icon [icon]="faSpinner" class="d-block spin" *ngIf="preloaderStatus"></fa-icon>
+                                <small class="d-block invalid-feedback">{{ responseMessage }}</small>
+                            </div>
 
-                        <div class="col col-sm-12 col-lg-6 d-inline-block align-top" *ngIf="securityEvents">
-                            <label for="secEvent" class="labelForm">Eventos de Seguridad*</label>
-                            <select style="background-position-x: 95%" name="secEvent" id="secEvent" class="form-control inputForm" [ngClass]="{'is-invalid': secEvent.invalid && secEvent.touched}" #secEvent="ngModel" [(ngModel)]="securityEventId" (ngModelChange)="setSecurityEvent()"
-                                required>
-								<option *ngFor="let security of securityEvents" value="{{ security.id }}">{{ security.id }} - {{ security.numeroIdentificacion }} - {{ security.nombresApellidos }}</option>
-							</select>
-                            <small class="invalid-feedback d-block font-weight-bold" *ngIf="secEvent.invalid && secEvent.touched">Debe selecionar un evento de seguridad de la lista desplegable</small>
-                        </div>
-                    </div>
-                    <div class="form-group" *ngIf="searchPreclasificationMessage || searchPreclasificationPreloaderStatus">
-                        <div class="mt-3 col col-sm-12 errorAlert" *ngIf="searchPreclasificationMessage">
-                            <div class="alert alert-danger" role="alert">
-                                {{ searchPreclasificationMessage }}
+                            <div class="col col-sm-12 col-lg-6 d-inline-block align-top" *ngIf="securityEvents">
+                                <label for="secEvent" class="labelForm">Eventos de Seguridad*</label>
+                                <select style="background-position-x: 98%" name="secEvent" id="secEvent" class="form-control inputForm" [ngClass]="{'is-invalid': secEvent.invalid && secEvent.touched}" #secEvent="ngModel" [(ngModel)]="securityEventId" (ngModelChange)="setRelatedSurveys(searchForm)"
+                                    required>
+									<option *ngFor="let security of securityEvents" value="{{ security.id }}">{{ security.id }} - {{ security.numeroIdentificacion }} - {{ security.nombresApellidos }}</option>
+								</select>
+                                <small class="invalid-feedback d-block font-weight-bold" *ngIf="secEvent.invalid && secEvent.touched">Debe selecionar un evento de seguridad de la lista desplegable</small>
                             </div>
                         </div>
-                        <div class="deleteLoader" *ngIf="searchPreclasificationPreloaderStatus">
-                            <div class="loader"></div>
-                        </div>
+                    </form>
+                    <div class="deleteLoader" *ngIf="searchPreclasificationPreloaderStatus">
+                        <div class="loader"></div>
                     </div>
 
                     <ng-container *ngIf="securityEvent && preclasification">
@@ -47,27 +43,312 @@
                         </div>
 
                         <form #investigationForm="ngForm" (ngSubmit)="onSubmit(investigationForm)" class="mt-4">
-                            <div class="form-group">
-                                <div class="col col-12 d-inline-block align-top">
-                                    <label for="resumenHClinica" class="labelForm">Resumen Historia Clínica de Manera Cronológica Incluidas Todas las Disciplinas</label>
-                                    <textarea name="resumenHClinica" id="resumenHClinica" rows="8" class="form-control inputForm" [ngClass]="{'is-invalid': investigation.invalid && investigation.touched}" #resumenHClinica="ngModel" [(ngModel)]="investigation.resumenHClinica" minlength="20"
-                                        required placeholder="Ingrese el resumen de la historia clínica de manera cronológica e incluyendo todas las disciplinas. La descripción debe tener al menos 20 caracteres."></textarea>
+                            <ng-container>
+                                <div class="subtitle"><span>2. RESUMEN HISTORIA CLÍNICA DE MANERA CRONOLÓGICA INCLUIDAS TODAS LAS DISCIPLINAS*</span></div>
+                                <div class="form-group">
+                                    <div class="col col-12 d-inline-block align-top">
+                                        <textarea name="resumenHClinica" id="resumenHClinica" rows="8" class="form-control inputForm" [ngClass]="{'is-invalid': resumenHClinica.invalid && resumenHClinica.touched}" #resumenHClinica="ngModel" [(ngModel)]="investigation.resumenHClinica" minlength="20"
+                                            required placeholder="Ingrese el resumen de la historia clínica de manera cronológica e incluyendo todas las disciplinas. La descripción debe tener al menos 20 caracteres."></textarea>
+                                        <small class="invalid-feedback d-block" *ngIf="resumenHClinica.invalid && resumenHClinica.touched">Debe ingresar el resumen de la historia clínica. Recuerde que debe contener al menos 20 caracteres.</small>
+                                    </div>
                                 </div>
-                            </div>
+                            </ng-container>
+                            <ng-container>
+                                <div class="subtitle"><span>3. INVESTIGACIÓN Y ENTREVISTAS</span></div>
+                                <div class="col col-12">
+                                    <small class="invalid-feedback d-block" *ngIf="!surveys">No se ha encontrado ninguna encuesta en el sistema relacionada con el Suceso de Seguridad seleccionado. Si desea ingresar una encuesta relacionada con un suceso, siga el siguiente <a target="_blank" [routerLink]="['../encuesta', securityEventId]">enlace</a></small>
+                                    <ng-container *ngFor="let survey of surveys; index as i">
+                                        <app-survey [survey]="survey" [numeroEncuesta]="i+1"></app-survey>
+                                    </ng-container>
+                                </div>
+                            </ng-container>
+                            <ng-container>
+                                <div class="subtitle"><span>4. INDAGACIÓN DOCUMENTAL*</span></div>
+                                <div class="form-group">
+                                    <div class="col col-12 d-inline-block align-top">
+                                        <textarea name="indagacionDocumental" id="indagacionDocumental" rows="4" class="form-control inputForm" [ngClass]="{'is-invalid': indagacionDocumental.invalid && indagacionDocumental.touched}" #indagacionDocumental="ngModel" [(ngModel)]="investigation.indagacionDocumental"
+                                            minlength="20" required placeholder="Ingrese la indagación documental que fue realizada. Su indagación debe tener al menos 20 caracteres"></textarea>
+                                        <small class="invalid-feedback d-block" *ngIf="indagacionDocumental.invalid && indagacionDocumental.touched">Debe ingresar la descripción de la indagación documental realizada. Recuerde que debe contener al menos 20 caracteres.</small>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col col-sm-12 align-top">
+                                        <label for="document" class="labelForm">Documento</label>
+                                        <app-load-document (sendFileName)="setFileName($event)" (deleteFile)="deleteFile($event)" formatsAllowed=".zip" maxSize="100" url="investigation/upload-file" localStorageText="investigationLoadedDocument"></app-load-document>
+                                    </div>
+                                </div>
+                            </ng-container>
+                            <ng-container>
+                                <div class="subtitle"><span>LISTA DE ACCIONES INSEGURAS O FALLAS ACTIVAS PRESENTADAS EN EL SUCESO DE SEGURIDAD</span></div>
+                                <label class="labelForm col col-12">Lista de acciones o fallas</label>
+                                <div class="form-group" *ngIf="investigation.accionInsegura1">
+                                    <div class="col col-1 d-inline-block">
+                                        1. <input type="radio" [(ngModel)]="editRadioButton" name="editAction" value="1">
+                                    </div>
+                                    <div class="col col-11 d-inline-block">
+                                        <input type="text" class="form-control inputForm" value="{{ investigation.accionInsegura1 }}" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-group" *ngIf="investigation.accionInsegura2">
+                                    <div class="col col-1 d-inline-block">
+                                        2. <input type="radio" [(ngModel)]="editRadioButton" name="editAction" value="2">
+                                    </div>
+                                    <div class="col col-11 d-inline-block">
+                                        <input type="text" class="form-control inputForm" value="{{ investigation.accionInsegura2 }}" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-group" *ngIf="investigation.accionInsegura3">
+                                    <div class="col col-1 d-inline-block">
+                                        3. <input type="radio" [(ngModel)]="editRadioButton" name="editAction" value="3">
+                                    </div>
+                                    <div class="col col-11 d-inline-block">
+                                        <input type="text" class="form-control inputForm" value="{{ investigation.accionInsegura3 }}" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-group" *ngIf="investigation.accionInsegura4">
+                                    <div class="col col-1 d-inline-block">
+                                        4. <input type="radio" [(ngModel)]="editRadioButton" name="editAction" value="4">
+                                    </div>
+                                    <div class="col col-11 d-inline-block">
+                                        <input type="text" class="form-control inputForm" value="{{ investigation.accionInsegura4 }}" disabled>
+                                    </div>
+                                </div>
+                                <ng-container *ngIf="!investigation.accionInsegura4 || editRadioButton">
+                                    <div class="form-group col col-12">
+                                        <select style="background-position-x: 98%" name="primeraSeleccion" id="primeraSeleccion" class="form-control inputForm" [ngClass]="{'is-invalid': primeraSeleccion.invalid && primeraSeleccion.touched}" #primeraSeleccion="ngModel" [(ngModel)]="nivelClasificacion1"
+                                            (ngModelChange)="setSecondSelect()">
+											<option *ngFor="let accion of global.accionesInseguras" value="{{ accion.id }}">{{ accion.name }}</option>
+										</select>
+                                    </div>
+                                    <div class="form-group col col-12" *ngIf="opcionesSegundoNivel">
+                                        <select style="background-position-x: 98%" name="segundaSeleccion" id="segundaSeleccion" class="form-control inputForm" [ngClass]="{'is-invalid': segundaSeleccion.invalid && segundaSeleccion.touched}" #segundaSeleccion="ngModel" [(ngModel)]="nivelClasificacion2"
+                                            (ngModelChange)="setThirdSelect()">
+											<option *ngFor="let opcion of opcionesSegundoNivel" value="{{ opcion.id }}">{{ opcion.name }}</option>
+										</select>
+                                    </div>
+                                    <div class="form-group col col-12" *ngIf="opcionesTercerNivel">
+                                        <select style="background-position-x: 98%" name="terceraSeleccion" id="terceraSeleccion" class="form-control inputForm" [ngClass]="{'is-invalid': terceraSeleccion.invalid && terceraSeleccion.touched}" #terceraSeleccion="ngModel" [(ngModel)]="accionInsegura"
+                                            required>
+											<option *ngFor="let opcion of opcionesTercerNivel" value="{{ opcion.name }}">{{ opcion.name }}</option>
+										</select>
+                                    </div>
+                                    <div class="form-group col col-12" *ngIf="nivelClasificacion1 == 3">
+                                        <input type="text" name="otraFalla" class="form-control inputForm" [ngClass]="{'is-invalid': otraFalla.invalid && otraFalla.touched}" #otraFalla="ngModel" [(ngModel)]="accionInsegura" placeholder="Ingrese la otra falla activa encontrada" (ngModelChange)="accionInsegura=globalService.upperCase($event)">
+                                    </div>
+                                    <div class="form-group col col-12" *ngIf="accionInsegura">
+                                        <button type="button" class="btn btn-outline-secondary btn-sm" (click)="setUnsafeAction()">Agregar +</button>
+                                    </div>
+                                </ng-container>
+                            </ng-container>
+                            <ng-container *ngIf="investigation.accionInsegura1 || investigation.accionInsegura2 || investigation.accionInsegura3 || investigation.accionInsegura4">
+                                <div class="subtitle"><span>PRIORIZACIÓN DE ACCIONES INSEGURAS</span></div>
+                                <div class="form-group col col-12">
+                                    <label for="preguntaPriori" class="labelForm">¿Requiere priorización de acciones inseguras?*</label>
+                                    <select style="background-position-x: 98%" name="preguntaPriori" id="preguntaPriori" class="form-control inputForm" [ngClass]="{'is-invalid': preguntaPriori.invalid && preguntaPriori.touched}" #preguntaPriori="ngModel" [(ngModel)]="priorizacionAccion"
+                                        required>
+										<option value="0">NO</option>
+										<option value="1">SI</option>
+									</select>
+                                    <small class="invalid-feedback d-block" *ngIf="preguntaPriori.invalid && preguntaPriori.touched">Debe seleccionar una opción de la lista desplegable</small>
+                                </div>
+                                <div class="tableContainer mt-3" *ngIf="priorizacionAccion && priorizacionAccion==1">
+                                    <table class="table table-bordered">
+                                        <thead class="thead_styles" style="text-align: justify;">
+                                            <tr>
+                                                <th>#</th>
+                                                <th>
+                                                    <div class="text-center">RIESGO</div>
+                                                    <div>Califique como 1 o 2 cuando la institución, el usuario y/o los clientes internos no corren ningún riesgo o existe un riesgo leve si no se efectúa la acción de mejoramiento.</div>
+                                                    <div>Califique como 3 cuando la institución, el usuario y/o los clientes internos corren un riesgo medio si no se efectúa la acción de mejoramiento.</div>
+                                                    <div>Califique como 4 o 5 cuando la institución, el usuario y/o los clientes internos corren un riesgo alto o se puede presentar un evento adverso o incidente si no se efectúa la acción de mejoramiento.</div>
+                                                </th>
+                                                <th>
+                                                    <div class="text-center">COSTO</div>
+                                                    <div>Califique como 1 o 2 si al no realizarse el mejoramiento no se afectan o se afectan levemente las finanzas y la imagen de la institución.</div>
+                                                    <div>Califique como 3 si al no realizarse el mejoramiento se afectan moderadamente las finanzas y la imagen de la institución.</div>
+                                                    <div>Califique como 4 o 5 si al no realizarse el mejoramiento se afectan notablemente las finanzas y la imagen de la institución.</div>
+                                                </th>
+                                                <th>
+                                                    <div class="text-center">VOLUMEN</div>
+                                                    <div>Califique como 1 o 2 si la ejecución del mejoramiento no tendría una cobertura o alcance amplio en la institución o en los usuarios internos o externos o el impacto es leve.</div>
+                                                    <div>Califique como 3 si la ejecución de la acción de mejoramiento tendría una cobertura o alcance medio en la institución o en los usuarios internos o externos.</div>
+                                                    <div>Califique como 4 o 5 si la ejecución de la acción de mejoramiento tendría una cobertura o alcance amplio en la institución o en los usuarios internos o externos.</div>
+                                                </th>
+                                                <th>TOTAL</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="tbody_styles">
+                                            <tr *ngIf="investigation.accionInsegura1">
+                                                <td>1</td>
+                                                <td>
+                                                    <div class="col col-12">
+                                                        <input type="text" name="riesgoAccionInsegura1" id="riesgoAccionInsegura1" class="form-control inputForm" [ngClass]="{'is-invalid': riesgoAccionInsegura1.invalid && riesgoAccionInsegura1.touched}" #riesgoAccionInsegura1="ngModel" [(ngModel)]="investigation.riesgoAccionInsegura1"
+                                                            pattern="[1-5]" maxlength="1" required>
+                                                        <small class="invalid-feedback d-block" *ngIf="riesgoAccionInsegura1.invalid && riesgoAccionInsegura1.touched">El número debe estar entre 1 y 5</small>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="col col-12">
+                                                        <input type="text" name="costoAccionInsegura1" id="costoAccionInsegura1" class="form-control inputForm" [ngClass]="{'is-invalid': costoAccionInsegura1.invalid && costoAccionInsegura1.touched}" #costoAccionInsegura1="ngModel" [(ngModel)]="investigation.costoAccionInsegura1"
+                                                            pattern="[1-5]" maxlength="1" required>
+                                                        <small class="invalid-feedback d-block" *ngIf="costoAccionInsegura1.invalid && costoAccionInsegura1.touched">El número debe estar entre 1 y 5</small>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="col col-12">
+                                                        <input type="text" name="volumenAccionInsegura1" id="volumenAccionInsegura1" class="form-control inputForm" [ngClass]="{'is-invalid': volumenAccionInsegura1.invalid && volumenAccionInsegura1.touched}" #volumenAccionInsegura1="ngModel" [(ngModel)]="investigation.volumenAccionInsegura1"
+                                                            pattern="[1-5]" maxlength="1" required>
+                                                        <small class="invalid-feedback d-block" *ngIf="volumenAccionInsegura1.invalid && volumenAccionInsegura1.touched">El número debe estar entre 1 y 5</small>
+                                                    </div>
+                                                </td>
+                                                <td [ngClass]=" { 'good': investigation.riesgoAccionInsegura1 * investigation.costoAccionInsegura1 * investigation.volumenAccionInsegura1 < 50 , 'regular': investigation.riesgoAccionInsegura1 * investigation.costoAccionInsegura1 * investigation.volumenAccionInsegura1 >= 50 && investigation.riesgoAccionInsegura1 * investigation.costoAccionInsegura1 * investigation.volumenAccionInsegura1 < 80, 'bad': investigation.riesgoAccionInsegura1 * investigation.costoAccionInsegura1 * investigation.volumenAccionInsegura1 >= 80 } ">
+                                                    {{ +investigation.riesgoAccionInsegura1 * +investigation.costoAccionInsegura1 * +investigation.volumenAccionInsegura1 }}
+                                                </td>
+                                            </tr>
+                                            <tr *ngIf="investigation.accionInsegura2">
+                                                <td>2</td>
+                                                <td>
+                                                    <div class="col col-12">
+                                                        <input type="text" name="riesgoAccionInsegura2" id="riesgoAccionInsegura2" class="form-control inputForm" [ngClass]="{'is-invalid': riesgoAccionInsegura2.invalid && riesgoAccionInsegura2.touched}" #riesgoAccionInsegura2="ngModel" [(ngModel)]="investigation.riesgoAccionInsegura2"
+                                                            pattern="[1-5]" maxlength="1" required>
+                                                        <small class="invalid-feedback d-block" *ngIf="riesgoAccionInsegura2.invalid && riesgoAccionInsegura2.touched">El número debe estar entre 1 y 5</small>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="col col-12">
+                                                        <input type="text" name="costoAccionInsegura2" id="costoAccionInsegura2" class="form-control inputForm" [ngClass]="{'is-invalid': costoAccionInsegura2.invalid && costoAccionInsegura2.touched}" #costoAccionInsegura2="ngModel" [(ngModel)]="investigation.costoAccionInsegura2"
+                                                            pattern="[1-5]" maxlength="1" required>
+                                                        <small class="invalid-feedback d-block" *ngIf="costoAccionInsegura2.invalid && costoAccionInsegura2.touched">El número debe estar entre 1 y 5</small>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="col col-12">
+                                                        <input type="text" name="volumenAccionInsegura2" id="volumenAccionInsegura2" class="form-control inputForm" [ngClass]="{'is-invalid': volumenAccionInsegura2.invalid && volumenAccionInsegura2.touched}" #volumenAccionInsegura2="ngModel" [(ngModel)]="investigation.volumenAccionInsegura2"
+                                                            pattern="[1-5]" maxlength="1" required>
+                                                        <small class="invalid-feedback d-block" *ngIf="volumenAccionInsegura2.invalid && volumenAccionInsegura2.touched">El número debe estar entre 1 y 5</small>
+                                                    </div>
+                                                </td>
+                                                <td [ngClass]=" { 'good': investigation.riesgoAccionInsegura2 * investigation.costoAccionInsegura2 * investigation.volumenAccionInsegura2 < 50 , 'regular': investigation.riesgoAccionInsegura2 * investigation.costoAccionInsegura2 * investigation.volumenAccionInsegura2 >= 50 && investigation.riesgoAccionInsegura2 * investigation.costoAccionInsegura2 * investigation.volumenAccionInsegura2 < 80, 'bad': investigation.riesgoAccionInsegura2 * investigation.costoAccionInsegura2 * investigation.volumenAccionInsegura2 >= 80 } ">
+                                                    {{ +investigation.riesgoAccionInsegura2 * +investigation.costoAccionInsegura2 * +investigation.volumenAccionInsegura2 }}
+                                                </td>
+                                            </tr>
+                                            <tr *ngIf="investigation.accionInsegura3">
+                                                <td>3</td>
+                                                <td>
+                                                    <div class="col col-12">
+                                                        <input type="text" name="riesgoAccionInsegura3" id="riesgoAccionInsegura3" class="form-control inputForm" [ngClass]="{'is-invalid': riesgoAccionInsegura3.invalid && riesgoAccionInsegura3.touched}" #riesgoAccionInsegura3="ngModel" [(ngModel)]="investigation.riesgoAccionInsegura3"
+                                                            pattern="[1-5]" maxlength="1" required>
+                                                        <small class="invalid-feedback d-block" *ngIf="riesgoAccionInsegura3.invalid && riesgoAccionInsegura3.touched">El número debe estar entre 1 y 5</small>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="col col-12">
+                                                        <input type="text" name="costoAccionInsegura3" id="costoAccionInsegura3" class="form-control inputForm" [ngClass]="{'is-invalid': costoAccionInsegura3.invalid && costoAccionInsegura3.touched}" #costoAccionInsegura3="ngModel" [(ngModel)]="investigation.costoAccionInsegura3"
+                                                            pattern="[1-5]" maxlength="1" required>
+                                                        <small class="invalid-feedback d-block" *ngIf="costoAccionInsegura3.invalid && costoAccionInsegura3.touched">El número debe estar entre 1 y 5</small>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="col col-12">
+                                                        <input type="text" name="volumenAccionInsegura3" id="volumenAccionInsegura3" class="form-control inputForm" [ngClass]="{'is-invalid': volumenAccionInsegura3.invalid && volumenAccionInsegura3.touched}" #volumenAccionInsegura3="ngModel" [(ngModel)]="investigation.volumenAccionInsegura3"
+                                                            pattern="[1-5]" maxlength="1" required>
+                                                        <small class="invalid-feedback d-block" *ngIf="volumenAccionInsegura3.invalid && volumenAccionInsegura3.touched">El número debe estar entre 1 y 5</small>
+                                                    </div>
+                                                </td>
+                                                <td [ngClass]=" { 'good': investigation.riesgoAccionInsegura3 * investigation.costoAccionInsegura3 * investigation.volumenAccionInsegura3 < 50 , 'regular': investigation.riesgoAccionInsegura3 * investigation.costoAccionInsegura3 * investigation.volumenAccionInsegura3 >= 50 && investigation.riesgoAccionInsegura3 * investigation.costoAccionInsegura3 * investigation.volumenAccionInsegura3 < 80, 'bad': investigation.riesgoAccionInsegura3 * investigation.costoAccionInsegura3 * investigation.volumenAccionInsegura3 >= 80 } ">
+                                                    {{ +investigation.riesgoAccionInsegura3 * +investigation.costoAccionInsegura3 * +investigation.volumenAccionInsegura3 }}
+                                                </td>
+                                            </tr>
+                                            <tr *ngIf="investigation.accionInsegura4">
+                                                <td>4</td>
+                                                <td>
+                                                    <div class="col col-12">
+                                                        <input type="text" name="riesgoAccionInsegura4" id="riesgoAccionInsegura4" class="form-control inputForm" [ngClass]="{'is-invalid': riesgoAccionInsegura4.invalid && riesgoAccionInsegura4.touched}" #riesgoAccionInsegura4="ngModel" [(ngModel)]="investigation.riesgoAccionInsegura4"
+                                                            pattern="[1-5]" maxlength="1" required>
+                                                        <small class="invalid-feedback d-block" *ngIf="riesgoAccionInsegura4.invalid && riesgoAccionInsegura4.touched">El número debe estar entre 1 y 5</small>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="col col-12">
+                                                        <input type="text" name="costoAccionInsegura4" id="costoAccionInsegura4" class="form-control inputForm" [ngClass]="{'is-invalid': costoAccionInsegura4.invalid && costoAccionInsegura4.touched}" #costoAccionInsegura4="ngModel" [(ngModel)]="investigation.costoAccionInsegura4"
+                                                            pattern="[1-5]" maxlength="1" required>
+                                                        <small class="invalid-feedback d-block" *ngIf="costoAccionInsegura4.invalid && costoAccionInsegura4.touched">El número debe estar entre 1 y 5</small>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="col col-12">
+                                                        <input type="text" name="volumenAccionInsegura4" id="volumenAccionInsegura4" class="form-control inputForm" [ngClass]="{'is-invalid': volumenAccionInsegura4.invalid && volumenAccionInsegura4.touched}" #volumenAccionInsegura4="ngModel" [(ngModel)]="investigation.volumenAccionInsegura4"
+                                                            pattern="[1-5]" maxlength="1" required>
+                                                        <small class="invalid-feedback d-block" *ngIf="volumenAccionInsegura4.invalid && volumenAccionInsegura4.touched">El número debe estar entre 1 y 5</small>
+                                                    </div>
+                                                </td>
+                                                <td [ngClass]=" { 'good': investigation.riesgoAccionInsegura4 * investigation.costoAccionInsegura4 * investigation.volumenAccionInsegura4 < 50 , 'regular': investigation.riesgoAccionInsegura4 * investigation.costoAccionInsegura4 * investigation.volumenAccionInsegura4 >= 50 && investigation.riesgoAccionInsegura4 * investigation.costoAccionInsegura4 * investigation.volumenAccionInsegura4 < 80, 'bad': investigation.riesgoAccionInsegura4 * investigation.costoAccionInsegura4 * investigation.volumenAccionInsegura4 >= 80 } ">
+                                                    {{ +investigation.riesgoAccionInsegura4 * +investigation.costoAccionInsegura4 * +investigation.volumenAccionInsegura4 }}
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </ng-container>
+                            <ng-container>
+                                <div class="form-group">
+                                    <div class="col col-12 d-inline-block align-top">
+                                        <label for="factorContributivo" class="labelForm">Factores Contributivos*</label>
+                                        <select style="background-position-x: 98%" name="factorContributivo" id="factorContributivo" class="form-control inputForm" [ngClass]="{'is-invalid': factorContributivo.invalid && factorContributivo.touched}" #factorContributivo="ngModel" [(ngModel)]="investigation.factorContributivo"
+                                            (ngModelChange)="setOptionsFactoresContributivos()" required>
+											<option *ngFor="let factor of global.factoresContributivos" value="{{ factor.id }}">{{ factor.name }}</option>
+										</select>
+                                        <small class="invalid-feedback d-block font-weight-bold" *ngIf="factorContributivo.invalid && factorContributivo.touched">Debe seleccionar un opción de la lista desplegable</small>
+                                    </div>
+                                    <div class="col col-12 d-inline-block align-top mt-1" *ngIf="opcionesFactores">
+                                        <div class="col-12 d-inline-block pl-3 align-top checkbox" *ngFor="let opcion of opcionesFactores">
+                                            <input type="checkbox" [(ngModel)]="opcion.isSelected" (ngModelChange)="validateFactors()" name="{{'opcion' + opcion.id}}" id="{{'opcion' + opcion.id}}"><label class="checkbox" for="{{'opcion' + opcion.id}}">{{ opcion.name }}</label>
+                                        </div>
+                                        <small class="invalid-feedback d-block" *ngIf="!factorsFlag">Debe seleccionar al menos un Factor Contributivo o seleccionar NO APLICA</small>
+                                    </div>
+                                </div>
+                                <div class="form-group col col-12 align-top">
+                                    <label for="barrerasSeguridad" class="labelForm">Barreras de Seguridad Implementadas*</label>
+                                    <div class="col-12 d-inline-block pl-3 align-top checkbox" *ngFor="let barrera of barrerasSeguridadImplementadas">
+                                        <input type="checkbox" [(ngModel)]="barrera.isSelected" (ngModelChange)="validateBarriers()" name="{{'barrera' + barrera.id}}" id="{{'barrera' + barrera.id}}"><label class="checkbox" for="{{'barrera' + barrera.id}}">{{ barrera.name }}</label>
+                                    </div>
+                                    <small class="invalid-feedback d-block" *ngIf="!barriersFlag">Debe seleccionar al menos una barrera de seguridad implementada</small>
+                                </div>
+                                <div class="form-group col col-12 align-top">
+                                    <label for="descripcionAccionInsegura" class="labelForm">Descripción Adicional</label>
+                                    <textarea name="descripcionAccionInsegura" id="descripcionAccionInsegura" rows="4" class="form-control inputForm" [ngClass]="{'is-invalid': descripcionAccionInsegura.invalid && descripcionAccionInsegura.touched}" #descripcionAccionInsegura="ngModel" [(ngModel)]="investigation.descripcionAccionInsegura"
+                                        placeholder="Puede usar este campo para ingresar una descripción adicional sobre acciones inseguras o fallas activas presentadas en el suceso de seguridad"></textarea>
+                                </div>
+                            </ng-container>
+                            <ng-container>
+                                <div class="form-group">
+                                    <div class="col col-12 d-inline-block align-top">
+                                        <label for="conclusion" class="labelForm">Conclusión*</label>
+                                        <textarea name="conclusion" id="conclusion" rows="8" class="form-control inputForm" [ngClass]="{'is-invalid': conclusion.invalid && conclusion.touched}" #conclusion="ngModel" [(ngModel)]="investigation.conclusionInvestigacion" minlength="20" required
+                                            placeholder="Por favor ingrese la conclusión de la investigación. La descripción debe tener al menos 20 caracteres."></textarea>
+                                        <small class="invalid-feedback d-block" *ngIf="conclusion.invalid && conclusion.touched">Debe ingresar la conclusión de la investigación. Recuerde que debe contener al menos 20 caracteres.</small>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col col-12 d-inline-block align-top">
+                                        <label for="clasificacion" class="labelForm">Clasificación*</label>
+                                        <select style="background-position-x: 98%" name="clasificacion" id="clasificacion" class="form-control inputForm" [ngClass]="{'is-invalid': clasificacion.invalid && clasificacion.touched}" #clasificacion="ngModel" [(ngModel)]="investigation.clasificacionInvestigacion"
+                                            required>
+											<option *ngFor="let clasi of global.clasificacionInvestigacion" value="{{ clasi.id }}">{{ clasi.name }}</option>
+										</select>
+                                        <small class="invalid-feedback d-block" *ngIf="clasificacion.invalid && clasificacion.touched">Por favor ingrese la conclusión de la investigación. Recuerde que debe contener al menos 20 caracteres.</small>
+                                    </div>
+                                </div>
+                            </ng-container>
 
                             <div class="form-group" style="margin-top: 3rem">
                                 <div class="col col-sm-12 buttonSubmit">
-                                    <input type="submit" value="{{ buttonText }}" class="btn btn-success btnPrefer col-sm-12" [disabled]="investigationForm.invalid">
+                                    <input type="submit" value="{{ buttonText }}" class="btn btn-success btnPrefer col-sm-12" [disabled]="investigationForm.invalid || !factorsFlag || !barriersFlag">
                                 </div>
                             </div>
-                            <!-- <div class="mt-3 col col-sm-12 errorAlert" *ngIf="storeResponseMessage">
-								<div class="alert alert-danger" role="alert">
-									{{ storeResponseMessage }}
-								</div>
-							</div>
-							<div class="deleteLoader" *ngIf="storePreloaderStatus">
-								<div class="loader"></div>
-							</div> -->
+                            <div class="deleteLoader" *ngIf="storePreloaderStatus">
+                                <div class="loader"></div>
+                            </div>
                         </form>
                     </ng-container>
                 </div>

@@ -51,7 +51,7 @@ export class UserRegisterComponent implements OnInit {
 		this.enabledPassword = false;
 		this.buttonText = 'Registrar';
 
-		this.user = new User(null, null, null, null, null, null, null, null);
+		this.user = new User(null, null, null, null, null, null, null);
 		this.token = this.userService.getToken();
 	}
 

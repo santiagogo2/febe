@@ -16,7 +16,8 @@ export class ReferenciaComponent implements OnInit {
 	referencia: any[] = [
 		{ titulo: 'Seguimiento Personal Asistencial', url: 'asistencial', class: 'card-4FB96F', description: 'Seguimiento de las solicitudes de referencia para el personal asistencial' },
 		{ titulo: 'Agregar Solicitud', url: 'solicitud', class: 'card-EC8993', description: 'Nueva solicitud de traslado de paciente' },
-		{ titulo: 'Panel Operadores', url: 'panel', class: 'card-924E4E', description: 'Panel de seguimiento para los operadores asignados' },
+		{ titulo: 'Agregar Solicitud Externa', url: 'solicitud-externa', class: 'card-924E4E', description: 'Nueva solicitud de translado de pacientes atendidos extramural que podrá ser solicitada por los operadores.' },
+		{ titulo: 'Panel Operadores', url: 'panel', class: 'card-ECC350', description: 'Panel de seguimiento para los operadores asignados' },
 	];
 
 	constructor() {
@@ -45,6 +46,9 @@ export class ReferenciaComponent implements OnInit {
 			}
 			if ( element.id_operations === 79 ) {
 				array.push(this.referencia[2]);
+			}
+			if ( element.id_operations === 85 ) {
+				array.push(this.referencia[3]);
 			}
 			if ( element.id_operations === 73 ) {
 				this.initialFilter = true;

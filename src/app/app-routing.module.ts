@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { NopagefoundComponent } from './shared/nopagefound/nopagefound.component';
 import { ValidarcertComponent } from './modulos/contratacion/certificaciones/validarcert/validarcert.component';
 import { SolicitarcertComponent } from './modulos/contratacion/certificaciones/solicitarcert/solicitarcert.component';
@@ -17,6 +19,8 @@ const appRoutes: Routes = [
 	{ path: 'login', component: LoginComponent, canActivate: [ LoginGuard ] },
 	{ path: 'logout/:sure', component: LoginComponent },
 	{ path: 'register', component: RegisterComponent },
+	{ path: 'forgot-password', component: ForgotPasswordComponent },
+	{ path: 'reset-password', component: ResetPasswordComponent },
 	{ path: 'validarCert', component: ValidarcertComponent, data: { titulo: 'Validar certificación' } },
 	{ path: 'solicitudes', component: SolicitarcertComponent, data: { titulo: 'Agregar Novedades Externas' } },
 	{ path: '**', component: NopagefoundComponent, canActivate: [ IdentityGuard] },

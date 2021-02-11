@@ -2,11 +2,12 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 // Components
+import { AsistencialComponent } from './asistencial/asistencial.component';
+import { FollowComponent } from './operadores/follow/follow.component';
+import { PanelComponent } from './operadores/panel/panel.component';
 import { ReferenciaComponent } from './referencia.component';
 import { SolicitudComponent } from './solicitud/solicitud.component';
-import { PanelComponent } from './operadores/panel/panel.component';
-import { FollowComponent } from './operadores/follow/follow.component';
-import { AsistencialComponent } from './asistencial/asistencial.component';
+import { SolicitudExternaComponent } from './operadores/solicitud-externa/solicitud-externa.component';
 
 // Guards
 import { 
@@ -14,6 +15,7 @@ import {
 	ReferenciaFollowGuard,
 	ReferenciaGuard,
 	ReferenciaPanelGuard,
+	ReferenciaSolicitudExternaGuard,
 	ReferenciaSolicitudGuard,
 } from './guards/referencia-guards.index';
 
@@ -29,6 +31,12 @@ const referenciaRoutes: Routes = [
 		component: SolicitudComponent,
 		data: { titulo: 'Formulario de Solicitud Referencia' },
 		canActivate: [ ReferenciaSolicitudGuard ],
+	},
+	{
+		path: 'solicitud-externa',
+		component: SolicitudExternaComponent,
+		data: { titulo: 'Formulario de Solicitud Externa Referencia' },
+		canActivate: [ ReferenciaSolicitudExternaGuard ],
 	},
 	{
 		path: 'panel',

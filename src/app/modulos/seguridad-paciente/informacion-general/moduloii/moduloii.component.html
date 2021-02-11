@@ -16,13 +16,13 @@
                             <input type="text" name="perfilReportante" class="form-control inputForm" value="{{ preclasification.clasificacionTaxonomia | global: 'preclasificacionTaxonomia' }}" disabled>
                         </div>
                     </div>
-                    <div class="form-group" *ngIf="preclasification.clasificacionTaxonomia != 3">
+                    <div class="form-group" *ngIf="preclasification.clasificacionTaxonomia != 2 && preclasification.clasificacionTaxonomia != 3">
                         <div class="col col-12 d-inline-block align-top">
                             <label for="descripcion" class="labelForm">Descripción</label>
                             <textarea name="descripcion" id="descripcion" rows="5" class="form-control inputForm" disabled>{{ preclasification.descripcion }}</textarea>
                         </div>
                     </div>
-                    <div class="form-group" *ngIf="preclasification.clasificacionTaxonomia == 3">
+                    <div class="form-group" *ngIf="preclasification.clasificacionTaxonomia == 2 || preclasification.clasificacionTaxonomia == 3">
                         <div class="col col-sm-12 col-md-6 d-inline-block align-top">
                             <label for="unidadPresento" class="labelForm">Severidad</label>
                             <input type="text" name="unidadPresento" class="form-control inputForm" value="{{ preclasification.severidad | global: 'severidad' }}" disabled>

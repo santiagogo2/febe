@@ -139,6 +139,9 @@ export class NavbarComponent implements OnInit {
 			url: '/seguridad-paciente',
 			operationId: 71,
 			dropdown: [
+				{ title: 'Preclasificación', url: '/seguridad-paciente/preclasificacion', operationId: 82 },
+				{ title: 'Investigación', url: '/seguridad-paciente/investigacion', operationId: 83 },
+				{ title: 'Nueva Encuesta', url: '/seguridad-paciente/encuesta', operationId: 84 },
 				{ title: 'Generar Reporte Provisional', url: '/seguridad-paciente/reporte', operationId: 72 },
 			]
 		},

@@ -4,17 +4,21 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 // Services
 import { global } from '../../../services/services.index';
 import { Observable } from 'rxjs';
+import { UserService } from '../../../services/services.index';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class ModuleService {
 	public url: string;
+	token: string;
 
 	constructor(
-		private http: HttpClient
+		private http: HttpClient,
+		private userService: UserService,
 	) {
 		this.url = global.url;
+		this.token = this.userService.getToken();
 	}
 
 	modulesList( token ): Observable<any> {
@@ -27,6 +31,11 @@ export class ModuleService {
 		const headers = new HttpHeaders().set( 'Authorization', token );
 
 		return this.http.get( this.url + 'module/' + id, { headers } );
+	}
+
+	showModulesByChain( chain ): Observable<any> {		
+		const headers = new HttpHeaders().set( 'Authorization', this.token );
+		return this.http.get( this.url + 'module/chain/' + chain, { headers } );
 	}
 
 	newModule( module, token ): Observable<any> {

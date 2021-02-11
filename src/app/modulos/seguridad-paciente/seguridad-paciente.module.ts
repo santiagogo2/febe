@@ -14,6 +14,9 @@ import { PreClasificacionComponent } from './secciones/preclasificacion/preclasi
 import { InvestigacionComponent } from './secciones/investigacion/investigacion.component';
 import { ModuloiComponent } from './informacion-general/moduloi/moduloi.component';
 import { ModuloiiComponent } from './informacion-general/moduloii/moduloii.component';
+import { EncuestaComponent } from './secciones/encuesta/encuesta.component';
+import { SurveyComponent } from './informacion-general/survey/survey.component';
+import { SeguridadPacienteComponent } from './seguridad-paciente.component';
 
 // Components
 
@@ -23,7 +26,10 @@ import { ModuloiiComponent } from './informacion-general/moduloii/moduloii.compo
 		PreClasificacionComponent,
 		InvestigacionComponent,
 		ModuloiComponent,
-		ModuloiiComponent
+		ModuloiiComponent,
+		EncuestaComponent,
+		SurveyComponent,
+		SeguridadPacienteComponent
 	],
 	imports: [
 		CommonModule,

@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
 	) {
 		this.pageTitle = global.appName;
 
-		this.user = new User(null, null, null, null, null, null, null, null);
+		this.user = new User(null, null, null, null, null, null, null);
 	}
 
 	ngOnInit(): void {
@@ -75,8 +75,11 @@ export class LoginComponent implements OnInit {
 									},
 									error => {
 										this.preloaderStatus = false;
+										this.status = 'error';
+										this.responseMessage = error.error.message;
 										loginForm.reset();
 										localStorage.clear();
+										console.log(error);
 									}
 								);
 							}
@@ -107,9 +110,12 @@ export class LoginComponent implements OnInit {
 			if (logout === 1) {
 				const document = localStorage.getItem('trainingLoadedDocument');
 				const document1 = localStorage.getItem('preClasificationLoadedDocument');
+				const document2 = localStorage.getItem('investigationLoadedDocument');
 				if ( document ) {
 					this.trainingService.deleteFile( document, this.userService.getToken() ).subscribe();
 				} if ( document1 ) {
+					this.preClasificacionService.deleteFile( document ).subscribe();
+				} if ( document2 ) {
 					this.preClasificacionService.deleteFile( document ).subscribe();
 				}
 				localStorage.clear();

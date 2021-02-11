@@ -27,6 +27,10 @@ export class ModulesListComponent implements OnInit {
 	public registerFlag: boolean;
 	public deleteFlag: boolean;
 
+	chain: string;
+	searchResponseMessage: string;
+	searchLoaderStatus: boolean;
+
 	constructor(
 		private userService: UserService,
 		private moduleService: ModuleService,
@@ -43,13 +47,20 @@ export class ModulesListComponent implements OnInit {
 	}
 
 	modulesList(){
+		this.responseMessage = null;
+		this.status = null;
+		this.searchResponseMessage = null;
+		this.searchLoaderStatus = true;
+
 		this.moduleService.modulesList(this.token).subscribe(
 			res => {
+				this.searchLoaderStatus = false;
 				if ( res.status === 'success' ) {
 					this.modules = res.modules;
 				}
 			},
 			error => {
+				this.searchLoaderStatus = false;
 				this.status = 'error';
 				this.responseMessage = error.message ? error.message : error.error.message;
 				console.log(error);
@@ -102,6 +113,26 @@ export class ModulesListComponent implements OnInit {
 				}
 			});
 		}
+	}
+
+	search( searchForm ) {
+		this.searchResponseMessage = null;
+		this.searchLoaderStatus = true;
+		this.actualPage = 1;
+
+		this.moduleService.showModulesByChain( this.chain ).subscribe(
+			res => {
+				this.searchLoaderStatus = false;
+				if ( res.status === 'success' ) {
+					this.modules = res.modules;
+					searchForm.reset();
+				}
+			},
+			error => {
+				this.searchResponseMessage = error.error.message;
+				this.searchLoaderStatus = false;
+			}
+		);
 	}
 
 	pageChange(event){

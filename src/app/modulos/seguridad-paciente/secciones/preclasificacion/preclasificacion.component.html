@@ -4,7 +4,7 @@
             <div class="card-body">
                 <div class="formContainer">
                     <div class="backLink col col-sm-12">
-                        <a class="col-sm-12" routerLink="/referencia">Regresar</a>
+                        <a class="col-sm-12" routerLink="/seguridad-paciente">Regresar</a>
                     </div>
                     <div class="form-group">
                         <div class="col col-sm-12 col-lg-6 d-inline-block align-top">
@@ -35,6 +35,16 @@
                     <form #secondModuleForm="ngForm" (ngSubmit)="onSubmit(secondModuleForm)" *ngIf="securityEvent">
                         <div class="form-group">
                             <div class="col col-12 d-inline-block align-top">
+                                <label for="infoSucesoReportado" class="labelForm">Información del Suceso Reportado*</label>
+                                <select style="background-position-x: 95%" name="infoSucesoReportado" id="infoSucesoReportado" class="form-control inputForm" [ngClass]="{'is-invalid': infoSucesoReportado.invalid && infoSucesoReportado.touched}" #infoSucesoReportado="ngModel" [(ngModel)]="preClasificationEvent.infoSucesoReportado"
+                                    required>
+									<option *ngFor="let option of global.infoSucesoReportado" value="{{ option.id }}">{{ option.name }}</option>
+								</select>
+                                <small class="invalid-feedback d-block font-weight-bold" *ngIf="infoSucesoReportado.invalid && infoSucesoReportado.touched">Debe selecionar una opción de información de suceso reportado de la lista desplegable</small>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col col-12 d-inline-block align-top">
                                 <label for="taxonomy" class="labelForm">Preclasificación según taxonomía*</label>
                                 <select style="background-position-x: 95%" name="taxonomy" id="taxonomy" class="form-control inputForm" [ngClass]="{'is-invalid': taxonomy.invalid && taxonomy.touched}" #taxonomy="ngModel" [(ngModel)]="preClasificationEvent.clasificacionTaxonomia" required>
 									<option *ngFor="let taxonomia of global.preclasificacionTaxonomia" value="{{ taxonomia.id }}">{{ taxonomia.name }}</option>
@@ -42,16 +52,16 @@
                                 <small class="invalid-feedback d-block font-weight-bold" *ngIf="taxonomy.invalid && taxonomy.touched">Debe selecionar una preclasificación de la lista desplegable</small>
                             </div>
                         </div>
-                        <ng-container *ngIf="preClasificationEvent.clasificacionTaxonomia && preClasificationEvent.clasificacionTaxonomia == 3">
+                        <ng-container *ngIf="preClasificationEvent.clasificacionTaxonomia && (preClasificationEvent.clasificacionTaxonomia == 2 || preClasificationEvent.clasificacionTaxonomia == 3)">
                             <div class="form-group">
-                                <div class="col col-sm-12 col-md-6 d-inline-block align-top">
+                                <div class="col col-sm-12 d-inline-block align-top" [ngClass]="{'col-md-6': preClasificationEvent.clasificacionTaxonomia == 3}">
                                     <label for="severity" class="labelForm">Severidad*</label>
                                     <select style="background-position-x: 95%" name="severity" id="severity" class="form-control inputForm" [ngClass]="{'is-invalid': severity.invalid && severity.touched}" #severity="ngModel" [(ngModel)]="preClasificationEvent.severidad" required>
 										<option *ngFor="let tipo of global.severidad" value="{{ tipo.id }}">{{ tipo.name }}</option>
 									</select>
                                     <small class="invalid-feedback d-block font-weight-bold" *ngIf="severity.invalid && severity.touched">Debe selecionar la severidad de la lista desplegable</small>
                                 </div>
-                                <div class="col col-sm-12 col-md-6 d-inline-block align-top">
+                                <div class="col col-sm-12 col-md-6 d-inline-block align-top" *ngIf="preClasificationEvent.clasificacionTaxonomia == 3">
                                     <label for="preventableEvent" class="labelForm">¿El evento fue Prevenible o No Prevenible?*</label>
                                     <select style="background-position-x: 95%" name="preventableEvent" id="preventableEvent" class="form-control inputForm" [ngClass]="{'is-invalid': preventableEvent.invalid && preventableEvent.touched}" #preventableEvent="ngModel" [(ngModel)]="preClasificationEvent.preguntaEventoPrevenible"
                                         required>
@@ -106,7 +116,18 @@
                                 </div>
                             </ng-container>
                             <ng-container *ngIf="eventId == 3">
-                                <div class="tableContainer col col-12">
+                                <div class="form-group">
+                                    <div class="col col-12 d-inline-block align-top">
+                                        <label for="preguntaAlgoritmo" class="labelForm">Requiere Algoritmo Naranjo*</label>
+                                        <select style="background-position-x: 95%" name="preguntaAlgoritmo" id="preguntaAlgoritmo" class="form-control inputForm" [ngClass]="{'is-invalid': preguntaAlgoritmo.invalid && preguntaAlgoritmo.touched}" #preguntaAlgoritmo="ngModel" [(ngModel)]="algoritmoFlag"
+                                            required>
+											<option value="1">SI</option>
+											<option value="2">NO</option>
+										</select>
+                                        <small class="invalid-feedback d-block font-weight-bold" *ngIf="preguntaAlgoritmo.invalid && preguntaAlgoritmo.touched">Debe selecionar una opción de información de suceso reportado de la lista desplegable</small>
+                                    </div>
+                                </div>
+                                <div class="tableContainer col col-12" *ngIf="algoritmoFlag && algoritmoFlag == 1">
                                     <div class="tableContainerAll">
                                         <table class="table table-bordered">
                                             <thead class="thead_styles">
@@ -199,7 +220,7 @@
                                 </div>
                             </ng-container>
                         </ng-container>
-                        <ng-container *ngIf="preClasificationEvent.clasificacionTaxonomia && preClasificationEvent.clasificacionTaxonomia != 3">
+                        <ng-container *ngIf="preClasificationEvent.clasificacionTaxonomia && preClasificationEvent.clasificacionTaxonomia != 2 && preClasificationEvent.clasificacionTaxonomia != 3">
                             <div class="form-group">
                                 <div class="col col-12 d-inline-block align-top">
                                     <label for="description" class="labelForm">Descripción*</label>

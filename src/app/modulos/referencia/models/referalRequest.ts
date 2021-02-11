@@ -1,7 +1,7 @@
 export class ReferalRequest {
 	constructor(
 		public id: number,
-		public numeroIdentificacion: number,
+		public numeroIdentificacion: string,
 		public tipoIdentificacion: string,
 		public nombresApellidos: string,
 		public edadPaciente: number,

@@ -24,6 +24,7 @@
                     <input type="checkbox" [(ngModel)]="filters.nuevos" (ngModelChange)="getCasesByFilters()" name="Nuevos" id="Nuevos"><label class="checkbox" for="Nuevos">NUEVOS</label>
                     <input class="ml-3" type="checkbox" [(ngModel)]="filters.aceptados" (ngModelChange)="getCasesByFilters()" name="Aceptados" id="Aceptados"><label class="checkbox" for="Aceptados">ACEPTADOS</label>
                     <input class="ml-3" type="checkbox" [(ngModel)]="filters.cerrados" (ngModelChange)="getCasesByFilters()" name="Cerrados" id="Cerrados"><label class="checkbox" for="Cerrados">CERRADOS</label>
+                    <input class="ml-3" type="checkbox" [(ngModel)]="filters.cancelados" (ngModelChange)="getCasesByFilters()" name="Cancelados" id="Cancelados"><label class="checkbox" for="Cancelados">CANCELADOS</label>
                     <small class="invalid-feedback d-block" *ngIf="filterErrorMessage">{{ filterErrorMessage }}</small>
                 </div>
                 <div class="mt-3 errorAlert alert-danger" *ngIf="responseMessage">
@@ -42,7 +43,7 @@
                         <div class="deleteLoader mb-3" *ngIf="preloaderStatus">
                             <div class="loader"></div>
                         </div>
-                        <table class="table table-bordered">
+                        <table class="table table-bordered" *ngIf="!preloaderStatus">
                             <thead class="thead_styles">
                                 <tr>
                                     <th>Consecutivo</th>
@@ -63,11 +64,11 @@
                                     <td><a [routerLink]="['../panel/seguimiento/', referal.id]">{{ referal.created_at.substr(0,16) }}</a></td>
                                     <td><a [routerLink]="['../panel/seguimiento/', referal.id]">{{ referal.numeroIdentificacion }}</a></td>
                                     <td><a [routerLink]="['../panel/seguimiento/', referal.id]">{{ referal.nombresApellidos }}</a></td>
-                                    <td><a [routerLink]="['../panel/seguimiento/', referal.id]">{{ referal.ingreso }}</a></td>
+                                    <td><a [routerLink]="['../panel/seguimiento/', referal.id]">{{ referal.ingreso | isnullfill }}</a></td>
                                     <td><a [routerLink]="['../panel/seguimiento/', referal.id]">{{ referal.motivoTraslado | global: 'motivosTraslados' }}</a></td>
-                                    <td><a [routerLink]="['../panel/seguimiento/', referal.id]">{{ referal.nombreMedico }}</a></td>
+                                    <td><a [routerLink]="['../panel/seguimiento/', referal.id]">{{ referal.nombreMedico | isnullfill }}</a></td>
                                     <td><a [routerLink]="['../panel/seguimiento/', referal.id]">{{ referal.estado | global: 'estadosReferencia' }}</a></td>
-                                    <td><a [routerLink]="['../panel/seguimiento/', referal.id]">{{ subsDates( referal.created_at.substr(0,16), referal.fechaHoraCierre ) }}</a></td>
+                                    <td [ngClass]="{'bad': getDateColor(referal.created_at.substr(0,19), referal.fechaHoraCierre, referal.prioridad) == 'bad', 'regular': getDateColor(referal.created_at.substr(0,19), referal.fechaHoraCierre, referal.prioridad) == 'regular', 'good': getDateColor(referal.created_at.substr(0,19), referal.fechaHoraCierre, referal.prioridad) == 'good'}"><a style="color: #FFF !important;" [routerLink]="['../panel/seguimiento/', referal.id]">{{ referal.timeElapsed }}</a></td>
                                     <td [ngClass]=" { 'bad': referal.prioridad==1 , 'good': referal.prioridad==2 , 'regular': referal.prioridad==3 } ">{{ referal.prioridad | global: 'prioridades' }}</td>
                                 </tr>
                             </tbody>

@@ -48,12 +48,16 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="col col-12 d-inline-block align-top">
+                        <div class="col col-10 d-inline-block align-top">
                             <label class="labelForm">Aseguradora</label>
                             <input type="text" class="form-control inputForm" value="{{ referalRequest.aseguradora }}" disabled>
                         </div>
+                        <div class="col col-2 d-inline-block align-top">
+                            <label class="labelForm">Tipo de Ambulancia</label>
+                            <input type="text" class="form-control inputForm" value="{{ referalRequest.ambulancia | global: 'tiposAmbulancia' }}" disabled>
+                        </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" *ngIf="referalRequest.ingreso">
                         <div class="col col-sm-6 col-lg-2 d-inline-block align-top">
                             <label class="labelForm">Ingreso</label>
                             <input type="text" class="form-control inputForm" value="{{ referalRequest.ingreso }}" disabled>
@@ -72,28 +76,30 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="col col-md-5 col-lg-2 d-inline-block align-top">
+                        <div class="col col-sm-12 d-inline-block align-top" [ngClass]="{'col-md-5 col-lg-2': referalRequest.folio}">
                             <label class="labelForm">Motivo de Traslado</label>
                             <input type="text" class="form-control inputForm" value="{{ referalRequest.motivoTraslado | global: 'motivosTraslados' }}" disabled>
                         </div>
-                        <div class="col col-md-2 col-lg-1 d-inline-block align-top">
-                            <label class="labelForm">Folio</label>
-                            <input type="text" class="form-control inputForm" value="{{ referalRequest.folio }}" disabled>
-                        </div>
-                        <div class="col col-md-5 col-lg-2 d-inline-block align-top">
-                            <label class="labelForm">Fecha de Folio</label>
-                            <input type="text" class="form-control inputForm" value="{{ referalRequest.fechaFolio }}" disabled>
-                        </div>
-                        <div class="col col-md-12 col-lg-4 d-inline-block align-top">
-                            <label class="labelForm">Nombre del Médico</label>
-                            <input type="text" class="form-control inputForm" value="{{ referalRequest.nombreMedico }}" disabled>
-                        </div>
-                        <div class="col col-md-12 col-lg-3 d-inline-block align-top">
-                            <label class="labelForm">Especialidad del Médico</label>
-                            <input type="text" class="form-control inputForm" value="{{ referalRequest.especialidadMedico }}" disabled>
-                        </div>
+                        <ng-container *ngIf="referalRequest.folio">
+                            <div class="col col-md-2 col-lg-1 d-inline-block align-top">
+                                <label class="labelForm">Folio</label>
+                                <input type="text" class="form-control inputForm" value="{{ referalRequest.folio }}" disabled>
+                            </div>
+                            <div class="col col-md-5 col-lg-2 d-inline-block align-top">
+                                <label class="labelForm">Fecha de Folio</label>
+                                <input type="text" class="form-control inputForm" value="{{ referalRequest.fechaFolio }}" disabled>
+                            </div>
+                            <div class="col col-md-12 col-lg-4 d-inline-block align-top">
+                                <label class="labelForm">Nombre del Médico</label>
+                                <input type="text" class="form-control inputForm" value="{{ referalRequest.nombreMedico }}" disabled>
+                            </div>
+                            <div class="col col-md-12 col-lg-3 d-inline-block align-top">
+                                <label class="labelForm">Especialidad del Médico</label>
+                                <input type="text" class="form-control inputForm" value="{{ referalRequest.especialidadMedico }}" disabled>
+                            </div>
+                        </ng-container>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" *ngIf="referalRequest.diagnostico">
                         <div class="col col-12 d-inline-block align-top">
                             <label class="labelForm">Diagnóstico</label>
                             <textarea class="form-control inputForm" rows="3" disabled>{{ referalRequest.diagnostico }}</textarea>
@@ -183,24 +189,24 @@
                             <input type="text" class="form-control inputForm" value="{{ referalRequest.horaRegreso }}" disabled>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <fa-icon [icon]="faSpinner" class="d-block spin" *ngIf="storePreloaderStatus" style="margin-left: 1rem;"></fa-icon>
+                    <div class="form-group" *ngIf="referalRequest.cups.length > 0 && !storePreloaderStatus">
                         <div class="subtitle"><span>CUPS</span></div>
                         <div class="col col-12 d-inline-block align-top">
-                            <div *ngIf="referalRequest.cups.length > 0">
-                                <ul class="list">
-                                    <li *ngFor="let cup of referalRequest.cups">{{ cup.codigoCups + ' - ' + cup.nombreExamen }}</li>
-                                </ul>
-                            </div>
-                            <small class="invalid-feedback d-block font-weight-bold" *ngIf="referalRequest.cups.length == 0">No existen CUPS asociados a esta solicitud</small>
+                            <ul class="list">
+                                <li *ngFor="let cup of referalRequest.cups">{{ cup.codigoCups + ' - ' + cup.nombreExamen }}
+                                    <b *ngIf="cup.fechaCita"> - {{ cup.fechaCita + ' ' + cup.horaCita }}</b>
+                                </li>
+                            </ul>
                         </div>
                     </div>
-                    <div class="form-group text-center" *ngIf="!caseAcepted && referalRequest.estado != 2 && referalRequest.cups.length > 0 && aceptCaseFlag">
+                    <div class="form-group text-center" *ngIf="!caseAcepted && referalRequest.estado != 2 && aceptCaseFlag">
                         <button class="col col-5 btn btn-info btnPrefer" (click)="aceptCase( 1 )">{{ buttonTextStatus }}</button>
                         <fa-icon [icon]="faSpinner" class="d-block spin" *ngIf="changePreloaderStatus"></fa-icon>
                         <small class="invalid-feedback d-block font-weight-bold" *ngIf="changeStatusResponseMessage">{{ changeStatusResponseMessage }}</small>
                     </div>
                     <div class="col col-12 text-center">
-                        <span type="button" style="padding: 0.5rem;" class="ml-1 badge badge-pill badge-info col col-sm-12 col-md-5 d-inline-block" *ngIf="referalRequest.cups.length > 0 && caseAcepted && referalRequest.estado != 2 && newFollowFlag" data-toggle="modal" [attr.data-target]="'#newFollow'">+ Nuevo Seguimiento</span>
+                        <span type="button" style="padding: 0.5rem;" class="ml-1 badge badge-pill badge-info col col-sm-12 col-md-5 d-inline-block" *ngIf="caseAcepted && referalRequest.estado != 2 && referalRequest.estado != 3 && newFollowFlag" data-toggle="modal" [attr.data-target]="'#newFollow'">+ Nuevo Seguimiento</span>
                         <span type="button" style="padding: 0.5rem;" class="ml-1 mt-1 badge badge-pill badge-danger col col-sm-12 col-md-3 d-inline-block" *ngIf="referalRequest.estado == 1 && !requestId && closeCaseFlag" (click)="closeCase()">Cerrar Caso</span>
                     </div>
 
@@ -317,7 +323,7 @@
                         </div>
                     </div>
                     <div *ngIf="(follow.pacienteAceptado==1 || pacienteAceptadoStatus) && !requestId">
-                        <div class="form-group" *ngIf="!requestId">
+                        <div class="form-group">
                             <div class="col col-sm-12 col-lg-6 d-inline-block align-top" *ngIf="!referalRequest.numeroMovil">
                                 <label for="numeroMovil" class="labelForm">Número de la movil</label>
                                 <input type="text" name="numeroMovil" class="form-control inputForm" [ngClass]="{ 'is-invalid': numeroMovil.invalid && numeroMovil.touched}" #numeroMovil="ngModel" [(ngModel)]="updateCaseData.numeroMovil" (ngModelChange)="updateCaseData.numeroMovil=globalService.upperCase($event)">
@@ -332,7 +338,7 @@
                                 <small class="invalid-feedback d-block font-weight-bold" *ngIf="tipoTraslado.invalid && tipoTraslado.touched">Debe seleccionar un tipo de traslado de la lista desplegable</small>
                             </div>
                         </div>
-                        <div class="form-group" *ngIf="!requestId">
+                        <div class="form-group">
                             <div class="col col-6 d-inline-block align-top" *ngIf="!referalRequest.fechaDespacho">
                                 <label for="fechaDespacho" class="labelForm">Fecha de Despacho</label>
                                 <input type="date" name="fechaDespacho" class="form-control inputForm" [ngClass]="{ 'is-invalid': fechaDespacho.invalid && fechaDespacho.touched}" #fechaDespacho="ngModel" [(ngModel)]="updateCaseData.fechaDespacho">
@@ -342,7 +348,7 @@
                                 <input type="time" name="horaDespacho" class="form-control inputForm" [ngClass]="{ 'is-invalid': horaDespacho.invalid && horaDespacho.touched}" #horaDespacho="ngModel" [(ngModel)]="updateCaseData.horaDespacho">
                             </div>
                         </div>
-                        <div class="form-group" *ngIf="!requestId">
+                        <div class="form-group">
                             <div class="col col-sm-6 col-lg-3 d-inline-block align-top" *ngIf="!referalRequest.fechaLlegadaOrigen">
                                 <label for="fechaLlegadaOrigen" class="labelForm">Fecha de Llegada al Origen</label>
                                 <input type="date" name="fechaLlegadaOrigen" class="form-control inputForm" [ngClass]="{ 'is-invalid': fechaLlegadaOrigen.invalid && fechaLlegadaOrigen.touched}" #fechaLlegadaOrigen="ngModel" [(ngModel)]="updateCaseData.fechaLlegadaOrigen">
@@ -360,7 +366,7 @@
                                 <input type="time" name="horaSalidaOrigen" class="form-control inputForm" [ngClass]="{ 'is-invalid': horaSalidaOrigen.invalid && horaSalidaOrigen.touched}" #horaSalidaOrigen="ngModel" [(ngModel)]="updateCaseData.horaSalidaOrigen">
                             </div>
                         </div>
-                        <div class="form-group" *ngIf="!requestId">
+                        <div class="form-group">
                             <div class="col col-sm-6 col-lg-3 d-inline-block align-top" *ngIf="!referalRequest.fechaLlegadaDestino">
                                 <label for="fechaLlegadaDestino" class="labelForm">Fecha de Llegada al Destino</label>
                                 <input type="date" name="fechaLlegadaDestino" class="form-control inputForm" [ngClass]="{ 'is-invalid': fechaLlegadaDestino.invalid && fechaLlegadaDestino.touched}" #fechaLlegadaDestino="ngModel" [(ngModel)]="updateCaseData.fechaLlegadaDestino">
@@ -378,7 +384,7 @@
                                 <input type="time" name="horaSalidaDestino" class="form-control inputForm" [ngClass]="{ 'is-invalid': horaSalidaDestino.invalid && horaSalidaDestino.touched}" #horaSalidaDestino="ngModel" [(ngModel)]="updateCaseData.horaSalidaDestino">
                             </div>
                         </div>
-                        <div class="form-group" *ngIf="!requestId">
+                        <div class="form-group">
                             <div class="col col-6 d-inline-block align-top" *ngIf="!referalRequest.fechaRegreso">
                                 <label for="fechaRegreso" class="labelForm">Fecha de Retorno</label>
                                 <input type="date" name="fechaRegreso" class="form-control inputForm" [ngClass]="{ 'is-invalid': fechaRegreso.invalid && fechaRegreso.touched}" #fechaRegreso="ngModel" [(ngModel)]="updateCaseData.fechaRegreso">
@@ -388,6 +394,20 @@
                                 <input type="time" name="horaRegreso" class="form-control inputForm" [ngClass]="{ 'is-invalid': horaRegreso.invalid && horaRegreso.touched}" #horaRegreso="ngModel" [(ngModel)]="updateCaseData.horaRegreso">
                             </div>
                         </div>
+                        <hr>
+                        <ng-container *ngIf="referalRequest.cups.length > 0">
+                            <div class="form-group" *ngFor="let cups of referalRequest.cups; index as i">
+                                <div class="col col-12">
+                                    <label for="{{'cups#' + i}}" class="labelForm">{{ cups.codigoCups + ' - ' + cups.nombreExamen }}</label>
+                                </div>
+                                <div class="col col-6 d-inline-block align-top">
+                                    <input type="date" name="{{ 'fechaCita#' + i }}" class="form-control inputForm" [(ngModel)]="cups.fechaCita">
+                                </div>
+                                <div class="col col-6 d-inline-block align-top" *ngIf="cups.fechaCita">
+                                    <input type="time" name="{{ 'horaCita#' + i }}" class="form-control inputForm" [(ngModel)]="cups.horaCita">
+                                </div>
+                            </div>
+                        </ng-container>
                     </div>
                     <div class="form-group">
                         <div class="col col-12 d-inline-block align-top">

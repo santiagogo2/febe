@@ -43,12 +43,12 @@
                                 </thead>
                                 <tbody class="tbody_styles">
                                     <ng-container *ngFor="let req of request | paginate: {itemsPerPage: 5, currentPage: actualPage}">
-                                        <tr *ngIf="req.cups.length > 0" class="tableStyles" (click)="changeValue( req.id )">
+                                        <tr class="tableStyles" (click)="changeValue( req )">
                                             <td>{{ req.id }}</td>
-                                            <td>{{ req.ingreso }}</td>
-                                            <td>{{ req.folio }}</td>
+                                            <td>{{ req.ingreso | isnullfill }}</td>
+                                            <td>{{ req.folio | isnullfill }}</td>
                                             <td>{{ req.motivoTraslado | global: 'motivosTraslados' }}</td>
-                                            <td>{{ req.nombreMedico }}</td>
+                                            <td>{{ req.nombreMedico | isnullfill }}</td>
                                             <td class="text-left">
                                                 <ul>
                                                     <li *ngFor="let cup of req.cups">{{ cup.nombreExamen }}</li>
@@ -67,6 +67,9 @@
 
                     <div id="principalInfo">
                         <app-follow [requestId]="requestSelected" *ngIf="requestSelected"></app-follow>
+                    </div>
+                    <div class="text-center" *ngIf="cancelCaseFlag">
+                        <span type="button" style="padding: 0.5rem;" class="ml-1 mt-1 badge badge-pill badge-danger col col-sm-12 col-md-3 d-inline-block" *ngIf="(requestSelectedInfo && (requestSelectedInfo.estado == 0 || requestSelectedInfo.estado == 1))" (click)="cancelCase()">Cancelar Caso</span>
                     </div>
                 </div>
             </div>

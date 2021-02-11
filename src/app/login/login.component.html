@@ -1,41 +1,65 @@
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Hanalei&display=swap" rel="stylesheet">
 <section id="wrapper" class="login-register login-sidebar" style="background-image:url(../assets/images/background/loginBackground.jpg);">
-    <div class="login-box card">
-        <div class="card-body">
-            <div class="logoContainer">
-                <img src="assets/images/logoSubred.png" alt="">
-            </div>
-            <div class="titleContainer">
-                <h1>{{ pageTitle }}</h1>
-            </div>
+    <div class="son">
+        <div class="login-box card">
+            <div class="card-body">
+                <!-- <div class="logoContainer">
+                    <img src="assets/images/logoSubred.png" alt="">
+                </div> -->
+                <div class="titleContainer">
+                    <h1>{{ pageTitle }}</h1>
+                </div>
 
-            <form #loginForm="ngForm" class="formContainer" id="loginForm" (ngSubmit)="onSubmit(loginForm)">
-                <div class="form-group">
-                    <div class="col col-sm-12">
-                        <input type="text" name="email" id="email" class="form-control inputForm" [ngClass]="{'is-invalid': email.touched && email.invalid}" #email="ngModel" [(ngModel)]="user.alias" required placeholder="Correo electrónico">
-                        <small class="invalid-feedback d-block" *ngIf="email.touched && email.invalid">Debe ingresar su correo electrónico</small>
+                <form #loginForm="ngForm" class="formContainer" id="loginForm" (ngSubmit)="onSubmit(loginForm)">
+                    <div class="form-group">
+                        <div class="col col-sm-12">
+                            <input type="text" name="documentId" id="documentId" class="form-control inputForm" [ngClass]="{ 'is-invalid': documentId.touched && documentId.invalid}" #documentId="ngModel" [(ngModel)]="user.documentId
+		" required placeholder="Documento de Identidad" maxlength="15">
+                            <small class="invalid-feedback d-block" *ngIf="documentId.touched && documentId.invalid">Debe ingresar su documento de identidad</small>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col col-sm-12">
+                            <input type="password" name="password" id="password" class="form-control inputForm" [ngClass]="{ 'is-invalid': password.touched && password.invalid}" #password="ngModel" [(ngModel)]="user.password
+		" required placeholder="Contraseña">
+                            <small class="invalid-feedback d-block" *ngIf="password.touched && password.invalid">Debe ingresar su contraseña</small>
+                        </div>
+                    </div>
+                    <div class="buttonSubmit col-sm-12">
+                        <input type="submit" value="Ingresar" class="btn btn-info btnPrefer col-sm-12" [disabled]="loginForm.invalid">
+                    </div>
+                    <div class="mt-3 col col-sm-12 errorAlert" *ngIf="status=='error' && responseMessage">
+                        <div class="alert alert-danger" role="alert">
+                            {{ responseMessage }}
+                        </div>
+                    </div>
+                    <div class="deleteLoader mt-2" id="loader" *ngIf="preloaderStatus">
+                        <div class="loader"></div>
+                    </div>
+                </form>
+                <div class="additionalText col col-12">
+                    <div class="login-text">
+                        <span>¿No tienes cuenta? <a routerLink="/register">Registrate</a></span>
+                    </div>
+                    <div class="login-text">
+                        <span><a routerLink="/forgot-password">¿Olvidaste tu contraseña?</a></span>
                     </div>
                 </div>
-                <div class="form-group">
-                    <div class="col col-sm-12">
-                        <input type="password" name="password" id="password" class="form-control inputForm" [ngClass]="{'is-invalid': password.touched && password.invalid}" #password="ngModel" [(ngModel)]="user.password" required placeholder="Contraseña">
-                        <small class="invalid-feedback d-block" *ngIf="password.touched && password.invalid">Debe ingresar su contraseña</small>
+            </div>
+        </div>
+        <div class="login-box card mt-2">
+            <div class="card-body">
+                <div class="col col-12">
+                    <div class="login-text">
+                        <span>¿Perteneciste a la familia Subred Sur y necesitas una certificación? <a routerLink="/solicitudes">Solicitala aquí</a></span>
                     </div>
-                </div>
-                <div class="buttonSubmit col-sm-12">
-                    <input type="submit" value="Ingresar" class="btn btn-info btnPrefer col-sm-12" [disabled]="loginForm.invalid">
-                </div>
-                <div class="mt-3 col col-sm-12 errorAlert" *ngIf="status=='error' && responseMessage">
-                    <div class="alert alert-danger" role="alert">
-                        {{ responseMessage }}
+                    <div class="login-text">
+                        <span><a routerLink="/validarCert">¿Necesitas validar una certificación emitida por la Subred Sur?</a></span>
                     </div>
+                    <!-- <div class="col col-12 d-inline-block"><a class="badge badge-info w-100" routerLink="../validarCert">Validar Certificación</a></div>
+                    <div class="col col-12 d-inline-block"><a class="badge badge-info w-100" routerLink="../solicitudes">Solicitar Certificación</a></div> -->
                 </div>
-                <div class="deleteLoader mt-2" id="loader" *ngIf="preloaderStatus">
-                    <div class="loader"></div>
-                </div>
-            </form>
-            <div class="col-12 p-0 mt-4">
-                <div class="col col-sm-6 d-inline-block"><a class="badge badge-light w-100" routerLink="../validarCert">Validar Certificación</a></div>
-                <div class="col col-sm-6 d-inline-block"><a class="badge badge-light w-100" routerLink="../solicitudes">Solicitar Certificación</a></div>
             </div>
         </div>
     </div>

@@ -30,6 +30,24 @@ export class UserService {
 		return this.http.post(this.url + 'user/login', params, { headers });
 	}
 
+	sendPasswordResetLink( email ): Observable<any> {
+		return this.http.get( this.url + 'user/sendPasswordResetLink/' + email );
+	}
+
+	validateToken( token ): Observable<any> {
+		return this.http.get( this.url + 'user/validateToken/' + token );
+	}
+
+	resetPassword( user ): Observable<any> {
+		const json = JSON.stringify(user);
+		const params = 'json=' + json;
+		const id = user.id;
+
+		const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+
+		return this.http.put(this.url + 'user/resetPassword/' + id, params, { headers });
+	}
+
 	userList(): Observable<any> {
 		const headers = new HttpHeaders().set('Authorization', this.token);
 		return this.http.get(this.url + 'user', { headers });

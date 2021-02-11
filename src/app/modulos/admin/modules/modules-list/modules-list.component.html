@@ -25,6 +25,27 @@
                 <div class="registerCollaboratorButton">
                     <button class="btn btn-info" [routerLink]="['/admin/modulos/agregar']" *ngIf="registerFlag">Crear módulos</button>
                 </div>
+                <ng-container *ngIf="!responseMessage">
+                    <div class="d-block col col-12 p-0 mb-3">
+                        <div class="box">
+                            <form #searchForm="ngForm" class="formContainer" id="searchForm" (ngSubmit)="search(searchForm)" class="container-2">
+                                <span class="icon"><i class="fa fa-search"></i></span>
+                                <input type="search" id="search" name="searchInput" #searchInput="ngModel" [(ngModel)]="chain" placeholder="Puede realizar busquedas por número de documento, nombre del usuario o correo electrónico" />
+                            </form>
+                        </div>
+                        <div class="mt-1 text-left">
+                            <button type="button" class="btn btn-secondary btn-sm" (click)="modulesList()">Reiniciar busqueda</button>
+                        </div>
+                    </div>
+                    <div class="mt-3 errorAlert" *ngIf="searchResponseMessage">
+                        <div class="alert alert-danger" role="alert">
+                            {{ searchResponseMessage }}
+                        </div>
+                    </div>
+                </ng-container>
+                <div class="deleteLoader mt-2" id="loader" *ngIf="searchLoaderStatus">
+                    <div class="loader"></div>
+                </div>
 
                 <div class="tableContainer" *ngIf="modules">
                     <div class="tableContainerAll col col-sm-12">

@@ -29,6 +29,10 @@ export class RoleListComponent implements OnInit {
 	public editFlag: boolean;
 	public registerFlag: boolean;
 	public deleteFlag: boolean;
+	
+	chain: string;
+	searchLoaderStatus: boolean;
+	searchResponseMessage: string;
 
 	constructor(
 		private roleService: RoleService,
@@ -47,16 +51,20 @@ export class RoleListComponent implements OnInit {
 	}
 
 	rolesList() {
-		this.status = undefined;
-		this.responseMessage = undefined;
+		this.status = null;
+		this.responseMessage = null;
+		this.searchLoaderStatus = true;
+		this.searchResponseMessage = null;
 
 		this.roleService.roleList( this.token ).subscribe(
 			res => {
+				this.searchLoaderStatus = false;
 				if ( res.status === 'success' ) {
 					this.roles = res.roles;
 				}
 			},
 			error => {
+				this.searchLoaderStatus = false;
 				this.status = error.error.status;
 				this.responseMessage = error.error.message;
 				console.log(error);
@@ -110,6 +118,31 @@ export class RoleListComponent implements OnInit {
 					this.registerFlag = true;
 				}
 			});
+		}
+	}
+
+	search( searchForm ) {
+		this.searchResponseMessage = null;
+		this.searchLoaderStatus = true;
+		this.actualPage = 1;
+
+		if ( !this.chain ) {
+			this.searchLoaderStatus = false;
+			this.searchResponseMessage = 'Debe ingresar un parametro de busqueda para realizar la solicitud.';
+		} else {
+			this.roleService.showRolesByChain( this.chain ).subscribe(
+				res => {
+					this.searchLoaderStatus = false;
+					if ( res.status === 'success' ) {
+						this.roles = res.roles;
+						searchForm.reset();
+					}
+				},
+				error => {
+					this.searchLoaderStatus = false;
+					this.searchResponseMessage = error.error.message;
+				}
+			);
 		}
 	}
 

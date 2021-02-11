@@ -26,6 +26,7 @@ export class PreClasificacionComponent implements OnInit {
 	securityEventId: number;
 	securityEvents: Array<SecurityEvent>;
 	securityEvent: SecurityEvent;
+	algoritmoFlag: number;
 
 	global: any;
 	preguntas: Array<any>;
@@ -65,7 +66,7 @@ export class PreClasificacionComponent implements OnInit {
 		this.securityEvent = null;
 		this.securityEventId = null;
 		
-		this.sucesoSeguridadService.getSucesosSeguridadByEventId( this.eventId ).subscribe(
+		this.sucesoSeguridadService.getSucesosSeguridadByEventId( this.eventId, 0 ).subscribe(
 			res => {
 				this.preloaderStatus = false;
 				if ( res.status === 'success' ) {
@@ -95,7 +96,7 @@ export class PreClasificacionComponent implements OnInit {
 		this.storePreloaderStatus = true;
 		this.preClasificationEvent.idSuceso = this.securityEventId;
 
-		if( this.eventId == 3 ) {
+		if( this.eventId == 3 && this.algoritmoFlag == 1 ) {
 			let suma = 0;
 			let flag = true;
 			this.preguntas.forEach( pregunta => {
@@ -155,7 +156,6 @@ export class PreClasificacionComponent implements OnInit {
 					text: this.storeResponseMessage,
 					showConfirmButton: true,
 				});
-				console.log( error );
 			}
 		);	
 	}
@@ -169,6 +169,6 @@ export class PreClasificacionComponent implements OnInit {
 	}
 
 	setPreClasificationEvent() {
-		this.preClasificationEvent = new PreClasificationEvent( null, null, null, null, null, null, null, null, null, null );
+		this.preClasificationEvent = new PreClasificationEvent( null, null, 5, null, null, null, null, null, null, null, null );
 	}
 }
