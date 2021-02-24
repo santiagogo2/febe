@@ -33,6 +33,12 @@ export class InvestigationService {
 		return this.http.post( this.url + 'investigation', params, { headers } );
 	}
 
+	updatePlanId( id, planId ):Observable<any> {
+		let headers = new HttpHeaders().set( 'Authorization', this.token );
+
+		return this.http.get( this.url + 'investigation/update-plan/' + id + '/' + planId, { headers } );
+	}
+
 	//==========================================================================
 	//===================Pre Clasification Events Documents=====================
 	//==========================================================================

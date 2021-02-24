@@ -17,6 +17,8 @@ import { ModuloiiComponent } from './informacion-general/moduloii/moduloii.compo
 import { EncuestaComponent } from './secciones/encuesta/encuesta.component';
 import { SurveyComponent } from './informacion-general/survey/survey.component';
 import { SeguridadPacienteComponent } from './seguridad-paciente.component';
+import { SeguimientoComponent } from './secciones/seguimiento/seguimiento.component';
+import { ModuloiiiComponent } from './informacion-general/moduloiii/moduloiii.component';
 
 // Components
 
@@ -29,7 +31,9 @@ import { SeguridadPacienteComponent } from './seguridad-paciente.component';
 		ModuloiiComponent,
 		EncuestaComponent,
 		SurveyComponent,
-		SeguridadPacienteComponent
+		SeguridadPacienteComponent,
+		SeguimientoComponent,
+		ModuloiiiComponent
 	],
 	imports: [
 		CommonModule,

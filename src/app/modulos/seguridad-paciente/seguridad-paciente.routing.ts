@@ -7,6 +7,7 @@ import { InvestigacionComponent } from './secciones/investigacion/investigacion.
 import { PreClasificacionComponent } from './secciones/preclasificacion/preclasificacion.component';
 import { ReportesComponent } from './reportes/reportes.component';
 import { SeguridadPacienteComponent } from './seguridad-paciente.component';
+import { SeguimientoComponent } from './secciones/seguimiento/seguimiento.component';
 
 // Guards
 import {
@@ -14,7 +15,8 @@ import {
 	SeguridadPacienteEncuestaGuard,
 	SeguridadPacienteInvestigacionGuard,
 	SeguridadPacientePreclasificacionGuard,
-	SeguridadPacienteReportesGuard
+	SeguridadPacienteReportesGuard,
+	SeguridadPacienteSeguimientoGuard,
 } from './guards/seguridad-paciente-guards.index';
 
 const salaSituacionRoutes: Routes = [
@@ -47,6 +49,12 @@ const salaSituacionRoutes: Routes = [
 		component: EncuestaComponent,
 		data: { titulo: 'Investigación y Entrevistas' },
 		canActivate: [ SeguridadPacienteEncuestaGuard ]
+	},
+	{
+		path: 'seguimiento',
+		component: SeguimientoComponent,
+		data: { titulo: 'Seguimiento Reporte de Seguridad' },
+		canActivate: [ SeguridadPacienteSeguimientoGuard ]
 	},
 	{ 
 		path: '',

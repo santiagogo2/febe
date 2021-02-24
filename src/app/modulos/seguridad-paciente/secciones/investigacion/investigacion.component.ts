@@ -306,6 +306,6 @@ export class InvestigacionComponent implements OnInit {
 	}
 
 	seInitialInvestigation() {
-		this.investigation = new Investigation( null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null );
+		this.investigation = new Investigation( null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null );
 	}
 }

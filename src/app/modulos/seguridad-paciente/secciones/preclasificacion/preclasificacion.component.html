@@ -9,7 +9,7 @@
                     <div class="form-group">
                         <div class="col col-sm-12 col-lg-6 d-inline-block align-top">
                             <label for="sucRelacionado" class="labelForm">Suceso Relacionado Con*</label>
-                            <select style="background-position-x: 95%" name="sucRelacionado" id="sucRelacionado" class="form-control inputForm" [ngClass]="{'is-invalid': sucRelacionado.invalid && sucRelacionado.touched}" #sucRelacionado="ngModel" [(ngModel)]="eventId" (ngModelChange)="getSucesosSeguridadByEventId()"
+                            <select style="background-position-x: 98%" name="sucRelacionado" id="sucRelacionado" class="form-control inputForm" [ngClass]="{'is-invalid': sucRelacionado.invalid && sucRelacionado.touched}" #sucRelacionado="ngModel" [(ngModel)]="eventId" (ngModelChange)="getSucesosSeguridadByEventId()"
                                 required>
 								<option *ngFor="let suceso of global.sucesoRelacionado" value="{{ suceso.id }}">{{ suceso.name }}</option>
 							</select>
@@ -22,7 +22,7 @@
 
                         <div class="col col-sm-12 col-lg-6 d-inline-block align-top" *ngIf="securityEvents">
                             <label for="secEvent" class="labelForm">Eventos de Seguridad*</label>
-                            <select style="background-position-x: 95%" name="secEvent" id="secEvent" class="form-control inputForm" [ngClass]="{'is-invalid': secEvent.invalid && secEvent.touched}" #secEvent="ngModel" [(ngModel)]="securityEventId" (ngModelChange)="setSecurityEvent()"
+                            <select style="background-position-x: 98%" name="secEvent" id="secEvent" class="form-control inputForm" [ngClass]="{'is-invalid': secEvent.invalid && secEvent.touched}" #secEvent="ngModel" [(ngModel)]="securityEventId" (ngModelChange)="setSecurityEvent()"
                                 required>
 								<option *ngFor="let security of securityEvents" value="{{ security.id }}">{{ security.id }} - {{ security.numeroIdentificacion }} - {{ security.nombresApellidos }}</option>
 							</select>
@@ -36,7 +36,7 @@
                         <div class="form-group">
                             <div class="col col-12 d-inline-block align-top">
                                 <label for="infoSucesoReportado" class="labelForm">Información del Suceso Reportado*</label>
-                                <select style="background-position-x: 95%" name="infoSucesoReportado" id="infoSucesoReportado" class="form-control inputForm" [ngClass]="{'is-invalid': infoSucesoReportado.invalid && infoSucesoReportado.touched}" #infoSucesoReportado="ngModel" [(ngModel)]="preClasificationEvent.infoSucesoReportado"
+                                <select style="background-position-x: 98%" name="infoSucesoReportado" id="infoSucesoReportado" class="form-control inputForm" [ngClass]="{'is-invalid': infoSucesoReportado.invalid && infoSucesoReportado.touched}" #infoSucesoReportado="ngModel" [(ngModel)]="preClasificationEvent.infoSucesoReportado"
                                     required>
 									<option *ngFor="let option of global.infoSucesoReportado" value="{{ option.id }}">{{ option.name }}</option>
 								</select>
@@ -46,7 +46,7 @@
                         <div class="form-group">
                             <div class="col col-12 d-inline-block align-top">
                                 <label for="taxonomy" class="labelForm">Preclasificación según taxonomía*</label>
-                                <select style="background-position-x: 95%" name="taxonomy" id="taxonomy" class="form-control inputForm" [ngClass]="{'is-invalid': taxonomy.invalid && taxonomy.touched}" #taxonomy="ngModel" [(ngModel)]="preClasificationEvent.clasificacionTaxonomia" required>
+                                <select style="background-position-x: 98%" name="taxonomy" id="taxonomy" class="form-control inputForm" [ngClass]="{'is-invalid': taxonomy.invalid && taxonomy.touched}" #taxonomy="ngModel" [(ngModel)]="preClasificationEvent.clasificacionTaxonomia" required>
 									<option *ngFor="let taxonomia of global.preclasificacionTaxonomia" value="{{ taxonomia.id }}">{{ taxonomia.name }}</option>
 								</select>
                                 <small class="invalid-feedback d-block font-weight-bold" *ngIf="taxonomy.invalid && taxonomy.touched">Debe selecionar una preclasificación de la lista desplegable</small>
@@ -56,14 +56,14 @@
                             <div class="form-group">
                                 <div class="col col-sm-12 d-inline-block align-top" [ngClass]="{'col-md-6': preClasificationEvent.clasificacionTaxonomia == 3}">
                                     <label for="severity" class="labelForm">Severidad*</label>
-                                    <select style="background-position-x: 95%" name="severity" id="severity" class="form-control inputForm" [ngClass]="{'is-invalid': severity.invalid && severity.touched}" #severity="ngModel" [(ngModel)]="preClasificationEvent.severidad" required>
+                                    <select style="background-position-x: 98%" name="severity" id="severity" class="form-control inputForm" [ngClass]="{'is-invalid': severity.invalid && severity.touched}" #severity="ngModel" [(ngModel)]="preClasificationEvent.severidad" required>
 										<option *ngFor="let tipo of global.severidad" value="{{ tipo.id }}">{{ tipo.name }}</option>
 									</select>
                                     <small class="invalid-feedback d-block font-weight-bold" *ngIf="severity.invalid && severity.touched">Debe selecionar la severidad de la lista desplegable</small>
                                 </div>
                                 <div class="col col-sm-12 col-md-6 d-inline-block align-top" *ngIf="preClasificationEvent.clasificacionTaxonomia == 3">
                                     <label for="preventableEvent" class="labelForm">¿El evento fue Prevenible o No Prevenible?*</label>
-                                    <select style="background-position-x: 95%" name="preventableEvent" id="preventableEvent" class="form-control inputForm" [ngClass]="{'is-invalid': preventableEvent.invalid && preventableEvent.touched}" #preventableEvent="ngModel" [(ngModel)]="preClasificationEvent.preguntaEventoPrevenible"
+                                    <select style="background-position-x: 98%" name="preventableEvent" id="preventableEvent" class="form-control inputForm" [ngClass]="{'is-invalid': preventableEvent.invalid && preventableEvent.touched}" #preventableEvent="ngModel" [(ngModel)]="preClasificationEvent.preguntaEventoPrevenible"
                                         required>
 										<option *ngFor="let respuesta of global.respuestas" value="{{ respuesta.id }}">{{ respuesta.value }}</option>
 									</select>
@@ -74,7 +74,7 @@
                                 <div class="form-group">
                                     <div class="col col-12 d-inline-block align-top">
                                         <label for="clasificacionCuidadoSalud" class="labelForm">Clasificación Cuidado de la Salud</label>
-                                        <select style="background-position-x: 95%" name="clasificacionCuidadoSalud" id="clasificacionCuidadoSalud" class="form-control inputForm" [ngClass]="{'is-invalid': clasificacionCuidadoSalud.invalid && clasificacionCuidadoSalud.touched}" #clasificacionCuidadoSalud="ngModel"
+                                        <select style="background-position-x: 98%" name="clasificacionCuidadoSalud" id="clasificacionCuidadoSalud" class="form-control inputForm" [ngClass]="{'is-invalid': clasificacionCuidadoSalud.invalid && clasificacionCuidadoSalud.touched}" #clasificacionCuidadoSalud="ngModel"
                                             [(ngModel)]="preClasificationEvent.primeraClasificacion" required>
 											<option *ngFor="let clasificacion of global.clasificacionCuidadoSalud" value="{{ clasificacion.id }}">{{ clasificacion.name }}</option>
 										</select>
@@ -84,7 +84,7 @@
                                 <div class="form-group" *ngIf="preClasificationEvent.primeraClasificacion">
                                     <div class="col col-12 d-inline-block align-top">
                                         <label for="segClasificacionCuidadoSalud" class="labelForm">Clasificación {{ preClasificationEvent.primeraClasificacion | global: 'clasificacionCuidadoSalud' }}</label>
-                                        <select style="background-position-x: 95%" name="segClasificacionCuidadoSalud" id="segClasificacionCuidadoSalud" class="form-control inputForm" [ngClass]="{'is-invalid': segClasificacionCuidadoSalud.invalid && segClasificacionCuidadoSalud.touched}" #segClasificacionCuidadoSalud="ngModel"
+                                        <select style="background-position-x: 98%" name="segClasificacionCuidadoSalud" id="segClasificacionCuidadoSalud" class="form-control inputForm" [ngClass]="{'is-invalid': segClasificacionCuidadoSalud.invalid && segClasificacionCuidadoSalud.touched}" #segClasificacionCuidadoSalud="ngModel"
                                             [(ngModel)]="preClasificationEvent.segundaClasificacion" required>
 											<ng-container *ngIf="preClasificationEvent.primeraClasificacion == 1">
 												<option *ngFor="let clasificacion of global.clasificacionCuidado" value="{{ clasificacion.id }}">{{ clasificacion.name }}</option>
@@ -107,7 +107,7 @@
                                 <div class="form-group">
                                     <div class="col col-12 d-inline-block align-top">
                                         <label for="clasificacionIAAS" class="labelForm">Clasificación Infecciones Asociadas a la Atención en Salud (Programa IAAS)</label>
-                                        <select style="background-position-x: 95%" name="clasificacionIAAS" id="clasificacionIAAS" class="form-control inputForm" [ngClass]="{'is-invalid': clasificacionIAAS.invalid && clasificacionIAAS.touched}" #clasificacionIAAS="ngModel" [(ngModel)]="preClasificationEvent.primeraClasificacion"
+                                        <select style="background-position-x: 98%" name="clasificacionIAAS" id="clasificacionIAAS" class="form-control inputForm" [ngClass]="{'is-invalid': clasificacionIAAS.invalid && clasificacionIAAS.touched}" #clasificacionIAAS="ngModel" [(ngModel)]="preClasificationEvent.primeraClasificacion"
                                             required>
 											<option *ngFor="let clasificacion of global.clasificacionIAAS" value="{{ clasificacion.id }}">{{ clasificacion.name }}</option>
 										</select>
@@ -119,7 +119,7 @@
                                 <div class="form-group">
                                     <div class="col col-12 d-inline-block align-top">
                                         <label for="preguntaAlgoritmo" class="labelForm">Requiere Algoritmo Naranjo*</label>
-                                        <select style="background-position-x: 95%" name="preguntaAlgoritmo" id="preguntaAlgoritmo" class="form-control inputForm" [ngClass]="{'is-invalid': preguntaAlgoritmo.invalid && preguntaAlgoritmo.touched}" #preguntaAlgoritmo="ngModel" [(ngModel)]="algoritmoFlag"
+                                        <select style="background-position-x: 98%" name="preguntaAlgoritmo" id="preguntaAlgoritmo" class="form-control inputForm" [ngClass]="{'is-invalid': preguntaAlgoritmo.invalid && preguntaAlgoritmo.touched}" #preguntaAlgoritmo="ngModel" [(ngModel)]="algoritmoFlag"
                                             required>
 											<option value="1">SI</option>
 											<option value="2">NO</option>
@@ -154,7 +154,7 @@
                                 <div class="form-group">
                                     <div class="col col-12 d-inline-block align-top">
                                         <label for="casificacionEquiposBiomedicos" class="labelForm">Clasificación Equipos y Dispositivos Biomédicos (Tecnovigilancia)</label>
-                                        <select style="background-position-x: 95%" name="casificacionEquiposBiomedicos" id="casificacionEquiposBiomedicos" class="form-control inputForm" [ngClass]="{'is-invalid': casificacionEquiposBiomedicos.invalid && casificacionEquiposBiomedicos.touched}"
+                                        <select style="background-position-x: 98%" name="casificacionEquiposBiomedicos" id="casificacionEquiposBiomedicos" class="form-control inputForm" [ngClass]="{'is-invalid': casificacionEquiposBiomedicos.invalid && casificacionEquiposBiomedicos.touched}"
                                             #casificacionEquiposBiomedicos="ngModel" [(ngModel)]="preClasificationEvent.primeraClasificacion" required>
 											<option *ngFor="let clasificacion of global.casificacionEquiposBiomedicos" value="{{ clasificacion.id }}">{{ clasificacion.name }}</option>
 										</select>
@@ -166,7 +166,7 @@
                                 <div class="form-group">
                                     <div class="col col-12 d-inline-block align-top">
                                         <label for="casificacionHemocomponentes" class="labelForm">Clasificación Hemocomponentes (Hemovigilancia)</label>
-                                        <select style="background-position-x: 95%" name="casificacionHemocomponentes" id="casificacionHemocomponentes" class="form-control inputForm" [ngClass]="{'is-invalid': casificacionHemocomponentes.invalid && casificacionHemocomponentes.touched}" #casificacionHemocomponentes="ngModel"
+                                        <select style="background-position-x: 98%" name="casificacionHemocomponentes" id="casificacionHemocomponentes" class="form-control inputForm" [ngClass]="{'is-invalid': casificacionHemocomponentes.invalid && casificacionHemocomponentes.touched}" #casificacionHemocomponentes="ngModel"
                                             [(ngModel)]="preClasificationEvent.primeraClasificacion" required>
 											<option *ngFor="let clasificacion of global.casificacionHemocomponentes" value="{{ clasificacion.id }}">{{ clasificacion.name }}</option>
 										</select>
@@ -178,7 +178,7 @@
                                 <div class="form-group">
                                     <div class="col col-12 d-inline-block align-top">
                                         <label for="clasificacionDonacion" class="labelForm">Clasificación Donación y/o Transplantes (Biovigilancia)</label>
-                                        <select style="background-position-x: 95%" name="clasificacionDonacion" id="clasificacionDonacion" class="form-control inputForm" [ngClass]="{'is-invalid': clasificacionDonacion.invalid && clasificacionDonacion.touched}" #clasificacionDonacion="ngModel"
+                                        <select style="background-position-x: 98%" name="clasificacionDonacion" id="clasificacionDonacion" class="form-control inputForm" [ngClass]="{'is-invalid': clasificacionDonacion.invalid && clasificacionDonacion.touched}" #clasificacionDonacion="ngModel"
                                             [(ngModel)]="preClasificationEvent.primeraClasificacion" required>
 											<option *ngFor="let clasificacion of global.clasificacionDonacion" value="{{ clasificacion.id }}">{{ clasificacion.name }}</option>
 										</select>
@@ -190,7 +190,7 @@
                                 <div class="form-group">
                                     <div class="col col-12 d-inline-block align-top">
                                         <label for="clasificacionAyudasDiagnosticas" class="labelForm">Clasificación Ayudas Diagnósticas (Servicios Complementarios de Apoyo)</label>
-                                        <select style="background-position-x: 95%" name="clasificacionAyudasDiagnosticas" id="clasificacionAyudasDiagnosticas" class="form-control inputForm" [ngClass]="{'is-invalid': clasificacionAyudasDiagnosticas.invalid && clasificacionAyudasDiagnosticas.touched}"
+                                        <select style="background-position-x: 98%" name="clasificacionAyudasDiagnosticas" id="clasificacionAyudasDiagnosticas" class="form-control inputForm" [ngClass]="{'is-invalid': clasificacionAyudasDiagnosticas.invalid && clasificacionAyudasDiagnosticas.touched}"
                                             #clasificacionAyudasDiagnosticas="ngModel" [(ngModel)]="preClasificationEvent.primeraClasificacion" required>
 											<option *ngFor="let clasificacion of global.clasificacionAyudasDiagnosticas" value="{{ clasificacion.id }}">{{ clasificacion.name }}</option>
 										</select>
@@ -200,7 +200,7 @@
                                 <div class="form-group" *ngIf="preClasificationEvent.primeraClasificacion">
                                     <div class="col col-12 d-inline-block align-top">
                                         <label for="segClasificacionAyudasDiagnosticas" class="labelForm">Clasificación {{ preClasificationEvent.primeraClasificacion | global: 'clasificacionCuidadoSalud' }}</label>
-                                        <select style="background-position-x: 95%" name="segClasificacionAyudasDiagnosticas" id="segClasificacionAyudasDiagnosticas" class="form-control inputForm" [ngClass]="{'is-invalid': segClasificacionAyudasDiagnosticas.invalid && segClasificacionAyudasDiagnosticas.touched}"
+                                        <select style="background-position-x: 98%" name="segClasificacionAyudasDiagnosticas" id="segClasificacionAyudasDiagnosticas" class="form-control inputForm" [ngClass]="{'is-invalid': segClasificacionAyudasDiagnosticas.invalid && segClasificacionAyudasDiagnosticas.touched}"
                                             #segClasificacionAyudasDiagnosticas="ngModel" [(ngModel)]="preClasificationEvent.segundaClasificacion" required>
 											<ng-container *ngIf="preClasificationEvent.primeraClasificacion == 1">
 												<option *ngFor="let clasificacion of global.clasificacionLaboratorioClinico" value="{{ clasificacion.id }}">{{ clasificacion.name }}</option>

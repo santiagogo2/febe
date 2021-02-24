@@ -26,6 +26,7 @@ export class Investigation {
 		public factoresSeleccionados: string,
 		public barrerasImplementadas: string,
 		public conclusionInvestigacion: string,
-		public clasificacionInvestigacion: number
+		public clasificacionInvestigacion: number,
+		public planId: number,
 	) {}
 }

@@ -63,6 +63,17 @@ export class ModuloiiComponent implements OnInit {
 		} else if ( this.eventId == 6 ) {
 			this.primeraClasificacion = 'clasificacionDonacion';
 			this.segundaClasificacion = null;
+		} else if ( this.eventId == 8 ) {
+			this.primeraClasificacion = 'clasificacionAyudasDiagnosticas';
+			if ( this.preclasification.primeraClasificacion == 1 ) {
+				this.segundaClasificacion = 'clasificacionLaboratorioClinico';
+			} else if ( this.preclasification.primeraClasificacion == 2 ) {
+				this.segundaClasificacion = 'clasificacionImagenesDiagnosticas';
+			} else if ( this.preclasification.primeraClasificacion == 3 ) {
+				this.segundaClasificacion = 'clasificacionGastroenterologia';
+			} else {
+				this.segundaClasificacion = 'clasificacionHemodinamia';
+			}
 		}
 	}
 
