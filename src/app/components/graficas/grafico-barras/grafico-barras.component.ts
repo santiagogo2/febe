@@ -14,6 +14,9 @@ export class GraficoBarrasComponent implements OnInit {
 	@Input() public barChartType: string;
 	@Input() public barChartLegend = false;
 	@Input() public barChartColors: any = false;
+	@Input() public fuenteInformacion: string;
+	@Input() public responsable: string;
+	@Input() public fechaHora: string;
 
 	public barChartPlugins = [pluginDataLabels];
 	public barChartOptions: ChartOptions = {

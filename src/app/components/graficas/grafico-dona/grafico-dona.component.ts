@@ -11,6 +11,9 @@ export class GraficoDonaComponent implements OnInit {
 	@Input() public chartData: string[];
 	@Input() public chartLabels: string[];
 	@Input() public chartType: string[];
+	@Input() public fuenteInformacion: string;
+	@Input() public responsable: string;
+	@Input() public fechaHora: string;
 
 	public ChartPlugins = [pluginDataLabels];
 	public ChartOptions: ChartOptions = {
