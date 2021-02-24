@@ -146,6 +146,10 @@ export class FollowComponent implements OnInit, OnChanges {
 			this.follow.sedeContestan = this.referalRequest.sedeContestan;
 			this.follow.pacienteAceptado = 1;
 		}
+		if( this.follow.pacienteAceptado == 1 ) {
+			this.follow.negacionAdministrativa = null;
+			this.follow.negacionMedica = null;
+		}
 
 		this.followRequestService.newFollow( this.follow ).subscribe(
 			res => {
