@@ -87,6 +87,12 @@ const pagesRoutes: Routes = [
 		canActivate: [ IdentityGuard ],
 		loadChildren: () => import('./uci/uci.module').then(m => m.UciModule),
 	},
+	{
+		path: 'vacunacion',
+		component: ModulosComponent,
+		canActivate: [ IdentityGuard ],
+		loadChildren: () => import('./vacunacion/vacunacion.module').then(m => m.VacunacionModule),
+	},
 ];
 
 @NgModule({

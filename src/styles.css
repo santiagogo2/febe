@@ -39,6 +39,11 @@ h4 {
     cursor: pointer;
 }
 
+.required {
+    color: red;
+    font-weight: bold;
+}
+
 
 /*---------------------------------------------
  Header Styles
