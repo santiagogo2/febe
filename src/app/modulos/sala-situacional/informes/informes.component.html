@@ -28,7 +28,7 @@
                         </tbody>
                     </table>
                 </div>
-                <app-grafico-dona [chartData]="gender.data" [chartLabels]="gender.labels" [chartType]="gender.type">
+                <app-grafico-dona [chartData]="gender.data" [chartLabels]="gender.labels" [chartType]="gender.type" [fechaHora]="collaborators[collaborators.length - 1].updated_at">
                 </app-grafico-dona>
             </div>
         </div>
@@ -47,7 +47,7 @@
                         </tbody>
                     </table>
                 </div>
-                <app-grafico-pie [pieChartData]="epidemicNexus.data" [pieChartLabels]="epidemicNexus.labels" [pieChartType]="epidemicNexus.type">
+                <app-grafico-pie [pieChartData]="epidemicNexus.data" [pieChartLabels]="epidemicNexus.labels" [pieChartType]="epidemicNexus.type" [fechaHora]="collaborators[collaborators.length - 1].updated_at">
                 </app-grafico-pie>
             </div>
         </div>
@@ -67,7 +67,7 @@
                         </tbody>
                     </table>
                 </div>
-                <app-grafico-barras [barChartData]="profiles.data" [barChartLabels]="profiles.labels" [barChartType]="profiles.type">
+                <app-grafico-barras [barChartData]="profiles.data" [barChartLabels]="profiles.labels" [barChartType]="profiles.type" [fechaHora]="collaborators[collaborators.length - 1].updated_at">
                 </app-grafico-barras>
             </div>
         </div>
@@ -87,7 +87,7 @@
                         </tbody>
                     </table>
                 </div>
-                <app-grafico-barras [barChartData]="areas.data" [barChartLabels]="areas.labels" [barChartType]="areas.type">
+                <app-grafico-barras [barChartData]="areas.data" [barChartLabels]="areas.labels" [barChartType]="areas.type" [fechaHora]="collaborators[collaborators.length - 1].updated_at">
                 </app-grafico-barras>
             </div>
         </div>
@@ -107,7 +107,7 @@
                         </tbody>
                     </table>
                 </div>
-                <app-grafico-dona [chartData]="peopleStatus.data" [chartLabels]="peopleStatus.labels" [chartType]="peopleStatus.type">
+                <app-grafico-dona [chartData]="peopleStatus.data" [chartLabels]="peopleStatus.labels" [chartType]="peopleStatus.type" [fechaHora]="collaborators[collaborators.length - 1].updated_at">
                 </app-grafico-dona>
             </div>
         </div>
@@ -126,7 +126,7 @@
                         </tbody>
                     </table>
                 </div>
-                <app-grafico-pie [pieChartData]="symptoms.data" [pieChartLabels]="symptoms.labels" [pieChartType]="symptoms.type">
+                <app-grafico-pie [pieChartData]="symptoms.data" [pieChartLabels]="symptoms.labels" [pieChartType]="symptoms.type" [fechaHora]="collaborators[collaborators.length - 1].updated_at">
                 </app-grafico-pie>
             </div>
         </div>
@@ -146,7 +146,7 @@
                         </tbody>
                     </table>
                 </div>
-                <app-grafico-barras [barChartData]="resultingDelay.data" [barChartLabels]="resultingDelay.labels" [barChartType]="resultingDelay.type">
+                <app-grafico-barras [barChartData]="resultingDelay.data" [barChartLabels]="resultingDelay.labels" [barChartType]="resultingDelay.type" [fechaHora]="collaborators[collaborators.length - 1].updated_at">
                 </app-grafico-barras>
             </div>
         </div>
@@ -165,7 +165,7 @@
                         </tbody>
                     </table>
                 </div>
-                <app-grafico-barras [barChartData]="ageGroup.data" [barChartLabels]="ageGroup.labels" [barChartType]="ageGroup.type">
+                <app-grafico-barras [barChartData]="ageGroup.data" [barChartLabels]="ageGroup.labels" [barChartType]="ageGroup.type" [fechaHora]="collaborators[collaborators.length - 1].updated_at">
                 </app-grafico-barras>
             </div>
         </div>
@@ -175,7 +175,7 @@
         <div class="card border-0">
             <h4 class="card-header">{{ weeksReport.title }}</h4>
             <div class="card-body">
-                <app-grafico-linea [lineChartData]="weeksReport.data" [lineChartLabels]="weeksReport.labels" [lineChartType]="weeksReport.type" xTitle="Semanas" yTitle="Número de casos">
+                <app-grafico-linea [lineChartData]="weeksReport.data" [lineChartLabels]="weeksReport.labels" [lineChartType]="weeksReport.type" xTitle="Semanas" yTitle="Número de casos" [fechaHora]="collaborators[collaborators.length - 1].updated_at">
                 </app-grafico-linea>
             </div>
         </div>
