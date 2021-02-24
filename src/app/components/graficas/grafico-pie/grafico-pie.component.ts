@@ -12,6 +12,9 @@ export class GraficoPieComponent implements OnInit {
 	@Input() public pieChartData: number[];
 	@Input() public pieChartLabels: string[];
 	@Input() public pieChartType: string;
+	@Input() public fuenteInformacion: string;
+	@Input() public responsable: string;
+	@Input() public fechaHora: string;
 	
 	public pieChartLegend = true;
 	public pieChartPlugins = [pluginDataLabels];

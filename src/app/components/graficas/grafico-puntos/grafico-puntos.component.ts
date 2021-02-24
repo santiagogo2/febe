@@ -19,6 +19,9 @@ export class GraficoPuntosComponent implements OnInit {
 	@Input() public pointBackgroundColor: string;
 	@Input() public xAxesConfiguration: any;
 	@Input() public yAxesConfiguration: any;
+	@Input() public fuenteInformacion: string;
+	@Input() public responsable: string;
+	@Input() public fechaHora: string;
 	public scatterChartType: ChartType = 'scatter';
 	public scatterChartLabels: Label[] = [];
 	public scatterChartOptions: ChartOptions;

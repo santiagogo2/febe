@@ -13,6 +13,9 @@ export class GraficoLineaComponent{
 	@Input() public lineChartType: string;
 	@Input() public xTitle: string;
 	@Input() public yTitle: string;
+	@Input() public fuenteInformacion: string;
+	@Input() public responsable: string;
+	@Input() public fechaHora: string;
 	public lineChartLegend = true;
 	public lineChartPlugins = [];
 	public lineChartOptions: ChartOptions;
