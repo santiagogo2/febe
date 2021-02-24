@@ -1,0 +1,59 @@
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card border-0">
+            <div class="card-body">
+                <div class="formContainer">
+                    <div class="backLink col col-sm-12">
+                        <a class="col-sm-12" routerLink="/seguridad-paciente">Regresar</a>
+                    </div>
+                    <form id="searchForm" #searchForm="ngForm" (ngSubmit)="searchSecurityEvent(searchForm)">
+                        <div class="form-group col-12">
+                            <div id="labelSearch" class="col col-sm-12 col-lg-8 d-inline-block pl-0 align-top">
+                                <label for="documento" class="labelForm">Parámetro de Búsqueda*</label>
+                                <input type="text" name="documento" class="form-control inputForm " [ngClass]="{ 'is-invalid': documento.touched && documento.invalid}" #documento="ngModel" [(ngModel)]="searchInput" required maxlength="17" placeholder="Puede realizar busquedas por el número de radicado o el documento del paciente">
+                            </div>
+                            <div id="submitButton" class="col col-sm-12 col-lg-4 d-inline-block pr-0 align-bottom">
+                                <input type="submit" value="Buscar" class="btn btn-sm btn-info btnPrefer col-sm-12" [disabled]="searchForm.invalid">
+                            </div>
+                            <small class="invalid-feedback d-block font-weight-bold" *ngIf="documento.invalid && documento.touched">Debe ingresar un parámetro de busqueda para realizar la consulta</small>
+                            <small class="invalid-feedback d-block font-weight-bold" *ngIf="searchResponseMessage">{{ searchResponseMessage }}</small>
+                            <small class="invalid-feedback d-block font-weight-bold" *ngIf="searchSecondResponseMessage">{{ searchSecondResponseMessage }}</small>
+                        </div>
+                    </form>
+                    <div class="deleteLoader mb-3" *ngIf="searchPreloaderStatus">
+                        <div class="loader"></div>
+                    </div>
+                    <ng-container *ngIf="securityEvent && !searchPreloaderStatus">
+                        <app-moduloi [securityEvent]="securityEvent" [eventId]="eventId"></app-moduloi>
+                        <div style="margin-top: -1.5rem;" *ngIf="preclasification">
+                            <app-moduloii [preclasification]="preclasification" [eventId]="eventId"></app-moduloii>
+                        </div>
+                        <div *ngIf="investigation">
+                            <app-moduloiii [investigation]="investigation" [securityEventId]="securityEventId"></app-moduloiii>
+                            <form id="planForm" #planForm="ngForm" (ngSubmit)="onSubmit(planForm)">
+                                <div class="form-group mt-3">
+                                    <div id="labelSearch" class="col col-12 d-inline-block align-top">
+                                        <label for="plan" class="labelForm">Id del plan de mejora asociado*</label>
+                                        <input type="text" name="plan" class="form-control inputForm " [ngClass]="{ 'is-invalid': plan.touched && plan.invalid}" #plan="ngModel" [(ngModel)]="planId" pattern="[0-9]+" required maxlength="4" placeholder="Ingrese el id del Plan de Mejora Asociado">
+                                    </div>
+                                </div>
+                                <div class="col col-sm-12 buttonSubmit">
+                                    <input type="submit" value="Asociar Plan de Mejora" class="btn btn-success btnPrefer col-sm-12" [disabled]="planForm.invalid">
+                                </div>
+                                <small class="invalid-feedback d-block font-weight-bold" *ngIf="plan.invalid && plan.touched">Debe ingresar un número correcto</small>
+                            </form>
+                            <div class="deleteLoader mt-3" *ngIf="storePreloaderStatus">
+                                <div class="loader"></div>
+                            </div>
+                            <div class="mt-3 col col-sm-12 errorAlert" *ngIf="storeResponseMessage">
+                                <div class="alert alert-danger" role="alert">
+                                    {{ storeResponseMessage }}
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

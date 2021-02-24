@@ -1,0 +1,203 @@
+<div class="col col-12" *ngIf="investigation">
+    <div id="accordionInvestigation">
+        <div class="card mt-2">
+            <div class="card-header" id="headingInvestigation">
+                <h5 class="mb-0">
+                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapseInvestigation" aria-expanded="true" aria-controls="collapseInvestigation">
+						Investigación del Suceso Reportado
+					</button>
+                </h5>
+            </div>
+            <div id="collapseInvestigation" class="collapse" aria-labelledby="headingInvestigation" data-parent="#accordionInvestigation">
+                <div class="card-body pr-0 pl-0">
+                    <div class="subtitle"><span>RESUMEN HISTORIA CLÍNICA DE MANERA CRONOLÓGICA INCLUIDAS TODAS LAS DISCIPLINAS</span></div>
+                    <div class="form-group">
+                        <div class="col col-12 d-inline-block align-top">
+                            <textarea name="resumenHClinica" id="resumenHClinica" rows="8" class="form-control inputForm" required disabled>{{ investigation.resumenHClinica }}</textarea>
+                        </div>
+                    </div>
+                    <div class="subtitle"><span>INVESTIGACIÓN Y ENTREVISTAS</span></div>
+                    <div class="col col-12">
+                        <ng-container *ngFor="let survey of surveys; index as i">
+                            <app-survey [survey]="survey" [numeroEncuesta]="i+1"></app-survey>
+                        </ng-container>
+                    </div>
+                    <div class="subtitle"><span>INDAGACIÓN DOCUMENTAL</span></div>
+                    <div class="form-group">
+                        <div class="col col-12 d-inline-block align-top">
+                            <textarea name="indagacionDocumental" id="indagacionDocumental" rows="4" class="form-control inputForm" required disabled>{{ investigation.indagacionDocumental }}</textarea>
+                        </div>
+                        <div class="col col-12" *ngIf="investigation.archivo">
+                            <div (click)="downloadFile()" class="badge badge-info d-block personalizedBadge" *ngIf="investigation.archivo">{{'Descargar archivo: ' + investigation.archivo }}</div>
+                            <small *ngIf="fileMessage" class="invalid-feedback d-block">{{ fileMessage }}</small>
+                        </div>
+                    </div>
+                    <div class="subtitle"><span>LISTA DE ACCIONES INSEGURAS O FALLAS ACTIVAS PRESENTADAS EN EL SUCESO DE SEGURIDAD</span></div>
+                    <div class="form-group">
+                        <div class="col col-12 d-inline-block align-top">
+                            <label for="descripcion" class="labelForm">Lista de acciones o fallas</label>
+                            <ul class="list">
+                                <li *ngIf="investigation.accionInsegura1">{{ investigation.accionInsegura1 }}</li>
+                                <li *ngIf="investigation.accionInsegura2">{{ investigation.accionInsegura2 }}</li>
+                                <li *ngIf="investigation.accionInsegura3">{{ investigation.accionInsegura3 }}</li>
+                                <li *ngIf="investigation.accionInsegura4">{{ investigation.accionInsegura4 }}</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="form-group" *ngIf="investigation.riesgoAccionInsegura1 || investigation.riesgoAccionInsegura2 || investigation.riesgoAccionInsegura3 || investigation.riesgoAccionInsegura4">
+                        <div class="subtitle"><span>PRIORIZACIÓN DE ACCIONES INSEGURAS</span></div>
+                        <div class="tableContainer mt-3">
+                            <table class="table table-bordered">
+                                <thead class="thead_styles" style="text-align: justify;">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>
+                                            <div class="text-center">RIESGO</div>
+                                            <div>Califique como 1 o 2 cuando la institución, el usuario y/o los clientes internos no corren ningún riesgo o existe un riesgo leve si no se efectúa la acción de mejoramiento.</div>
+                                            <div>Califique como 3 cuando la institución, el usuario y/o los clientes internos corren un riesgo medio si no se efectúa la acción de mejoramiento.</div>
+                                            <div>Califique como 4 o 5 cuando la institución, el usuario y/o los clientes internos corren un riesgo alto o se puede presentar un evento adverso o incidente si no se efectúa la acción de mejoramiento.</div>
+                                        </th>
+                                        <th>
+                                            <div class="text-center">COSTO</div>
+                                            <div>Califique como 1 o 2 si al no realizarse el mejoramiento no se afectan o se afectan levemente las finanzas y la imagen de la institución.</div>
+                                            <div>Califique como 3 si al no realizarse el mejoramiento se afectan moderadamente las finanzas y la imagen de la institución.</div>
+                                            <div>Califique como 4 o 5 si al no realizarse el mejoramiento se afectan notablemente las finanzas y la imagen de la institución.</div>
+                                        </th>
+                                        <th>
+                                            <div class="text-center">VOLUMEN</div>
+                                            <div>Califique como 1 o 2 si la ejecución del mejoramiento no tendría una cobertura o alcance amplio en la institución o en los usuarios internos o externos o el impacto es leve.</div>
+                                            <div>Califique como 3 si la ejecución de la acción de mejoramiento tendría una cobertura o alcance medio en la institución o en los usuarios internos o externos.</div>
+                                            <div>Califique como 4 o 5 si la ejecución de la acción de mejoramiento tendría una cobertura o alcance amplio en la institución o en los usuarios internos o externos.</div>
+                                        </th>
+                                        <th>TOTAL</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="tbody_styles">
+                                    <tr *ngIf="investigation.riesgoAccionInsegura1 && investigation.costoAccionInsegura1 && investigation.volumenAccionInsegura1">
+                                        <td>1</td>
+                                        <td>
+                                            <div class="col col-12">
+                                                <input type="text" name="riesgoAccionInsegura1" id="riesgoAccionInsegura1" class="form-control inputForm" value="{{ investigation.riesgoAccionInsegura1 }}" required disabled>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="col col-12">
+                                                <input type="text" name="costoAccionInsegura1" id="costoAccionInsegura1" class="form-control inputForm" value="{{ investigation.costoAccionInsegura1 }}" required disabled>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="col col-12">
+                                                <input type="text" name="volumenAccionInsegura1" id="volumenAccionInsegura1" class="form-control inputForm" value="{{ investigation.volumenAccionInsegura1 }}" required disabled>
+                                            </div>
+                                        </td>
+                                        <td [ngClass]=" { 'good': investigation.riesgoAccionInsegura1 * investigation.costoAccionInsegura1 * investigation.volumenAccionInsegura1 < 50 , 'regular': investigation.riesgoAccionInsegura1 * investigation.costoAccionInsegura1 * investigation.volumenAccionInsegura1 >= 50 && investigation.riesgoAccionInsegura1 * investigation.costoAccionInsegura1 * investigation.volumenAccionInsegura1 < 80, 'bad': investigation.riesgoAccionInsegura1 * investigation.costoAccionInsegura1 * investigation.volumenAccionInsegura1 >= 80 } ">
+                                            {{ +investigation.riesgoAccionInsegura1 * +investigation.costoAccionInsegura1 * +investigation.volumenAccionInsegura1 }}
+                                        </td>
+                                    </tr>
+                                    <tr *ngIf="investigation.riesgoAccionInsegura2 && investigation.costoAccionInsegura2 && investigation.volumenAccionInsegura2">
+                                        <td>2</td>
+                                        <td>
+                                            <div class="col col-12">
+                                                <input type="text" name="riesgoAccionInsegura2" id="riesgoAccionInsegura2" class="form-control inputForm" value="{{ investigation.riesgoAccionInsegura2 }}" required disabled>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="col col-12">
+                                                <input type="text" name="costoAccionInsegura2" id="costoAccionInsegura2" class="form-control inputForm" value="{{ investigation.costoAccionInsegura2 }}" required disabled>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="col col-12">
+                                                <input type="text" name="volumenAccionInsegura2" id="volumenAccionInsegura2" class="form-control inputForm" value="{{ investigation.volumenAccionInsegura2 }}" required disabled>
+                                            </div>
+                                        </td>
+                                        <td [ngClass]=" { 'good': investigation.riesgoAccionInsegura2 * investigation.costoAccionInsegura2 * investigation.volumenAccionInsegura2 < 50 , 'regular': investigation.riesgoAccionInsegura2 * investigation.costoAccionInsegura2 * investigation.volumenAccionInsegura2 >= 50 && investigation.riesgoAccionInsegura2 * investigation.costoAccionInsegura2 * investigation.volumenAccionInsegura2 < 80, 'bad': investigation.riesgoAccionInsegura2 * investigation.costoAccionInsegura2 * investigation.volumenAccionInsegura2 >= 80 } ">
+                                            {{ +investigation.riesgoAccionInsegura2 * +investigation.costoAccionInsegura2 * +investigation.volumenAccionInsegura2 }}
+                                        </td>
+                                    </tr>
+                                    <tr *ngIf="investigation.riesgoAccionInsegura3 && investigation.costoAccionInsegura3 && investigation.volumenAccionInsegura3">
+                                        <td>3</td>
+                                        <td>
+                                            <div class="col col-12">
+                                                <input type="text" name="riesgoAccionInsegura3" id="riesgoAccionInsegura3" class="form-control inputForm" value="{{ investigation.riesgoAccionInsegura3 }}" required disabled>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="col col-12">
+                                                <input type="text" name="costoAccionInsegura3" id="costoAccionInsegura3" class="form-control inputForm" value="{{ investigation.costoAccionInsegura3 }}" required disabled>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="col col-12">
+                                                <input type="text" name="volumenAccionInsegura3" id="volumenAccionInsegura3" class="form-control inputForm" value="{{ investigation.volumenAccionInsegura3 }}" required disabled>
+                                            </div>
+                                        </td>
+                                        <td [ngClass]=" { 'good': investigation.riesgoAccionInsegura3 * investigation.costoAccionInsegura3 * investigation.volumenAccionInsegura3 < 50 , 'regular': investigation.riesgoAccionInsegura3 * investigation.costoAccionInsegura3 * investigation.volumenAccionInsegura3 >= 50 && investigation.riesgoAccionInsegura3 * investigation.costoAccionInsegura3 * investigation.volumenAccionInsegura3 < 80, 'bad': investigation.riesgoAccionInsegura3 * investigation.costoAccionInsegura3 * investigation.volumenAccionInsegura3 >= 80 } ">
+                                            {{ +investigation.riesgoAccionInsegura3 * +investigation.costoAccionInsegura3 * +investigation.volumenAccionInsegura3 }}
+                                        </td>
+                                    </tr>
+                                    <tr *ngIf="investigation.riesgoAccionInsegura4 && investigation.costoAccionInsegura4 && investigation.volumenAccionInsegura4">
+                                        <td>4</td>
+                                        <td>
+                                            <div class="col col-12">
+                                                <input type="text" name="riesgoAccionInsegura4" id="riesgoAccionInsegura4" class="form-control inputForm" value="{{ investigation.riesgoAccionInsegura4 }}" required disabled>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="col col-12">
+                                                <input type="text" name="costoAccionInsegura4" id="costoAccionInsegura4" class="form-control inputForm" value="{{ investigation.costoAccionInsegura4 }}" required disabled>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="col col-12">
+                                                <input type="text" name="volumenAccionInsegura4" id="volumenAccionInsegura4" class="form-control inputForm" value="{{ investigation.volumenAccionInsegura4 }}" required disabled>
+                                            </div>
+                                        </td>
+                                        <td [ngClass]=" { 'good': investigation.riesgoAccionInsegura4 * investigation.costoAccionInsegura4 * investigation.volumenAccionInsegura4 < 50 , 'regular': investigation.riesgoAccionInsegura4 * investigation.costoAccionInsegura4 * investigation.volumenAccionInsegura4 >= 50 && investigation.riesgoAccionInsegura4 * investigation.costoAccionInsegura4 * investigation.volumenAccionInsegura4 < 80, 'bad': investigation.riesgoAccionInsegura4 * investigation.costoAccionInsegura4 * investigation.volumenAccionInsegura4 >= 80 } ">
+                                            {{ +investigation.riesgoAccionInsegura4 * +investigation.costoAccionInsegura4 * +investigation.volumenAccionInsegura4 }}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col col-12 d-inline-block align-top">
+                            <label for="factorContributivo" class="labelForm">Factores Contributivos*</label>
+                            <input type="text" name="perfilReportante" class="form-control inputForm" value="{{ investigation.factorContributivo | global: 'factoresContributivos' }}" disabled>
+                        </div>
+                        <div class="col col-12 d-inline-block align-top mt-1" *ngIf="opcionesFactores">
+                            <div class="col-12 d-inline-block pl-3 align-top checkbox" *ngFor="let opcion of opcionesFactores">
+                                <input disabled type="checkbox" [(ngModel)]="opcion.isSelected" name="{{'opcion' + opcion.id}}" id="{{'opcion' + opcion.id}}"><label class="checkbox" for="{{'opcion' + opcion.id}}">{{ opcion.name }}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col col-12 align-top">
+                        <label for="barrerasSeguridad" class="labelForm">Barreras de Seguridad Implementadas*</label>
+                        <div class="col-12 d-inline-block pl-3 align-top checkbox" *ngFor="let barrera of barrerasSeguridadImplementadas">
+                            <input disabled type="checkbox" [(ngModel)]="barrera.isSelected" name="{{'barrera' + barrera.id}}" id="{{'barrera' + barrera.id}}"><label class="checkbox" for="{{'barrera' + barrera.id}}">{{ barrera.name }}</label>
+                        </div>
+                    </div>
+                    <div class="form-group" *ngIf="investigation.descripcionAccionInsegura">
+                        <div class="form-group col col-12 align-top">
+                            <label for="descripcionAccionInsegura" class="labelForm">Descripción Adicional</label>
+                            <textarea name="descripcionAccionInsegura" id="descripcionAccionInsegura" rows="4" class="form-control inputForm" disabled>{{ investigation.descripcionAccionInsegura }}</textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col col-12 d-inline-block align-top">
+                            <label for="conclusion" class="labelForm">Conclusión*</label>
+                            <textarea name="conclusion" id="conclusion" rows="8" class="form-control inputForm" required disabled>{{ investigation.conclusionInvestigacion }}</textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col col-12 d-inline-block align-top">
+                            <label for="clasificacion" class="labelForm">Clasificación*</label>
+                            <input type="text" name="clasificacion" class="form-control inputForm" value="{{ investigation.clasificacionInvestigacion | global: 'clasificacionInvestigacion' }}" disabled>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
