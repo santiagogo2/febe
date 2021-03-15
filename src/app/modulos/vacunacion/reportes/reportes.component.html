@@ -1,0 +1,184 @@
+<div class="loaderBall" *ngIf="!vaccinated && !responseMessage">
+    <div class="ball-pulse-rise">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+<div class="row reports" *ngIf="vaccinated || responseMessage">
+    <div class="col-sm-12">
+        <div class="card border-0">
+            <div class="alert" role="alert" *ngIf="responseMessage">
+                {{ responseMessage }}
+            </div>
+            <form #reportForm="ngForm" class="form-container" (ngSubmit)="generateReport()">
+                <div class="form-group">
+                    <div class="col col-sm-5 d-inline-block">
+                        <label for="tipoInforme" class="labelForm">Tipo de informe<span class="required">*</span></label>
+                        <select style="background-position-x: 95%; text-transform: uppercase;" name="tipoInforme" id="tipoInforme" class="form-control inputForm" [ngClass]="{'is-invalid': tipoInforme.invalid }" #tipoInforme="ngModel" [(ngModel)]="selectedTipoInforme" required>
+							<option value="1">Reporte Completo</option>
+							<option value="2">Fecha</option>
+							<option value="3">Tipo de Usuario</option>
+							<option value="4">Punto de Vacunación</option>
+						</select>
+                    </div>
+                    <div class="col col-sm-5 d-inline-block" *ngIf="selectedTipoInforme && selectedTipoInforme == 2">
+                        <label for="dateReport" class="labelForm">Fecha de vacunación<span class="required">*</span></label>
+                        <input type="date" name="dateReport" class="form-control inputForm" [ngClass]="{'is-invalid': dateReport.invalid}" #dateReport="ngModel" [(ngModel)]="selectedReport" required>
+                    </div>
+                    <div class="col col-sm-5 d-inline-block" *ngIf="selectedTipoInforme && selectedTipoInforme == 3">
+                        <label for="tiposUsuario" class="labelForm">Seleccione una opción<span class="required">*</span></label>
+                        <select style="background-position-x: 95%; text-transform: uppercase;" name="tiposUsuario" id="tiposUsuario" class="form-control inputForm" [ngClass]="{'is-invalid': tiposUsuario.invalid }" #tiposUsuario="ngModel" [(ngModel)]="selectedReport" required>
+							<option *ngFor="let tipo of global.tipoUsuarioVacunado" value="{{ tipo.id }}">{{ tipo.name }}</option>
+						</select>
+                    </div>
+                    <div class="col col-sm-5 d-inline-block" *ngIf="selectedTipoInforme && selectedTipoInforme == 4">
+                        <label for="puntoVacunacion" class="labelForm">Seleccione una opción<span class="required">*</span></label>
+                        <select style="background-position-x: 95%; text-transform: uppercase;" name="puntoVacunacion" id="puntoVacunacion" class="form-control inputForm" [ngClass]="{'is-invalid': puntoVacunacion.invalid }" #puntoVacunacion="ngModel" [(ngModel)]="selectedReport"
+                            required>
+							<option *ngFor="let tipo of global.unidadPresento" value="{{ tipo.id }}">{{ tipo.name }}</option>
+						</select>
+                    </div>
+                    <div class="col col-sm-2 d-inline-block buttonSubmit">
+                        <input style="padding: 0.3rem !important" type="submit" value="Exportar" class="btn btn-success btnPrefer col-sm-12" [disabled]="reportForm.invalid">
+                    </div>
+                </div>
+                <small class="col col-12 invalid-feedback d-block" *ngIf="reportMessage">{{ reportMessage }}</small>
+            </form>
+
+            <div class="tableContainer" *ngIf="asignacionTableResult">
+                <table class="table table-bordered infoReportTable col col-sm-12 mt-3">
+                    <thead class="thead_styles">
+                        <td style="font-size: 1rem">Fecha de Programación</td>
+                        <td style="font-size: 1rem">Cantidad de Usuarios Reportados en PISIS</td>
+                        <td style="font-size: 1rem">Vacunados</td>
+                        <td style="font-size: 1rem">Pendientes por Vacunar</td>
+                        <td style="font-size: 1rem">Acciones</td>
+                    </thead>
+                    <tbody class="tbody_styles" *ngFor="let report of asignacionTableResult">
+                        <td>{{ report.fechaVacunacion }}</td>
+                        <td>{{ report.total }}</td>
+                        <td>{{ report.contador1 }}</td>
+                        <td>{{ report.contador0 }}</td>
+                        <td>
+                            <button type="button" class="btn btn-info col col-sm-6 d-inline-block" (click)="graficar( report.fechaVacunacion )">Graficar</button>
+                            <button type="button" class="btn btn-warning col col-sm-6 d-inline-block" (click)="setMissingSchedules( report.fechaVacunacion )" data-toggle="modal" [attr.data-target]="'#newFollow'">Ampliar</button>
+                        </td>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-sm-12 reportGraph pl-0" id="grafica" *ngIf="asignacionDoughnut">
+                <div class="card border-0">
+                    <h4 class="card-header">{{ asignacionDoughnut.title }}</h4>
+                    <div class="card-body">
+                        <app-grafico-dona [chartData]="asignacionDoughnut.data" [chartLabels]="asignacionDoughnut.labels" [chartType]="asignacionDoughnut.type" [fechaHora]="vaccinated[vaccinated.length - 1].updated_at">
+                        </app-grafico-dona>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-12 reportGraph pl-0 pr-0">
+                <div class="card border-0">
+                    <h4 class="card-header">Vacunados por Fecha, Unidad y Mesa</h4>
+                    <div class="card-body">
+                        <div class="form-container">
+                            <div class="col col-sm-6 col-md-4 d-inline-block align-top">
+                                <label for="fechaVacunacion" class="labelForm">Fecha de Vacunación<span class="required">*</span></label>
+                                <input type="date" name="fechaVacunacion" class="form-control inputForm" [ngClass]="{'is-invalid': fechaVacunacion.invalid}" #fechaVacunacion="ngModel" [(ngModel)]="deskDate" (ngModelChange)="setDeskReport()">
+                            </div>
+                        </div>
+                        <div class="tableContainer" *ngIf="deskReport">
+                            <table class="table table-bordered infoReportTable col col-sm-12 mt-3">
+                                <thead class="thead_styles">
+                                    <td style="font-size: 1rem">Unidad</td>
+                                    <td style="font-size: 1rem" *ngFor="let item of this.mesasDisponibles">{{ item }}</td>
+                                    <td style="font-size: 1rem">Total</td>
+                                </thead>
+                                <tbody class="tbody_styles" *ngFor="let report of deskReport">
+                                    <td>{{ report.unidad }}</td>
+                                    <td *ngFor="let item of this.mesasDisponibles">{{ report[item] }}</td>
+                                    <td style="font-size: 1.3rem"><b>{{ report.total }}</b></td>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-12 reportGraph pl-0 pr-0" *ngIf="usuarioVacunado">
+                <div class="card border-0">
+                    <h4 class="card-header">{{ usuarioVacunado.title }}</h4>
+                    <div class="card-body">
+                        <app-grafico-dona [chartData]="usuarioVacunado.data" [chartLabels]="usuarioVacunado.labels" [chartType]="usuarioVacunado.type" [fechaHora]="vaccinated[vaccinated.length - 1].updated_at">
+                        </app-grafico-dona>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tableContainer" *ngIf="unidadReport">
+                <table class="table table-bordered infoReportTable col col-sm-12 mt-3">
+                    <thead class="thead_styles">
+                        <td style="font-size: 1rem">Registros Realizados por Punto de Vacunación</td>
+                        <td style="font-size: 1rem">Total</td>
+                    </thead>
+                    <tbody class="tbody_styles" *ngFor="let report of unidadReport">
+                        <td>{{ report.unidadVacunacion | global: 'unidadPresento' }}</td>
+                        <td>{{ report.total }}</td>
+                    </tbody>
+                    <tbody class="tbody_styles" style="font-weight: bold;">
+                        <td style="font-size: 1.3rem">TOTAL</td>
+                        <td style="font-size: 1.3rem">{{ vaccinated.length }}</td>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- the Modal -->
+<div class="modal animated fadeIn faster" id="newFollow">
+    <div class="modal-dialog">
+        <div class="modal-content" style="padding: 2rem;">
+            <div class="tableContainer" *ngIf="missingSchedules">
+                <div class="tableContainerAll col col-sm-12">
+                    <table class="table table-bordered">
+                        <thead class="thead_styles">
+                            <tr>
+                                <th>#</th>
+                                <th>Documento</th>
+                                <th>Nombre Completo</th>
+                            </tr>
+                        </thead>
+                        <tbody class="tbody_styles">
+                            <tr *ngFor="let missing of missingSchedules; index as i" class="tableStyles">
+                                <td>{{ i + 1 }}</td>
+                                <td>{{ missing.numeroDocumento }}</td>
+                                <td>
+                                    {{ missing.primerNombre }}
+                                    <ng-container *ngIf="missing.segundoNombre">{{ ' ' + missing.segundoNombre }}</ng-container>
+                                    {{ missing.primerApellido }}
+                                    <ng-container *ngIf="missing.segundoApellido">{{ ' ' + missing.segundoApellido }}</ng-container>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="mt-3 col col-sm-12 errorAlert" *ngIf="missingMessage">
+                <div class="alert alert-danger" role="alert">
+                    {{ missingMessage }}
+                </div>
+            </div>
+            <div class="deleteLoader" *ngIf="preloaderMissingStatus">
+                <div class="loader"></div>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
