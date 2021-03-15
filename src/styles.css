@@ -251,6 +251,10 @@ header .nav-item:hover {
     box-shadow: 0 0 0 200px #924E4E inset;
 }
 
+.circleImageContainer:hover .color-76b321 {
+    box-shadow: 0 0 0 200px #76b321 inset;
+}
+
 .circleImageContainer:hover .color-ecc350 {
     box-shadow: 0 0 0 200px #ECC350 inset;
 }

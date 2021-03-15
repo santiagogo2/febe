@@ -18,6 +18,8 @@ export var global = {
 		{ title: 'business', imageUrl: 'assets/images/modulos/business.png', class: 'imageContainer color-dark-pink', url: '/business' },
 		{ title: 'CIP', imageUrl: 'assets/images/modulos/cip.png', class: 'imageContainer color-pink', url: '/cip' },
 		{ title: 'Seguridad del Paciente', imageUrl: 'assets/images/modulos/seguridadPaciente.png', class: 'imageContainer color-soft-brown', url: '/seguridad-paciente' },
+		{ title: 'Referencia', imageUrl: 'assets/images/modulos/referencia.png', class: 'imageContainer color-76b321', url: '/referencia' },
+		{ title: 'Vacunación', imageUrl: 'assets/images/modulos/vaccine.png', class: 'imageContainer color-ecc350', url: '/vacunacion' },
 	],
 	estados: [
 		{id: 1, value: 'CUARENTENA'},
@@ -272,7 +274,7 @@ export var global = {
 		{ id: 'CC', name: 'Cédula de Ciudadanía' },
 		{ id: 'RC', name: 'Registro Civil' },
 		{ id: 'TI', name: 'Tarjeta de Identidad' },
-		{ id: 'CE', name: 'Cedula de Extranjería' },
+		{ id: 'CE', name: 'Cédula de Extranjería' },
 		{ id: 'PA', name: 'Pasaporte' },
 		{ id: 'NV', name: 'Nacido Vivo' },
 		{ id: 'CD', name: 'Carné Diplomático' },
@@ -308,7 +310,7 @@ export var global = {
 	// Referencia
 	motivosTraslados: [
 		{ id: 1, name: 'INTERCONSULTA' },
-		{ id: 2, name: 'TRANSLADO DE UNIDAD DE ATENCIÓN' },
+		{ id: 2, name: 'TRASLADO DE UNIDAD DE ATENCIÓN' },
 		{ id: 3, name: 'APOYOS DIAGNÓSTICOS' },
 	],
 	tiposAmbulancia: [
@@ -406,42 +408,43 @@ export var global = {
 		{ id: 24, value: 'Odontólogo (a)' },
 	],
 	unidadPresento: [
-		{ id: 1, name: 'Abraham Lincoln' },
-		{ id: 2, name: 'Betania' },
-		{ id: 3, name: 'Candelaria' },
-		{ id: 4, name: 'Casa de teja' },
-		{ id: 5, name: 'Danubio azul' },
-		{ id: 6, name: 'Destino' },
-		{ id: 7, name: 'El Carmen' },
-		{ id: 8, name: 'Isla del Sol' },
-		{ id: 9, name: 'Ismael Perdomo' },
-		{ id: 10, name: 'Jerusalén' },
-		{ id: 11, name: 'La Estrella' },
-		{ id: 12, name: 'La Flora' },
-		{ id: 13, name: 'La Reforma' },
-		{ id: 14, name: 'Limonar' },
-		{ id: 15, name: 'Lorenzo Alcantuz' },
-		{ id: 16, name: 'Manuela Beltrán ' },
-		{ id: 17, name: 'Marichuela' },
-		{ id: 18, name: 'Meissen' },
-		{ id: 19, name: 'Meissen apoyo diagnóstico' },
-		{ id: 20, name: 'Mochuelo' },
-		{ id: 21, name: 'Nazareth' },
-		{ id: 22, name: 'Paraiso' },
-		{ id: 23, name: 'Pasquilla' },
-		{ id: 24, name: 'Potosí' },
-		{ id: 25, name: 'San Benito' },
-		{ id: 26, name: 'San Francisco' },
-		{ id: 27, name: 'San Isidro' },
-		{ id: 28, name: 'San Juan de Sumapaz' },
-		{ id: 29, name: 'Santa Librada' },
-		{ id: 30, name: 'Santa Martha' },
-		{ id: 31, name: 'Sierra Morena' },
-		{ id: 32, name: 'Tunal' },
-		{ id: 33, name: 'Tunjuelito Medicina Interna' },
-		{ id: 34, name: 'Usme' },
-		{ id: 35, name: 'Vista Hermosa' },
-		{ id: 36, name: 'Yomasa' },
+		{ id: 1, name: 'ABRAHAM LINCOLN' },
+		{ id: 2, name: 'BETANIA' },
+		{ id: 3, name: 'CANDELARIA' },
+		{ id: 4, name: 'CASA DE TEJA' },
+		{ id: 5, name: 'UNIDAD DE SERVICIOS DE SALUD DANUBIO AZUL' },
+		{ id: 6, name: 'DESTINO' },
+		{ id: 7, name: 'EL CARMEN' },
+		{ id: 8, name: 'ISLA DEL SOL' },
+		{ id: 9, name: 'ISMAEL PERDOMO' },
+		{ id: 10, name: 'UNIDAD DE SERVICIOS DE SALUD JERUSALEN' },
+		{ id: 11, name: 'UNIDAD DE SERVICIOS DE SALUD LA ESTRELLA' },
+		{ id: 12, name: 'LA FLORA' },
+		{ id: 13, name: 'LA REFORMA' },
+		{ id: 14, name: 'LIMONAR' },
+		{ id: 15, name: 'LORENZO ALCANTUZ' },
+		{ id: 16, name: 'MANUELA BELTRÁN' },
+		{ id: 17, name: 'MARICHUELA' },
+		{ id: 18, name: 'MEISSEN' },
+		{ id: 19, name: 'MEISSEN APOYO DIAGNÓSTICO' },
+		{ id: 20, name: 'MOCHUELO' },
+		{ id: 21, name: 'NAZARETH' },
+		{ id: 22, name: 'UNIDAD DE SERVICIOS DE SALUD PARAISO' },
+		{ id: 23, name: 'PASQUILLA' },
+		{ id: 24, name: 'POTOSÍ' },
+		{ id: 25, name: 'SAN BENITO' },
+		{ id: 26, name: 'SAN FRANCISCO' },
+		{ id: 27, name: 'SAN ISIDRO' },
+		{ id: 28, name: 'SAN JUAN DE SUMAPÁZ' },
+		{ id: 29, name: 'UNIDAD DE SERVICIOS DE SALUD SANTA LIBRADA' },
+		{ id: 30, name: 'SANTA MARTHA' },
+		{ id: 31, name: 'SIERRA MORENA' },
+		{ id: 32, name: 'UNIDAD DE SERVICIOS DE SALUD EL TUNAL' },
+		{ id: 33, name: 'TUNJUELITO MEDICINA INTERNA' },
+		{ id: 34, name: 'UNIDAD DE SERVICIOS DE SALUD USME' },
+		{ id: 35, name: 'UNIDAD DE SERVICIOS DE SALUD VISTA HERMOSA' },
+		{ id: 36, name: 'YOMASA' },
+		{ id: 37, name: 'COLISEO EL TUNAL' },
 	],
 	servicioPresento: [
 		{ id: 1, name: 'APH' },
@@ -513,6 +516,7 @@ export var global = {
 		{ id: 2, name: 'B+' },
 		{ id: 3, name: 'AB+' },
 		{ id: 4, name: 'O-' },
+		{ id: 8, name: 'O+' },
 		{ id: 5, name: 'A-' },
 		{ id: 6, name: 'B-' },
 		{ id: 7, name: 'AB-' },
@@ -959,6 +963,31 @@ export var global = {
 		{ id: 1, name: 'INCICACIONES DE CUIDADO, SEÑALES DE ALARMA Y DONDE ACUDIR EN CASO DE URGENCIA' },
 		{ id: 2, name: 'MANEJO DE URGENCIAS' },
 		{ id: 3, name: 'NO MANEJO PERSONA NO PERMITIÓ OBSERVACIÓN' },
+	],
+	tipoUsuarioVacunado: [
+		{ id: 1, name: 'COLABORADOR' },
+		{ id: 2, name: 'USUARIO' },
+	],
+	laboratorioVacunas: [
+		{ id: 1, name: 'ASTRAZENECA' },
+		{ id: 2, name: 'PFIZER' },
+		{ id: 3, name: 'SINOVAC' },
+	],	
+	dosis: [
+		{ id: 1, name: 'PRIMERA DÓSIS' },
+		{ id: 2, name: 'SEGUNDA DÓSIS' },
+	],	
+	mesas: [
+		{ id: 1, name: 'M1' },
+		{ id: 2, name: 'M2' },
+		{ id: 3, name: 'M3' },
+		{ id: 4, name: 'M4' },
+		{ id: 5, name: 'M5' },
+		{ id: 6, name: 'M6' },
+		{ id: 7, name: 'M7' },
+		{ id: 8, name: 'M8' },
+		{ id: 9, name: 'M9' },
+		{ id: 10, name: 'M10' },
 	]
 }
 
@@ -994,6 +1023,12 @@ export class GlobalService {
 	upperCase($event) {
 		if ( $event ) {
 			return $event.toUpperCase();
+		}
+	}
+
+	lowerCase($event) {
+		if ( $event ) {
+			return $event.toLowerCase();
 		}
 	}
 }

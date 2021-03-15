@@ -13,6 +13,7 @@ import { UserRegisterComponent } from './user-register/user-register.component';
 
 // Routing
 import { UserRoutingModule } from './user.routing';
+import { UserMassiveStoreComponent } from './user-massive-store/user-massive-store.component';
 
 @NgModule({
 	declarations: [
@@ -20,6 +21,7 @@ import { UserRoutingModule } from './user.routing';
 		UserListComponent,
 		UserPasswordEditComponent,
 		UserRegisterComponent,
+		UserMassiveStoreComponent,
 	],
 	imports: [
 		CommonModule,

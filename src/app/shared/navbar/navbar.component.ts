@@ -141,6 +141,11 @@ export class NavbarComponent implements OnInit {
 						},
 					]
 				},
+				{ // REFERENCIA
+					title: 'Referencia',
+					url: '/referencia',
+					operationId: 81,
+				},
 				{ // Sala Situacional
 					title: 'Sala Situacional',
 					url: '/sala-situacional',
@@ -185,6 +190,17 @@ export class NavbarComponent implements OnInit {
 							]
 						},
 						{ title: 'Informes', url: '/uci/informes', operationId: 41 },
+					]
+				},
+				{ // VACUNACIÓN
+					title: 'Vacunación',
+					url: '/vacunacion',
+					operationId: 89,
+					dropdown: [
+						{ title: 'Registrar Vacunaciones', url: '/vacunacion/registrar', operationId: 90 },
+						{ title: 'Agendamiento', url: '/vacunacion/agendamiento', operationId: 93 },
+						{ title: 'Agendamiento Masivo', url: '/vacunacion/agendamiento-masivo', operationId: 92 },
+						{ title: 'Informes', url: '/vacunacion/reportes', operationId: 91 },
 					]
 				},
 			],

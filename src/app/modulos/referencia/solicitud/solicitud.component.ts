@@ -130,6 +130,7 @@ export class SolicitudComponent implements OnInit {
 				res => {
 					if ( res.status === 'success' ) {
 						this.infoFolios = res.folios;
+						console.log(this.infoFolios);
 						this.filterFolios( this.infoFolios );
 					}
 				},

@@ -245,6 +245,10 @@
                                             <div *ngIf="request.fechaRetorno && request.horaRetorno" class=" col col-sm-12 col-md-4 d-inline-block"><b>Fecha y Hora de Retorno: </b>{{ request.fechaRetorno + ' / ' + request.horaRetorno }}</div>
                                         </div>
                                         <div class="form-group">
+                                            <div *ngIf="request.funcionarioContesta" class="col col-sm-12 col-md-6 d-inline-block"><b>Funcionario que Contesta: </b>{{ request.funcionarioContesta }}</div>
+                                            <div *ngIf="request.sedeContestan" class="col col-sm-12 col-md-6 d-inline-block"><b>Sede (contestan): </b>{{ request.sedeContestan }}</div>
+                                        </div>
+                                        <div class="form-group">
                                             <div *ngIf="request.observaciones" class="col col-12 d-inline-block"><b>Observaciones: </b>{{ request.observaciones }}</div>
                                         </div>
                                     </div>
@@ -394,21 +398,21 @@
                                 <input type="time" name="horaRegreso" class="form-control inputForm" [ngClass]="{ 'is-invalid': horaRegreso.invalid && horaRegreso.touched}" #horaRegreso="ngModel" [(ngModel)]="updateCaseData.horaRegreso">
                             </div>
                         </div>
-                        <ng-container *ngIf="referalRequest.cups.length > 0">
-                            <div class="subtitle"><span>ASIGNACIÓN DE CITAS MÉDICAS</span></div>
-                            <div class="form-group" *ngFor="let cups of referalRequest.cups; index as i">
-                                <div class="col col-12">
-                                    <label for="{{'cups#' + i}}" class="labelForm">{{ cups.codigoCups + ' - ' + cups.nombreExamen }}</label>
-                                </div>
-                                <div class="col col-6 d-inline-block align-top">
-                                    <input type="date" name="{{ 'fechaCita#' + i }}" class="form-control inputForm" [(ngModel)]="cups.fechaCita">
-                                </div>
-                                <div class="col col-6 d-inline-block align-top" *ngIf="cups.fechaCita">
-                                    <input type="time" name="{{ 'horaCita#' + i }}" class="form-control inputForm" [(ngModel)]="cups.horaCita">
-                                </div>
-                            </div>
-                        </ng-container>
                     </div>
+                    <ng-container *ngIf="(follow.pacienteAceptado==1 || follow.pacienteAceptado == 3 || pacienteAceptadoStatus) && !requestId && referalRequest.cups.length > 0">
+                        <div class="subtitle"><span>ASIGNACIÓN DE CITAS MÉDICAS</span></div>
+                        <div class="form-group" *ngFor="let cups of referalRequest.cups; index as i">
+                            <div class="col col-12">
+                                <label for="{{'cups#' + i}}" class="labelForm">{{ cups.codigoCups + ' - ' + cups.nombreExamen }}</label>
+                            </div>
+                            <div class="col col-6 d-inline-block align-top">
+                                <input type="date" name="{{ 'fechaCita#' + i }}" class="form-control inputForm" [(ngModel)]="cups.fechaCita">
+                            </div>
+                            <div class="col col-6 d-inline-block align-top" *ngIf="cups.fechaCita">
+                                <input type="time" name="{{ 'horaCita#' + i }}" class="form-control inputForm" [(ngModel)]="cups.horaCita">
+                            </div>
+                        </div>
+                    </ng-container>
                     <div class="form-group">
                         <div class="col col-12 d-inline-block align-top">
                             <label for="observaciones" class="labelForm">Observaciones*</label>

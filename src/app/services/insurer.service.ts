@@ -2,21 +2,25 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { global } from './global.service';
+import { UserService } from './user.service';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class InsurerService {
 	public url: string;
+	public token: string;
 
 	constructor(
-		private http: HttpClient
+		private http: HttpClient,
+		private userService: UserService,
 	) {
 		this.url = global.url;
+		this.token = this.userService.getToken();
 	}
 
-	insurerList( token ): Observable<any> {
-		const headers = new HttpHeaders().set('Authorization', token);
+	insurerList( token = null ): Observable<any> {
+		const headers = new HttpHeaders().set('Authorization', this.token);
 
 		return this.http.get( this.url + 'insurer', { headers } );
 	}

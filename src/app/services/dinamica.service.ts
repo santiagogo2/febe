@@ -39,6 +39,11 @@ export class DinamicaService {
 		return this.http.get( this.url + 'dinamica/epicrisis/search/doctor/' + doctorId, {headers});
 	}
 
+	getVaccineThird( ternumdoc ): Observable<any> {
+		let headers = new HttpHeaders().set( 'Authorization', this.token );
+		return this.http.get( this.url + 'dinamica/third/vaccine/ternumdoc/' + ternumdoc, { headers } );
+	}
+
 	// General info
 	getAllEPS(): Observable<any> {
 		const headers = new HttpHeaders().set( 'Authorization', this.token );

@@ -75,6 +75,14 @@ export class UserService {
 		return this.http.post(this.url + 'user', params, { headers });
 	}
 
+	userMassiveStore( user ): Observable<any> {
+		const json = JSON.stringify(user);
+		const params = 'json=' + json;
+		const headers = new HttpHeaders().set('Authorization', this.token)
+										 .set('Content-Type', 'application/x-www-form-urlencoded');
+		return this.http.post(this.url + 'user/massivestore', params, { headers });
+	}
+
 	updateUser( user ): Observable<any> {
 		const json = JSON.stringify(user);
 		const params = 'json=' + json;
