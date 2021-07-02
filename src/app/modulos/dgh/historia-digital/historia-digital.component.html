@@ -1,0 +1,241 @@
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card border-0">
+            <div class="card-body">
+                <div class="formContainer">
+                    <div>
+                        <div class="backLink col col-12 d-inline-block align-top">
+                            <a class="col-sm-6" routerLink="/dgh">Regresar</a>
+                        </div>
+                    </div>
+                    <form [formGroup]="clinicHistoryForm" class="form-container" (ngSubmit)="onSubmit()">
+                        <!-- Datos del Paciente -->
+                        <ng-container>
+                            <div class="subtitle"><span>DATOS DEL PACIENTE</span></div>
+                            <div class="form-group">
+                                <div class="col col-sm-6 col-lg-3 d-inline-block align-top">
+                                    <form [formGroup]="searchForm" class="form-container" (ngSubmit)="searchThird()">
+                                        <label for="numeroDocumento" class="labelForm">Número de Documento<span class="required">*</span></label>
+                                        <div class="input-group">
+                                            <input type="text" formControlName="numeroDocumento" class="form-control inputForm text-uppercase" [ngClass]="{ 'is-invalid': searchFrm.numeroDocumento.errors }" maxlength="20">
+                                            <button style="border-bottom-left-radius: 0; border-top-left-radius: 0;" class="btn btn-outline-secondary inputForm" type="text" id="button-addon2" [disabled]="searchForm.invalid" (click)="searchThird()"><fa-icon [icon]="faSearch" class="d-block"></fa-icon></button>
+                                        </div>
+                                        <fa-icon [icon]="faSpinner" class="d-block spin" *ngIf="searchPreloaderStatus"></fa-icon>
+                                        <small class="invalid-feedback d-block font-weight-bold" *ngIf="searchResponseMessage">{{ searchResponseMessage }}</small>
+                                        <small class="d-block invalid-feedback" *ngIf="searchSubmitted && searchFrm.numeroDocumento.errors">Debe ingresar el número de documento del paciente</small>
+                                    </form>
+                                </div>
+                                <ng-container *ngIf="!searchPreloaderStatus">
+                                    <div class="col col-sm-6 col-lg-3 d-inline-block align-top">
+                                        <label for="tipoDocumento" class="labelForm">Tipo de Documento<span class="required">*</span></label>
+                                        <select class="form-control inputForm" formControlName="tipoDocumento" [ngClass]="{ 'is-invalid': frm.tipoDocumento.errors }">
+											<option *ngFor="let tipo of global.TipoIDPaciente" value="{{ tipo.name }}">{{ tipo.name }}</option>
+										</select>
+                                        <small class="d-block invalid-feedback" *ngIf="submitted && frm.tipoDocumento.errors">Por favor seleccione un tipo de documento</small>
+                                    </div>
+                                    <div class="col col-sm-6 col-lg-3 d-inline-block align-top">
+                                        <label for="sexo" class="labelForm">Sexo<span class="required">*</span></label>
+                                        <select class="form-control inputForm" formControlName="sexo" [ngClass]="{ 'is-invalid': frm.sexo.errors }">
+											<option *ngFor="let genero of global.sexoDinamica" value="{{ genero.id }}">{{ genero.name }}</option>
+										</select>
+                                        <small class="d-block invalid-feedback" *ngIf="submitted && frm.sexo.errors">Por favor seleccione un sexo</small>
+                                    </div>
+                                    <div class="col col-sm-6 col-lg-3 d-inline-block align-top">
+                                        <label for="fechaNacimiento" class="labelForm">Fecha de Nacimiento<span class="required">*</span></label>
+                                        <input type="date" formControlName="fechaNacimiento" class="form-control inputForm text-uppercase" [ngClass]="{ 'is-invalid': frm.fechaNacimiento.errors }" max="{{ globalService.setMaxDate() }}">
+                                        <small class="d-block invalid-feedback" *ngIf="submitted && frm.fechaNacimiento.errors">Debe ingresar la fecha de nacimiento del paciente</small>
+                                    </div>
+                                </ng-container>
+                            </div>
+                            <div class="form-group" *ngIf="!searchPreloaderStatus">
+                                <div class="col col-sm-6 col-lg-3 d-inline-block align-top">
+                                    <label for="primerNombre" class="labelForm">Primer Nombre<span class="required">*</span></label>
+                                    <input type="text" formControlName="primerNombre" class="form-control inputForm text-uppercase" [ngClass]="{ 'is-invalid': frm.primerNombre.errors }" maxlength="50">
+                                    <div *ngIf="submitted && frm.primerNombre.errors">
+                                        <small class="d-block invalid-feedback" *ngIf="frm.primerNombre.errors.required">Debe ingresar el primer nombre del paciente</small>
+                                        <small class="d-block invalid-feedback" *ngIf="frm.primerNombre.errors.pattern">El campo solo permite letras</small>
+                                    </div>
+                                </div>
+                                <div class="col col-sm-6 col-lg-3 d-inline-block align-top">
+                                    <label for="segundoNombre" class="labelForm">Segundo Nombre</label>
+                                    <input type="text" formControlName="segundoNombre" class="form-control inputForm text-uppercase" [ngClass]="{ 'is-invalid': frm.segundoNombre.errors }" maxlength="50">
+                                    <div *ngIf="submitted && frm.segundoNombre.errors">
+                                        <small class="d-block invalid-feedback" *ngIf="frm.segundoNombre.errors.pattern">El campo solo permite letras</small>
+                                    </div>
+                                </div>
+                                <div class="col col-sm-6 col-lg-3 d-inline-block align-top">
+                                    <label for="primerApellido" class="labelForm">Primer Apellido<span class="required">*</span></label>
+                                    <input type="text" formControlName="primerApellido" class="form-control inputForm text-uppercase" [ngClass]="{ 'is-invalid': frm.primerApellido.errors }" maxlength="50">
+                                    <div *ngIf="submitted && frm.primerApellido.errors">
+                                        <small class="d-block invalid-feedback" *ngIf="frm.primerApellido.errors.required">Debe ingresar el primer apellido del paciente</small>
+                                        <small class="d-block invalid-feedback" *ngIf="frm.primerApellido.errors.pattern">El campo solo permite letras</small>
+                                    </div>
+                                </div>
+                                <div class="col col-sm-6 col-lg-3 d-inline-block align-top">
+                                    <label for="segundoApellido" class="labelForm">Segundo Apellido</label>
+                                    <input type="text" formControlName="segundoApellido" class="form-control inputForm text-uppercase" [ngClass]="{ 'is-invalid': frm.segundoApellido.errors }" maxlength="50">
+                                    <div *ngIf="submitted && frm.segundoApellido.errors">
+                                        <small class="d-block invalid-feedback" *ngIf="frm.segundoApellido.errors.pattern">El campo solo permite letras</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group" *ngIf="!searchPreloaderStatus">
+                                <div class="col col-sm-6 col-lg-4 d-inline-block align-top">
+                                    <label for="telefono" class="labelForm">Telefono</label>
+                                    <input type="text" formControlName="telefono" class="form-control inputForm text-uppercase" [ngClass]="{ 'is-invalid': frm.telefono.errors }" maxlength="10">
+                                    <div *ngIf="submitted && frm.telefono.errors">
+                                        <small class="d-block invalid-feedback" *ngIf="frm.telefono.errors.required">Debe ingresar el telefo del paciente</small>
+                                        <small class="d-block invalid-feedback" *ngIf="frm.telefono.errors.pattern">El campo solo permite números</small>
+                                    </div>
+                                </div>
+                                <div class="col col-sm-6 col-lg-8 d-inline-block align-top">
+                                    <label for="direccion" class="labelForm">Dirección</label>
+                                    <input type="text" formControlName="direccion" class="form-control inputForm text-uppercase" [ngClass]="{ 'is-invalid': frm.direccion.errors }" maxlength="100">
+                                    <small class="d-block invalid-feedback" *ngIf="submitted && frm.direccion.errors">Debe ingresar la dirección de residencia</small>
+                                </div>
+                            </div>
+                        </ng-container>
+
+                        <ng-container *ngIf="consecutivoPaciente">
+                            <!-- Datos del Ingreso -->
+                            <ng-container>
+                                <div class="subtitle"><span>DATOS DEL INGRESO</span></div>
+                                <div class="form-group">
+                                    <div class="col col-sm-6 col-lg-3 d-inline-block align-top">
+                                        <label for="fechaIngreso" class="labelForm">Fecha del Ingreso<span class="required">*</span></label>
+                                        <input type="date" formControlName="fechaIngreso" class="form-control inputForm text-uppercase" [ngClass]="{ 'is-invalid': frm.fechaIngreso.errors }" max="{{ globalService.setMaxDate() }}">
+                                        <small class="d-block invalid-feedback" *ngIf="submitted && frm.fechaIngreso.errors">Debe ingresar la fecha del ingreso</small>
+                                    </div>
+                                    <div class="col col-sm-6 col-lg-3 d-inline-block align-top">
+                                        <label for="horaIngreso" class="labelForm">Hora del Ingreso<span class="required">*</span></label>
+                                        <input type="time" formControlName="horaIngreso" class="form-control inputForm text-uppercase" [ngClass]="{ 'is-invalid': frm.horaIngreso.errors }">
+                                        <small class="d-block invalid-feedback" *ngIf="submitted && frm.horaIngreso.errors">Debe ingresar la hora del ingreso</small>
+                                    </div>
+                                    <div class="col col-sm-6 col-lg-3 d-inline-block align-top">
+                                        <label for="tipoIngreso" class="labelForm">Tipo de Ingreso<span class="required">*</span></label>
+                                        <select class="form-control inputForm" formControlName="tipoIngreso" [ngClass]="{ 'is-invalid': frm.tipoIngreso.errors }">
+											<option *ngFor="let tipo of global.tipoIngresoDinamica" value="{{ tipo.id }}">{{ tipo.name }}</option>
+										</select>
+                                        <small class="d-block invalid-feedback" *ngIf="submitted && frm.tipoIngreso.errors">Por favor seleccione un tipo de ingreso</small>
+                                    </div>
+                                    <div class="col col-sm-6 col-lg-3 d-inline-block align-top">
+                                        <label for="ingresoPor" class="labelForm">Ingreso Por<span class="required">*</span></label>
+                                        <select class="form-control inputForm" formControlName="ingresoPor" [ngClass]="{ 'is-invalid': frm.ingresoPor.errors }">
+											<option *ngFor="let ingreso of global.ingresoPorDinamica" value="{{ ingreso.id }}">{{ ingreso.name }}</option>
+										</select>
+                                        <small class="d-block invalid-feedback" *ngIf="submitted && frm.ingresoPor.errors">Por favor seleccione la opción del ingreso</small>
+                                    </div>
+                                </div>
+                                <div class="form-group col col-12">
+                                    <label for="causaIngreso" class="labelForm">Causa del Ingreso<span class="required">*</span></label>
+                                    <select class="form-control inputForm" formControlName="causaIngreso" [ngClass]="{ 'is-invalid': frm.causaIngreso.errors }">
+										<option *ngFor="let tipo of global.causaIngresoDinamica" value="{{ tipo.id }}">{{ tipo.name }}</option>
+									</select>
+                                    <small class="d-block invalid-feedback" *ngIf="submitted && frm.causaIngreso.errors">Debe seleccionar la causa del ingreso</small>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col col-sm-6 d-inline-block align-top">
+                                        <label for="tipoRiesgo" class="labelForm">Tipo de Riesgo<span class="required">*</span></label>
+                                        <select class="form-control inputForm" formControlName="tipoRiesgo" [ngClass]="{ 'is-invalid': frm.tipoRiesgo.errors }">
+											<option *ngFor="let tipo of global.tipoRiesgoDinamica" value="{{ tipo.id }}">{{ tipo.name }}</option>
+										</select>
+                                        <small class="d-block invalid-feedback" *ngIf="submitted && frm.tipoRiesgo.errors">Por favor seleccione el tipo de riesgo</small>
+                                    </div>
+                                    <div class="col col-sm-6 d-inline-block align-top">
+                                        <label for="centroAtencion" class="labelForm">Centro de Atención<span class="required">*</span></label>
+                                        <select class="form-control inputForm" formControlName="centroAtencion" [ngClass]="{ 'is-invalid': frm.centroAtencion.errors }">
+											<option *ngFor="let tipo of global.centroAtencionDinamica" value="{{ tipo.id }}">{{ tipo.name }}</option>
+										</select>
+                                        <small class="d-block invalid-feedback" *ngIf="submitted && frm.centroAtencion.errors">Por favor seleccione un centro de atención</small>
+                                    </div>
+                                </div>
+                            </ng-container>
+                            <ng-container>
+                                <div class="subtitle"><span>DATOS DEL ACUDIENTE</span></div>
+                                <div class="form-group">
+                                    <div class="col col-sm-6 d-inline-block align-top">
+                                        <label for="tipoDocumentoAcudiente" class="labelForm">Tipo de Documento<span class="required">*</span></label>
+                                        <select class="form-control inputForm" formControlName="tipoDocumentoAcudiente" [ngClass]="{ 'is-invalid': frm.tipoDocumentoAcudiente.errors }">
+											<option *ngFor="let tipo of global.tipoDocumentoDinamica" value="{{ tipo.id }}">{{ tipo.name }}</option>
+										</select>
+                                        <small class="d-block invalid-feedback" *ngIf="submitted && frm.tipoDocumentoAcudiente.errors">Por favor seleccione un tipo de documento del acudiente</small>
+                                    </div>
+                                    <div class="col col-sm-6 d-inline-block align-top">
+                                        <label for="numeroDocumentoAcudiente" class="labelForm">Número de Documento<span class="required">*</span></label>
+                                        <input type="text" formControlName="numeroDocumentoAcudiente" class="form-control inputForm text-uppercase" [ngClass]="{ 'is-invalid': frm.numeroDocumentoAcudiente.errors }" maxlength="20">
+                                        <small class="d-block invalid-feedback" *ngIf="submitted && frm.numeroDocumentoAcudiente.errors">Debe ingresar el número de documento del acudiente</small>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col col-sm-6 col-lg-3 d-inline-block align-top">
+                                        <label for="primerNombreAcudiente" class="labelForm">Primer Nombre<span class="required">*</span></label>
+                                        <input type="text" formControlName="primerNombreAcudiente" class="form-control inputForm text-uppercase" [ngClass]="{ 'is-invalid': frm.primerNombreAcudiente.errors }" maxlength="50">
+                                        <div *ngIf="submitted && frm.primerNombreAcudiente.errors">
+                                            <small class="d-block invalid-feedback" *ngIf="frm.primerNombreAcudiente.errors.required">Debe ingresar el primer nombre del acudiente</small>
+                                            <small class="d-block invalid-feedback" *ngIf="frm.primerNombreAcudiente.errors.pattern">El campo solo permite letras</small>
+                                        </div>
+                                    </div>
+                                    <div class="col col-sm-6 col-lg-3 d-inline-block align-top">
+                                        <label for="segundoNombreAcudiente" class="labelForm">Segundo Nombre</label>
+                                        <input type="text" formControlName="segundoNombreAcudiente" class="form-control inputForm text-uppercase" [ngClass]="{ 'is-invalid': frm.segundoNombreAcudiente.errors }" maxlength="50">
+                                        <div *ngIf="submitted && frm.segundoNombreAcudiente.errors">
+                                            <small class="d-block invalid-feedback" *ngIf="frm.segundoNombreAcudiente.errors.pattern">El campo solo permite letras</small>
+                                        </div>
+                                    </div>
+                                    <div class="col col-sm-6 col-lg-3 d-inline-block align-top">
+                                        <label for="primerApellidoAcudiente" class="labelForm">Primer Apellido<span class="required">*</span></label>
+                                        <input type="text" formControlName="primerApellidoAcudiente" class="form-control inputForm text-uppercase" [ngClass]="{ 'is-invalid': frm.primerApellidoAcudiente.errors }" maxlength="50">
+                                        <div *ngIf="submitted && frm.primerApellidoAcudiente.errors">
+                                            <small class="d-block invalid-feedback" *ngIf="frm.primerApellidoAcudiente.errors.required">Debe ingresar el primer apellido del acudiente</small>
+                                            <small class="d-block invalid-feedback" *ngIf="frm.primerApellidoAcudiente.errors.pattern">El campo solo permite letras</small>
+                                        </div>
+                                    </div>
+                                    <div class="col col-sm-6 col-lg-3 d-inline-block align-top">
+                                        <label for="segundoApellidoAcudiente" class="labelForm">Segundo Apellido</label>
+                                        <input type="text" formControlName="segundoApellidoAcudiente" class="form-control inputForm text-uppercase" [ngClass]="{ 'is-invalid': frm.segundoApellidoAcudiente.errors }" maxlength="50">
+                                        <div *ngIf="submitted && frm.segundoApellidoAcudiente.errors">
+                                            <small class="d-block invalid-feedback" *ngIf="frm.segundoApellidoAcudiente.errors.pattern">El campo solo permite letras</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col col-sm-4 d-inline-block align-top">
+                                        <label for="telefonoAcudiente" class="labelForm">Telefono<span class="required">*</span></label>
+                                        <input type="text" formControlName="telefonoAcudiente" class="form-control inputForm text-uppercase" [ngClass]="{ 'is-invalid': frm.telefonoAcudiente.errors }" maxlength="10">
+                                        <div *ngIf="submitted && frm.telefonoAcudiente.errors">
+                                            <small class="d-block invalid-feedback" *ngIf="frm.telefonoAcudiente.errors.required">Debe ingresar el telefo del acudiente</small>
+                                            <small class="d-block invalid-feedback" *ngIf="frm.telefonoAcudiente.errors.pattern">El campo solo permite números</small>
+                                        </div>
+                                    </div>
+                                    <div class="col col-sm-8 d-inline-block align-top">
+                                        <label for="direccionAcudiente" class="labelForm">Dirección<span class="required">*</span></label>
+                                        <input type="text" formControlName="direccionAcudiente" class="form-control inputForm text-uppercase" [ngClass]="{ 'is-invalid': frm.direccionAcudiente.errors }" maxlength="100">
+                                        <small class="d-block invalid-feedback" *ngIf="submitted && frm.direccionAcudiente.errors">Debe ingresar la dirección de residencia</small>
+                                    </div>
+                                </div>
+                            </ng-container>
+
+                            <!-- Submit Button -->
+                            <ng-container>
+                                <div class="form-group" style="margin-top: 3rem">
+                                    <div class="col col-sm-12 buttonSubmit">
+                                        <input type="submit" value="{{ buttonTitle }}" class="btn btn-success btnPrefer col-sm-12">
+                                    </div>
+                                    <div class="deleteLoader mt-3" *ngIf="preloaderStatus">
+                                        <div class="loader"></div>
+                                    </div>
+                                    <div class="mt-3 col col-sm-12 errorAlert" *ngIf="responseMessage">
+                                        <div class="alert alert-danger" role="alert">
+                                            {{ responseMessage }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </ng-container>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
