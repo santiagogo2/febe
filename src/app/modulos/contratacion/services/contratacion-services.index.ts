@@ -1,2 +1,14 @@
+export { AdditionService } from './addition.service';
+export { ActivityService } from './activity.service';
+export { CentroCostoService } from './centro-costos.service';
+export { ContractService } from './contract.service';
+export { ContractorService } from './contractor.service';
 export { ContratoService } from './contrato.service';
+export { CuentaCobroService } from './cuenta-cobro.service';
+export { DireccionContableService } from './direccion-contable.service';
+export { HorasService } from "./horas.service";
+export { LiquidationService } from './liquidation.service';
 export { NovedadesService } from "./novedades.service";
+export { SocialSecurityPaymentsService } from './social-security-payments.service';
+export { SupervisorService } from './supervisor.service';
+export { SupportService } from './support.service';

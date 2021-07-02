@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 @Injectable({
 	providedIn: 'root'
 })
-export class NovedadesService {
+export class HorasService {
 	public token: string;
 	public url: string;
 
@@ -20,19 +20,28 @@ export class NovedadesService {
 		this.url = global.url;
 	}
 
-	newsList(tipo): Observable<any> {
-		const headers = new HttpHeaders().set( 'Authorization', this.token );
+	newRegistro( registro ): Observable<any> {
+		const json = JSON.stringify(registro);
+		const params = 'json=' + json;
+		const headers = new HttpHeaders().set( 'Authorization', this.token )
+										 .set( 'Content-Type', 'application/x-www-form-urlencoded' );
 
-		return this.http.get( this.url + 'news/list/'+ tipo, { headers } );
+		return this.http.post( this.url + 'agregarHrs', params, { headers } );
 	}
 
-	getNews(id): Observable<any> {		
+	GetRegistro(documento): Observable<any> {		
 		const headers = new HttpHeaders().set( 'Authorization', this.token );
 
-		return this.http.get( this.url + 'news/' + id, { headers } );
+		return this.http.get( this.url + 'searchDin/' + documento, { headers } );
+	}
+	getColaboradorByDocument(documento): Observable<any> {		
+		const headers = new HttpHeaders().set( 'Authorization', this.token );
+
+		return this.http.get( this.url + 'searchColDin/' + documento, { headers } );
 	}
 
-	newNovedad( novedad ): Observable<any> {
+
+	Delregistro( novedad ): Observable<any> {
 		const json = JSON.stringify(novedad);
 		const params = 'json=' + json;
 		const headers = new HttpHeaders().set( 'Authorization', this.token )
@@ -40,7 +49,12 @@ export class NovedadesService {
 
 		return this.http.post( this.url + 'news', params, { headers } );
 	}
+	getUnit(  ): Observable<any> {
+		const headers = new HttpHeaders().set( 'Authorization', this.token )
+										 .set( 'Content-Type', 'application/x-www-form-urlencoded' );
 
+		return this.http.get( this.url + 'unit',  { headers } );
+	}
 	updateNovedad( novedad ): Observable<any> {
 		const id = novedad.Id;
 		const json = JSON.stringify(novedad);
