@@ -20,6 +20,7 @@ export class FollowComponent implements OnInit, OnChanges {
 	storePreloaderStatus: boolean;
 	faSpinner = faSpinner;
 	units: Array<Unit>;
+	global: any;
 
 	tiposTraslado: Array<any>;
 	pacientesAceptado: Array<any>;
@@ -40,9 +41,13 @@ export class FollowComponent implements OnInit, OnChanges {
 	aceptCaseFlag: boolean;
 	closeCaseFlag: boolean;
 	reOpenFlag: boolean;
+	updateRequestFlag: boolean;
 
 	fechaCitas: Array<string>;
 	horaCitas: Array<string>;
+	reOpenJustification: Array<string>;
+	closeJustifications: Array<any>;
+	closeCaseInfo: any;
 
 	constructor(
 		private unitService: UnitService,
@@ -53,6 +58,7 @@ export class FollowComponent implements OnInit, OnChanges {
 		private userService: UserService,
 	) {
 		this.buttonTextStatus = 'Aceptar';
+		this.global = global;
 
 		this.tiposTraslado = global.tiposTraslado;
 		this.pacientesAceptado = global.pacientesAceptado;
@@ -62,6 +68,11 @@ export class FollowComponent implements OnInit, OnChanges {
 
 		this.fechaCitas = [];
 		this.horaCitas = [];
+
+		this.closeCaseInfo = {
+			trasladoEfectivo: null,
+			justification: null,
+		}
 	}
 
 	ngOnChanges( changes: SimpleChanges ) {
@@ -105,6 +116,9 @@ export class FollowComponent implements OnInit, OnChanges {
 			res => {
 				if ( res.status === 'success' ) {
 					this.referalRequest = res.solicitud;
+					if( this.referalRequest.justification.length > 0 ) {
+						this.setJustifications( this.referalRequest.justification );
+					}
 					this.setUpdateCaseData();
 					if ( this.referalRequest.estado && this.referalRequest.estado !== '0' ) {
 						this.caseAcepted = true;
@@ -117,7 +131,6 @@ export class FollowComponent implements OnInit, OnChanges {
 			},
 			error => {
 				this.responseMessage = error.error.message;
-				console.log(error);
 			}
 		);
 	}
@@ -134,6 +147,20 @@ export class FollowComponent implements OnInit, OnChanges {
 				console.log(error);
 			}
 		);
+	}
+
+	setJustifications( justifications ) {
+		this.reOpenJustification = [];
+		this.closeJustifications = [];
+
+		justifications.forEach( justification => {
+			if( justification.estado == 1 ) {
+				this.reOpenJustification.push( justification.justificacion);
+			}
+			if( justification.estado == 2 ) {
+				this.closeJustifications.push( justification );
+			}			
+		});
 	}
 
 	newFollow( followForm ) {
@@ -168,9 +195,8 @@ export class FollowComponent implements OnInit, OnChanges {
 							showConfirmButton: true,
 						});
 						this.getFollowsByRequestId( this.caseId );
+						this.resetFollow();
 					}
-					followForm.reset();
-					this.resetFollow();
 				}
 			},
 			error => {
@@ -184,6 +210,35 @@ export class FollowComponent implements OnInit, OnChanges {
 					position: 'center',
 					icon: 'error',
 					title: 'Ha ocurrido un error al guardar los datos en el sistema',
+					text: this.responseMessage,
+					showConfirmButton: true,
+				});
+			}
+		);
+	}
+
+	updateRequest() {
+		this.preloaderStatus = true;
+
+		this.referalService.updateRequest( this.referalRequest ).subscribe(
+			res => {
+				if ( res.status === 'success' ) {
+					this.preloaderStatus = false;
+					Swal.fire({
+						position: 'center',
+						icon: 'success',
+						title: res.message,
+						showConfirmButton: true,
+					});
+				}
+			},
+			error => {
+				this.preloaderStatus = false;
+				this.responseMessage = error.error.message ? error.error.message : 'No se ha podido actualizar el registro con los cambios solicitados';
+				Swal.fire({
+					position: 'center',
+					icon: 'error',
+					title: 'Ha ocurrido un error al actualizar el registro solicitado',
 					text: this.responseMessage,
 					showConfirmButton: true,
 				});
@@ -206,6 +261,7 @@ export class FollowComponent implements OnInit, OnChanges {
 							text: this.responseMessage,
 							showConfirmButton: true,
 						});
+						this.resetFollow();
 					} else {
 						this.updateFollowCase(message);
 					}
@@ -222,7 +278,6 @@ export class FollowComponent implements OnInit, OnChanges {
 					text: this.responseMessage,
 					showConfirmButton: true,
 				});
-				console.log( error );
 			}
 		);		
 	}
@@ -239,6 +294,7 @@ export class FollowComponent implements OnInit, OnChanges {
 						showConfirmButton: true,
 					});
 					this.getRequest( this.caseId );
+					this.resetFollow();
 				}
 			},
 			error => {
@@ -255,7 +311,6 @@ export class FollowComponent implements OnInit, OnChanges {
 					text: this.responseMessage,
 					showConfirmButton: true,
 				});
-				console.log( error );
 			}
 		);
 	}
@@ -296,98 +351,78 @@ export class FollowComponent implements OnInit, OnChanges {
 			error => {
 				this.preloaderStatus = false;
 				this.responseMessage = error.error.message;
-				console.log(error);
 			}
 		);
 	}
 
-	closeCase() {
-		Swal.fire({
-			title: 'Ingrese una justificación del cierre del caso',
-			input: 'textarea',
-			inputAttributes: {
-				class: 'inputSwalTextArea',
-				placeholder: 'Ingrese una justificación para cerrar el caso. Minimo 30 caracteres',
-				required: 'true',
-				minlength: '30'
+	closeCase(closeForm) {
+		this.preloaderStatus = true;
+
+		this.followRequestService.closeCase( this.closeCaseInfo, this.caseId, 2 ).subscribe(
+			res => {
+				if( res.status === 'success' ) {
+					this.referalRequest.estado = 2;
+					Swal.fire({
+						position: 'center',
+						icon: 'success',
+						title: 'El caso se ha cerrado correctamente',
+						showConfirmButton: true,
+					});
+					closeForm.reset();
+					this.preloaderStatus = false;
+					this.getRequest( this.caseId );
+				}
 			},
-			showCancelButton: true,
-			confirmButtonText: 'Cerrar Caso',
-			showLoaderOnConfirm: true,
-			preConfirm: ( justificacion ) => {
-				return fetch(`http://info-utilitario.subredsur.gov.co/public/api/referencia/close-open/case/follow/${this.caseId}/2`, {
-					method: 'put',
-					headers: new Headers({
-						'Authorization': this.userService.getToken(),
-						'Content-Type': 'application/x-www-form-urlencoded',
-					}),
-					body: `json=${JSON.stringify(justificacion)}`,
-				}).then(response => {
-					if ( !response.ok ) {
-						throw new Error(response.statusText)
-					}
-					return response.json();
-				}).catch( error => {
-					Swal.showValidationMessage(
-						`Error al relalizar el cierre del caso ${error}`
-			        )
-				})
-			},
-			allowOutsideClick: () => !Swal.isLoading()
-		}).then(( result ) => {
-			if ( result.isConfirmed && result.value.status === 'success' ) {
-				this.referalRequest.estado = 2;
+			error => {
+				this.preloaderStatus = false;
+				let message = error.error.message;
+				if (error.error.errors) {
+					message = message + '. ' + JSON.stringify(error.error.errors);
+				}
 				Swal.fire({
-					title: 'El caso se ha cerrado correctamente',
-					text: result.value.message,
-				})
-			  }
-		});
+					position: 'center',
+					icon: 'error',
+					title: 'Error al realizar el cierre del caso',
+					text: message,
+					showConfirmButton: true,
+				});
+			}
+		);
 	}
 
-	reOpenCase(){
-		Swal.fire({
-			title: 'Ingrese una justificación para la re apertura del caso',
-			input: 'textarea',
-			inputAttributes: {
-				class: 'inputSwalTextArea',
-				placeholder: 'Ingrese una justificación para reabrir el caso. Minimo 30 caracteres',
-				required: 'true',
-				minlength: '30'
+	reOpenCase( reOpenForm ){
+		this.preloaderStatus = true;
+
+		this.followRequestService.closeCase( this.closeCaseInfo, this.caseId, 1 ).subscribe(
+			res => {
+				if( res.status === 'success' ) {
+					this.referalRequest.estado = 1;
+					Swal.fire({
+						position: 'center',
+						icon: 'success',
+						title: 'El caso se ha cerrado correctamente',
+						showConfirmButton: true,
+					});
+					reOpenForm.reset();
+					this.preloaderStatus = false;
+					this.getRequest( this.caseId );
+				}
 			},
-			showCancelButton: true,
-			confirmButtonText: 'Reabrir Caso',
-			showLoaderOnConfirm: true,
-			preConfirm: ( justificacion ) => {
-				return fetch(`http://info-utilitario.subredsur.gov.co/public/api/referencia/close-open/case/follow/${this.caseId}/1`, {
-					method: 'put',
-					headers: new Headers({
-						'Authorization': this.userService.getToken(),
-						'Content-Type': 'application/x-www-form-urlencoded',
-					}),
-					body: `json=${JSON.stringify(justificacion)}`,
-				}).then(response => {
-					if ( !response.ok ) {
-						throw new Error(response.statusText)
-					}
-					return response.json();
-				}).catch( error => {
-					Swal.showValidationMessage(
-						`Error al relalizar la reapertura del caso ${error}`
-			        )
-				})
-			},
-			allowOutsideClick: () => !Swal.isLoading()
-		}).then(( result ) => {
-			if ( result.isConfirmed && result.value.status === 'success' ) {
-				this.caseAcepted = true;
-				this.referalRequest.estado = 1;
+			error => {
+				this.preloaderStatus = false;
+				let message = error.error.message;
+				if (error.error.errors) {
+					message = message + '. ' + JSON.stringify(error.error.errors);
+				}
 				Swal.fire({
-					title: 'El caso se ha reabierto correctamente',
-					text: result.value.message,
-				})
-			  }
-		});
+					position: 'center',
+					icon: 'error',
+					title: 'Error al realizar el cierre del caso',
+					text: message,
+					showConfirmButton: true,
+				});
+			}
+		);
 	}
 
 	transformBoolean( result ) {
@@ -433,6 +468,7 @@ export class FollowComponent implements OnInit, OnChanges {
 		this.aceptCaseFlag = false;
 		this.closeCaseFlag = false;
 		this.reOpenFlag = false;
+		this.updateRequestFlag = false;
 
 		if ( permissions ) {
 			permissions.forEach( element => {
@@ -447,6 +483,9 @@ export class FollowComponent implements OnInit, OnChanges {
 				}
 				if ( element.id_operations === 78 ) {
 					this.reOpenFlag = true;
+				}
+				if ( element.id_operations === 107 ) {
+					this.updateRequestFlag = true;
 				}
 			});
 		}

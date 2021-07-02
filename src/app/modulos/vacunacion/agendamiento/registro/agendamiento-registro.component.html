@@ -1,127 +1,288 @@
-<div class="row">
+<div class="loaderBall" *ngIf="!insurers && !responseMessage">
+    <div class="ball-pulse-rise">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+<div class="alert alert-danger" role="alert" *ngIf="!insurers && responseMessage">
+    {{ responseMessage }}
+</div>
+<div class="row" *ngIf="insurers">
     <div class="col-sm-12">
         <div class="card border-0">
             <div class="card-body cardContainer">
                 <div class="formContainer">
                     <div>
-                        <div class="backLink col col-12 d-inline-block">
+                        <div class="backLink col col-6 d-inline-block">
                             <a class="col-sm-6" routerLink="/vacunacion">Regresar</a>
+                        </div>
+                        <div class="backLink col col-6 d-inline-block text-right pr-1">
+                            <span type="button" style="padding: 0.5rem;" class="ml-1 badge badge-pill badge-info col col-sm-12 col-md-5 d-inline-block" data-toggle="modal" [attr.data-target]="'#novedad'">Agregar Novedad</span>
                         </div>
                     </div>
                     <form #assignmentForm="ngForm" class="form-container" (ngSubmit)="onSubmit()" style="text-align: left;">
+                        <!-- Validación del formulario de Unidad, Mesa, Fecha y Hora -->
                         <ng-container>
-                            <div class="form-group">
-                                <div class="col col-sm-12 col-md-4 d-inline-block align-top">
-                                    <form #searchForm="ngForm" class="form-container" (ngSubmit)="searchThird()" style="text-align: left;">
-                                        <label for="numeroDocumento" class="labelForm">Núm. Identificación<span class="required">*</span></label>
-                                        <div class="input-group">
-                                            <input type="text" name="numeroDocumento" class="form-control inputForm" [ngClass]="{'is-invalid': numeroDocumento.invalid}" #numeroDocumento="ngModel" [(ngModel)]="assignment.numeroDocumento" required maxlength="20">
-                                            <button style="border-bottom-left-radius: 0; border-top-left-radius: 0;" class="btn btn-outline-secondary inputForm" type="button" id="button-addon2" [disabled]="searchForm.invalid"><fa-icon [icon]="faSearch" class="d-block" (click)="searchThird()"></fa-icon></button>
-                                        </div>
+                            <ng-container>
+                                <div class="col col-sm-12 col-md-6 d-inline-block align-top">
+                                    <label for="numeroDocumento" class="labelForm">Núm. Identificación<span class="required">*</span></label>
+                                    <div class="input-group">
+                                        <input type="text" name="numeroDocumento" class="form-control inputForm" [ngClass]="{'is-invalid': numeroDocumento.invalid}" #numeroDocumento="ngModel" [(ngModel)]="assignment.numeroDocumento" required maxlength="20" [disabled]="agendamientoReservadoFlag"
+                                            pattern="[0-9a-zA-Z]+">
                                         <small class="d-block invalid-feedback" *ngIf="searchResponseMessage">{{searchResponseMessage}}</small>
-                                        <fa-icon [icon]="faSpinner" class="d-block spin" *ngIf="searchPreloaderStatus"></fa-icon>
-                                    </form>
+                                    </div>
                                 </div>
-                                <div class="col col-sm-6 col-md-4 d-inline-block align-top">
-                                    <label for="tipoDocumento" class="labelForm">Tipo Identificación<span class="required">*</span></label>
-                                    <select style="background-position-x: 95%; text-transform: uppercase;" name="tipoDocumento" id="tipoDocumento" class="form-control inputForm" [ngClass]="{'is-invalid': tipoDocumento.invalid }" #tipoDocumento="ngModel" [(ngModel)]="assignment.tipoDocumento"
-                                        required [disabled]="disableFlag">
-										<option *ngFor="let tipo of global.TipoIDPaciente" value="{{ tipo.name }}">{{ tipo.name }}</option>
-									</select>
-                                </div>
-                                <div class="col col-sm-6 col-md-4 d-inline-block align-top">
-                                    <label for="tipoUsuario" class="labelForm">Tipo de Usuario<span class="required">*</span></label>
-                                    <select style="background-position-x: 95%; text-transform: uppercase;" name="tipoUsuario" id="tipoUsuario" class="form-control inputForm" [ngClass]="{'is-invalid': tipoUsuario.invalid }" #tipoUsuario="ngModel" [(ngModel)]="assignment.tipoUsuario" required
-                                        [disabled]="disableFlag">
-										<option *ngFor="let tipo of global.tipoUsuarioVacunado" value="{{ tipo.id }}">{{ tipo.name }}</option>
-									</select>
-                                </div>
-                            </div>
-                        </ng-container>
-                        <ng-container>
-                            <div class="form-group">
-                                <div class="col col-sm-6 col-md-3 d-inline-block align-top">
-                                    <label for="primerNombre" class="labelForm">Primer Nombre<span class="required">*</span></label>
-                                    <input type="text" name="primerNombre" class="form-control inputForm" [ngClass]="{'is-invalid': primerNombre.invalid}" #primerNombre="ngModel" [(ngModel)]="assignment.primerNombre" required maxlength="50" (ngModelChange)="assignment.primerNombre=globalService.upperCase($event)"
-                                        [disabled]="disableFlag">
-                                </div>
-                                <div class="col col-sm-6 col-md-3 d-inline-block align-top">
-                                    <label for="segundoNombre" class="labelForm">Segundo Nombre</label>
-                                    <input type="text" name="segundoNombre" class="form-control inputForm" [ngClass]="{'is-invalid': segundoNombre.invalid}" #segundoNombre="ngModel" [(ngModel)]="assignment.segundoNombre" maxlength="50" (ngModelChange)="assignment.segundoNombre=globalService.upperCase($event)"
-                                        [disabled]="disableFlag">
-                                </div>
-                                <div class="col col-sm-6 col-md-3 d-inline-block align-top">
-                                    <label for="primerApellido" class="labelForm">Primer Apellido<span class="required">*</span></label>
-                                    <input type="text" name="primerApellido" class="form-control inputForm" [ngClass]="{'is-invalid': primerApellido.invalid}" #primerApellido="ngModel" [(ngModel)]="assignment.primerApellido" required maxlength="50" (ngModelChange)="assignment.primerApellido=globalService.upperCase($event)"
-                                        [disabled]="disableFlag">
-                                </div>
-                                <div class="col col-sm-6 col-md-3 d-inline-block align-top">
-                                    <label for="segundoApellido" class="labelForm">Segundo Apellido</label>
-                                    <input type="text" name="segundoApellido" class="form-control inputForm" [ngClass]="{'is-invalid': segundoApellido.invalid}" #segundoApellido="ngModel" [(ngModel)]="assignment.segundoApellido" maxlength="50" (ngModelChange)="assignment.segundoApellido=globalService.upperCase($event)"
-                                        [disabled]="disableFlag">
-                                </div>
-                            </div>
-                        </ng-container>
-                        <ng-container>
-                            <div class="form-group">
-                                <div class="col col-sm-6 col-md-4 d-inline-block align-top">
-                                    <label for="celular" class="labelForm">Celular</label>
-                                    <input type="text" name="celular" class="form-control inputForm" [ngClass]="{'is-invalid': celular.invalid}" #celular="ngModel" [(ngModel)]="assignment.celular" maxlength="10">
-                                </div>
-                                <div class="col col-sm-6 col-md-4 d-inline-block align-top">
-                                    <label for="servicio" class="labelForm">Servicio</label>
-                                    <input type="text" name="servicio" class="form-control inputForm" [ngClass]="{'is-invalid': servicio.invalid}" #servicio="ngModel" [(ngModel)]="assignment.servicio" maxlength="50">
-                                </div>
-                                <div class="col col-sm-12 col-md-4 d-inline-block align-top">
+                                <div class="col col-sm-12 col-md-6 d-inline-block align-top">
                                     <label for="dosis" class="labelForm">Dósis<span class="required">*</span></label>
-                                    <select style="background-position-x: 95%; text-transform: uppercase;" name="dosis" id="dosis" class="form-control inputForm" [ngClass]="{'is-invalid': dosis.invalid }" #dosis="ngModel" [(ngModel)]="assignment.dosis" required>
+                                    <select style="background-position-x: 95%; text-transform: uppercase;" name="dosis" id="dosis" class="form-control inputForm" [ngClass]="{'is-invalid': dosis.invalid }" #dosis="ngModel" [(ngModel)]="assignment.dosis" required [disabled]="agendamientoReservadoFlag">
 										<option *ngFor="let item of global.dosis" value="{{ item.id }}">{{ item.name }}</option>
 									</select>
                                 </div>
-                            </div>
-                        </ng-container>
-                        <ng-container>
-                            <div class="form-group">
-                                <div class="col col-sm-6 col-md-3 d-inline-block align-top">
-                                    <label for="sedeVacunacion" class="labelForm">Sede de Vacunación<span class="required">*</span></label>
-                                    <select style="background-position-x: 95%; text-transform: uppercase;" name="sedeVacunacion" id="sedeVacunacion" class="form-control inputForm" [ngClass]="{'is-invalid': sedeVacunacion.invalid }" #sedeVacunacion="ngModel" [(ngModel)]="assignment.sedeVacunacion"
-                                        required>
-										<option *ngFor="let tipo of global.unidadPresento" value="{{ tipo.name }}">{{ tipo.name }}</option>
-									</select>
+                            </ng-container>
+                            <ng-container>
+                                <div class="form-group">
+                                    <div class="col col-sm-6 col-md-3 d-inline-block align-top">
+                                        <label for="sedeVacunacion" class="labelForm">Sede de Vacunación<span class="required">*</span></label>
+                                        <select style="background-position-x: 95%; text-transform: uppercase;" name="sedeVacunacion" id="sedeVacunacion" class="form-control inputForm" [ngClass]="{'is-invalid': sedeVacunacion.invalid }" #sedeVacunacion="ngModel" [(ngModel)]="assignment.sedeVacunacion"
+                                            required (ngModelChange)="getTimesByUnitDeskAndDate()" [disabled]="agendamientoReservadoFlag">
+											<option *ngFor="let tipo of global.sedesVacunacion" value="{{ tipo.name }}">{{ tipo.name }}</option>
+										</select>
+                                    </div>
+                                    <div class="col col-sm-6 col-md-3 d-inline-block align-top" *ngIf="mesas">
+                                        <label for="mesa" class="labelForm">Mesa<span class="required">*</span></label>
+                                        <select style="background-position-x: 95%; text-transform: uppercase;" name="mesa" id="mesa" class="form-control inputForm" [ngClass]="{'is-invalid': mesa.invalid }" #mesa="ngModel" [(ngModel)]="assignment.mesa" required (ngModelChange)="getTimesByUnitDeskAndDate()"
+                                            [disabled]="agendamientoReservadoFlag || searchAgendamientoStatus">
+											<option *ngFor="let tipo of mesas" value="{{ tipo.name }}">{{ tipo.name }}</option>
+										</select>
+                                    </div>
+                                    <div class="col col-sm-6 col-md-3 d-inline-block align-top">
+                                        <label for="fechaVacunacion" class="labelForm">Fecha de Vacunación<span class="required">*</span></label>
+                                        <input type="date" name="fechaVacunacion" class="form-control inputForm" [ngClass]="{'is-invalid': fechaVacunacion.invalid}" #fechaVacunacion="ngModel" [(ngModel)]="assignment.fechaVacunacion" min="{{ globalService.setMaxDate() }}" required (ngModelChange)="getTimesByUnitDeskAndDate()"
+                                            [disabled]="agendamientoReservadoFlag">
+                                    </div>
+                                    <fa-icon [icon]="faSpinner" style="vertical-align: bottom;" class="d-inline-block spin" *ngIf="searchAgendamientoStatus"></fa-icon>
+                                    <div class="col col-sm-6 col-md-3 d-inline-block align-top" *ngIf="initialDates && initialDates.length > 0 && !searchAgendamientoStatus">
+                                        <label for="horaVacunacion" class="labelForm">horaVacunacion<span class="required">*</span></label>
+                                        <select style="background-position-x: 95%; text-transform: uppercase;" name="horaVacunacion" id="horaVacunacion" class="form-control inputForm" [ngClass]="{'is-invalid': horaVacunacion.invalid }" #horaVacunacion="ngModel" [(ngModel)]="assignment.horaVacunacion"
+                                            required [disabled]="agendamientoReservadoFlag">
+											<option *ngFor="let date of initialDates" value="{{ date }}">{{ date }}</option>
+										</select>
+                                    </div>
                                 </div>
-                                <div class="col col-sm-6 col-md-3 d-inline-block align-top">
-                                    <label for="fechaVacunacion" class="labelForm">Fecha de Vacunación<span class="required">*</span></label>
-                                    <input type="date" name="fechaVacunacion" class="form-control inputForm" [ngClass]="{'is-invalid': fechaVacunacion.invalid}" #fechaVacunacion="ngModel" [(ngModel)]="assignment.fechaVacunacion" min="{{ globalService.setMaxDate() }}" required>
-                                </div>
-                                <div class="col col-sm-6 col-md-3 d-inline-block align-top">
-                                    <label for="horaVacunacion" class="labelForm">Hora de Vacunación<span class="required">*</span></label>
-                                    <input type="time" name="horaVacunacion" class="form-control inputForm" [ngClass]="{'is-invalid': horaVacunacion.invalid}" #horaVacunacion="ngModel" [(ngModel)]="assignment.horaVacunacion" required maxlength="50">
-                                </div>
-                                <div class="col col-sm-6 col-md-3 d-inline-block align-top">
-                                    <label for="mesa" class="labelForm">Mesa<span class="required">*</span></label>
-                                    <select style="background-position-x: 95%; text-transform: uppercase;" name="mesa" id="mesa" class="form-control inputForm" [ngClass]="{'is-invalid': mesa.invalid }" #mesa="ngModel" [(ngModel)]="assignment.mesa" required>
-										<option *ngFor="let tipo of global.mesas" value="{{ tipo.name }}">{{ tipo.name }}</option>
-									</select>
-                                </div>
-                            </div>
-                        </ng-container>
+                            </ng-container>
 
-                        <div class="form-group" style="margin-top: 3rem">
-                            <div class="col col-sm-12 buttonSubmit">
-                                <input type="submit" value="{{ buttonText }}" class="btn btn-success btnPrefer col-sm-12" [disabled]="assignmentForm.invalid">
+                            <div class="form-group" style="margin-top: 1rem" *ngIf="!agendamientoReservadoFlag">
+                                <div class="col col-sm-12 buttonSubmit">
+                                    <input type="button" value="Reservar el horario seleccionado" class="btn btn-info btnPrefer col-sm-12" (click)="reservarAgendamiento()" [disabled]="assignmentForm.invalid || !assignment.horaVacunacion">
+                                </div>
                             </div>
-                        </div>
-                        <div class="mt-3 col col-sm-12 errorAlert" *ngIf="responseMessage">
-                            <div class="alert alert-danger" role="alert">
-                                {{ responseMessage }}
+                        </ng-container>
+                        <!-- Datos básicos del paciente, se activa cuando se hace una reserva exitosa de la cita -->
+                        <ng-container *ngIf="agendamientoReservadoFlag">
+                            <ng-container>
+                                <div class="subtitle"><span>DATOS BÁSICOS DEL PACIENTE</span></div>
+                                <div class="form-group">
+                                    <div class="col col-sm-6 d-inline-block align-top">
+                                        <label for="tipoDocumento" class="labelForm">Tipo Identificación<span class="required">*</span></label>
+                                        <select style="background-position-x: 95%; text-transform: uppercase;" name="tipoDocumento" id="tipoDocumento" class="form-control inputForm" [ngClass]="{'is-invalid': tipoDocumento.invalid }" #tipoDocumento="ngModel" [(ngModel)]="assignment.tipoDocumento"
+                                            required [disabled]="disableFlag">
+											<option *ngFor="let tipo of global.TipoIDPaciente" value="{{ tipo.name }}">{{ tipo.name }}</option>
+										</select>
+                                    </div>
+                                    <div class="col col-sm-6 d-inline-block align-top">
+                                        <label for="tipoUsuario" class="labelForm">Tipo de Usuario<span class="required">*</span></label>
+                                        <select style="background-position-x: 95%; text-transform: uppercase;" name="tipoUsuario" id="tipoUsuario" class="form-control inputForm" [ngClass]="{'is-invalid': tipoUsuario.invalid }" #tipoUsuario="ngModel" [(ngModel)]="assignment.tipoUsuario" required>
+											<option *ngFor="let tipo of global.tipoUsuarioVacunado" value="{{ tipo.id }}">{{ tipo.name }}</option>
+										</select>
+                                    </div>
+                                </div>
+                            </ng-container>
+                            <ng-container>
+                                <div class="form-group">
+                                    <div class="col col-sm-6 col-md-3 d-inline-block align-top">
+                                        <label for="primerNombre" class="labelForm">Primer Nombre<span class="required">*</span></label>
+                                        <input type="text" name="primerNombre" class="form-control inputForm" [ngClass]="{'is-invalid': primerNombre.invalid}" #primerNombre="ngModel" [(ngModel)]="assignment.primerNombre" required maxlength="50" (ngModelChange)="assignment.primerNombre=globalService.upperCase($event)"
+                                            [disabled]="disableFlag">
+                                    </div>
+                                    <div class="col col-sm-6 col-md-3 d-inline-block align-top">
+                                        <label for="segundoNombre" class="labelForm">Segundo Nombre</label>
+                                        <input type="text" name="segundoNombre" class="form-control inputForm" [ngClass]="{'is-invalid': segundoNombre.invalid}" #segundoNombre="ngModel" [(ngModel)]="assignment.segundoNombre" maxlength="50" (ngModelChange)="assignment.segundoNombre=globalService.upperCase($event)"
+                                            [disabled]="disableFlag">
+                                    </div>
+                                    <div class="col col-sm-6 col-md-3 d-inline-block align-top">
+                                        <label for="primerApellido" class="labelForm">Primer Apellido<span class="required">*</span></label>
+                                        <input type="text" name="primerApellido" class="form-control inputForm" [ngClass]="{'is-invalid': primerApellido.invalid}" #primerApellido="ngModel" [(ngModel)]="assignment.primerApellido" required maxlength="50" (ngModelChange)="assignment.primerApellido=globalService.upperCase($event)"
+                                            [disabled]="disableFlag">
+                                    </div>
+                                    <div class="col col-sm-6 col-md-3 d-inline-block align-top">
+                                        <label for="segundoApellido" class="labelForm">Segundo Apellido</label>
+                                        <input type="text" name="segundoApellido" class="form-control inputForm" [ngClass]="{'is-invalid': segundoApellido.invalid}" #segundoApellido="ngModel" [(ngModel)]="assignment.segundoApellido" maxlength="50" (ngModelChange)="assignment.segundoApellido=globalService.upperCase($event)"
+                                            [disabled]="disableFlag">
+                                    </div>
+                                </div>
+                            </ng-container>
+                            <ng-container>
+                                <div class="form-group">
+                                    <div class="col col-sm-6 col-md-3 d-inline-block align-top">
+                                        <label for="edad" class="labelForm">Edad<span class="required">*</span></label>
+                                        <input type="text" name="edad" class="form-control inputForm" [ngClass]="{'is-invalid': edad.invalid}" #edad="ngModel" [(ngModel)]="assignment.edad" maxlength="3" pattern="[0-9]+" required>
+                                    </div>
+                                    <div class="col col-sm-6 col-md-3 d-inline-block align-top">
+                                        <label for="celular" class="labelForm">Celular</label>
+                                        <input type="text" name="celular" class="form-control inputForm" [ngClass]="{'is-invalid': celular.invalid}" #celular="ngModel" [(ngModel)]="assignment.celular" maxlength="10">
+                                    </div>
+                                    <div class="col col-sm-6 col-md-3 d-inline-block align-top">
+                                        <label for="servicio" class="labelForm">Servicio (Solo para Colaboradores)</label>
+                                        <input type="text" name="servicio" class="form-control inputForm" [ngClass]="{'is-invalid': servicio.invalid}" #servicio="ngModel" [(ngModel)]="assignment.servicio" maxlength="50">
+                                    </div>
+                                    <div class="col col-sm-6 col-md-3 d-inline-block align-top">
+                                        <label for="aseguradora" class="labelForm">Aseguradora<span class="required">*</span></label>
+                                        <select style="background-position-x: 95%; text-transform: uppercase;" name="aseguradora" id="aseguradora" class="form-control inputForm" [ngClass]="{'is-invalid': aseguradora.invalid }" #aseguradora="ngModel" [(ngModel)]="assignment.aseguradora" required>
+											<option *ngFor="let insurer of insurers" value="{{ insurer.id }}">{{ insurer.name }}</option>
+										</select>
+                                    </div>
+                                </div>
+                            </ng-container>
+
+                            <div class="form-group" style="margin-top: 3rem">
+                                <div class="col col-sm-9 buttonSubmit d-inline-block">
+                                    <input type="submit" value="{{ buttonText }}" class="btn btn-success btnPrefer col-sm-12" [disabled]="assignmentForm.invalid && agendamientoReservadoFlag">
+                                </div>
+                                <div class="col col-sm-3 buttonSubmit d-inline-block">
+                                    <input type="button" value="Cancelar Reserva" class="btn btn-danger btnPrefer col-sm-12" data-toggle="modal" [attr.data-target]="'#myModal'">
+                                </div>
                             </div>
-                        </div>
+                            <div class="mt-3 col col-sm-12 errorAlert" *ngIf="responseMessage">
+                                <div class="alert alert-danger" role="alert">
+                                    {{ responseMessage }}
+                                </div>
+                            </div>
+                        </ng-container>
                         <div class="deleteLoader" *ngIf="preloaderStatus">
                             <div class="loader"></div>
                         </div>
                     </form>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+
+<!-- the Modal -->
+<div class="modal animated fadeIn faster" id="{{ 'myModal' }}">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Cancelar la reserva definitivamente</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                Esta seguro que desea cancelar la reserva del usuario: <b>{{ assignment.numeroDocumento }}</b> el día {{ assignment.fechaVacunacion }} - {{ assignment.horaVacunacion }}?
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <a (click)="deleteBooking()" class="btn_delete" data-dismiss="modal">Cancelar</a>
+                <button type="button" class="btn_close" data-dismiss="modal">Cerrar</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- the Modal - Formulario para agregar novedades a la llamada de un usuario -->
+<div class="modal animated fadeIn faster" id="{{ 'novedad' }}">
+    <div class="modal-dialog" style="max-width: 90% !important;">
+        <div class="modal-content">
+            <form #novedadForm="ngForm" class="form-container" (ngSubmit)="newNovedad()">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Agregar novedad del agendamiento</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div class="col col-sm-12 col-md-4 d-inline-block align-top">
+                            <form #searchForm="ngForm" class="form-container" style="text-align: left;">
+                                <label for="numeroDocumento" class="labelForm">Número del Documento<span class="required">*</span></label>
+                                <div class="input-group">
+                                    <input type="text" name="numeroDocumento" class="form-control inputForm" [ngClass]="{'is-invalid': numeroDocumento.invalid}" #numeroDocumento="ngModel" [(ngModel)]="call.numeroDocumento" required maxlength="20" pattern="[0-9a-zA-Z]+">
+                                    <button style="border-bottom-left-radius: 0; border-top-left-radius: 0;" class="btn btn-outline-secondary inputForm" type="text" id="button-addon2" [disabled]="searchForm.invalid" (click)="searchThird( true )"><fa-icon [icon]="faSearch" class="d-block"></fa-icon></button>
+                                </div>
+                                <small class="invalid-feedback d-block font-weight-bold" *ngIf="searchResponseMessage">{{ searchResponseMessage }}</small>
+                                <fa-icon [icon]="faSpinner" class="d-block spin" *ngIf="searchPreloaderStatus"></fa-icon>
+                            </form>
+                        </div>
+                        <div class="col col-sm-6 col-md-4 d-inline-block align-top">
+                            <label for="tipoDocumento" class="labelForm">Tipo de Documento*</label>
+                            <select style="background-position-x: 95%" name="tipoDocumento" id="tipoDocumento" class="form-control inputForm" [ngClass]="{ 'is-invalid': tipoDocumento.invalid }" #tipoDocumento="ngModel" [(ngModel)]="call.tipoDocumento" required [disabled]="disableFlag">
+								<option *ngFor="let tipo of global.TipoIDPaciente" value="{{ tipo.name }}">{{ tipo.name }}</option>
+							</select>
+                        </div>
+                        <div class="col col-sm-6 col-md-4 d-inline-block align-top">
+                            <label for="edad" class="labelForm">Edad<span class="required">*</span></label>
+                            <input type="text" name="edad" class="form-control inputForm" [ngClass]="{'is-invalid': edad.invalid}" #edad="ngModel" [(ngModel)]="call.edad" required maxlength="50" pattern="[0-9]+" maxlength="3">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col col-sm-6 col-lg-3 d-inline-block align-top">
+                            <label for="primerNombre" class="labelForm">Primer Nombre<span class="required">*</span></label>
+                            <input type="text" name="primerNombre" class="form-control inputForm" [ngClass]="{'is-invalid': primerNombre.invalid}" #primerNombre="ngModel" [(ngModel)]="call.primerNombre" required maxlength="50" (ngModelChange)="call.primerNombre=globalService.upperCase($event)"
+                                [disabled]="disableFlag">
+                        </div>
+                        <div class="col col-sm-6 col-lg-3 d-inline-block align-top">
+                            <label for="segundoNombre" class="labelForm">Segundo Nombre</label>
+                            <input type="text" name="segundoNombre" class="form-control inputForm" [ngClass]="{'is-invalid': segundoNombre.invalid}" #segundoNombre="ngModel" [(ngModel)]="call.segundoNombre" maxlength="50" (ngModelChange)="call.segundoNombre=globalService.upperCase($event)"
+                                [disabled]="disableFlag">
+                        </div>
+                        <div class="col col-sm-6 col-lg-3 d-inline-block align-top">
+                            <label for="primerApellido" class="labelForm">Primer Apellido<span class="required">*</span></label>
+                            <input type="text" name="primerApellido" class="form-control inputForm" [ngClass]="{'is-invalid': primerApellido.invalid}" #primerApellido="ngModel" [(ngModel)]="call.primerApellido" required maxlength="50" (ngModelChange)="call.primerApellido=globalService.upperCase($event)"
+                                [disabled]="disableFlag">
+                        </div>
+                        <div class="col col-sm-6 col-lg-3 d-inline-block align-top">
+                            <label for="segundoApellido" class="labelForm">Segundo Apellido</label>
+                            <input type="text" name="segundoApellido" class="form-control inputForm" [ngClass]="{'is-invalid': segundoApellido.invalid}" #segundoApellido="ngModel" [(ngModel)]="call.segundoApellido" maxlength="50" (ngModelChange)="call.segundoApellido=globalService.upperCase($event)"
+                                [disabled]="disableFlag">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col col-sm-12 col-md-4 d-inline-block align-top">
+                            <label for="aseguradora" class="labelForm">Aseguradora<span class="required">*</span></label>
+                            <select style="background-position-x: 95%; text-transform: uppercase;" name="aseguradora" id="aseguradora" class="form-control inputForm" [ngClass]="{'is-invalid': aseguradora.invalid }" #aseguradora="ngModel" [(ngModel)]="call.aseguradora" required>
+							<option *ngFor="let insurer of insurers" value="{{ insurer.id }}">{{ insurer.name }}</option>
+						</select>
+                        </div>
+                        <div class="col col-sm-6 col-md-4 d-inline-block align-top">
+                            <label for="celular" class="labelForm">Celular<span class="required">*</span></label>
+                            <input type="text" name="celular" class="form-control inputForm" [ngClass]="{ 'is-invalid': celular.invalid }" #celular="ngModel" [(ngModel)]="call.celular" required pattern="[0-9]+">
+                        </div>
+                        <div class="col col-sm-6 col-md-4 d-inline-block align-top">
+                            <label for="novedad" class="labelForm">Novedad a Reportar<span class="required">*</span></label>
+                            <select style="background-position-x: 95%" name="novedad" id="novedad" class="form-control inputForm" [ngClass]="{ 'is-invalid': novedad.invalid }" #novedad="ngModel" [(ngModel)]="call.novedad" required>
+								<option *ngFor="let tipo of global.novedadesAgendamiento" value="{{ tipo.id }}">{{ tipo.name }}</option>
+						</select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button (click)="newNovedad()" class="btn btn-info" data-dismiss="modal" [disabled]="novedadForm.invalid">Agregar Novedad</button>
+                    <button (click)="setInitialCall()" type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                </div>
+
+            </form>
         </div>
     </div>
 </div>

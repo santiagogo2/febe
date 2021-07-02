@@ -6,7 +6,7 @@ export var global = {
 	appName: 'SIASUR',
 	url: 'http://info-utilitario.subredsur.gov.co/public/api/',
 	urlDinamica: 'http://172.17.2.81/api-rest-dinamica/public/api/',
-	cipNote: 'Periodo 2020 Enero - Noviembre',
+	cipNote: 'Periodo 2021 Enero - Mayo',
 
 	iconsArray: [
 		{ title: 'Capacitaciones', imageUrl: 'assets/images/modulos/capacitacion.png', class: 'imageContainer color-violet', url: '/capacitaciones' },
@@ -50,6 +50,11 @@ export var global = {
 		{id: 1, value: 'MUJER'},
 		{id: 2, value: 'HOMBRE'},
 		{id: 3, value: 'INTERSEXUAL'},
+	],
+	sexoDinamica: [
+		{id: 1, name: 'MASCULINO'},
+		{id: 2, name: 'FEMENINO'},
+		{id: 3, name: 'INDETERMINADO'},
 	],
 	genero: [
 		{id: 1, name: 'MASCULINO'},
@@ -336,6 +341,19 @@ export var global = {
 		{ id: 1, name: 'ACEPTADO' },
 		{ id: 2, name: 'CERRADO' },
 		{ id: 3, name: 'CANCELADO' },
+	],
+	trasladoNoEfectivo: [
+		{ id: 2, name: 'AUTORIZACIÓN DEL SERVICIO' },
+		{ id: 3, name: 'AUTORIZACIÓN VENCIMIENTO DE TIEMPO' },
+		{ id: 4, name: 'CONDICIÓN CLÍNICA' },
+		{ id: 5, name: 'DIAGNÓSTICO NO CONCORDANTE' },
+		{ id: 6, name: 'FALLECIMIENTO DEL PACIENTE' },
+		{ id: 7, name: 'FUGA DEL PACIENTE' },
+		{ id: 8, name: 'MEJORÍA Y/O ALTA DEL PACIENTE' },
+		{ id: 9, name: 'NO PERTINENTE' },
+		{ id: 1, name: 'PACIENTE FALLIDO' },
+		{ id: 10, name: 'PROBLEMAS ADMINISTRATIVOS DEL ASEGURADOR' },
+		{ id: 11, name: 'SALIDA VOLUNTARIA' },
 	],
 
 	// Variables seguridad del paciente
@@ -972,6 +990,7 @@ export var global = {
 		{ id: 1, name: 'ASTRAZENECA' },
 		{ id: 2, name: 'PFIZER' },
 		{ id: 3, name: 'SINOVAC' },
+		{ id: 4, name: 'JANSSEN' },
 	],	
 	dosis: [
 		{ id: 1, name: 'PRIMERA DÓSIS' },
@@ -988,7 +1007,178 @@ export var global = {
 		{ id: 8, name: 'M8' },
 		{ id: 9, name: 'M9' },
 		{ id: 10, name: 'M10' },
-	]
+		{ id: 11, name: 'M11' },
+		{ id: 12, name: 'M12' },
+	],
+	novedades: [
+		{ id: 1, name: 'COVID < 90 DÍAS' },
+		{ id: 2, name: 'DISENTIMIENTO' },
+		{ id: 3, name: 'GESTANTE' },
+		{ id: 4, name: 'INASISTENTE' },
+		{ id: 5, name: 'LACTANTE' },
+		{ id: 6, name: 'OTRAS PATOLOGIAS' },
+		{ id: 7, name: 'VACUNADO EXTRAINSTITUCIONAL' },
+	],
+	razonesCancelacion: [
+		{ id: 1, name: 'AGENDADO POR ERROR' },
+		{ id: 2, name: 'NO ASISTE A LA CITA' },
+	],
+	sedesVacunacion: [
+		{ id: 37, name: 'COLISEO EL TUNAL' },
+		{ id: 21, name: 'NAZARETH' },
+		{ id: 38, name: 'PLAZA DE ARTESANOS' },
+		{ id: 28, name: 'SAN JUAN DE SUMAPÁZ' },
+		// { id: 33, name: 'TUNJUELITO' },
+		{ id: 32, name: 'UNIDAD DE SERVICIOS DE SALUD EL TUNAL' },
+		{ id: 29, name: 'UNIDAD DE SERVICIOS DE SALUD SANTA LIBRADA' },
+		{ id: 35, name: 'UNIDAD DE SERVICIOS DE SALUD VISTA HERMOSA' },
+	],
+	respuestasAsistencia: [
+		{ id: 0, name: 'NO' },
+		{ id: 1, name: 'SI' },
+		{ id: 2, name: 'CANCELADA' },
+	],
+	novedadesAgendamiento: [
+		{ id: '1', name: 'FALLECIDO' },
+		{ id: '2', name: 'FUERA DE BOGOTA' },
+		{ id: '3', name: 'TEMPORALMETE FUERA DE BOGOTA' },
+		{ id: '4', name: 'CONDICION DE SALUD' },
+		{ id: '5', name: 'NO CONTESTA' },
+		{ id: '6', name: 'NUMERO ERRADO' },
+		{ id: '7', name: 'PACIENTE COVID' },
+		{ id: '8', name: 'RECHAZA VACUNA' },
+		{ id: '9', name: 'SIN INFORMACION' },
+		{ id: '10', name: 'VACUNADO' },
+		{ id: '11', name: 'REPROGRAMAR LLAMADA' },
+	],
+
+	// CONTRATACIÓN
+	tiposCuentaBancaria: [
+		{ id: '1', name: 'AHORROS' },
+		{ id: '2', name: 'CORRIENTE' },
+	],	
+	entidadesBancarias: [
+		{ id: '00', name: 'BANCO DE LA REPÚBLICA' },
+		{ id: '01', name: 'BANCO DE BOGOTÁ' },
+		{ id: '02', name: 'BANCO POPULAR' },
+		{ id: '06', name: 'BANCO CORPBANCA S.A.' },
+		{ id: '07', name: 'BANCOLOMBIA S.A.' },
+		{ id: '09', name: 'CITIBANK COLOMBIA' },
+		{ id: '10', name: 'BANCO GNB COLOMBIA S.A.' },
+		{ id: '12', name: 'BANCO GNB SUDAMERIS COLOMBIA' },
+		{ id: '13', name: 'BBVA COLOMBIA' },
+		{ id: '14', name: 'HELM BANK' },
+		{ id: '19', name: 'RED MULTIBANCA COLPATRIA S.A.' },
+		{ id: '23', name: 'BANCO DE OCCIDENTE' },
+		{ id: '31', name: 'BANCO DE COMERCIO EXTERIOR DE COLOMBIA S.A. (BANCOLDEX)' },
+		{ id: '32', name: 'BANCO CAJA SOCIAL - BCSC S.A.' },
+		{ id: '40', name: 'BANCO AGRARIO DE COLOMBIA S.A.' },
+		{ id: '51', name: 'BANCO DAVIVIENDA S.A.' },
+		{ id: '52', name: 'BANCO AV VILLAS' },
+		{ id: '53', name: 'BANCO WWB S.A.' },
+		{ id: '58', name: 'BANCO PROCREDIT' },
+		{ id: '59', name: 'BANCAMIA' },
+		{ id: '60', name: 'BANCO PICHINCHA S.A.' },
+		{ id: '61', name: 'BANCOOMEVA' },
+		{ id: '62', name: 'BANCO FALABELLA S.A.' },
+		{ id: '63', name: 'BANCO FINANDINA S.A.' },
+		{ id: '65', name: 'BANCO SANTANDER DE NEGOCIOS COLOMBIA S.A. - BANCO SANTANDER' },
+		{ id: '66', name: 'BANCO COOPERATIVO COOPCENTRAL' },
+	],
+	meses: [
+		{ id: '1', name: 'ENERO' },
+		{ id: '2', name: 'FEBRERO' },
+		{ id: '3', name: 'MARZO' },
+		{ id: '4', name: 'ABRIL' },
+		{ id: '5', name: 'MAYO' },
+		{ id: '6', name: 'JUNIO' },
+		{ id: '7', name: 'JULIO' },
+		{ id: '8', name: 'AGOSTO' },
+		{ id: '9', name: 'SEPTIEMBRE' },
+		{ id: '10', name: 'OCTUBRE' },
+		{ id: '11', name: 'NOVIEMBRE' },
+		{ id: '12', name: 'DICIEMBRE' },
+	],
+	estadosCuentaCobro: [
+		{ id: '0', name: 'NUEVO' },
+		{ id: '1', name: 'RECHAZADO SUPERVISOR' },
+		{ id: '2', name: 'RECHAZADO CONTRATACIÓN' },
+		{ id: '3', name: 'CORREGIDO' },
+		{ id: '4', name: 'PAGADO' },
+		{ id: '5', name: 'ACEPTADO SUPERVISIÓN' },
+		{ id: '6', name: 'ACEPTADO CONTRATACIÓN' },
+	],
+	tipoIngresoDinamica: [
+		{ id: 1, name: 'AMBULATORIO' },
+		{ id: 2, name: 'HOSPITALARIO' },
+	],
+	ingresoPorDinamica: [
+		{ id: 0, name: 'URGENCIAS' },
+		{ id: 1, name: 'CONSULTA EXTERNA' },
+		{ id: 2, name: 'NACIDO HOSPITAL' },
+		{ id: 3, name: 'REMITIDO' },
+		{ id: 4, name: 'HOSP URGENCIAS' },
+		{ id: 5, name: 'HOSPITALIZACIÓN' },
+		{ id: 6, name: 'IMAGENES' },
+		{ id: 7, name: 'LABORATORIO' },
+		{ id: 8, name: 'URGENCIA GINECOLÓGICA' },
+		{ id: 9, name: 'QUIRÓFANO' },
+		{ id: 10, name: 'CIRUGÍA AMBULATORIA' },
+		{ id: 11, name: 'CIRUGÍA PROGRAMADA' },
+		{ id: 12, name: 'UCI NEONATAL' },
+		{ id: 13, name: 'UCI ADULTO' },
+	],
+	tipoRiesgoDinamica: [
+		{ id: 1, name: 'ACCIDENTE DE TRÁNSITO' },
+		{ id: 2, name: 'CATASTROFE' },
+		{ id: 3, name: 'ENFERMEDAD GENERAL Y MATERNIDAD' },
+		{ id: 4, name: 'ACCIDENTE DE TRABAJO' },
+		{ id: 5, name: 'ENFERMEDAD PROFESIONAL' },
+		{ id: 6, name: 'ATENCIÓN INICIAL DE URGENCIAS' },
+		{ id: 7, name: 'OTRO TIPO DE ACCIDENTE' },
+		{ id: 8, name: 'LESIÓN POR AGRESIÓN' },
+		{ id: 9, name: 'LESIÓN AUTOINFLIGIDA' },
+		{ id: 10, name: 'MALTRATO FÍSICO' },
+		{ id: 11, name: 'PROMOCIÓN Y PREVENCIÓN' },
+		{ id: 12, name: 'OTRO' },
+		{ id: 13, name: 'ACCIDENTE RÁBICO' },
+		{ id: 14, name: 'ACCIDENTE OFÍDICO' },
+		{ id: 15, name: 'SOSPECHA DE ABUSO SEXUAL' },
+		{ id: 16, name: 'SOSPECHA DE VIOLENCIA SEXUAL' },
+		{ id: 17, name: 'SOSPECHA DE MALTRATO EMOCIONAL' },
+	],
+	centroAtencionDinamica: [
+		{ id: 23, name: 'USS SANTA MARTA' },
+	],
+	causaIngresoDinamica: [
+		{ id: 0, name: 'NINGUNA' },
+		{ id: 1, name: 'ENFERMEDAD PROFESIONAL' },
+		{ id: 2, name: 'HERIDOS EN COMBATE' },
+		{ id: 3, name: 'ENFERMEDAD GENERAL ADULTO' },
+		{ id: 4, name: 'ENFERMEDAD GENERAL PEDIATRÍA' },
+		{ id: 5, name: 'ODONTOLOGÍA' },
+		{ id: 6, name: 'ACCIDENTE DE TRÁNSITO' },
+		{ id: 7, name: 'CATÁSTROFE FISALUD' },
+		{ id: 8, name: 'QUEMADOS' },
+		{ id: 9, name: 'MATERNIDAD' },
+		{ id: 10, name: 'ACCIDENTE LABORAL' },
+		{ id: 11, name: 'CIRUGÍA PROGRAMADA' },
+	],
+	tipoDocumentoDinamica: [
+		{ id: 0, name: 'NINGUNO' },
+		{ id: 1, name: 'CÉDULA DE CIUDADANÍA' },
+		{ id: 2, name: 'CÉDULA DE EXTRANJERÍA' },
+		{ id: 3, name: 'TARJETA DE IDENTIDAD' },
+		{ id: 4, name: 'REGISTRO CIVIL' },
+		{ id: 5, name: 'PASAPORTE' },
+		{ id: 6, name: 'ADULTO SIN INDENTIFICACIÓN' },
+		{ id: 7, name: 'MENOR SIN IDENTIFICACIÓN' },
+		{ id: 8, name: 'NÚMERO ÚNICO DE INDENTIFICACIÓN' },
+		{ id: 9, name: 'SALVOCONDUCTO' },
+		{ id: 10, name: 'CERTIFICADO NACIDO VIVO' },
+		{ id: 11, name: 'CARNÉ DIPLOMÁTICO' },
+		{ id: 12, name: 'PERMISO ESPECIAL DE PERMANENCIA' },
+	],
 }
 
 @Injectable({
@@ -1031,4 +1221,180 @@ export class GlobalService {
 			return $event.toLowerCase();
 		}
 	}
+
+	getInitialMonthDay() {
+		const initialDate = new Date();
+		const day = this.addZero( 1 );
+		let month = initialDate.getMonth() + 1;
+		month = this.addZero( month );
+		const year = initialDate.getFullYear();
+		
+		return year + '-' + month + '-' + day;
+	}
+
+	getEndMonthDay( date = null ) {
+		if( date ) {
+			date = date.split('-');
+			date = new Date( +date[0], +date[1] - 1, +date[2] );
+		} else {
+			date = new Date();
+		}
+		const endDate = new Date( date.getFullYear(), date.getMonth() + 1, 0 );
+
+		const day = this.addZero( endDate.getDate() );
+		let month = endDate.getMonth() + 1;
+		month = this.addZero( month );
+		const year = endDate.getFullYear();
+		
+		return year + '-' + month + '-' + day;
+	}
+
+	// CONVERTIR DE NÚMEROS A LETRAS
+	numerosALetas( numero: number ) {
+		let data = {
+			numero: numero,
+			enteros: Math.floor( numero ),
+			letrasMonedaPlural: 'PESOS',
+			letrasMonedaSingular: 'PESO',
+		};
+
+		if( data.enteros == 0 ) {
+			return 'CERO' + data.letrasMonedaPlural + ' ';
+		} else if( data.enteros == 1 ) {
+			return Millones(data.enteros) +  data.letrasMonedaSingular;
+		} else {
+			return Millones(data.enteros) +  data.letrasMonedaPlural;
+		}
+	}
+	// FIN DE CONVERTIR DE NÚMEROS A LETRAS
 }
+
+// CONVERTIR DE NÚMEROS A LETRAS
+function Unidades( numero: number ) {
+	switch( numero ) {
+		case 1: return 'UN';
+		case 2: return 'DOS';
+		case 3: return 'TRES';
+		case 4: return 'CUATRO';
+		case 5: return 'CINCO';
+		case 6: return 'SEIS';
+		case 7: return 'SIETE';
+		case 8: return 'OCHO';
+		case 9: return 'NUEVE';
+	}
+	return "";
+}
+
+function DecenasY( strSin, unidades ) {
+	if (unidades > 0) {
+		return strSin + ' Y '+ Unidades( unidades );
+	}
+
+    return strSin;
+}
+
+function Decenas ( numero: number ) {
+	let decena = Math.floor( numero / 10 );
+	let unidad = numero - ( decena * 10 );
+
+	switch( decena ) {
+		case 1 : 
+			switch( unidad ) {
+				case 0: return 'DIEZ';
+				case 1: return 'ONCE';
+				case 2: return 'DOCE';
+				case 3: return 'TRECE';
+				case 4: return 'CATORCE';
+				case 5: return 'QUINCE';
+				default: return 'DIECI' + Unidades( unidad );
+			}
+		case 2: 
+			switch( unidad ) {
+				case 0: return 'VEINTE';
+				default: return 'VEINTI' + Unidades( unidad );
+			}
+		case 3: return DecenasY( 'TREINTA', unidad );
+		case 4: return DecenasY( 'CUARENTA', unidad );
+		case 5: return DecenasY( 'CINCUENTA', unidad );
+		case 6: return DecenasY( 'SESENTA', unidad );
+		case 7: return DecenasY( 'SETENTA', unidad );
+		case 8: return DecenasY( 'OCHENTA', unidad );
+		case 9: return DecenasY( 'NOVENTA', unidad );
+		case 0: return Unidades( unidad );
+	}
+}
+
+function Centenas( numero: number ) {
+	let centenas = Math.floor( numero / 100 );
+	let decenas = numero - ( centenas * 100 );
+
+	switch( centenas ) {
+		case 1:
+			if( decenas > 0 ) {
+				return 'CIENTO' + Decenas( decenas );
+			}
+			return 'CIEN';
+		case 2: return 'DOSCIENTOS ' + Decenas( decenas );
+		case 3: return 'TRESCIENTOS ' + Decenas( decenas );
+		case 4: return 'CUATROCIENTOS ' + Decenas( decenas );
+		case 5: return 'QUINIENTOS ' + Decenas( decenas );
+		case 6: return 'SEISCIENTOS ' + Decenas( decenas );
+		case 7: return 'SETECIENTOS ' + Decenas( decenas );
+		case 8: return 'OCHOCIENTOS ' + Decenas( decenas );
+		case 9: return 'NOVECIENTOS ' + Decenas( decenas );
+	}
+
+	return Decenas( decenas );
+}
+
+function Seccion( numero, divisor, strSingular, strPlural ) {
+    let cientos = Math.floor(numero / divisor);
+    let resto = numero - (cientos * divisor);
+
+    let letras = '';
+
+    if (cientos > 0) {
+        if (cientos > 1) {
+            letras = Centenas( cientos ) + ' ' + strPlural;
+		}  else {
+            letras = strSingular;
+		}
+	}
+    if (resto > 0) {
+        letras += '';
+	}
+
+    return letras;
+}
+
+function Miles( numero: number ) {
+	let divisor = 1000;
+	let cientos = Math.floor( numero / divisor );
+	let resto = numero - ( cientos * divisor );
+
+	let strMiles = Seccion( numero, divisor, 'UN MIL', 'MIL' );
+	let strCentenas = Centenas( resto );
+
+	if( strMiles == '' ) {
+		return strCentenas;
+	}
+
+	return strMiles + ' ' + strCentenas;
+}
+
+function Millones( numero: number ) {
+	let divisor = 1000000;
+	let cientos = Math.floor( numero / divisor );
+	let resto = numero - ( cientos * divisor );
+	let strPlural = resto == 0 ? 'MILLONES DE' : 'MILLONES';
+
+	let strMillones = Seccion( numero, divisor, 'UN MILLON DE', strPlural );
+	let strMiles = Miles( resto );
+
+	if( strMillones == '' ) {
+		return strMiles;
+	}
+
+	return strMillones + ' ' + strMiles;
+}
+// FIN DE CONVERTIR DE NÚMEROS A LETRAS

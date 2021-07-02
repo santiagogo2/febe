@@ -6,6 +6,7 @@ import { UserService } from '../../../../../services/services.index';
 
 // Models
 import { Novedad } from '../../../models/contratacion-models.index';
+import { Location } from '@angular/common';
 
 @Component({
 	selector: 'app-listar-novedades',
@@ -31,10 +32,13 @@ export class ListarNovedadesComponent implements OnInit {
 	public token: string;
 	public identity: any;
 	public news: Novedad[];
+	public Tipo: number;
 
 	constructor(
 		private novedadService: NovedadesService,
 		private userService: UserService,
+		private _location: Location,
+
 	) {
 		const newsPage = +localStorage.getItem( 'newsPage' );
 		this.actualPage = newsPage ? newsPage : 1;
@@ -45,18 +49,19 @@ export class ListarNovedadesComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
+		this.Tipo = 0;
 		this.status = undefined;
 		this.responseMessage = undefined;
 		this.loadPermissions();
-		this.newsList();
+		this.newsList(this.Tipo);
 	}
 
-	newsList() {
-		this.novedadService.newsList().subscribe(
+	newsList(tipo) {this.Tipo = tipo;
+		this.novedadService.newsList(tipo).subscribe(
 			res => {
 				if( res.status === 'success' ){
 					this.news = res.news;
-					console.log(this.news);
+					console.log(this.Tipo);
 				}
 			},
 			error => {
@@ -106,7 +111,7 @@ export class ListarNovedadesComponent implements OnInit {
 				if( res.status === 'success' ) {
 					this.status = res.status;
 					this.responseMessage = res.message;
-					this.newsList();
+					this.newsList(0);
 				}
 			},
 			error => {
@@ -122,4 +127,7 @@ export class ListarNovedadesComponent implements OnInit {
 	pageChange(event){
 		this.actualPage = event;
 	}
+	goBack(){
+		this._location.back();
+	  }
 }

@@ -62,12 +62,12 @@ export class SubirContratosComponent implements OnInit {
 			const documentHeader = this.getKeys(arrayData[0]);
 			let flag = false;
 
-			documentHeader.forEach( head => {
+			documentHeader.forEach( head => {console.log(head.key);
                             if (head.key === 'Año'       || head.key === 'Contrato'   ||
                                 head.key === 'Nombre'    || head.key === 'Documento'  ||
                                 head.key === 'Objeto'    || head.key === 'Tipo'       ||
                                 head.key === 'Valor'     || head.key === 'Actividades' ||
-                                head.key === 'Inicio'    || head.key === 'Fin' ||
+                                head.key === 'Inicio'    || head.key === 'Fin' || head.key === 'FinAnt' ||
                                 head.key === 'Unidad'    || head.key === 'Perfil' ) {
                               flag = true;
                             } else {

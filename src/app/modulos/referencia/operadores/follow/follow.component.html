@@ -48,9 +48,15 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="col col-10 d-inline-block align-top">
+                        <div class="col col-sm-8 d-inline-block align-top">
                             <label class="labelForm">Aseguradora</label>
                             <input type="text" class="form-control inputForm" value="{{ referalRequest.aseguradora }}" disabled>
+                        </div>
+                        <div class="col col-sm-2 d-inline-block align-top" [ngClass]="{'col-md-5 col-lg-2': referalRequest.folio}">
+                            <label class="labelForm">Prioridad</label>
+                            <select name="prioridad" id="prioridad" class="form-control inputForm" #prioridad="ngModel" [(ngModel)]="referalRequest.prioridad" required [disabled]="!updateRequestFlag">
+								<option *ngFor="let prioridad of global.prioridades" value="{{ prioridad.id }}">{{ prioridad.name }}</option>
+							</select>
                         </div>
                         <div class="col col-2 d-inline-block align-top">
                             <label class="labelForm">Tipo de Ambulancia</label>
@@ -78,7 +84,9 @@
                     <div class="form-group">
                         <div class="col col-sm-12 d-inline-block align-top" [ngClass]="{'col-md-5 col-lg-2': referalRequest.folio}">
                             <label class="labelForm">Motivo de Traslado</label>
-                            <input type="text" class="form-control inputForm" value="{{ referalRequest.motivoTraslado | global: 'motivosTraslados' }}" disabled>
+                            <select name="motivoTraslado" id="motivoTraslado" class="form-control inputForm" #motivoTraslado="ngModel" [(ngModel)]="referalRequest.motivoTraslado" required [disabled]="!updateRequestFlag">
+								<option *ngFor="let motivo of global.motivosTraslados" value="{{ motivo.id }}">{{ motivo.name }}</option>
+							</select>
                         </div>
                         <ng-container *ngIf="referalRequest.folio">
                             <div class="col col-md-2 col-lg-1 d-inline-block align-top">
@@ -207,7 +215,8 @@
                     </div>
                     <div class="col col-12 text-center">
                         <span type="button" style="padding: 0.5rem;" class="ml-1 badge badge-pill badge-info col col-sm-12 col-md-5 d-inline-block" *ngIf="caseAcepted && referalRequest.estado != 2 && referalRequest.estado != 3 && newFollowFlag" data-toggle="modal" [attr.data-target]="'#newFollow'">+ Nuevo Seguimiento</span>
-                        <span type="button" style="padding: 0.5rem;" class="ml-1 mt-1 badge badge-pill badge-danger col col-sm-12 col-md-3 d-inline-block" *ngIf="referalRequest.estado == 1 && !requestId && closeCaseFlag" (click)="closeCase()">Cerrar Caso</span>
+                        <span type="button" style="padding: 0.5rem;" class="ml-1 mt-1 badge badge-pill badge-danger col col-sm-12 col-md-3 d-inline-block" *ngIf="referalRequest.estado == 1 && !requestId && closeCaseFlag" data-toggle="modal" [attr.data-target]="'#closeCase'">Cerrar Caso</span>
+                        <span type="button" style="padding: 0.5rem;" class="ml-1 mt-1 badge badge-pill badge-warning col col-sm-12 col-md-3 d-inline-block" *ngIf="referalRequest.estado == 1 && updateRequestFlag" (click)="updateRequest()">Actualizar Solicitud</span>
                     </div>
 
                     <div class="subtitle" *ngIf="requestFollows || responseMessage"><span>SEGUIMIENTOS</span></div>
@@ -256,9 +265,34 @@
                             </div>
                         </div>
                     </div>
+                    <ng-container *ngIf="(reOpenJustification && reOpenJustification.length > 0) || (closeJustifications && closeJustifications.length > 0)">
+                        <ng-container *ngIf="reOpenJustification.length > 0">
+                            <div class="subtitle"><span>JUSTIFICACIONES RE APERTURA DEL CASO</span></div>
+                            <div class="form-group" *ngFor="let justification of reOpenJustification; let i=index">
+                                <div class="col col-12 d-inline-block align-top">
+                                    <label class="labelForm">Justificación {{ i + 1 }}</label>
+                                    <textarea class="form-control inputForm" rows="2" disabled>{{ justification }}</textarea>
+                                </div>
+                            </div>
+                        </ng-container>
+                        <ng-container *ngIf="closeJustifications.length > 0">
+                            <div class="subtitle"><span>JUSTIFICACIONES CIERRE DEL CASO</span></div>
+                            <div class="form-group" *ngFor="let justification of closeJustifications; let i=index">
+                                <div class="col col-12 d-inline-block align-top">
+                                    <label class="labelForm">Traslado Efectivo {{ i + 1 }}</label>
+                                    <input *ngIf="justification.trasladoEfectivo" class="form-control inputForm" disabled value="{{ justification.trasladoEfectivo | global: 'respuestas' }}">
+                                </div>
+                                <div class="col col-12 d-inline-block align-top">
+                                    <label class="labelForm">Justificación {{ i + 1 }}</label>
+                                    <textarea class="form-control inputForm" rows="2" disabled>{{ justification.justificacion }}</textarea>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </ng-container>
+
 
                     <div class="form-group text-center" *ngIf="referalRequest.estado == 2 && !requestId && reOpenFlag">
-                        <button class="col col-5 btn btn-success btnPrefer" (click)="reOpenCase()">Reabrir Caso</button>
+                        <button class="col col-5 btn btn-success btnPrefer" data-toggle="modal" [attr.data-target]="'#reOpenCase'">Reabrir Caso</button>
                     </div>
                 </div>
             </div>
@@ -426,6 +460,97 @@
                 <div class="modal-footer">
                     <button (click)="newFollow( followForm )" class="btn btn-info" data-dismiss="modal" [disabled]="followForm.invalid">Agregar Seguimiento</button>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- the Modal - Close case -->
+<div class="modal animated fadeIn faster" id="closeCase">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form #closeForm="ngForm" class="form-container" (ngSubmit)="closeCase(closeForm)">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Ingrese una justificación del cierre del caso</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div class="col col-sm-12 d-inline-block align-top">
+                            <label for="trasladoEfectivo" class="labelForm">Traslado Efectivo*</label>
+                            <select style="background-position-x: 95%" name="trasladoEfectivo" id="trasladoEfectivo" class="form-control inputForm" [ngClass]="{ 'is-invalid': trasladoEfectivo.invalid && trasladoEfectivo.touched}" #trasladoEfectivo="ngModel" [(ngModel)]="closeCaseInfo.trasladoEfectivo"
+                                required>
+								<option value="1">SI</option>
+								<option value="2">NO</option>
+							</select>
+                            <small class="invalid-feedback d-block font-weight-bold" *ngIf="trasladoEfectivo.invalid && trasladoEfectivo.touched">Debe selecionar una respuesta de la lista desplegable</small>
+                        </div>
+                    </div>
+                    <div class="form-group" *ngIf="closeCaseInfo.trasladoEfectivo && closeCaseInfo.trasladoEfectivo == 1">
+                        <div class="col col-sm-12 d-inline-block align-top">
+                            <label for="justification" class="labelForm">Justificación*</label>
+                            <textarea name="justification" class="form-control inputForm" [ngClass]="{ 'is-invalid': justification.invalid && justification.touched}" #justification="ngModel" [(ngModel)]="closeCaseInfo.justification" (ngModelChange)="closeCaseInfo.justification=globalService.upperCase($event)"
+                                required rows="5" placeholder="Ingrese una justificación para cerrar el caso. Minimo 30 caracteres" minlength="30"></textarea>
+                            <small class="invalid-feedback d-block font-weight-bold" *ngIf="justification.invalid && justification.touched">Debe ingresar una justificación para cerrar el caso</small>
+                        </div>
+                    </div>
+                    <div class="form-group" *ngIf="closeCaseInfo.trasladoEfectivo && closeCaseInfo.trasladoEfectivo == 2">
+                        <div class="col col-sm-12 d-inline-block align-top">
+                            <label for="justification" class="labelForm">Justificación*</label>
+                            <select style="background-position-x: 95%" name="justification" id="justification" class="form-control inputForm" [ngClass]="{ 'is-invalid': justification.invalid && justification.touched}" #justification="ngModel" [(ngModel)]="closeCaseInfo.justification"
+                                required>
+									<option *ngFor="let element of global.trasladoNoEfectivo" value="{{ element.name }}">{{ element.name }}</option>
+							</select>
+                            <small class="invalid-feedback d-block font-weight-bold" *ngIf="justification.invalid && justification.touched">Debe selecionar un elemento de la lista desplegable</small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button (click)="closeCase( closeForm )" class="btn btn-primary" data-dismiss="modal" [disabled]="closeForm.invalid">Cerrar Caso</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- the Modal - Re Open case -->
+<div class="modal animated fadeIn faster" id="reOpenCase">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form #reOpenForm="ngForm" class="form-container" (ngSubmit)="reOpenCase(reOpenForm)">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Ingrese una justificación para la re apertura del caso</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div class="col col-sm-12 d-inline-block align-top">
+                            <label for="justification" class="labelForm">Justificación*</label>
+                            <textarea name="justification" class="form-control inputForm" [ngClass]="{ 'is-invalid': justification.invalid && justification.touched}" #justification="ngModel" [(ngModel)]="closeCaseInfo.justification" (ngModelChange)="closeCaseInfo.justification=globalService.upperCase($event)"
+                                required rows="5" placeholder="Ingrese una justificación para reabrir el caso. Minimo 30 caracteres" minlength="30"></textarea>
+                            <small class="invalid-feedback d-block font-weight-bold" *ngIf="justification.invalid && justification.touched">Debe ingresar una justificación para re abrir el caso</small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button (click)="reOpenCase( reOpenForm )" class="btn btn-primary" data-dismiss="modal" [disabled]="reOpenForm.invalid">Reabrir Caso</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                 </div>
 
             </form>

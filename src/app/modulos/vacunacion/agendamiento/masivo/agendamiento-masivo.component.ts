@@ -61,7 +61,7 @@ export class AgendamientoMasivoComponent implements OnInit {
 				if (head.key === 'tipoDocumento' || head.key === 'numeroDocumento' ||
 					head.key === 'primerNombre' || head.key === 'segundoNombre' ||
 					head.key === 'primerApellido' || head.key === 'segundoApellido' ||
-					head.key === 'servicio' || head.key === 'celular' ||
+					head.key === 'servicio' || head.key === 'aseguradora' || head.key === 'celular' ||
 					head.key === 'sedeVacunacion' || head.key === 'fechaVacunacion' ||
 					head.key === 'horaVacunacion' || head.key === 'mesa' || 
 					head.key === 'dosis' || head.key === 'tipoUsuario') {

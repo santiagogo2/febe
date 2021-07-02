@@ -19,7 +19,7 @@ export class GlobalPipe implements PipeTransform {
 				}
 			});
 		} else {
-			return null;
+			return result;
 		}
 		return result;
 	}

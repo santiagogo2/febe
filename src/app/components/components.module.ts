@@ -10,6 +10,7 @@ import { GraficoBarrasComponent } from './graficas/grafico-barras/grafico-barras
 import { GraficoDonaComponent } from './graficas/grafico-dona/grafico-dona.component';
 import { GraficoLineaComponent } from './graficas/grafico-linea/grafico-linea.component';
 import { GraficoPieComponent } from './graficas/grafico-pie/grafico-pie.component';
+import { GraficoPolarComponent } from './graficas/grafico-polar/grafico-polar.component';
 import { GraficoPuntosComponent } from './graficas/grafico-puntos/grafico-puntos.component';
 
 import { LoadDocumentComponent } from './load-document/load-document.component';
@@ -24,6 +25,7 @@ import { GlobalAdminModule } from './global-admin/global-admin.module';
 		GraficoPieComponent,
 		GraficoPuntosComponent,
 		LoadDocumentComponent,
+		GraficoPolarComponent,
 	],
 	imports: [
 		CommonModule,
@@ -37,6 +39,7 @@ import { GlobalAdminModule } from './global-admin/global-admin.module';
 		GraficoDonaComponent,
 		GraficoLineaComponent,
 		GraficoPieComponent,
+		GraficoPolarComponent,
 		GraficoPuntosComponent,
 		LoadDocumentComponent,
 		GlobalAdminModule

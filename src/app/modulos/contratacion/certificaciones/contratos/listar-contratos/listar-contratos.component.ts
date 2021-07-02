@@ -45,6 +45,7 @@ export class ListarContratosComponent implements OnInit {
 				
 		if (this.identity['role'] != 20 )
 			{
+				this.searchFlag = false;
 				this.document = this.identity['documentId'];
 				this.contractList();
 			} 

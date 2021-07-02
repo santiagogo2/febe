@@ -20,9 +20,8 @@ export class UserService {
 	}
 
 	signup(user, gettoken = null): Observable<any> {
-		if (gettoken != null) {
-			user.gettoken = 'true';
-		}
+		user.gettoken = gettoken;
+		
 		const json = JSON.stringify(user);
 		const params = 'json=' + json;
 		const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');

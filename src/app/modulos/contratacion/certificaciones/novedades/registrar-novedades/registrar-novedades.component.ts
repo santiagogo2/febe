@@ -41,7 +41,7 @@ export class RegistrarNovedadesComponent implements OnInit {
 		this.buttonText = 'Enviar';
 
 		this.identity = this.userService.getIdentity();
-		this.news = new Novedad( null, null, null, null, null, null,null,null,null,null,null );
+		this.news = new Novedad( null, null, null, null, null, null,null,null,null,null,null,null );
 
 		this.viewFlag = true;
 		this.editFlag = true;

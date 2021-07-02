@@ -16,7 +16,7 @@
 <div class="row" *ngIf="referalRequest">
     <div class="col-sm-12">
         <div class="card border-0">
-            <div class="card-body cardContainer">
+            <div class="card-body">
                 <div class="backLink col col-sm-12">
                     <a class="col-sm-12" routerLink="/referencia">Regresar</a>
                 </div>
@@ -27,23 +27,90 @@
                     <input class="ml-3" type="checkbox" [(ngModel)]="filters.cancelados" (ngModelChange)="getCasesByFilters()" name="Cancelados" id="Cancelados"><label class="checkbox" for="Cancelados">CANCELADOS</label>
                     <small class="invalid-feedback d-block" *ngIf="filterErrorMessage">{{ filterErrorMessage }}</small>
                 </div>
+                <ng-container>
+                    <div class="d-block col col-12 mb-3">
+                        <div class="box">
+                            <form #searchForm="ngForm" class="formContainer" id="searchForm" (ngSubmit)="search(searchForm)" class="container-2">
+                                <span class="icon"><i class="fa fa-search"></i></span>
+                                <input type="search" id="search" name="searchInput" #searchInput="ngModel" [(ngModel)]="chain" placeholder="Puede realizar busquedas por número de documento o por el número de radicado del caso" />
+                            </form>
+                        </div>
+                        <div class="mt-1 text-left">
+                            <button type="button" class="btn btn-secondary btn-sm" (click)="getCasesByFilters()">Reiniciar busqueda</button>
+                        </div>
+                    </div>
+                </ng-container>
+
+                <ng-container class="mb-3">
+                    <ng-container>
+                        <div class="col col-12 d-inline-block align-top checkbox text-left">
+                            <input type="checkbox" [(ngModel)]="filterDate" (ngModelChange)="filterResults( globalRequest )" name="FiltrarFecha" id="FiltrarFecha"><label class="checkbox" for="FiltrarFecha">FILTRAR FECHA</label>
+                        </div>
+                        <div class="col col-sm-12 col-md-4 d-inline-block mb-2">
+                            <label for="initialDate" class="labelForm">Fecha de la Cita</label>
+                            <input type="date" name="initialDate" class="form-control inputForm" [ngClass]="{'is-invalid': initialDate.invalid}" #initialDate="ngModel" [(ngModel)]="fechaCita">
+                        </div>
+                    </ng-container>
+                    <ng-container>
+                        <div class="dropdown col col-sm-6 col-md-4 d-inline-block mb-2">
+                            <button class="btn btn-sm btn-subred-color dropdown-toggle popupbtn" type="button" id="cups" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								CUPS
+							</button>
+                            <div class="dropdown-menu" attr.aria-labelledby="cups" style="max-height: 400px; overflow-y: auto; max-width: 400px; overflow-x: auto;">
+                                <div class="col-lg-12 d-inline-block pl-3 align-top checkbox dropdown-item">
+                                    <input type="checkbox" [(ngModel)]="cupsSelectedAll" name="{{'examen' + 'selectedAll'}}" id="{{'examen' + 'selectedAll'}}" value="{{'selectedAll'}}" (ngModelChange)="selectedAll(cups, cupsSelectedAll)">
+                                    <label class="checkbox" for="{{'examen' + 'selectedAll'}}">Marcar/Desmarcar Todos</label>
+                                </div>
+                                <div class="col-lg-12 d-inline-block pl-3 align-top checkbox dropdown-item">
+                                    <input type="checkbox" [(ngModel)]="sinCUPS" name="{{'examen' + 'sinCUPS'}}" id="{{'examen' + 'sinCUPS'}}" value="{{'sinCUPS'}}" (ngModelChange)="validateCUPSSelectedAll( cups )">
+                                    <label class="checkbox" for="{{'examen' + 'sinCUPS'}}">SIN CUPS</label>
+                                </div>
+                                <div class="col-lg-12 d-inline-block pl-3 align-top checkbox dropdown-item" *ngFor="let examen of cups">
+                                    <input type="checkbox" [(ngModel)]="examen.isSelected" name="{{'examen' + examen.codigoCups}}" id="{{'examen' + examen.codigoCups}}" value="{{examen.codigoCups}}" (ngModelChange)="validateCUPSSelectedAll( cups )">
+                                    <label class="checkbox" for="{{'examen' + examen.codigoCups}}">{{ examen.codigoCups + '-' + examen.nombreExamen }}</label>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                    <ng-container>
+                        <div class="dropdown col col-sm-6 col-md-4 d-inline-block mb-2">
+                            <button class="btn btn-sm btn-subred-color dropdown-toggle popupbtn" type="button" id="unidadesAtencion" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								Unidades de Atención
+							</button>
+                            <div class="dropdown-menu" attr.aria-labelledby="unidadesAtencion">
+                                <div class="col-lg-12 d-inline-block pl-3 align-top checkbox dropdown-item">
+                                    <input type="checkbox" [(ngModel)]="unidadesSelectedAll" name="{{'centros' + 'selectedAll'}}" id="{{'centros' + 'selectedAll'}}" value="{{'selectedAll'}}" (ngModelChange)="selectedAll(centrosAtencion, unidadesSelectedAll)">
+                                    <label class="checkbox" for="{{'centros' + 'selectedAll'}}">Marcar/Desmarcar Todos</label>
+                                </div>
+                                <div class="col-lg-12 d-inline-block pl-3 align-top checkbox dropdown-item">
+                                    <input type="checkbox" [(ngModel)]="sinCentroAtencion" name="{{'examen' + 'sinCentroAtencion'}}" id="{{'examen' + 'sinCentroAtencion'}}" value="{{'sinCentroAtencion'}}" (ngModelChange)="validateUSSSelectedAll(centrosAtencion)">
+                                    <label class="checkbox" for="{{'examen' + 'sinCentroAtencion'}}">SIN CENTRO DE ATENCIÓN</label>
+                                </div>
+                                <div class="col-lg-12 d-inline-block pl-3 align-top checkbox dropdown-item" *ngFor="let centros of centrosAtencion">
+                                    <input type="checkbox" [(ngModel)]="centros.isSelected" name="{{'centros' + centros.name}}" id="{{'centros' + centros.name}}" value="{{centros.name}}" (ngModelChange)="validateUSSSelectedAll(centrosAtencion)">
+                                    <label class="checkbox" for="{{'centros' + centros.name}}">{{ centros.name }}</label>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                </ng-container>
+
                 <div class="mt-3 errorAlert alert-danger" *ngIf="responseMessage">
                     <div class="alert" role="alert">
                         {{ responseMessage }}
                     </div>
                 </div>
+                <div class="deleteLoader mb-3" *ngIf="preloaderStatus">
+                    <div class="loader"></div>
+                </div>
 
-                <div class="tableContainer">
+                <div class="tableContainer mt-2" *ngIf="!preloaderStatus && referalRequest.length > 0">
                     <div class="tableContainerAll col col-sm-12">
                         <div class="paginationControls" *ngIf="referalRequest && referalRequest.length > itemsPerPage">
                             <pagination-controls (pageChange)="pageChange($event)" previousLabel="Anterior" nextLabel="Siguiente" maxSize="4">
                             </pagination-controls>
                         </div>
-
-                        <div class="deleteLoader mb-3" *ngIf="preloaderStatus">
-                            <div class="loader"></div>
-                        </div>
-                        <table class="table table-bordered" *ngIf="!preloaderStatus">
+                        <table class="table table-bordered">
                             <thead class="thead_styles">
                                 <tr>
                                     <th>Consecutivo</th>
@@ -51,9 +118,11 @@
                                     <th>Documento</th>
                                     <th>Nombre</th>
                                     <th>Ingreso</th>
+                                    <th>Centro de Atención</th>
                                     <th>Motivo de Traslado</th>
                                     <th>Médico</th>
                                     <th>Estado</th>
+                                    <th>CUPS</th>
                                     <th>Tiempo Transcurrido (min)</th>
                                     <th>Prioridad</th>
                                 </tr>
@@ -65,9 +134,18 @@
                                     <td><a [routerLink]="['../panel/seguimiento/', referal.id]">{{ referal.numeroIdentificacion }}</a></td>
                                     <td><a [routerLink]="['../panel/seguimiento/', referal.id]">{{ referal.nombresApellidos }}</a></td>
                                     <td><a [routerLink]="['../panel/seguimiento/', referal.id]">{{ referal.ingreso | isnullfill }}</a></td>
+                                    <td><a [routerLink]="['../panel/seguimiento/', referal.id]">{{ referal.centroAtencion | isnullfill }}</a></td>
                                     <td><a [routerLink]="['../panel/seguimiento/', referal.id]">{{ referal.motivoTraslado | global: 'motivosTraslados' }}</a></td>
                                     <td><a [routerLink]="['../panel/seguimiento/', referal.id]">{{ referal.nombreMedico | isnullfill }}</a></td>
                                     <td><a [routerLink]="['../panel/seguimiento/', referal.id]">{{ referal.estado | global: 'estadosReferencia' }}</a></td>
+                                    <td class="text-left">
+                                        <a [routerLink]="['../panel/seguimiento/', referal.id]">
+                                            <span *ngIf="referal.cups.length == 0">-</span>
+                                            <ul *ngIf="referal.cups.length > 0">
+                                                <li *ngFor="let cup of referal.cups">{{ cup.codigoCups + ' - ' + cup.nombreExamen }} <b *ngIf="cup.fechaCita">|| {{cup.fechaCita + ' - ' + cup.horaCita}}</b></li>
+                                            </ul>
+                                        </a>
+                                    </td>
                                     <td [ngClass]="{'bad': getDateColor(referal.created_at.substr(0,19), referal.fechaHoraCierre, referal.prioridad) == 'bad', 'regular': getDateColor(referal.created_at.substr(0,19), referal.fechaHoraCierre, referal.prioridad) == 'regular', 'good': getDateColor(referal.created_at.substr(0,19), referal.fechaHoraCierre, referal.prioridad) == 'good'}"><a style="color: #FFF !important;" [routerLink]="['../panel/seguimiento/', referal.id]">{{ referal.timeElapsed }}</a></td>
                                     <td [ngClass]=" { 'bad': referal.prioridad==1 , 'good': referal.prioridad==2 , 'regular': referal.prioridad==3 } ">{{ referal.prioridad | global: 'prioridades' }}</td>
                                 </tr>

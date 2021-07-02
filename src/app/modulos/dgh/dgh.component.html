@@ -1,1 +1,21 @@
-<p>dgh works!</p>
+<div id="capacitacion" class="row" *ngIf="dgh">
+    <div class="col-sm-12">
+        <div class="card border-0">
+            <div class="card-body cardContainer">
+                <div class="backLink col col-sm-12">
+                    <a class="col-sm-12" routerLink="/inicio">Regresar</a>
+                </div>
+                <div class="myCardContainer col col-sm-12 col-md-4" *ngFor="let tarjeta of dgh">
+                    <div class="card myCard color-violet" [class]="tarjeta.class">
+                        <a [routerLink]="[tarjeta.url]">
+                            <div class="card-body">
+                                <h4 class="card-title">{{ tarjeta.titulo }}</h4>
+                                <p class="card-text">{{ tarjeta.description }}</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

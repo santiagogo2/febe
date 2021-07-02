@@ -24,10 +24,10 @@ export class RegistrarContratosGuard implements CanActivate {
 					return true;
 				}
 			}
-			this.router.navigate(['/contratacion/vercontratos']);
+			this.router.navigate(['/contratacion']);
 			return false;
 		} else {
-			this.router.navigate(['/contratacion/vercontratos']);
+			this.router.navigate(['/contratacion']);
 			return false;
 		}
 	}

@@ -2,8 +2,11 @@
     <div class="col-sm-12">
         <div class="card border-0">
             <div class="card-body cardContainer">
-                <div class="col col-sm-12 text-right" *ngIf="initialFilter">
-                    <button type="button" class="btn btn-outline-dark btn-sm" (click)="setInitialFilter( true )">Cambiar Motivo de Traslado</button>
+                <div class="backLink col col-sm-12">
+                    <a class="col-sm-6 d-inline-block" routerLink="/dgh">Regresar</a>
+                    <div class="col col-sm-6 text-right d-inline-block" *ngIf="initialFilter">
+                        <button type="button" class="btn btn-outline-dark btn-sm" (click)="setInitialFilter( true )">Cambiar Motivo de Traslado</button>
+                    </div>
                 </div>
                 <div class="myCardContainer col col-sm-12 col-md-4" *ngFor="let tarjeta of referencia">
                     <div class="card myCard color-violet" [class]="tarjeta.class">

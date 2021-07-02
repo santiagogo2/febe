@@ -107,6 +107,8 @@ export class SolicitudComponent implements OnInit {
 	}
 
 	setIncome() {
+		this.infoCups = null;
+		this.checkboxSelected = false;
 		if ( this.incomes ) {
 			this.incomes.forEach( income => {
 				if ( income.Ingreso === this.request.ingreso ) {
@@ -130,7 +132,6 @@ export class SolicitudComponent implements OnInit {
 				res => {
 					if ( res.status === 'success' ) {
 						this.infoFolios = res.folios;
-						console.log(this.infoFolios);
 						this.filterFolios( this.infoFolios );
 					}
 				},
@@ -165,6 +166,8 @@ export class SolicitudComponent implements OnInit {
 	}
 
 	setFolio() {
+		this.infoCups = null;
+		this.checkboxSelected = false;
 		if ( this.folios ) {
 			this.folios.forEach( folio => {
 				if ( folio.NumeroFolio === this.request.folio ) {
@@ -205,7 +208,23 @@ export class SolicitudComponent implements OnInit {
 		});
 	}
 
-	validateSelectAll() {
+	validateSelectOne( info, i ) {
+		this.checkboxSelected = false;
+		if( this.infoCups && this.infoCups.length > 0 ) {
+			let cont = 0;
+			this.infoCups.forEach( cups => {
+				if( info.isSelected && info.codigoCups == cups.codigoCups && cont == i ) {
+					this.checkboxSelected = true;
+					cups.isSelected = true;
+				} else {
+					cups.isSelected = false;
+				}
+				cont++;
+			});
+		}
+	}
+
+	validateSelectAll( info ) {
 		this.checkboxSelected = false;
 		this.flagSelectAll = true;
 		this.infoCups.forEach( info => {
@@ -219,6 +238,29 @@ export class SolicitudComponent implements OnInit {
 	}
 
 	onSubmit(referenceForm) {
+		this.preloaderStatus = true;
+		this.validateExistCups().then( response => {
+			if( response ) {
+				this.preloaderStatus = false;
+				Swal.fire({
+					title: 'Ya hay una solicitud asociada al folio y los CUPS seleccionados. ¿Desea continuar?',
+					showDenyButton: false,
+					showCancelButton: true,
+					confirmButtonText: 'Guardar',
+					cancelButtonText: 'Cancelar'
+				}).then((result) => {
+					if (result.isConfirmed) {
+						this.saveRequest( referenceForm );
+					}
+				});
+			} else {
+				this.saveRequest( referenceForm );
+			}
+		});
+	}
+	
+	saveRequest( referenceForm ){
+		this.preloaderStatus = true;
 		if ( this.requestSave ) {
 			this.saveCups( this.solicitudId, this.preMessage, referenceForm )
 		} else {
@@ -262,6 +304,7 @@ export class SolicitudComponent implements OnInit {
 		this.referenceRequestService.newCUPS( arrayCups ).subscribe(
 			res => {
 				if ( res.status === 'success' ) {
+					this.preloaderStatus = false;
 					referenceForm.reset();
 					this.incomes = null;
 					this.infoCups = null;
@@ -294,6 +337,39 @@ export class SolicitudComponent implements OnInit {
 				});
 			}
 		);
+	}
+
+	validateExistCups() {
+		return new Promise((resolve, reject) => {			
+			this.referenceRequestService.getRequestByDocumentIdAndFolio( this.request.numeroIdentificacion, this.request.folio ).subscribe(
+				res => {
+					if( res.status === 'success' ) {
+						let flag = false;
+						res.solicitudes.forEach( solicitud => {
+							let cups = solicitud.cups;
+							if( cups.length > 0 ) {
+								cups.forEach( element => {
+									this.infoCups.forEach( cup => {
+										if( cup.codigoCups == element.codigoCups && cup.isSelected ) {
+											flag = true;
+										}									
+									});								
+								});
+							}
+						});
+						if( flag ) {
+							resolve( true );
+						} else {
+							resolve( false );
+						}
+					}
+				},
+				error => {
+					resolve( false );
+				}
+			);
+		});
+
 	}
 
 	validateDocument() {

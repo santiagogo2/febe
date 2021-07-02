@@ -26,6 +26,13 @@
                     <div class="registerCollaboratorButton d-inline-block" *ngIf="registerFlag">
                         <button class="btn btn-info" [routerLink]="['../novedades']">Crear novedad</button>
                     </div>
+                    <div class="modal-footer" *ngIf="Tipo==0">
+                        <a (click)="newsList(1)" class="btn btn-warning" data-dismiss="modal">Historial</a>
+
+                    </div>
+                    <div class="modal-footer" *ngIf="Tipo==1">
+                        <button class="btn btn-info" (click)="goBack()">Volver</button> 
+                    </div>
                 </div>
 
                 <div class="tableContainer" *ngIf="news">
@@ -34,6 +41,7 @@
                             <pagination-controls (pageChange)="pageChange($event)" previousLabel="Anterior" nextLabel="Siguiente" maxSize="4">
                             </pagination-controls>
                         </div>
+                        <h3 *ngIf="Tipo==1">Listado de Novedades atendidas</h3>
                         <table class="table table-bordered">
                             <thead class="thead_styles">
                                 <tr>
@@ -42,6 +50,9 @@
                                     <th>Documento</th>
                                     <th>Adjunto</th>
                                      <th>Tipo</th>
+                                     <th *ngIf="Tipo==1">Observación</th>
+                                     <!-- <th *ngIf="Tipo==0"></th> -->
+
                                     <th width="15%">Acción</th>
                                 </tr>
                             </thead>
@@ -52,11 +63,12 @@
                                     <td>{{ novedad.IdUsuario }}</td>
                                     <td>{{ novedad.Archivo }}</td>
                                     <td>{{ novedad.Tipo }}</td>
-
+                                    <td  *ngIf="Tipo==1">{{ novedad.Observacion }}</td>
+                                    <!-- <td *ngIf="Tipo==0"></td> -->
                     <!-- *ngIf="novedad.Tipo=='Externa'" style="background-color:red" -->                
                                      <td style="padding: 0.55rem">
                                         <button type="button" class="btn btn-info col col-sm-12 col-md-5 mr-1 d-inline-block" [routerLink]="['../editarnovedades', novedad.Id]" *ngIf="(novedad.IdUsuario!=identity.documentId && !editFlag) || viewFlag">Ver</button>
-                                        <button type="button" class="btn btn-warning col col-sm-12 col-md-5 mr-1 d-inline-block" [routerLink]="['../editarnovedades', novedad.Id]" *ngIf="(novedad.IdUsuario==identity.documentId || editFlag) && novedad.Estado == '0'">Editar</button>
+                                        <button type="button" class="btn btn-warning col col-sm-12 col-md-5 mr-1 d-inline-block" [routerLink]="['../editarnovedades', novedad.Id]" *ngIf="(novedad.IdUsuario==identity.documentId || editFlag) && (novedad.Estado == '0' || Tipo==1)">Editar</button>
                                         <!-- <button type="button" class="btn btn-danger col col-sm-12 col-md-5 d-inline-block" data-toggle="modal" [attr.data-target]="'#myModal'+novedad.Id" *ngIf="deleteFlag && novedad.Estado == '0'">Borrar</button> -->
                                         <div class="deleteLoader" id="{{ 'loader' + novedad.Id }}" style="display: none;">
                                             <div class="loader"></div>

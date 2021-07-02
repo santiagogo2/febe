@@ -9,10 +9,14 @@ import { VacunacionRoutingModule } from './vacunacion.routing';
 
 // Components
 import { VacunacionComponent } from './vacunacion.component';
-import { RegistroDigitalComponent } from './registro-digital/registro-digital.component';
+import { RegistroDigitalComponent } from './registro/registro-digital/registro-digital.component';
 import { ReportesComponent } from './reportes/reportes.component';
 import { AgendamientoMasivoComponent } from './agendamiento/masivo/agendamiento-masivo.component';
 import { AgendamientoRegistroComponent } from './agendamiento/registro/agendamiento-registro.component';
+import { ConsultaComponent } from './agendamiento/consulta/consulta.component';
+import { EditarRegistroComponent } from './registro/editar-registro/editar-registro.component';
+import { ListarRegistrosComponent } from './registro/listar-registros/listar-registros.component';
+import { MensajeAgendamientoComponent } from './agendamiento/mensaje-agendamiento/mensaje-agendamiento.component';
 
 @NgModule({
 	declarations: [
@@ -21,6 +25,10 @@ import { AgendamientoRegistroComponent } from './agendamiento/registro/agendamie
 		ReportesComponent,
 		AgendamientoMasivoComponent,
 		AgendamientoRegistroComponent,
+		ConsultaComponent,
+		EditarRegistroComponent,
+		ListarRegistrosComponent,
+		MensajeAgendamientoComponent,
 	],
 	imports: [
 		CommonModule,

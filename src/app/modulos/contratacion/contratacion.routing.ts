@@ -13,8 +13,12 @@ import { CertificacionesComponent } from './certificaciones/certificaciones.comp
 import { ListarContratosComponent } from './certificaciones/contratos/listar-contratos/listar-contratos.component';
 import { RegistrarContratosComponent } from './certificaciones/contratos/registrar-contratos/registrar-contratos.component';
 import { SubirContratosComponent } from './certificaciones/contratos/subir-contratos/subir-contratos.component';
-// import { CrearComponent } from './contratos/crear/crear.component';
-// import { IngresoComponent } from './contratos/ingreso/ingreso.component';
+import { CrearComponent } from './contratos/crear/crear.component';
+import { IngresoComponent } from './contratos/ingreso/ingreso.component';
+import { ListarComponent } from './contratos/ingreso/listar/listar.component';
+import { EditarComponent } from './contratos/ingreso/editar/editar.component';
+import { listarHrsComponent } from './horas/listar/listarHrs.component';
+import { RegistrarHrsComponent } from './horas/crear/registrar-Hrs.component';
 
 // Guards de certificaciones
 import {
@@ -30,12 +34,22 @@ import {
 
 // guards de contratos
 import {
-	ContratosGuard,
-	
+	ContratosGuard,	
 } from './guards/contratos/contratos-guards.index';
 
 const contratacionRoutes: Routes = [
-	{ path: '', component: ContratacionComponent, data: { titulo: 'Contratación' }, canActivate: [ ContratacionGuard ] },
+	{ 
+		path: '',
+		component: ContratacionComponent,
+		data: { titulo: 'Contratación' },
+		canActivate: [ ContratacionGuard ],
+		children: [
+			{ 
+				path: 'cuenta-cobro',
+				loadChildren: () => import('./cuentas-cobro/cuentas-cobro.module').then( m => m.CuentasCobroModule ),
+			}
+		]
+	},
 
 	{ path: 'novedades', component: RegistrarNovedadesComponent, data: { titulo: 'Agregar Novedades Contratos' }, canActivate: [ RegistrarNovedadesGuard ] },
 	{ path: 'vernovedades', component: ListarNovedadesComponent, data: { titulo: 'Listado de Novedades' }, canActivate: [ ListarNovedadesGuard ] },
@@ -46,12 +60,15 @@ const contratacionRoutes: Routes = [
 	{ path: 'buscarcontratos', component: ListarContratosComponent, data: { titulo: 'Listado de Contratos' }, canActivate: [ ListarContratosGuard ] },
 	{ path: 'agregarcontrato', component: RegistrarContratosComponent, data: { titulo: 'Crear Contrato' }, canActivate: [ RegistrarContratosGuard ] },
 	{ path: 'vercontrato/:id', component: EditarContratosComponent, data: { titulo: 'Ver Contrato' } },
-	{ path: 'ver/:id', component: EditarContratosComponent, data: { titulo: 'Editar Contratos' }, canActivate: [ EditarContratosGuard ] },
+	{ path: 'ver/:id',  component: EditarContratosComponent, data: { titulo: 'Editar Contratos' }, canActivate: [ EditarContratosGuard ] },
 	{ path: 'perfiles', component: EditarContratosComponent, data: { titulo: 'Obtener Perfiles' } },
 	{ path: 'subirctos', component: SubirContratosComponent, data: { titulo: 'Subir Contratos' }, canActivate: [ SubirContratosGuard ] },
-	// { path: 'crearctos', component: CrearComponent, data: { titulo: 'Crear Contratos' }, canActivate: [ ContratosGuard ] },
-	// { path: 'ingreso', component: IngresoComponent, data: { titulo: 'Crear Contratos' }, canActivate: [ ContratosGuard ] },
-
+	{ path: 'crearctos', component: CrearComponent, data: { titulo: 'Crear Contratos' }, canActivate: [ ContratosGuard ] },
+	{ path: 'ingreso', component: IngresoComponent, data: { titulo: 'Crear Contratos' } },
+	{ path: 'listaringreso', component: ListarComponent, data: { titulo: 'listar Ingresos' } },
+	{ path: 'veringreso/:id', component: EditarComponent, data: { titulo: 'Ver Contrato' } },
+	{ path: 'listarHrs', component: listarHrsComponent, data: { titulo: 'Listar  horas laboradas' } },
+	{ path: 'agregarHrs', component: RegistrarHrsComponent, data: { titulo: 'Agregar horas laboradas' } },
 ];
 
 @NgModule({

@@ -39,15 +39,20 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col col-sm-12 col-md-6 d-inline-block">
+                            <div class="col col-12 d-inline-block">
                                 <label for="userId" class="labelForm">Número de documento*</label>
-                                <input type="text" name="userId" class="form-control inputForm" [ngClass]="{ 'is-invalid': userId.touched && userId.invalid }" #userId="ngModel" [(ngModel)]="user.documentId" required placeholder="Ingrese el número de documento del usuario">
+                                <input type="text" name="userId" class="form-control inputForm" [ngClass]="{ 'is-invalid': userId.touched && userId.invalid }" #userId="ngModel" [(ngModel)]="user.documentId" maxlength="20" required placeholder="Ingrese el número de documento del usuario">
                             </div>
-                            <div class="col col-sm-12 col-md-6 d-inline-block">
-                                <label for="userRole" class="labelForm">Role*</label>
-                                <select style="background-position-x: 93%" name="userRole" id="userRole" class="form-control inputForm" [ngClass]="{'is-invalid': userRole.invalid && userRole.touched}" #userRole="ngModel" [(ngModel)]="user.role" required>
-									<option *ngFor="let role of roles" value="{{ role.id }}">{{ role.name }}</option>
-								</select>
+                        </div>
+                        <div class="dropdown col col-12 d-inline-block mb-2">
+                            <button class="btn btn-sm btn-subred-color dropdown-toggle popupbtn" type="button" id="cups" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								Roles*
+							</button>
+                            <div class="dropdown-menu" attr.aria-labelledby="cups" style="max-height: 400px; overflow-y: auto;">
+                                <div class="col-12 d-inline-block pl-3 align-top checkbox dropdown-item" *ngFor="let role of roles">
+                                    <input type="checkbox" [(ngModel)]="role.isSelected" name="{{'role' + role.id}}" id="{{'role' + role.id}}" value="{{ role.id }}">
+                                    <label class="checkbox" for="{{ 'role' + role.id }}">{{ role.name }}</label>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group" *ngIf="enabled">

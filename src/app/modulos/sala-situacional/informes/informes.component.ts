@@ -94,13 +94,13 @@ export class InformesComponent implements OnInit {
 			let count = 0;
 			if( resp ) {
 				for ( const collaborator of this.collaborators ) {
-					if (collaborator[key] === element.id && collaborator.contagiado === resp) {
+					if (collaborator[key] == element.id && collaborator.contagiado == resp) {
 						count++;
 					}
 				}
 			} else {
 				for ( const collaborator of this.collaborators ) {
-					if (collaborator[key] === element.id) {
+					if (collaborator[key] == element.id) {
 						count++;
 					}
 				}
@@ -151,7 +151,7 @@ export class InformesComponent implements OnInit {
 	dataSymptomsArray(data, key) {
 		let count = 0;
 		for ( const collaborator of this.collaborators ) {
-			if (collaborator[key] === 1 && collaborator.contagiado === 1) {
+			if (collaborator[key] == 1 && collaborator.contagiado == 1) {
 				count++;
 			}
 		}
@@ -173,7 +173,7 @@ export class InformesComponent implements OnInit {
 				if (element.diasTranscurridos) {
 					if (label == element.diasTranscurridos) {
 						cont++;
-					} else if (label === '8 o más días' && element.diasTranscurridos >= 8) {
+					} else if (label == '8 o más días' && element.diasTranscurridos >= 8) {
 						total++;
 						cont++;
 					}
@@ -218,7 +218,7 @@ export class InformesComponent implements OnInit {
 		let cont = 0;
 
 		this.collaborators.forEach( element => {
-			if (element.edad >= a && element.edad <= b && element.contagiado === 1) {
+			if (element.edad >= a && element.edad <= b && element.contagiado == 1) {
 				cont++;
 			}
 		});
@@ -234,7 +234,7 @@ export class InformesComponent implements OnInit {
 		let inicial = true;
 
 		this.collaborators.forEach( element => {
-			if (element.fechaResultado && element.contagiado === 1) {
+			if (element.fechaResultado && element.contagiado == 1) {
 				const week = this.getWeekNumber(element.fechaResultado);
 
 				if (inicial) {
@@ -244,7 +244,7 @@ export class InformesComponent implements OnInit {
 
 				let flag = true;
 				for ( const label of labels ) {
-					if (label === week) {
+					if (label == week) {
 						flag = false;
 						break;
 					}
@@ -260,9 +260,9 @@ export class InformesComponent implements OnInit {
 		for ( const label of labels ) {
 			let cont = 0;
 			this.collaborators.forEach( element => {
-				if (element.fechaResultado && element.contagiado === 1) {
+				if (element.fechaResultado && element.contagiado == 1) {
 					const week = this.getWeekNumber(element.fechaResultado);
-					if ( label === week ) {
+					if ( label == week ) {
 						cont++;
 					}
 				}
@@ -306,7 +306,6 @@ export class InformesComponent implements OnInit {
 				},
 				error => {
 					reject( error.error.message );
-					console.log( error );
 				}
 			);
 		});
@@ -322,7 +321,6 @@ export class InformesComponent implements OnInit {
 				},
 				error => {
 					reject(error.error.message);
-					console.log( error );
 				}
 			);
 		});
@@ -338,7 +336,6 @@ export class InformesComponent implements OnInit {
 				},
 				error => {
 					reject(error.error.message);
-					console.log( error );
 				}
 			);
 		});

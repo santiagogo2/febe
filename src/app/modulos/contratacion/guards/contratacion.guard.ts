@@ -16,7 +16,6 @@ export class ContratacionGuard implements CanActivate {
 
 	canActivate() {
 		const identity = this.userService.getIdentity();
-		console.log('entre');
 
 		if (identity) {
 			const permissions = JSON.parse(localStorage.getItem('userOperations'));

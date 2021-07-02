@@ -85,13 +85,22 @@ export class NavbarComponent implements OnInit {
 						{ title: 'Tablero CIP', url: '/cip/tablero', operationId: 69 },
 					]
 				},
+				{ // Dilemas Éticos
+					title: 'Dilemas Éticos',
+					url: '/dilemas-eticos',
+					operationId: 110,
+					dropdown: [
+						{ title: 'Registrar Dilema', url: '/dilemas-eticos/registrar', operationId: 108 },
+						{ title: 'Ver Registros', url: '/dilemas-eticos/listar', operationId: 112 },
+					]
+				},
 				{
 					title: 'Dinámica Gerencial',
 					url: '/dgh',
 					operationId: -1, // VERIFICAR OPERACIÓN
 					dropdown: [
 						{ // Validador de Epicrisis
-							title: 'Validador de Epicrisis por Paciente', url: '/dgh/epicrisis', operationId: 88
+							title: 'Ingreso História Clínica Digital', url: '/dgh/nuevo-ingreso', operationId: 120
 						},
 						{ // Referencia
 							title: 'Referencia',
@@ -103,6 +112,9 @@ export class NavbarComponent implements OnInit {
 								{ title: 'Seguimiento Personal Asistencial', url: '/referencia/asistencial', operationId: 80 },
 								{ title: 'Panel Operadores', url: '/referencia/panel', operationId: 79 },
 							]
+						},
+						{ // Validador de Epicrisis
+							title: 'Validador de Epicrisis por Paciente', url: '/dgh/desconfirmar-epicrisis', operationId: 88
 						},
 					]
 
@@ -198,8 +210,11 @@ export class NavbarComponent implements OnInit {
 					operationId: 89,
 					dropdown: [
 						{ title: 'Registrar Vacunaciones', url: '/vacunacion/registrar', operationId: 90 },
+						{ title: 'Editar Registros Vacunados', url: '/vacunacion/listar', operationId: 105 },
 						{ title: 'Agendamiento', url: '/vacunacion/agendamiento', operationId: 93 },
 						{ title: 'Agendamiento Masivo', url: '/vacunacion/agendamiento-masivo', operationId: 92 },
+						{ title: 'Agregar Novedad', url: '/vacunacion/agregar-novedad', operationId: 99 },
+						{ title: 'Cambiar Mensaje Agendamiento', url: '/vacunacion/editar-mensaje', operationId: 104 },
 						{ title: 'Informes', url: '/vacunacion/reportes', operationId: 91 },
 					]
 				},

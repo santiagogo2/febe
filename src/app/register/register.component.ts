@@ -35,7 +35,7 @@ export class RegisterComponent implements OnInit {
 	ngOnInit(): void {
 		this.pageTitle = global.appName + ' - Registro';
 
-		this.user = new User(null, null, null, null, null, null, 17);
+		this.user = new User(null, null, null, null, null, null, '17');
 	}
 
 	onSubmit( registerForm ) {

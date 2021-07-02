@@ -47,7 +47,7 @@ export class SolicitarcertComponent implements OnInit {
 		this.pageTitle = 'Siasur';
 		this.buttonText = 'Enviar';
 
-		this.news = new Novedad( null, null, null, null, null, null,null,null,null,null,null );
+		this.news = new Novedad( null, null, null, null, null, null,null,null,null,null,null,null );
 		this.currentdate = new Date();
 		this.currentYear = this.currentdate.getFullYear();
 		this.viewFlag = true;

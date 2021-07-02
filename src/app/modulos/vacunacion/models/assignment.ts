@@ -7,6 +7,7 @@ export class Assignment {
 		public segundoNombre: string,
 		public primerApellido: string,
 		public segundoApellido: string,
+		public edad: string,
 		public servicio: string,
 		public celular: number,
 		public sedeVacunacion: string,
@@ -15,5 +16,6 @@ export class Assignment {
 		public dosis: number,
 		public mesa: string,
 		public tipoUsuario: number,
+		public aseguradora: number,
 	){}
 }

@@ -32,9 +32,10 @@ export class UserRegisterComponent implements OnInit {
 	public enabledPassword: boolean;
 	public passwordText: string;
 	public buttonText: string;
+	roleSelectedAll: boolean;
 
 	public user: User;
-	public roles: Role;
+	public roles: Array< any >;
 	public token: string;
 
 	public viewFlag: boolean;
@@ -60,32 +61,54 @@ export class UserRegisterComponent implements OnInit {
 		this.roleList();
 	}
 
+	assignRoles() {
+		let roleText = '';
+		this.roles.forEach( role => {
+			if( role.isSelected ) {
+				roleText = roleText + role.id + '-';
+			}
+		});
+		if( roleText == '' ) {
+			return null;
+		} else {
+			return roleText.slice( 0, -1 );
+		}
+	}
+
 	onSubmit(userRegisterForm) {
 		this.status = undefined;
 		this.responseMessage = undefined;
 		this.preloaderStatus = true;
 
-		this.userService.newUser(this.user).subscribe(
-			res => {
-				this.preloaderStatus = false;
-				if (res.status === 'success') {
-					swal('Registro exitoso', res.message, 'success');
-					userRegisterForm.reset();
+		this.user.role = this.assignRoles();
+		
+		if( this.user.role ) {
+			this.userService.newUser(this.user).subscribe(
+				res => {
+					this.preloaderStatus = false;
+					if (res.status === 'success') {
+						swal('Registro exitoso', res.message, 'success');
+						userRegisterForm.reset();
+					}
+				},
+				error => {
+					this.preloaderStatus = false;
+					this.responseMessage = error.error.message;
+	
+					if (error.error.errors) {
+						this.responseMessage = this.responseMessage + '. ' + JSON.stringify(error.error.errors);
+					}
+	
+					this.status = 'error';
+					swal('Error', this.responseMessage, 'error');
+					console.log(error);
 				}
-			},
-			error => {
-				this.preloaderStatus = false;
-				this.responseMessage = error.error.message;
-
-				if (error.error.errors) {
-					this.responseMessage = this.responseMessage + '. ' + JSON.stringify(error.error.errors);
-				}
-
-				this.status = 'error';
-				swal('Error', this.responseMessage, 'error');
-				console.log(error);
-			}
-		);
+			);
+		} else {
+			this.preloaderStatus = false;
+			this.status = 'error';
+			this.responseMessage = 'Debe seleccionar al menos un role para poder continuar';
+		}
 	}
 
 	showPassword( name: string ) {
@@ -116,17 +139,19 @@ export class UserRegisterComponent implements OnInit {
 			res => {
 				if ( res.status === 'success' ) {
 					this.roles = res.roles;
+					this.roles.forEach( role => {
+						role.isSelected = false;
+					});
 				}
 			},
 			error => {
 				this.status = error.error.status;
 				this.responseMessage = error.error.message;
-				console.log(error);
 			}
 		);
 	}
 
-	showPasswordsInput() {} // No se puede eliminar por el reuso del component.html	
+	showPasswordsInput() {} // No se puede eliminar por el reuso del component.html
 
 	loadPermissions() {
 		const permissions = this.userService.getPermissions();

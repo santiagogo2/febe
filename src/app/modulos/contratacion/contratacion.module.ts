@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ComponentsModule } from 'src/app/components/components.module';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { PipesModule } from '../../pipes/pipes.module';
@@ -18,12 +19,16 @@ import { ListarNovedadesComponent } from './certificaciones/novedades/listar-nov
 import { EditarNovedadesComponent } from './certificaciones/novedades/editar-novedades/editar-novedades.component';
 import { RegistrarContratosComponent } from './certificaciones/contratos/registrar-contratos/registrar-contratos.component';
 import { ListarContratosComponent } from './certificaciones/contratos/listar-contratos/listar-contratos.component';
-// import { ContratosComponent } from './certificaciones/contratos/contratos/contratos.component';
+//import { ContratosComponent } from './certificaciones/contratos/contratos/contratos.component';
 import { SubirContratosComponent } from './certificaciones/contratos/subir-contratos/subir-contratos.component';
 import { ValidarcertComponent } from './certificaciones/validarcert/validarcert.component';
 import { SolicitarcertComponent } from './certificaciones/solicitarcert/solicitarcert.component';
-// import { CrearComponent } from './contratos/crear/crear.component';
-// import { IngresoComponent } from './contratos/ingreso/ingreso.component';
+import { CrearComponent } from './contratos/crear/crear.component';
+import { IngresoComponent } from './contratos/ingreso/ingreso.component';
+import { ListarComponent }  from './contratos/ingreso/listar/listar.component';
+import { EditarComponent }  from './contratos/ingreso/editar/editar.component';
+import { listarHrsComponent }  from './horas/listar/listarHrs.component';
+import { RegistrarHrsComponent }  from './horas/crear/registrar-Hrs.component';
 
 @NgModule({
 	declarations: [
@@ -38,13 +43,17 @@ import { SolicitarcertComponent } from './certificaciones/solicitarcert/solicita
 		ContratacionComponent,
 		ValidarcertComponent,
 		SolicitarcertComponent,
-		// CrearComponent,
-		// IngresoComponent
-
+		CrearComponent,
+		IngresoComponent,
+		ListarComponent,
+		EditarComponent,
+		listarHrsComponent,
+		RegistrarHrsComponent,
 	],
 	imports: [
 		CommonModule,
 		ComponentsModule,
+		FontAwesomeModule,
 		FormsModule,
 		NgxPaginationModule,
 		PipesModule,

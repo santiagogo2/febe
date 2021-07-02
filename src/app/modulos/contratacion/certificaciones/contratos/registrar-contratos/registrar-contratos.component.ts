@@ -41,7 +41,7 @@ export class RegistrarContratosComponent implements OnInit {
                 this.buttonText = 'Enviar';
 
                 this.identity = this.userService.getIdentity();
-                this.contrato = new Contrato( null, null, null, null, null, null,null, null, null, null, null, null );
+                this.contrato = new Contrato( null,null, null, null, null, null, null,null, null, null, null, null, null, null );
                 this.perfiles = this.ContratoService.getPerfiles();
                 this.viewFlag = true;
                 this.editFlag = true;

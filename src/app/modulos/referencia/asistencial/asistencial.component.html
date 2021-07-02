@@ -11,7 +11,7 @@
                             <div id="labelSearch" class="col col-sm-12 col-lg-8 d-inline-block pl-0 align-top">
                                 <label for="documento" class="labelForm">Número de documento del paciente*</label>
                                 <input type="text" name="documento" class="form-control inputForm " [ngClass]="{ 'is-invalid': documento.touched && documento.invalid}" #documento="ngModel" [(ngModel)]="documentId
-								" required pattern="[0-9]+" minlength="5" maxlength="15" placeholder="Ingrese el número de documento del paciente ">
+								" required minlength="5" maxlength="20" placeholder="Ingrese el número de documento del paciente ">
                             </div>
                             <div id="submitButton" class="col col-sm-12 col-lg-4 d-inline-block pr-0 align-bottom">
                                 <input type="submit" value="Buscar" class="btn btn-sm btn-info btnPrefer col-sm-12" [disabled]="searchForm.invalid">
@@ -51,7 +51,7 @@
                                             <td>{{ req.nombreMedico | isnullfill }}</td>
                                             <td class="text-left">
                                                 <ul>
-                                                    <li *ngFor="let cup of req.cups">{{ cup.nombreExamen }}</li>
+                                                    <li *ngFor="let cup of req.cups">{{ cup.codigoCups + ' - ' + cup.nombreExamen }}</li>
                                                 </ul>
                                             </td>
                                         </tr>

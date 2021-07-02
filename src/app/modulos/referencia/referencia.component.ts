@@ -18,6 +18,7 @@ export class ReferenciaComponent implements OnInit {
 		{ titulo: 'Agregar Solicitud', url: 'solicitud', class: 'card-EC8993', description: 'Nueva solicitud de traslado de paciente' },
 		{ titulo: 'Agregar Solicitud Externa', url: 'solicitud-externa', class: 'card-924E4E', description: 'Nueva solicitud de translado de pacientes atendidos extramural que podrá ser solicitada por los operadores.' },
 		{ titulo: 'Panel Operadores', url: 'panel', class: 'card-ECC350', description: 'Panel de seguimiento para los operadores asignados' },
+		{ titulo: 'Informes', url: 'reportes', class: 'card-4FB96F', description: 'Informes gráficos de los datos obtenidos de los registros en Referencia. Permite exportar los datos filtrados' },
 	];
 
 	constructor() {
@@ -49,6 +50,9 @@ export class ReferenciaComponent implements OnInit {
 			}
 			if ( element.id_operations === 85 ) {
 				array.push(this.referencia[3]);
+			}
+			if ( element.id_operations === 106 ) {
+				array.push(this.referencia[4]);
 			}
 			if ( element.id_operations === 73 ) {
 				this.initialFilter = true;

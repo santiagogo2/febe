@@ -34,4 +34,13 @@ export class ReferenceFollowService {
 
 		return this.http.post( this.url + 'referencia/seguimientos', params, {headers} );
 	}
+
+	closeCase( justification, caseId, estado ): Observable<any> {
+		const json = JSON.stringify(justification);
+		const params = 'json=' + json;
+		const headers = new HttpHeaders().set( 'Authorization', this.token )
+										 .set( 'Content-Type', 'application/x-www-form-urlencoded' );
+
+		return this.http.put( this.url + 'referencia/close-open/case/follow/' + caseId + '/' + estado, params, {headers} );
+	}
 }

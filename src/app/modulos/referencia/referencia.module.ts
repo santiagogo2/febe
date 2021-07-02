@@ -15,6 +15,8 @@ import { PanelComponent } from './operadores/panel/panel.component';
 import { FollowComponent } from './operadores/follow/follow.component';
 import { AsistencialComponent } from './asistencial/asistencial.component';
 import { SolicitudExternaComponent } from './operadores/solicitud-externa/solicitud-externa.component';
+import { ReportesReferenciaComponent } from './reportes-referencia/reportes-referencia.component';
+import { ComponentsModule } from '../../components/components.module';
 
 @NgModule({
 	declarations: [
@@ -23,9 +25,11 @@ import { SolicitudExternaComponent } from './operadores/solicitud-externa/solici
 		PanelComponent,
 		FollowComponent,
 		AsistencialComponent,
-		SolicitudExternaComponent
+		SolicitudExternaComponent,
+		ReportesReferenciaComponent
 	],
 	imports: [
+		ComponentsModule,
 		CommonModule,
 		FormsModule,
 		FontAwesomeModule,

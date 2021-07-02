@@ -55,15 +55,15 @@ export class ValidarcertComponent implements OnInit {
         },
         error => {
          console.log(error);
-          // this.datum=false;
+          this.datum=false;
 
-          // this.status = error.status;
-          // this.responseMessage = error.error.message ;
+          this.status = error.status;
+          this.responseMessage = error.error.message ;
   
-          // if (error.errors) {
-          //   this.responseMessage = this.responseMessage + '. ' + JSON.stringify(error.errors);
-          //}
-          //  swal('Error', this.responseMessage, 'error');
+          if (error.errors) {
+            this.responseMessage = this.responseMessage + '. ' + JSON.stringify(error.errors);
+          }
+           swal('Error', this.responseMessage, 'error');
         }
       );
     }

@@ -52,6 +52,12 @@ const pagesRoutes: Routes = [
 		loadChildren: () => import('./dgh/dgh.module').then( m => m.DghModule ),
 	},
 	{
+		path: 'dilemas-eticos',
+		component: ModulosComponent,
+		canActivate: [ IdentityGuard ],
+		loadChildren: () => import('./dilemas-eticos/dilemas-eticos.module').then( m => m.DilemasEticosModule ),
+	},
+	{
 		path: 'epp',
 		component: ModulosComponent,
 		canActivate: [ IdentityGuard ],

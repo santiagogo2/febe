@@ -8,6 +8,7 @@ import { PanelComponent } from './operadores/panel/panel.component';
 import { ReferenciaComponent } from './referencia.component';
 import { SolicitudComponent } from './solicitud/solicitud.component';
 import { SolicitudExternaComponent } from './operadores/solicitud-externa/solicitud-externa.component';
+import { ReportesReferenciaComponent } from './reportes-referencia/reportes-referencia.component';
 
 // Guards
 import { 
@@ -15,6 +16,7 @@ import {
 	ReferenciaFollowGuard,
 	ReferenciaGuard,
 	ReferenciaPanelGuard,
+	ReferenciaReportesGuard,
 	ReferenciaSolicitudExternaGuard,
 	ReferenciaSolicitudGuard,
 } from './guards/referencia-guards.index';
@@ -55,6 +57,12 @@ const referenciaRoutes: Routes = [
 		component: AsistencialComponent,
 		data: { titulo: 'Seguimiento del Caso Usuarios Asistenciales' },
 		canActivate: [ ReferenciaAsistencialGuard ],
+	},
+	{
+		path: 'reportes',
+		component: ReportesReferenciaComponent,
+		data: { titulo: 'Reportes Referencia' },
+		canActivate: [ ReferenciaReportesGuard ],
 	},
 ];
 

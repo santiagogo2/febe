@@ -16,6 +16,7 @@ export class Vaccinated {
 		public orientacionSexual: string,
 		public departamentoNacimiento: string,
 		public municipioNacimiento: string,
+		public perfilComplementario: string,
 		public regimen: string,
 		public aseguradora: string,
 		public pertenenciaEtnica: string,
@@ -54,5 +55,6 @@ export class Vaccinated {
 		public treintaMinutos: string,
 		public sintomasManejo: string,
 		public manejoPosVacunacion: string,
+		public archivo: string,
 	){} 
 }

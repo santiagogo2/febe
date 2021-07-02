@@ -29,21 +29,27 @@
                                 <small class="invalid-feedback d-block font-weight-bold" *ngIf="Nombre.invalid && Nombre.touched">Debe ingresar un documento. El campo es obligatorio</small>
                             </div>
                             <div class="col col-lg-3 d-inline-block">
-                                <label for="Nombre" class="labelForm">Objeto</label>
-                                <input type="text" name="Object" class="form-control inputForm" [ngClass]="{'is-invalid': Object.touched && Object.invalid}" #Object="ngModel" [(ngModel)]="contrato.Object" required  minlength="5" maxlength="100" placeholder="Ingrese el número de documento del colaborador">
+                                <label for="Object" class="labelForm">Objeto</label>
+                                <input type="text" name="Object" class="form-control inputForm" [ngClass]="{'is-invalid': Object.touched && Object.invalid}" #Object="ngModel" [(ngModel)]="contrato.Object" required minlength="5" maxlength="100" placeholder="Ingrese el número de documento del colaborador">
+
                                 <small class="invalid-feedback d-block font-weight-bold" *ngIf="Object.invalid && Object.touched">Debe ingresar un Objeto. El campo es obligatorio</small>
                             </div>
-                            <div class="col col-lg-2 d-inline-block">
+                            <div class="col col-lg-3 d-inline-block">
+                                <label for="Profile" class="labelForm">Perfil</label>
+                                <input type="text" name="Profile" class="form-control inputForm" [ngClass]="{'is-invalid': Profile.touched && Profile.invalid}" #Profile="ngModel" [(ngModel)]="contrato.Profile" required minlength="5" maxlength="100" placeholder="Ingrese el perfil">
+                                <small class="invalid-feedback d-block font-weight-bold" *ngIf="Profile.invalid && Profile.touched">Debe ingresar un Perfil. El campo es obligatorio</small>
+                            </div>
+                            <div class="col col-lg-1 d-inline-block">
                                 <label for="IdUsuario" class="labelForm">Documento</label>
                                 <input type="text" name="IdUsuario" class="form-control inputForm" [ngClass]="{'is-invalid': IdUsuario.touched && IdUsuario.invalid}" #IdUsuario="ngModel" [(ngModel)]="contrato.IdUsuario" required pattern="[0-9]+" minlength="5" maxlength="10" placeholder="Ingrese el número de documento del colaborador">
                                 <small class="invalid-feedback d-block font-weight-bold" *ngIf="IdUsuario.invalid && IdUsuario.touched">Debe ingresar un documento. El campo es obligatorio</small> </div>
 
-                            <div class="col col-lg-2 d-inline-block">
+                            <div class="col col-lg-1 d-inline-block">
                                 <label for="Contract" class="labelForm">Contrato</label>
                                 <input type="text" name="Contract" class="form-control inputForm" [ngClass]="{'is-invalid': Contract.touched && Contract.invalid}" #Contract="ngModel" [(ngModel)]="contrato.Contract" required pattern="[0-9]+" minlength="1" maxlength="6" placeholder="Ingrese el Nombre del colaborador">
                                 <small class="invalid-feedback d-block font-weight-bold" *ngIf="Contract.invalid && Contract.touched">Debe ingresar un No de Contrato. El campo es obligatorio</small>
                             </div>
-                            <div class="col col-lg-2 d-inline-block">
+                            <div class="col col-lg-1 d-inline-block">
                                 <label for="Year" class="labelForm">Año</label>
                                 <input type="text" name="Year" class="form-control inputForm" [ngClass]="{'is-invalid': Year.touched && Year.invalid}" #Year="ngModel" [(ngModel)]="contrato.Year" required pattern="[0-9]+" minlength="4" maxlength="10" placeholder="Año Contrato">
                                 <small class="invalid-feedback d-block font-weight-bold" *ngIf="Year.invalid && Year.touched">Debe ingresar un No de Año. El campo es obligatorio</small>
@@ -52,27 +58,35 @@
                         <div class="form-group">
                             <div class="col col-lg-2 d-inline-block">
                                 <label for="DateBegin" class="labelForm">Fecha de Inicio</label>
-                                <input type="text" name="DateBegin" class="form-control inputForm" [ngClass]="{'is-invalid': DateBegin.touched && DateBegin.invalid}" #DateBegin="ngModel" [(ngModel)]="contrato.DateBegin" required placeholder="Año Contrato">
-                                <small class="invalid-feedback d-block font-weight-bold" *ngIf="DateBegin.invalid && DateBegin.touched">Debe ingresar un No de Año. El campo es obligatorio</small> </div>
+                                <input type="text" name="DateBegin" class="form-control inputForm" [ngClass]="{'is-invalid': DateBegin.touched && DateBegin.invalid}" #DateBegin="ngModel" [(ngModel)]="contrato.DateBegin" required placeholder="Inicio contrato">
+                                <small class="invalid-feedback d-block font-weight-bold" *ngIf="DateBegin.invalid && DateBegin.touched">Debe ingresar un No de Año. El campo es obligatorio</small>
+                            </div>
                             <div class="col col-lg-2 d-inline-block">
                                 <label for="DateFinish" class="labelForm">Fecha de Finalización</label>
-                                <input type="text" name="DateFinish" class="form-control inputForm" [ngClass]="{'is-invalid': DateFinish.touched && DateFinish.invalid}" #DateFinish="ngModel" [(ngModel)]="contrato.DateFinish" required placeholder="Año Contrato">
-                                <small class="invalid-feedback d-block font-weight-bold" *ngIf="DateFinish.invalid && Year.touched">Debe ingresar un No de Año. El campo es obligatorio</small> </div>
+                                <input type="text" name="DateFinish" class="form-control inputForm" [ngClass]="{'is-invalid': DateFinish.touched && DateFinish.invalid}" #DateFinish="ngModel" [(ngModel)]="contrato.DateFinish" required placeholder="Fin Contrato">
+                                <small class="invalid-feedback d-block font-weight-bold" *ngIf="DateFinish.invalid && Year.touched">Debe ingresar un No de Año. El campo es obligatorio</small>
+                            </div>
                             <div class="col col-lg-2 d-inline-block">
+                                <label for="DateEnding" class="labelForm">Terminación Anticipada</label>
+                                <input type="text" name="DateEnding" class="form-control inputForm" [ngClass]="{'is-invalid': DateEnding.touched && DateEnding.invalid}" #DateEnding="ngModel" [(ngModel)]="contrato.DateEnding" required placeholder="Finalización Contrato">
+                                <small class="invalid-feedback d-block font-weight-bold" *ngIf="DateEnding.invalid && Year.touched">Debe ingresar un No de Año. El campo es obligatorio</small>
+                            </div>
+                            <div>
                                 <label for="Value" class="labelForm">Valor Mensual</label>
                                 <input type="text" name="Value" class="form-control inputForm" [ngClass]="{'is-invalid': Value.touched && Value.invalid}" #Value="ngModel" [(ngModel)]="contrato.Value" required pattern="[0-9]+" minlength="5" maxlength="10" placeholder="Año Contrato">
-                                <small class="invalid-feedback d-block font-weight-bold" *ngIf="Value.invalid && Year.touched">Debe ingresar un No de Año. El campo es obligatorio</small> </div>
-                            <div class="col col-lg-3 d-inline-block">
-                                <label for="Unit" class="labelForm">Unidad</label>
-                                <input type="text" name="Unit" id="Unit" class="form-control inputForm" [ngClass]="{'is-invalid': Unit.invalid && Unit.touched}" #Unit="ngModel" [(ngModel)]="contrato.Unit" required>
-                                <small class="invalid-feedback d-block font-weight-bold" *ngIf="Unit.invalid && Unit.touched">Debe seleccionar una Unidad. El campo es obligatorio</small>
+                                <small class="invalid-feedback d-block font-weight-bold" *ngIf="Value.invalid && Year.touched">Debe ingresar un No de Año. El campo es obligatorio</small>
                             </div>
-                            <div class="col col-lg-3 d-inline-block">
-                                <label for="Type" class="labelForm">Tipo Contrato</label>
-                                <select style="background-position-x: 95%" name="Type" id="Type" class="form-control inputForm" [ngClass]="{'is-invalid': Type.invalid && Type.touched}" #Type="ngModel" [(ngModel)]="contrato.Type" required>
+                        </div>
+                        <div class="col col-lg-2 d-inline-block">
+                            <label for="Unit" class="labelForm">Unidad</label>
+                            <input type="text" name="Unit" id="Unit" class="form-control inputForm" [ngClass]="{'is-invalid': Unit.invalid && Unit.touched}" #Unit="ngModel" [(ngModel)]="contrato.Unit" required>
+                            <small class="invalid-feedback d-block font-weight-bold" *ngIf="Unit.invalid && Unit.touched">Debe seleccionar una Unidad. El campo es obligatorio</small>
+                        </div>
+                        <div class="col col-lg-2 d-inline-block">
+                            <label for="Type" class="labelForm">Tipo Contrato</label>
+                            <select style="background-position-x: 95%" name="Type" id="Type" class="form-control inputForm" [ngClass]="{'is-invalid': Type.invalid && Type.touched}" #Type="ngModel" [(ngModel)]="contrato.Type" required>
 										<option value="ACLARACIÓN">ACLARACIÓN</option><option value="ADICIÓN">ADICIÓN</option><option value="PRÓRROGA">PRÓRROGA</option><option value="MODIFICACIÓN">MODIFICACIÓN</option><option value="OTROSI">OTROSI</option><option value="PRINCIPAL">PRINCIPAL</option><option value="SUSPENSIÓN">SUSPENSIÓN</option><option value="ADICIÓN Y PRÓRROGA">ADICIÓN Y PRÓRROGA</option></select>
-                                <small class="invalid-feedback d-block font-weight-bold" *ngIf="Type.invalid && Type.touched">Debe Seleccionar un tipo de contrato. El campo es obligatorio</small>
-                            </div>
+                            <small class="invalid-feedback d-block font-weight-bold" *ngIf="Type.invalid && Type.touched">Debe Seleccionar un tipo de contrato. El campo es obligatorio</small>
                         </div>
 
                         <div class="row">

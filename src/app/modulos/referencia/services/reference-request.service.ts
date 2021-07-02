@@ -20,16 +20,40 @@ export class ReferenceRequestService {
 		this.token = this.userService.getToken();
 	}
 
-	getRequestByDocumentId( $documentId ): Observable<any> {
+	getAllRequest(): Observable<any> {
 		const headers = new HttpHeaders().set( 'Authorization', this.token );
 
-		return this.http.get( this.url + 'referencia/get/cases/byDocumentId/' + $documentId, { headers } );
+		return this.http.get( this.url + 'referencia' , { headers } );
+	}
+
+	showCasesByDates( initialDate, finalDate ): Observable<any> {
+		const headers = new HttpHeaders().set( 'Authorization', this.token );
+
+		return this.http.get( this.url + 'referencia/showCasesByDates/' + initialDate + '/' + finalDate, { headers } );
+	}
+
+	getRequestByDocumentId( documentId ): Observable<any> {
+		const headers = new HttpHeaders().set( 'Authorization', this.token );
+
+		return this.http.get( this.url + 'referencia/get/cases/byDocumentId/' + documentId, { headers } );
+	}
+
+	getRequestByDocumentIdAndFolio( documentId, folio ): Observable<any> {
+		const headers = new HttpHeaders().set( 'Authorization', this.token );
+
+		return this.http.get( this.url + 'referencia/get/cases/byDocumentIdAndFolio/' + documentId + '/' + folio, { headers } );
 	}
 
 	getRequest( id ): Observable<any> {
 		const headers = new HttpHeaders().set( 'Authorization', this.token );
 
 		return this.http.get( this.url + 'referencia/' + id, { headers } );
+	}
+
+	getCasesByChain( chain ): Observable<any> {
+		const headers = new HttpHeaders().set( 'Authorization', this.token )
+
+		return this.http.get( this.url + 'referencia/get/cases/by/chain/' + chain, { headers } );
 	}
 
 	getCasesByFilters( filters ): Observable<any> {
@@ -57,6 +81,16 @@ export class ReferenceRequestService {
 										 .set( 'Content-Type', 'application/x-www-form-urlencoded' );
 
 		return this.http.post( this.url + 'cups', params, {headers} );
+	}
+
+	updateRequest( request ): Observable<any> {
+		const id = request.id;
+		const json = JSON.stringify(request);
+		const params = 'json=' + json;
+		const headers = new HttpHeaders().set( 'Authorization', this.token )
+										 .set( 'Content-Type', 'application/x-www-form-urlencoded' );
+
+		return this.http.put( this.url + 'referencia/' + id, params, {headers} );
 	}
 
 	updateCUPS( cups ): Observable<any> {

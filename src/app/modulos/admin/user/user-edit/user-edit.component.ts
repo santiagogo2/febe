@@ -60,7 +60,20 @@ export class UserEditComponent implements OnInit {
 	ngOnInit(): void {
 		this.loadPermissions();
 		this.roleList();
-		this.getUser();
+	}
+
+	assignRoles() {
+		let roleText = '';
+		this.roles.forEach( role => {
+			if( role.isSelected ) {
+				roleText = roleText + role.id + '-';
+			}
+		});
+		if( roleText == '' ) {
+			return null;
+		} else {
+			return roleText.slice( 0, -1 );
+		}
 	}
 
 	onSubmit(userEditForm){
@@ -68,27 +81,36 @@ export class UserEditComponent implements OnInit {
 		this.responseMessage = undefined;
 		this.preloaderStatus = true;
 
-		this.userService.updateUser(this.user).subscribe(
-			res => {
-				this.preloaderStatus = false;
-				if(res.status === 'success'){
-					swal('Usuario editado exitosamente', res.message, 'success');
-					this.router.navigate(['/admin/usuarios/listar']);
+		this.user.role = this.assignRoles();
+		
+		if( this.user.role ) {
+			this.userService.updateUser(this.user).subscribe(
+				res => {
+					this.preloaderStatus = false;
+					if(res.status === 'success'){
+						swal('Usuario editado exitosamente', res.message, 'success');
+						this.router.navigate(['/admin/usuarios/listar']);
+					}
+				},
+				error => {
+					this.preloaderStatus = false;
+					this.responseMessage = error.error.message;
+	
+					if(error.error.errors){
+						this.responseMessage = this.responseMessage + '. ' + JSON.stringify(error.error.errors);
+					}
+	
+					this.status = 'error';
+					swal('Error', this.responseMessage, 'error');
+					console.log(error);
 				}
-			},
-			error => {
-				this.preloaderStatus = false;
-				this.responseMessage = error.error.message;
+			);
+		} else {
+			this.preloaderStatus = false;
+			this.status = 'error';
+			this.responseMessage = 'Debe seleccionar al menos un role para poder continuar';
+		}
 
-				if(error.error.errors){
-					this.responseMessage = this.responseMessage + '. ' + JSON.stringify(error.error.errors);
-				}
-
-				this.status = 'error';
-				swal('Error', this.responseMessage, 'error');
-				console.log(error);
-			}
-		);
 	}
 
 	getUser(){
@@ -103,12 +125,19 @@ export class UserEditComponent implements OnInit {
 				res => {
 					if( res.status === 'success' ){
 						this.user = res.user;
+						let roleArray = this.user.role.split('-');
+						this.roles.forEach( role => {
+							roleArray.forEach( element => {
+								if( element == role.id ) {
+									role.isSelected = true;
+								}								
+							});							
+						});
 					}
 				},
 				error => {
 					this.status = error.error.status;
 					this.responseMessage = error.error.message;
-					console.log(error);
 				}
 			);
 		});
@@ -148,20 +177,23 @@ export class UserEditComponent implements OnInit {
 		}
 	}
 
-	roleList(){
+	roleList() {
 		this.status = undefined;
 		this.responseMessage = undefined;
 
 		this.roleService.roleList( this.token ).subscribe(
 			res => {
-				if( res.status === 'success' ){
+				if ( res.status === 'success' ) {
 					this.roles = res.roles;
+					this.roles.forEach( role => {
+						role.isSelected = false;
+					});
+					this.getUser();
 				}
 			},
 			error => {
 				this.status = error.error.status;
 				this.responseMessage = error.error.message;
-				console.log(error);
 			}
 		);
 	}

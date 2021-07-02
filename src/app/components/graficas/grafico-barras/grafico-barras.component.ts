@@ -17,6 +17,7 @@ export class GraficoBarrasComponent implements OnInit {
 	@Input() public fuenteInformacion: string;
 	@Input() public responsable: string;
 	@Input() public fechaHora: string;
+	@Input() public minHeight: string = '850';
 
 	public barChartPlugins = [pluginDataLabels];
 	public barChartOptions: ChartOptions = {
