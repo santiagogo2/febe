@@ -1,0 +1,100 @@
+<div class="loaderBall" *ngIf="!registro && !responseMessage">
+    <div class="ball-pulse-rise">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+<div class="mt-3 errorAlert" *ngIf="status=='error' && responseMessage && !registro">
+    <div class="alert alert-danger" role="alert">
+        {{ responseMessage }}
+    </div>
+</div>
+
+<div class="row" *ngIf="registro">
+    <div class="col-sm-12">
+        <div class="card border-0">
+            <div class="card-body cardContainer">
+                <div class="backLink col col-sm-12" style="padding-left: 1rem !important;">
+                    <a class="col-sm-1 btn-sm btn-info" routerLink="/contratacion/listarHrs" *ngIf="viewFlag">Volver</a>
+                </div>
+                <div class="formContainer">
+                    <form #registroForm="ngForm" class="form-container" (ngSubmit)="onSubmit(registroForm)" style="text-align: left;">
+                        <div class="form-group">
+                            <div class="col col-lg-3 d-inline-block">
+                                <label for="Nombre" class="labelForm">Nombre Completo</label>
+                                <input type="text" name="Nombre" class="form-control inputForm" [ngClass]="{'is-invalid': Nombre.touched && Nombre.invalid}" #Nombre="ngModel" [(ngModel)]="registro.nombre" required pattern="[a-zA-ZÀ-ÿ ]+" minlength="5" maxlength="50" placeholder="Ingrese el número de documento del colaborador">
+                                <small class="invalid-feedback d-block font-weight-bold" *ngIf="Nombre.invalid && Nombre.touched">Debe ingresar un documento. El campo es obligatorio</small>
+                            </div>
+                           
+                            <div class="col col-lg-2 d-inline-block">
+                                <label for="IdUsuario" class="labelForm">Documento</label>
+                                <input type="text" name="IdUsuario" class="form-control inputForm" [ngClass]="{'is-invalid': IdUsuario.touched && IdUsuario.invalid}" #IdUsuario="ngModel" [(ngModel)]="registro.documento" required pattern="[0-9]+" minlength="5" maxlength="10" placeholder="Ingrese el número de documento del colaborador">
+                                <small class="invalid-feedback d-block font-weight-bold" *ngIf="IdUsuario.invalid && IdUsuario.touched">Debe ingresar un documento. El campo es obligatorio</small> </div>
+
+                            <div class="col col-lg-2 d-inline-block">
+                                <label for="tipoCto" class="labelForm">Vinculación</label>
+                                <select style="background-position-x: 95%" name="tipoCto" id="tipoCto" class="form-control inputForm" [ngClass]="{'is-invalid': tipoCto.invalid && tipoCto.touched}" #tipoCto="ngModel" [(ngModel)]="registro.tipoCto" required>
+                                <option value="1">Planta</option><option value="0">OPS</option></select>
+                                <small class="invalid-feedback d-block font-weight-bold" *ngIf="tipoCto.invalid && tipoCto.touched">Debe ingresar un No de registro. El campo es obligatorio</small>
+                            </div>
+                            <div class="col col-lg-2 d-inline-block">
+                                <label for="horas" class="labelForm">Horas</label>
+                                <input type="text" name="horas" class="form-control inputForm" [ngClass]="{'is-invalid': horas.touched && horas.invalid}" #horas="ngModel" [(ngModel)]="registro.horas" required pattern="[0-9]+" minlength="2" maxlength="10" placeholder="horas asignadas">
+                                <small class="invalid-feedback d-block font-weight-bold" *ngIf="horas.invalid && horas.touched">Debe ingresar un valor de horas. El campo es obligatorio</small>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            
+                            <div class="col col-lg-3 d-inline-block">
+                                <label for="Unidad" class="labelForm">Unidad</label>
+                             
+
+                                <select style="background-position-x: 95%" name="unidad" id="unidad" class="form-control inputForm" [ngClass]="{'is-invalid': unidad.invalid && unidad.touched}" #unidad="ngModel" [(ngModel)]="registro.unidad" required>
+                                   
+                                    <option *ngFor="let unit of unidades" value="{{ unit.id }}">{{ unit.name }}</option>
+
+                                </select>
+
+                                <small class="invalid-feedback d-block font-weight-bold" *ngIf="unidad.invalid && unidad.touched">Debe seleccionar una Unidad. El campo es obligatorio</small>
+                            </div>
+                            <div class="col col-lg-3 d-inline-block">
+                                <label for="tipoHr" class="labelForm">Tipo registro</label>
+                                <select style="background-position-x: 95%" name="tipoHr" id="tipoHr" class="form-control inputForm" [ngClass]="{'is-invalid': tipoHr.invalid && tipoHr.touched}" #tipoHr="ngModel" [(ngModel)]="registro.tipoHr" required>
+										<option value="VAC">Vacaciones</option><option value="LIC">Licencia</option><option value="INC">Incapacidad</option><option value="PER">Permiso</option><option value="COM">Compensatorio</option><option value="CDM">Calamidad Doméstica</option><option value="LMA">Lactancia Materna</option><option value="OTR">Otro</option></select>
+                                <small class="invalid-feedback d-block font-weight-bold" *ngIf="tipoHr.invalid && tipoHr.touched">Debe Seleccionar un tipo de registro. El campo es obligatorio</small>
+                            </div>
+                        </div>
+
+                        <div class="row">
+
+
+                        </div>
+                        <div class="form-group">
+                            <div class="col col-12 d-inline-block align-top">
+                                <label for="observacion" class="labelForm">Observación*</label>
+                                <textarea name="observacion" rows="10" class="form-control inputForm" [ngClass]="{'is-invalid': observacion.touched && observacion.invalid}" #observacion="ngModel" [(ngModel)]="registro.observacion" required placeholder="Ingrese Actividades del colaborador"></textarea>
+                                <small class="invalid-feedback d-block font-weight-bold" *ngIf="observacion.invalid && observacion.touched">Debe ingresar Actividades del colaborador. El campo es obligatorio</small>
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-top: 2rem" *ngIf="editFlag">
+                            <div class="col col-sm-4 buttonSubmit">
+                                <input type="submit" value="{{ buttonText }}" class="btn btn-success btnPrefer col-sm-4 text-center" [disabled]="registroForm.invalid">
+                            </div>
+                        </div>
+                        <div class="mt-3 col col-sm-12 errorAlert" *ngIf="status=='error' && responseMessage">
+                            <div class="alert alert-danger" role="alert">
+                                {{ responseMessage }}
+                            </div>
+                        </div>
+                        <div class="deleteLoader" *ngIf="preloaderStatus">
+                            <div class="loader"></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
