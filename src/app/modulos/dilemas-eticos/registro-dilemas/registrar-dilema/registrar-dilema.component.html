@@ -1,0 +1,119 @@
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card border-0">
+            <div class="card-body">
+                <div class="formContainer">
+                    <div>
+                        <div class="backLink col col-12 d-inline-block align-top">
+                            <a class="col-sm-6" routerLink="/vacunacion">Regresar</a>
+                        </div>
+                    </div>
+                    <form [formGroup]="contacto" (ngSubmit)="onSubmit()">
+                        <!-- Datos del Funcionario -->
+                        <ng-container>
+                            <div class="subtitle"><span>DATOS FUNCIONARIO</span></div>
+                            <div class="form-group">
+                                <div class="col col-12">
+                                    <label for="nombresApellidos" class="labelForm">Nombres y Apellidos<span class="required">*</span></label>
+                                    <input type="text" formControlName="namec" class="form-control inputForm text-uppercase" [ngClass]="{ 'is-invalid': f.namec.errors }" maxlength="150">
+                                    <div *ngIf="submitted && f.namec.errors">
+                                        <small class="d-block invalid-feedback" *ngIf="f.namec.errors.required">Por favor, ingresa Nombres y Apellidos del funcionario</small>
+                                        <small class="d-block invalid-feedback" *ngIf="f.namec.errors.pattern">El campo no admite números</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col col-sm-6 col-md-3 d-inline-block align-top">
+                                    <label for="unidad" class="labelForm">Ingrese la unidad<span class="required">*</span></label>
+                                    <select class="form-control inputForm" formControlName="unid" [ngClass]="{ 'is-invalid': f.unid.errors }">
+                                        <option *ngFor="let unidad of global.unidadPresento" value="{{ unidad.id }}">{{ unidad.name }}</option>
+                                    </select>
+                                    <small class="d-block invalid-feedback" *ngIf="submitted && f.unid.errors">Por favor, seleccionar una unidad</small>
+                                </div>
+                                <div class="col col-sm-6 col-md-3 d-inline-block align-top">
+                                    <label for="areaServicios" class="labelForm">Ingrese el area de servicios<span class="required">*</span></label>
+                                    <select class="form-control inputForm" formControlName="area" [ngClass]="{ 'is-invalid': f.area.errors }">
+                                        <option *ngFor="let area of global.services" value="{{ area.id }}">{{ area.name }}</option>
+                                      </select>
+                                    <small class="d-block invalid-feedback" *ngIf="submitted && f.area.errors">Por favor, seleccionar el area de servicios</small>
+                                </div>
+                                <div class="col col-sm-6 col-md-3 d-inline-block align-top">
+                                    <label for="numeroTelefono" class="labelForm">Ingrese el numero de telefono<span class="required">*</span></label>
+                                    <input type="text" formControlName="telf" class="form-control inputForm" [ngClass]="{ 'is-invalid': f.telf.errors }" maxlength="10" />
+                                    <small class="d-block invalid-feedback" *ngIf="submitted && f.area.errors">Por favor, ingresa el telefono</small>
+                                </div>
+                                <div class="col col-sm-6 col-md-3 d-inline-block align-top">
+                                    <label for="correofunci" class="labelForm">Ingrese el correo funcionario<span class="required">*</span></label>
+                                    <input type="text" formControlName="email" class="form-control inputForm" [ngClass]="{ 'is-invalid': f.email.errors }" maxlength="150" />
+                                    <div *ngIf="submitted && f.email.errors">
+                                        <small class="d-block invalid-feedback" *ngIf="f.email.errors.required">El correo electrónico es obligatorio</small>
+                                        <small class="d-block invalid-feedback" *ngIf="f.email.errors.email">Por favor, ingresa email del funcionario</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-container>
+                        <!-- Datos del paciente -->
+                        <ng-container>
+                            <div class="subtitle"><span>DATOS DEL PACIENTE</span></div>
+                            <div class="form-group">
+                                <div class="col col-12 align-top">
+                                    <label for="nombresApellidos" class="labelForm">Nombres y Apellidos del paciente<span class="required">*</span></label>
+                                    <input type="text" formControlName="namep" class="form-control inputForm text-uppercase" [ngClass]="{ 'is-invalid': f.namep.errors }" maxlength="150" />
+                                    <div *ngIf="submitted && f.namep.errors">
+                                        <small class="d-block invalid-feedback" *ngIf="f.namep.errors.required">Por favor, ingresa Nombres y Apellidos del paciente</small>
+                                        <small class="d-block invalid-feedback" *ngIf="f.namep.errors.pattern">El campo no admite números</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col col-sm-6 col-md-3 d-inline-block align-top">
+                                    <label for="docut" class="labelForm">Ingrese el tipo de documento<span class="required">*</span></label>
+                                    <select class="form-control inputForm" formControlName="td" [ngClass]="{ 'is-invalid': f.td.errors }">
+                                        <option *ngFor="let Documento of global.tipoDocumento" value="{{ Documento.id }}">{{ Documento.value }}</option>
+                                    </select>
+                                    <small class="d-block invalid-feedback" *ngIf="submitted && f.td.errors">Por favor, seleccionar una unidad</small>
+                                </div>
+                                <div class="col col-sm-6 col-md-3 d-inline-block align-top">
+                                    <label for="documentop" class="labelForm">Ingrese el documento del paciente<span class="required">*</span></label>
+                                    <input type="text" formControlName="doc" class="form-control inputForm" [ngClass]="{ 'is-invalid': f.doc.errors }" maxlength="20" />
+                                    <small class="d-block invalid-feedback" *ngIf="submitted && f.doc.errors">Por favor, ingresa el documento</small>
+                                </div>
+                                <div class="col col-sm-6 col-md-3 d-inline-block align-top">
+                                    <label for="numeroTelefonop" class="labelForm">Ingrese el telefono del paciente<span class="required">*</span></label>
+                                    <input type="text" formControlName="telp" class="form-control inputForm" [ngClass]="{ 'is-invalid': f.telp.errors }" maxlength="10" />
+                                    <small class="d-block invalid-feedback" *ngIf="submitted && f.telp.errors">Por favor, ingresa el telefono del paciente</small>
+                                </div>
+                                <div class="col col-sm-6 col-md-3 d-inline-block align-top">
+                                    <label for="fechahechos" class="labelForm">Ingrese la fecha de los hechos<span class="required">*</span></label>
+                                    <input type="date" formControlName="fecha" class="form-control inputForm" [ngClass]="{ 'is-invalid': f.fecha.errors }" max="{{ globalService.setMaxDate() }}" />
+                                    <small class="d-block invalid-feedback" *ngIf="submitted && f.fecha.errors">Por favor, ingresa la fecha de los hechos</small>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col col-12">
+                                    <label for="fechahechos" class="labelForm">Ingrese la descripcion de los hechos<span class="required">*</span></label>
+                                    <textarea formControlName="mensaje" rows="3" class="form-control inputForm" [ngClass]="{ 'is-invalid': f.mensaje.errors }" maxlength="500"></textarea>
+                                    <div *ngIf="submitted && f.mensaje.errors" class="invalid-feedback">Por favor, ingresa el Mensaje ( 500 Caracteres max )</div>
+                                </div>
+                            </div>
+                        </ng-container>
+
+                        <div class="form-group" style="margin-top: 3rem">
+                            <div class="col col-sm-12 buttonSubmit">
+                                <input type="submit" value="{{ buttonTitle }}" class="btn btn-success btnPrefer col-sm-12">
+                            </div>
+                            <div class="deleteLoader mt-3" *ngIf="preloaderStatus">
+                                <div class="loader"></div>
+                            </div>
+                            <div class="mt-3 col col-sm-12 errorAlert" *ngIf="responseMessage">
+                                <div class="alert alert-danger" role="alert">
+                                    {{ responseMessage }}
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

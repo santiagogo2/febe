@@ -1,0 +1,84 @@
+<div class="loaderBall" *ngIf="!readyFlag && preloaderStatus">
+    <div class="ball-pulse-rise">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+<div class="mt-3 errorAlert alert-danger" *ngIf="initialResponseMessage">
+    <div class="alert" role="alert">
+        {{ initialResponseMessage }} <a class="col-sm-12" routerLink="/dilemas-eticos">Regresar</a>
+    </div>
+</div>
+
+<div class="row" *ngIf="readyFlag">
+    <div class="col-sm-12">
+        <div class="card border-0">
+            <div class="card-body">
+                <div>
+                    <div class="backLink col col-sm-6 d-inline-block">
+                        <a class="col-sm-12" routerLink="/dilemas-eticos">Regresar</a>
+                    </div>
+                    <div class="col col-sm-6 p-0 text-right d-inline-block">
+                        <div class="registerCollaboratorButton d-inline-block mr-2">
+                            <button class="btn btn-info" (click)="setInfoToExport()">Descargar Datos</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-3 errorAlert alert-danger" *ngIf="responseMessage">
+                    <div class="alert" role="alert">
+                        {{ responseMessage }}
+                    </div>
+                </div>
+                <div class="deleteLoader mb-3" *ngIf="preloaderStatus">
+                    <div class="loader"></div>
+                </div>
+
+                <div class="tableContainer mt-2" *ngIf="dilemasContacts">
+                    <div class="tableContainerAll col col-sm-12">
+                        <div class="paginationControls" *ngIf="dilemasContacts && dilemasContacts.length > itemsPerPage">
+                            <pagination-controls (pageChange)="pageChange($event)" previousLabel="Anterior" nextLabel="Siguiente" maxSize="4">
+                            </pagination-controls>
+                        </div>
+                        <table class="table table-bordered">
+                            <thead class="thead_styles">
+                                <tr>
+                                    <th>Consecutivo</th>
+                                    <th>Nombre del Funcionario</th>
+                                    <th>Correo del Funcionario</th>
+                                    <th>Nombre del Paciente</th>
+                                    <th>Número de Documento</th>
+                                    <th>Telefono Paciente</th>
+                                    <th>Area de Servicio</th>
+                                    <th>Unidad de Servicio</th>
+                                    <th>Fecha de los Hechos</th>
+                                </tr>
+                            </thead>
+                            <tbody class="tbody_styles">
+                                <tr *ngFor="let contact of dilemasContacts | paginate: {itemsPerPage: itemsPerPage, currentPage: actualPage}; index as i" class="tableStyles">
+                                    <td>{{ contact.id }}</td>
+                                    <td>{{ contact.nombreFuncionario | isnullfill }}</td>
+                                    <td>{{ contact.correoFuncionario | isnullfill }}</td>
+                                    <td>{{ contact.nombrePaciente | isnullfill }}</td>
+                                    <td>{{ contact.documentoPaciente | isnullfill }}</td>
+                                    <td>{{ contact.telefonoPaciente | isnullfill }}</td>
+                                    <td>{{ contact.areaServicio | global: 'services' }}</td>
+                                    <td>{{ contact.unidadServicio | global: 'unidadPresento' }}</td>
+                                    <td>{{ contact.fechaHechos | isnullfill }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="paginationControls " *ngIf="dilemasContacts && dilemasContacts.length> itemsPerPage">
+                            <pagination-controls (pageChange)="pageChange($event)" previousLabel="Anterior" nextLabel="Siguiente" maxSize="4">
+                            </pagination-controls>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
