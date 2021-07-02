@@ -1,0 +1,133 @@
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card border-0">
+            <div class="card-body">
+                <div class="formContainer">
+                    <div>
+                        <div class="backLink col col-12 d-inline-block">
+                            <a class="col-sm-6" routerLink="/vacunacion">Regresar</a>
+                        </div>
+                    </div>
+
+                    <form #vaccinationForm="ngForm" class="form-container" (ngSubmit)="onSubmit()">
+                        <div class="form-group">
+                            <div class="col-12 d-inline-block">
+                                <label for="documentId" class="labelForm">Ingrese el número de documento*</label>
+                                <input type="text" name="documentId" id="documentId" class="form-control inputForm" [ngClass]="{'is-invalid': documentId.invalid && documentId.touched}" #documentId="ngModel" [(ngModel)]="document" required placeholder="Ingrese el número de documento a consultar">
+                            </div>
+                            <small class="invalid-feedback d-block col col-sm-12" *ngIf="documentId.invalid && documentId.touched">Debe ingresar un número de documento correcto</small>
+                        </div>
+
+                        <div class="form-group" style="margin-top: 2rem">
+                            <div class="col col-sm-12 buttonSubmit">
+                                <input type="button" value="{{ buttonText }}" class="btn btn-success btnPrefer col-sm-12" [disabled]="vaccinationForm.invalid" (click)="onSubmit()">
+                            </div>
+                        </div>
+                    </form>
+                    <ng-container>
+                        <div class="mt-3 col col-sm-12 errorAlert" *ngIf="responseMessage">
+                            <div class="alert alert-danger" role="alert">
+                                {{ responseMessage }}
+                            </div>
+                        </div>
+                        <div class="deleteLoader" *ngIf="preloaderStatus">
+                            <div class="loader"></div>
+                        </div>
+
+                        <div class="form-group col col-12" *ngIf="assignment">
+                            <div class="tableContainer">
+                                <div class="tableContainerAll col col-sm-12">
+                                    <table class="table table-bordered">
+                                        <thead class="thead_styles">
+                                            <tr>
+                                                <th>Consecutivo</th>
+                                                <th>Lugar de Vacunación</th>
+                                                <th>Mesa</th>
+                                                <th>Fecha y Hora de Programada</th>
+                                                <th>Dósis</th>
+                                                <th>Asistío a la Vacunación</th>
+                                                <th>Novedad</th>
+                                                <th>Cancelar Cita</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="tbody_styles">
+                                            <tr class="tableStyles" *ngFor="let item of assignment">
+                                                <td>{{ item.id }}</td>
+                                                <td>{{ item.sedeVacunacion }}</td>
+                                                <td>{{ item.mesa }}</td>
+                                                <td>{{ item.fechaVacunacion + ' ' + item.horaVacunacion }}</td>
+                                                <td>{{ setDosis( item.dosis ) }}</td>
+                                                <td>{{ setRespuesta( item.asiste ) }}</td>
+                                                <td *ngIf="item.novedad || item.asiste == 1">{{ item.novedad | global: 'novedades' }}</td>
+                                                <td style="padding: 0.55rem" *ngIf="!item.novedad && item.asiste == 0">
+                                                    <button type="button" class="btn btn-info col col-sm-12 d-inline-block" data-toggle="modal" [attr.data-target]="'#noveltyModal'" (click)="setItemId(item.id)">Añadir</button>
+                                                </td>
+                                                <td colspan="2" *ngIf="item.razonCancelacion || item.asiste == 1">{{ item.razonCancelacion | global: 'razonesCancelacion' }}</td>
+                                                <td style="padding: 0.55rem" *ngIf="item.asiste == 0">
+                                                    <button type="button" class="btn btn-danger col col-sm-12 d-inline-block" data-toggle="modal" [attr.data-target]="'#cancelModal'" (click)="setItemId(item.id)">Cancelar</button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                    <div class="deleteLoader" *ngIf="noveltyPreloaderStatus">
+                        <div class="loader"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- The Novelty Modal -->
+<div class="modal animated fadeIn faster" id="noveltyModal" *ngIf="assignment && !asisteFlag">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form #noveltyForm="ngForm" class="form-container" style="padding: 1rem;" (ngSubmit)="agregarNovedad()">
+                <div class="form-group">
+                    <div class="col-12 d-inline-block">
+                        <label for="novelty" class="labelForm">Seleccione la novedad a reportar*</label>
+                        <select style="background-position-x: 97%; text-transform: uppercase;" name="novelty" id="novelty" class="form-control inputForm" [ngClass]="{'is-invalid': novelty.invalid }" #novelty="ngModel" [(ngModel)]="novedad" required>
+							<option *ngFor="let novedad of global.novedades" value="{{ novedad.id }}">{{ novedad.name }}</option>
+						</select>
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <div class="col col-sm-12 buttonSubmit p-0" style="padding-left: 0.5rem !important;">
+                        <input type="submit" (click)="agregarNovedad()" value="Agregar Novedad" class="btn btn-info btnPrefer col-sm-12" data-dismiss="modal" [disabled]="noveltyForm.invalid">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- The Cancel Modal -->
+<div class="modal animated fadeIn faster" id="cancelModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form #cancelForm="ngForm" class="form-container" style="padding: 1rem;" (ngSubmit)="cancelarNovedad()">
+                <div class="form-group">
+                    <div class="col-12 d-inline-block">
+                        <label for="reason" class="labelForm">Seleccione la razón de la cancelación*</label>
+                        <select style="background-position-x: 97%; text-transform: uppercase;" name="reason" id="reason" class="form-control inputForm" [ngClass]="{'is-invalid': reason.invalid }" #reason="ngModel" [(ngModel)]="cancelReason" required>
+							<option *ngFor="let razon of global.razonesCancelacion" value="{{ razon.id }}">{{ razon.name }}</option>
+						</select>
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <div class="col col-sm-12 buttonSubmit p-0" style="padding-left: 0.5rem !important;">
+                        <input type="submit" (click)="cancelarNovedad()" value="Cancelar Cita" class="btn btn-danger btnPrefer col-sm-12" data-dismiss="modal" [disabled]="cancelForm.invalid">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
