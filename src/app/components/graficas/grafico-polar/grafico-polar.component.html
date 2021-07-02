@@ -1,0 +1,6 @@
+<div style="display: block">
+    <canvas baseChart [data]="polarAreaChartData" [labels]="polarAreaChartLabels" [chartType]="polarAreaChartType" [options]="polarAreaChartOptions" [plugins]="polarAreaChartPlugins" [legend]="polarAreaLegend" style="min-height: 500px !important"></canvas>
+</div>
+<small class="d-block" *ngIf="fuenteInformacion">Fuente de Información: <b>{{ fuenteInformacion }}</b></small>
+<small class="d-block" *ngIf="responsable">Responsable: <b>{{ responsable }}</b></small>
+<small class="d-block" *ngIf="fechaHora">Fecha y Hora de Actualización: <b>{{ fechaHora }}</b></small>
