@@ -1,0 +1,93 @@
+<div class="loaderBall" *ngIf="!vaccinated && !responseMessage">
+    <div class="ball-pulse-rise">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+<div class="mt-3 errorAlert alert-danger" *ngIf="responseMessage && !vaccinated">
+    <div class="alert" role="alert">
+        {{ responseMessage }}
+    </div>
+</div>
+
+<div class="row" *ngIf="vaccinated">
+    <div class="col-sm-12">
+        <div class="card border-0">
+            <div class="card-body cardContainer">
+                <ng-container>
+                    <div class="d-block col col-12 p-0 mb-3">
+                        <div class="box">
+                            <form #searchForm="ngForm" class="formContainer" id="searchForm" (ngSubmit)="search()" class="container-2">
+                                <span class="icon"><i class="fa fa-search"></i></span>
+                                <input type="search" id="search" name="searchInput" #searchInput="ngModel" [(ngModel)]="chain" placeholder="Puede realizar busquedas por número de documento" />
+                            </form>
+                        </div>
+                        <div class="mt-1 text-left">
+                            <button type="button" class="btn btn-secondary btn-sm" (click)="getVaccinated()">Reiniciar busqueda</button>
+                        </div>
+                    </div>
+                    <div class="mt-3 errorAlert" *ngIf="searchResponseMessage">
+                        <div class="alert alert-danger" role="alert">
+                            {{ searchResponseMessage }}
+                        </div>
+                    </div>
+                </ng-container>
+                <div class="deleteLoader mt-2" id="loader" *ngIf="searchLoaderStatus">
+                    <div class="loader"></div>
+                </div>
+
+                <div class="tableContainer" *ngIf="vaccinated && !searchResponseMessage && !searchLoaderStatus">
+                    <div class="tableContainerAll col col-sm-12">
+                        <div class="paginationControls" *ngIf="vaccinated && vaccinated.length > itemsPerPage">
+                            <pagination-controls (pageChange)="pageChange($event)" previousLabel="Anterior" nextLabel="Siguiente" maxSize="4">
+                            </pagination-controls>
+                        </div>
+                        <table class="table table-bordered">
+                            <thead class="thead_styles">
+                                <tr>
+                                    <th>id</th>
+                                    <th>Documento de Identidad</th>
+                                    <th>Nombres y Apellidos</th>
+                                    <th>Tipo de Usuario</th>
+                                    <th>Fecha de Vacunación</th>
+                                    <th>Unidad de Vacunación</th>
+                                    <th>Laboratorio</th>
+                                    <th>Dósis</th>
+                                    <th>Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody class="tbody_styles">
+                                <tr *ngFor="let vacuna of vaccinated | paginate: {itemsPerPage: itemsPerPage, currentPage: actualPage};" class="tableStyles">
+                                    <td>{{ vacuna.id }}</td>
+                                    <td>{{ vacuna.numeroIdentificacion }}</td>
+                                    <td>
+                                        {{ vacuna.primerNombre }}
+                                        <ng-container *ngIf="vacuna.segundoNombre">{{ ' ' + vacuna.segundoNombre }}</ng-container>
+                                        {{ ' ' + vacuna.primerApellido }}
+                                        <ng-container *ngIf="vacuna.segundoApellido">{{ ' ' + vacuna.segundoApellido }}</ng-container>
+                                    </td>
+                                    <td>{{ vacuna.tipoUsuarioVacunado | global: 'tipoUsuarioVacunado' }}</td>
+                                    <td>{{ vacuna.fechaVacunacion }}</td>
+                                    <td>{{ vacuna.unidadVacunacion | global: 'unidadPresento' }}</td>
+                                    <td>{{ vacuna.laboratorio | global: 'laboratorioVacunas' }}</td>
+                                    <td>{{ vacuna.vacunaCovid | global: 'dosis' }}</td>
+                                    <td style="padding: 0.55rem">
+                                        <button type="button" class="btn btn-info col col-sm-12 d-inline-block" [routerLink]="['../editar', vacuna.id]">Editar</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="paginationControls" *ngIf="vaccinated && vaccinated.length > itemsPerPage">
+                            <pagination-controls (pageChange)="pageChange($event)" previousLabel="Anterior" nextLabel="Siguiente" maxSize="4">
+                            </pagination-controls>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
