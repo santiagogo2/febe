@@ -1,0 +1,683 @@
+<div class="loaderBall" *ngIf="!activeAccountFlag && !responseMessage">
+    <div class="ball-pulse-rise">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+<div class="mt-3 errorAlert alert-danger" *ngIf="responseMessage && !activeAccountFlag">
+    <div class="alert" role="alert">
+        {{ responseMessage }}<a class="col-sm-12" href="javascript: history.go(-1)">Regresar</a>
+    </div>
+</div>
+<div class="row" *ngIf="activeAccountFlag">
+    <div class="col-sm-12">
+        <div class="card border-0">
+            <div class="card-body cardContainer">
+                <div class="formContainer">
+                    <div class="backLink col col-sm-12">
+                        <a class="col-sm-12" href="javascript: history.go(-1)">Regresar</a>
+                    </div>
+                    <form #accountForm="ngForm" class="form-container col col-12" (ngSubmit)="onSubmit(accountForm)" style="text-align: left;">
+                        <div class="tableContainer">
+                            <div class="tableContainerAll col col-12">
+                                <!-- DATOS DEL INFORME -->
+                                <table class="table table-bordered mb-0">
+                                    <thead class="thead_styles">
+                                        <tr>
+                                            <th colspan="6">
+                                                <b>DATOS DEL INFORME</b>
+                                                <fa-icon [icon]="faEdit" class="d-inline-block añadir" data-toggle="modal" [attr.data-target]="'#editSupervisor'" *ngIf="enableFlag"></fa-icon>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="tbody_styles textLeft">
+                                        <!-- Fechas del periodo a certificar -->
+                                        <tr>
+                                            <td><b>Periodo a Certificar:</b></td>
+                                            <td><b>Desde:</b></td>
+                                            <td>{{ cuentaCobro.fechaInicioCertificada }}</td>
+                                            <td><b>Hasta:</b></td>
+                                            <td colspan="2">{{ cuentaCobro.fechaFinalizacionCertificada }}</td>
+                                        </tr>
+                                        <!-- Datos del contratista -->
+                                        <tr>
+                                            <td><b>Nombre del Contratista:</b></td>
+                                            <td class="text-uppercase" colspan="2">
+                                                {{ contractor.primerNombre }}
+                                                <ng-container *ngIf="contractor.segundoNombre"> {{ contractor.segundoNombre }}</ng-container>
+                                                {{ contractor.primerApellido }}
+                                                <ng-container *ngIf="contractor.segundoApellido"> {{ contractor.segundoApellido }}</ng-container>
+                                            </td>
+                                            <td><b>Número de Documento:</b></td>
+                                            <td colspan="2" class="text-uppercase">{{ contractor.numeroDocumento }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>Correo Electrónico:</b></td>
+                                            <td colspan="2">{{ contractor.email }}</td>
+                                            <td><b>Número telefónico:</b></td>
+                                            <td colspan="2">{{ contractor.celular }}</td>
+                                        </tr>
+                                        <!-- Datos del supervisor -->
+                                        <tr>
+                                            <td><b>Nombre del supervisor:</b></td>
+                                            <td class="text-uppercase">
+                                                {{ getArrayData( supervisors, 'primerNombre', cuentaCobro.supervisor_id ) + ' ' }}
+                                                <ng-container *ngIf="getArrayData( supervisors, 'segundoNombre', cuentaCobro.supervisor_id )">{{ getArrayData( supervisors, 'segundoNombre', cuentaCobro.supervisor_id ) + ' ' }}</ng-container>
+                                                {{ getArrayData( supervisors, 'primerApellido', cuentaCobro.supervisor_id ) + ' ' }}
+                                                <ng-container *ngIf="getArrayData( supervisors, 'segundoApellido', cuentaCobro.supervisor_id )">{{ getArrayData( supervisors, 'segundoApellido', cuentaCobro.supervisor_id ) + ' ' }}</ng-container>
+
+                                            </td>
+                                            <td><b>Cargo:</b></td>
+                                            <td class="text-uppercase" *ngIf="getArrayData( supervisors, 'codigoGrado', cuentaCobro.supervisor_id )">{{ getArrayData( supervisors, 'cargo', cuentaCobro.supervisor_id ) }}</td>
+                                            <td class="text-uppercase" *ngIf="!getArrayData( supervisors, 'codigoGrado', cuentaCobro.supervisor_id ) && getArrayData( supervisors, 'tipoVinculacion', cuentaCobro.supervisor_id ) == 2" colspan="3">{{ getArrayData( supervisors, 'cargo', cuentaCobro.supervisor_id ) }}</td>
+                                            <ng-container *ngIf="getArrayData( supervisors, 'codigoGrado', cuentaCobro.supervisor_id ) && getArrayData( supervisors, 'tipoVinculacion', cuentaCobro.supervisor_id ) == 2">
+                                                <td><b>Código - Grado:</b></td>
+                                                <td class="text-uppercase">{{ getArrayData( supervisors, 'codigoGrado', cuentaCobro.supervisor_id ) }}</td>
+                                            </ng-container>
+                                            <ng-container *ngIf="getArrayData( supervisors, 'tipoVinculacion', cuentaCobro.supervisor_id ) == 1">
+                                                <td><b>No. Cto:</b></td>
+                                            </ng-container>
+                                        </tr>
+                                        <!-- Datos apoyo a la supervisión -->
+                                        <tr>
+                                            <td><b>Apoyo técnico a la supervisión - Contratista:</b></td>
+                                            <td class="text-uppercase">victor julio gomez carvajal</td>
+                                            <td><b>Perfil:</b></td>
+                                            <td class="text-uppercase">profesional especializado</td>
+                                            <td><b>No. Cto:</b></td>
+                                            <td class="text-uppercase">3163-2021</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <!-- DATOS DEL CONTRATO -->
+                                <table class="table table-bordered mb-0">
+                                    <thead class="thead_styles">
+                                        <tr>
+                                            <th colspan="6"><b>DATOS DEL CONTRATO</b></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="tbody_styles textLeft">
+                                        <!-- Datos del contrato -->
+                                        <tr>
+                                            <td><b>No. Contrato:</b></td>
+                                            <td>{{ contract.numeroContrato + '-' + contract.anyo }}</td>
+                                            <td><b>Año Contrato:</b></td>
+                                            <td>{{ contract.anyo }}</td>
+                                            <td><b>CDP Contrato Inicial:</b></td>
+                                            <td>{{ contract.CDP }}</td>
+                                        </tr>
+                                        <!-- Perfil del Contratista -->
+                                        <tr>
+                                            <td><b>Perfil:</b></td>
+                                            <td class="text-uppercase" colspan="5">{{ contractor.perfil_contratista_id.name }}</td>
+                                        </tr>
+                                        <!-- Dirección a la que pertenece -->
+                                        <tr>
+                                            <td><b>Dirección a la que Pertenece:</b></td>
+                                            <td class="text-uppercase" colspan="5">{{ contract.direccion_id.name }}</td>
+                                        </tr>
+                                        <!-- Unidad de Servicios -->
+                                        <tr>
+                                            <td><b>Unidad de Servicios:</b></td>
+                                            <td class="text-uppercase" colspan="5">{{ contract.unidad_id.name }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <!-- LIQUIDACIÓN DE SERVICIOS -->
+                                <ng-container>
+                                    <div class="mt-3 errorAlert alert-danger" *ngIf="liquidationResponseMessage">
+                                        <div class="alert" role="alert">
+                                            {{ liquidationResponseMessage }}
+                                        </div>
+                                    </div>
+                                    <div class="deleteLoader mb-2 mt-2" *ngIf="liquidationPreloaderStatus">
+                                        <div class="loader"></div>
+                                    </div>
+                                    <span *ngIf="!liquidacionServicioArray || (liquidacionServicioArray && liquidacionServicioArray.length == 0)" type="button" style="padding: 0.5rem 1.5rem; margin: 1rem 0;" class="badge badge-pill badge-info" data-toggle="modal" [attr.data-target]="'#editLiquidacionServicios'">Añadir Liquidación de Servicios</span>
+                                    <table class="table table-bordered mb-0" *ngIf="liquidacionServicioArray && liquidacionServicioArray.length > 0">
+                                        <thead class="thead_styles">
+                                            <tr>
+                                                <th colspan="5">
+                                                    <b>LIQUIDACIÓN DE SERVICIOS</b>
+                                                    <fa-icon [icon]="faPlusCircle" class="d-inline-block añadir" data-toggle="modal" [attr.data-target]="'#editLiquidacionServicios'" *ngIf="enableFlag"></fa-icon>
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                <th>Dirección</th>
+                                                <th>Unidad</th>
+                                                <th>Total</th>
+                                                <th>Procetaje(%) Centro de Costos</th>
+                                                <th *ngIf="enableFlag">Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="tbody_styles textLeft">
+                                            <tr *ngFor="let liquidacion of liquidacionServicioArray; let i=index">
+                                                <td *ngIf="liquidacion.centro_costo_id.direccion_liquidacion_id.name">{{ liquidacion.centro_costo_id.direccion_liquidacion_id.name }}</td>
+                                                <td *ngIf="liquidacion.centro_costo_id.unidad_id.name">{{ liquidacion.centro_costo_id.unidad_id.name }}</td>
+                                                <td>{{ liquidacion.certificatedCost }}</td>
+                                                <td>{{ calculatedPercentage( liquidacion.certificatedCost ) + '%' }}</td>
+                                                <td class="text-center" *ngIf="enableFlag">
+                                                    <button type="button" class="btn btn-warning d-inline-block ml-1" title="Editar Valor Liquidación" data-toggle="modal" [attr.data-target]="'#editLiquidacionServicios'" (click)="setLiquidationIndex( i )"><fa-icon [icon]="faEdit" class="col"></fa-icon></button>
+                                                    <button type="button" class="btn btn-danger d-inline-block ml-1" title="Eliminar Liquidación" (click)="deleteLiquidationIndex( i )"><fa-icon [icon]="faTrash" class="col"></fa-icon></button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>VALOR SERVICIO PRESTADO MES:</b></td>
+                                                <td><b>{{ calculateTotalLiquidado() }}</b></td>
+                                                <td class="text-uppercase" colspan="3"><b>{{ globalService.numerosALetas( calculateTotalLiquidado() ) }}</b></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </ng-container>
+                                <!-- EJECUCIÓN PRESUPUESTAL DEL CONTRATO -->
+                                <ng-container>
+                                    <table class="table table-bordered">
+                                        <thead class="thead_styles">
+                                            <tr>
+                                                <th colspan="9"><b>EJECUCIÓN PRESUPUESTAL DEL CONTRATO</b></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="tbody_styles">
+                                            <tr>
+                                                <td colspan="2"><b>Fecha de Inicio del Contrato</b></td>
+                                                <td colspan="2">{{ contract.fechaInicio }}</td>
+                                                <td><b>Fecha de Terminación del Contrato Inicial</b></td>
+                                                <td colspan="2">{{ contract.fechaFinalizacion }}</td>
+                                            </tr>
+                                            <ng-container *ngIf="additions">
+                                                <tr>
+                                                    <td><b>No. Prorroga</b></td>
+                                                    <td><b>Fecha Inicio</b></td>
+                                                    <td><b>Fecha Terminación</b></td>
+                                                    <td><b>No. Adición</b></td>
+                                                    <td><b>Valor Adición</b></td>
+                                                    <td><b>CDP</b></td>
+                                                </tr>
+                                                <tr *ngFor="let addition of additions; let i=index">
+                                                    <td>{{ i + 1 }}</td>
+                                                    <td>{{ addition.fechaInicio | isnullfill }}</td>
+                                                    <td>{{ addition.fechaTerminacion | isnullfill }}</td>
+                                                    <td>{{ i + 1 }}</td>
+                                                    <td>{{ addition.valorAdicion | isnullfill }}</td>
+                                                    <td>{{ addition.CDP | isnullfill }}</td>
+                                                </tr>
+                                            </ng-container>
+                                            <ng-container *ngIf="chargeAccounts">
+                                                <tr>
+                                                    <td colspan="2"><b>No. Cuenta Según el Mes Certificado</b></td>
+                                                    <td colspan="2"><b>Mes Cuenta de Cobro</b></td>
+                                                    <td colspan="2"><b>Valor a Pagar</b></td>
+                                                </tr>
+                                                <tr *ngFor="let cuenta of chargeAccounts; let i=index">
+                                                    <td colspan="2">{{ i + 1 }}</td>
+                                                    <td colspan="2">{{ cuenta.mesCuentaCobro | global: 'months' }}</td>
+                                                    <td colspan="2">{{ cuenta.valorPagar }}</td>
+                                                </tr>
+                                            </ng-container>
+                                        </tbody>
+                                    </table>
+                                    <div class="mt-3 errorAlert alert-danger" *ngIf="chargeAccountMessage">
+                                        <div class="alert" role="alert">
+                                            {{ chargeAccountMessage }}
+                                        </div>
+                                    </div>
+                                    <div class="mt-3 errorAlert alert-danger" *ngIf="additionMessage">
+                                        <div class="alert" role="alert">
+                                            {{ additionMessage }}
+                                        </div>
+                                    </div>
+                                    <table class="table table-bordered">
+                                        <thead class="thead_styles">
+                                            <tr>
+                                                <th><b>VALOR INICIAL DEL CONTRATO</b></th>
+                                                <th><b>VALOR TOTAL DEL CONTRATO</b></th>
+                                                <th><b>PAGOS REALIZADOS</b></th>
+                                                <th><b>SALDO DEL CONTRATO</b></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="tbody_styles">
+                                            <tr>
+                                                <td><b>{{ getSaldoTotalContrato( contract.fechaInicio, contract.fechaFinalizacion, contract.honorariosMensuales ) }}</b></td>
+                                                <td><b>{{ getSaldoTotalYAdiciones() }}</b></td>
+                                                <td><b>{{ getPagosRealizados() }}</b></td>
+                                                <td><b>{{ getSaldoTotalYAdiciones() - getPagosRealizados() }}</b></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </ng-container>
+                                <!-- EJECUCIÓN DE ACTIVIDADES FRENTE A LAS OBLIGACIONES DURANTE EL PERIODO REPORTADO -->
+                                <ng-container>
+                                    <div class="mt-3 errorAlert alert-danger" *ngIf="activitiesResponseMessage">
+                                        <div class="alert" role="alert">
+                                            {{ activitiesResponseMessage }} <span type="button" style="padding: 0.5rem 1.5rem; margin-left: 0.5rem;" class="badge badge-pill badge-info" data-toggle="modal" [attr.data-target]="'#newActivity'">Añadir Actividad</span>
+                                        </div>
+                                    </div>
+                                    <div class="deleteLoader mb-2" *ngIf="activitiesPreloaderStatus">
+                                        <div class="loader"></div>
+                                    </div>
+                                    <table class="table table-bordered mb-0" *ngIf="activities && supports">
+                                        <thead class="thead_styles">
+                                            <tr>
+                                                <th colspan="2">
+                                                    <ng-container>OBLIGACIONES ESPECÍFICAS (LAS ESTIPULADAS EN LA MINUTA)</ng-container>
+                                                    <fa-icon [icon]="faPlusCircle" class="d-inline-block añadir" data-toggle="modal" [attr.data-target]="'#newActivity'" (click)="setEditActivity()" *ngIf="enableFlag"></fa-icon>
+                                                </th>
+                                                <th>ACTIVIDADES DESARROLLADAS EN EL PERIODO EN CUMPLIMIENTO DE CADA OBLIGACIÓN</th>
+                                                <th>PRODUCTO O EVIDENCIA</th>
+                                                <th *ngIf="enableFlag">ACCIONES</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="tbody_styles">
+                                            <tr *ngFor="let item of activities; let i=index">
+                                                <td>{{ i+1 }}</td>
+                                                <td>{{ item.descripcion }}</td>
+                                                <td>{{ supports[i].actividadesDesarrolladas }}</td>
+                                                <td>{{ supports[i].productos }}</td>
+                                                <td *ngIf="enableFlag">
+                                                    <button type="button" class="btn btn-warning d-inline-block ml-1" title="Editar Actividad" data-toggle="modal" [attr.data-target]="'#newActivity'" (click)="setEditActivity( item )"><fa-icon [icon]="faEdit" class="col"></fa-icon></button>
+                                                    <button type="button" class="btn btn-info d-inline-block ml-1" title="Añadir Actividades de Soporte" data-toggle="modal" [attr.data-target]="'#newSupportActivity'" (click)="setSupportsArrayPoint( i )"><fa-icon [icon]="faPenAlt" class="col"></fa-icon></button>
+                                                    <button type="button" class="btn btn-danger d-inline-block ml-1" title="Eliminar la Actividad" data-toggle="modal" [attr.data-target]="'#deleteActivity'" (click)="setActivityId( item.id )"><fa-icon [icon]="faTrash" class="col"></fa-icon></button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </ng-container>
+                                <!-- INFORMACIÓN DEL PAGO DE SEGURIDAD SOCIAL -->
+                                <ng-container>
+                                    <div class="mt-3 errorAlert alert-danger" *ngIf="!securityPayment.id">
+                                        <div class="alert" role="alert">
+                                            No se ha añadido el pago de seguridad social <span type="button" style="padding: 0.5rem 1.5rem; margin-left: 0.5rem;" class="badge badge-pill badge-info" data-toggle="modal" [attr.data-target]="'#newSocialSecurity'">Añadir Información del Pago de Seguridad Social</span>
+                                        </div>
+                                    </div>
+                                    <div class="deleteLoader mb-2" *ngIf="securitySocialPreloaderStatus">
+                                        <div class="loader"></div>
+                                    </div>
+                                    <table class="table table-bordered mb-0" *ngIf="securityPayment.id && !securitySocialPreloaderStatus">
+                                        <thead class="thead_styles">
+                                            <tr>
+                                                <th colspan="9">
+                                                    <b>INFORMACIÓN DEL PAGO DE SEGURIDAD SOCIAL</b>
+                                                    <fa-icon [icon]="faEdit" class="d-inline-block añadir" data-toggle="modal" [attr.data-target]="'#newSocialSecurity'" *ngIf="enableFlag"></fa-icon>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="tbody_styles">
+                                            <tr>
+                                                <td colspan="2"><b>Periodo al que corresponde el pago</b></td>
+                                                <td colspan="3"><b>Fecha de Pago</b></td>
+                                                <td><b>Número de Planilla</b></td>
+                                                <td rowspan="3" colspan="2"><b>Valor de Honorarios Certificados el Mes Anterior</b></td>
+                                                <td rowspan="3"><b></b>{{ certificatedValue }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>AÑO</b></td>
+                                                <td><b>MES</b></td>
+                                                <td><b>AÑO</b></td>
+                                                <td><b>MES</b></td>
+                                                <td><b>DÍA</b></td>
+                                                <td rowspan="2">{{ securityPayment.numeroPlanilla }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>2021</b></td>
+                                                <td><b>{{ securityPayment.periodoPagado | global: 'meses' }}</b></td>
+                                                <td><b>{{ separateDate( securityPayment.fechaPagoSeguridadSocial, 1 ) }}</b></td>
+                                                <td><b>{{ separateDate( securityPayment.fechaPagoSeguridadSocial, 2 ) }}</b></td>
+                                                <td><b>{{ separateDate( securityPayment.fechaPagoSeguridadSocial, 3 ) }}</b></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="5"><b>Valor honorarios certificados el mes anterior en letras</b></td>
+                                                <td class="text-uppercase" colspan="4"><b>{{ globalService.numerosALetas(certificatedValue) }}</b></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="5"><b>Item</b></td>
+                                                <td><b>Entidades Aportantes a Seguridad Social</b></td>
+                                                <td><b>Ingreso Base de Cotización</b></td>
+                                                <td><b>Valor Mínimo de los Aportes</b></td>
+                                                <td><b>Valor Aportado</b></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="4" class="text-left">Pensionado</td>
+                                                <td>{{ contractor.pensionado | global: 'respuestas' }}</td>
+                                                <td>{{ contractor.fondo_pensiones_id.name | isnullfill}}</td>
+                                                <td rowspan="4">{{ getSocialSecurityMinimumValues( certificatedValue, 1 ) }}</td>
+                                                <td>{{ getSocialSecurityMinimumValues( certificatedValue, 2 ) }}</td>
+                                                <td style="color: #198754;"><b>{{ securityPayment.valorPagadoPension }}</b></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="5" class="text-left">Salud</td>
+                                                <td>{{ contractor.eps_id.name | isnullfill }}</td>
+                                                <td>{{ getSocialSecurityMinimumValues( certificatedValue, 3 ) }}</td>
+                                                <td style="color: #198754;"><b>{{ securityPayment.valorPagadoSalud }}</b></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="4" class="text-left">ARL</td>
+                                                <td>{{ contract.tipoRiesgo }}</td>
+                                                <td>{{ contractor.arl_id.name | isnullfill }}</td>
+                                                <td>{{ getSocialSecurityMinimumValues( certificatedValue, 4 ) }}</td>
+                                                <td style="color: #198754;"><b>{{ securityPayment.valorPagadoARL }}</b></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="4" class="text-left">Caja de Compensación</td>
+                                                <td>{{ validateCaja( contractor ) }}</td>
+                                                <td>{{ contractor.caja_compensacion_id }}</td>
+                                                <td>{{ getSocialSecurityMinimumValues( certificatedValue, 2 ) + getSocialSecurityMinimumValues( certificatedValue, 3 ) + getSocialSecurityMinimumValues( certificatedValue, 4 ) }}</td>
+                                                <td style="color: #198754;"><b>{{ +securityPayment.valorPagadoPension + +securityPayment.valorPagadoSalud + +securityPayment.valorPagadoARL }}</b></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </ng-container>
+                                <!-- INFORMACIÓN DE PAGO -->
+                                <table class="table table-bordered mb-0">
+                                    <thead class="thead_styles">
+                                        <tr>
+                                            <th colspan="6">INFORMACIÓN DE PAGO</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="tbody_styles">
+                                        <tr>
+                                            <td><b>Entidad Bancaria</b></td>
+                                            <td>{{ contractor.codigoBanco | global: 'entidadesBancarias' }}</td>
+                                            <td><b>Tipo de Cuenta</b></td>
+                                            <td>{{ contractor.tipoCuenta | global: 'tiposCuentaBancaria' }}</td>
+                                            <td><b>Número de Cuenta</b></td>
+                                            <td>{{ contractor.cuentaBancaria }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <app-listar-observaciones *ngIf="cuentaCobro && cuentaCobro.estado && (cuentaCobro.estado == 1 || cuentaCobro.estado == 2 || cuentaCobro.estado == 3)" [accountId]="cuentaCobro.id"></app-listar-observaciones>
+
+                        <app-crear-observacion *ngIf="(supervisorFlag || contratacionFlag) && cuentaCobro" [accountId]="cuentaCobro.id" [accountState]="cuentaCobro.estado"></app-crear-observacion>
+
+                        <div class="form-group" style="margin-top: 3rem" *ngIf="enableFlag">
+                            <div class="buttonSubmit">
+                                <input type="submit" value="{{ buttonText }}" class="btn btn-success btnPrefer col-sm-12" [disabled]="accountForm.invalid || preloaderStatus || !securityPayment.id || liquidacionServicioArray.length == 0">
+                            </div>
+                        </div>
+                        <div class="mt-3 col col-sm-12 errorAlert" *ngIf="responseMessage">
+                            <div class="alert alert-danger" role="alert">
+                                {{ responseMessage }}
+                            </div>
+                        </div>
+                        <div class="deleteLoader" *ngIf="preloaderStatus">
+                            <div class="loader"></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- the Modal - Editar el Supervisor del Contrato -->
+<div class="modal animated fadeIn faster" id="editSupervisor" *ngIf="enableFlag">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form #supervisorForm="ngForm" class="form-container" (ngSubmit)="editSupervisor(supervisorForm)" *ngIf="activeAccountFlag">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Editar el supervisor para el contratista {{contractor.primerNombre + ' ' + contractor.primerApellido }}</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div class="col col-sm-12 col-md-6 align-top d-inline-block">
+                            <label for="fechaInicioCertificada" class="labelForm">Fecha de Inicia Certificada<span class="required">*</span></label>
+                            <input type="date" name="fechaInicioCertificada" class="form-control inputForm" [ngClass]="{ 'is-invalid': fechaInicioCertificada.invalid }" #fechaInicioCertificada="ngModel" [(ngModel)]="certificationInitialDate" max="{{ globalService.getEndMonthDay() }}"
+                                (ngModelChange)="setMaxDate()">
+                        </div>
+                        <div class="col col-sm-12 col-md-6 align-top d-inline-block">
+                            <label for="fechaFinalizacionCertificada" class="labelForm">Fecha de Finalización Certificada<span class="required">*</span></label>
+                            <input type="date" name="fechaFinalizacionCertificada" class="form-control inputForm" [ngClass]="{ 'is-invalid': fechaFinalizacionCertificada.invalid }" #fechaFinalizacionCertificada="ngModel" [min]="certificationInitialDate" [max]="maxCertificateDate"
+                                [(ngModel)]="certificationEndDate">
+                        </div>
+                    </div>
+                    <div class="form-group col col-12">
+                        <label for="supervisor" class="labelForm">Seleccione el supervisor si desea cambiarlo<span class="required">*</span></label>
+                        <select style="background-position-x: 95%; text-transform: uppercase;" name="supervisor" id="supervisor" class="form-control inputForm" [ngClass]="{'is-invalid': supervisor.invalid }" #supervisor="ngModel" [(ngModel)]="selectedSupervisor">
+							<option *ngFor="let supervisor of supervisors" value="{{ supervisor.id }}">
+								{{ supervisor.primerNombre + ' ' }}
+								<ng-container *ngIf="supervisor.segundoNombre">{{ supervisor.segundoNombre + ' ' }}</ng-container>
+								{{ supervisor.primerApellido + ' ' }}
+								<ng-container *ngIf="supervisor.segundoApellido">{{ supervisor.segundoApellido + ' ' }}</ng-container>
+							</option>
+						</select>
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" (click)="editSupervisor( supervisorForm )" class="btn btn-primary" data-dismiss="modal" [disabled]="supervisorForm.invalid">Editar Información</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+<!-- the Modal - Editar el Supervisor del Contrato -->
+<div class="modal animated fadeIn faster" id="editLiquidacionServicios" *ngIf="enableFlag">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form #liquidacionForm="ngForm" class="form-container" (ngSubmit)="editLiquidacionServicios()" *ngIf="activeAccountFlag">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Editar la liquidación de servicios para el contratista {{contractor.primerNombre + ' ' + contractor.primerApellido }}</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="form-group col col-12">
+                        <label for="direccionContable" class="labelForm">Seleccione la dirección contable<span class="required">*</span></label>
+                        <select style="background-position-x: 95%; text-transform: uppercase;" name="direccionContable" id="direccionContable" class="form-control inputForm" [ngClass]="{'is-invalid': direccionContable.invalid }" #direccionContable="ngModel" [(ngModel)]="selectedDirection"
+                            (ngModelChange)="searchCostCenter()">
+							<option *ngFor="let direction of hiringDirections" value="{{ direction.id }}">{{ direction.name }}</option>
+						</select>
+                        <fa-icon [icon]="faSpinner" class="d-block spin text-center mt-2" *ngIf="directionPreloaderStatus"></fa-icon>
+                        <small *ngIf="directionMessage" class="invalid-feedback d-block">{{ directionMessage }}</small>
+                    </div>
+                    <div class="form-group col col-12" *ngIf="unidadesCostos">
+                        <label for="centroCosto" class="labelForm">Seleccione la unidad de servicio<span class="required">*</span></label>
+                        <select style="background-position-x: 95%; text-transform: uppercase;" name="unidadServicio" id="unidadServicio" class="form-control inputForm" [ngClass]="{'is-invalid': unidadServicio.invalid }" #unidadServicio="ngModel" [(ngModel)]="selectedUnit" (ngModelChange)="setCostCenter()">
+							<option *ngFor="let unidad of unidadesCostos" value="{{ unidad.id }}">{{ unidad.name }}</option>
+						</select>
+                    </div>
+                    <div class="form-group col col-12" *ngIf="selectedUnit && costCenter">
+                        <label for="centroCosto" class="labelForm">Seleccione el centro de costos<span class="required">*</span></label>
+                        <select style="background-position-x: 95%; text-transform: uppercase;" name="centroCosto" id="centroCosto" class="form-control inputForm" [ngClass]="{'is-invalid': centroCosto.invalid }" #centroCosto="ngModel" [(ngModel)]="liquidacionServicio.centro_costo_id">
+							<option *ngFor="let cost of costCenter" value="{{ cost.id }}">{{ cost.centroCosto + ' - ' + cost.nombreCentroCosto }}</option>
+						</select>
+                    </div>
+                    <div class="form-group col col-12" *ngIf="liquidacionServicio.centro_costo_id">
+                        <label for="certificatedCost" class="labelForm">Valor a liquidar<span class="required">*</span></label>
+                        <input type="text" name="certificatedCost" class="form-control inputForm" [ngClass]="{ 'is-invalid': certificatedCost.invalid }" #certificatedCost="ngModel" [(ngModel)]="liquidacionServicio.certificatedCost" (ngModelChange)="validateMaxValue(liquidacionForm, 'certificatedCost', getSaldoTotalContrato( cuentaCobro.fechaInicioCertificada, cuentaCobro.fechaFinalizacionCertificada, contract.honorariosMensuales ), calculateTotalLiquidado())"
+                            pattern="[0-9]+" required>
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" (click)="editLiquidacionServicios()" class="btn btn-primary" data-dismiss="modal" [disabled]="liquidacionForm.invalid || !liquidacionServicio.centro_costo_id">Editar Liquidación Servicios</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="resetLiquidationIndex()">Cerrar</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- the Modal - Agregar o Editar una actividad -->
+<div class="modal animated fadeIn faster" id="newActivity" *ngIf="enableFlag">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form #activityForm="ngForm" class="form-container" (ngSubmit)="newActivity(activityForm)" *ngIf="activeAccountFlag">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">{{ activityButtonText }} para el contratista {{contractor.primerNombre + ' ' + contractor.primerApellido }}</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div class="col col-sm-12 d-inline-block align-top">
+                            <label for="descripcion" class="labelForm">Descripción de la actividad*</label>
+                            <textarea name="descripcion" class="form-control inputForm" [ngClass]="{ 'is-invalid': descripcion.invalid && descripcion.touched}" #descripcion="ngModel" [(ngModel)]="activity.descripcion" required rows="5" placeholder="Ingrese la descripción de la actividad tal como aparece en la minuta. Minimo 30 caracteres"
+                                minlength="30"></textarea>
+                            <small class="invalid-feedback d-block font-weight-bold" *ngIf="descripcion.invalid && descripcion.touched">Debe ingresar la descripción de la actividad</small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button (click)="newActivity( activityForm )" class="btn btn-primary" data-dismiss="modal" [disabled]="activityForm.invalid">{{ activityButtonText }}</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- the Modal - Mensaje de confirmación eliminar actividad -->
+<div class="modal animated fadeIn faster" id="deleteActivity" *ngIf="enableFlag">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Eliminar la actividad seleccionada</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <p>¿Está seguro que desea eliminar la actividad seleccionada?</p>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button (click)="deleteActivity()" class="btn btn-danger" data-dismiss="modal">Eliminar Actividad</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- the Modal - Agregar los soportes de una actividad -->
+<div class="modal animated fadeIn faster" id="newSupportActivity" *ngIf="enableFlag">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form #activitySupportForm="ngForm" class="form-container" (ngSubmit)="newSupportActivity(activitySupportForm)">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Agregar soportes para la actividad seleccionada</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div class="col col-sm-12 d-inline-block align-top">
+                            <label for="actividadesDesarrolladas" class="labelForm">Actividades desarrolladas en el periodo en cumplimiento de cada obligación*</label>
+                            <textarea name="actividadesDesarrolladas" class="form-control inputForm" [ngClass]="{ 'is-invalid': actividadesDesarrolladas.invalid && actividadesDesarrolladas.touched}" #actividadesDesarrolladas="ngModel" [(ngModel)]="actividadDesarrollada" required
+                                rows="5" placeholder="Ingrese la descripción de las actividades desarrolladas en el periodo. Minimo 15 caracteres" minlength="15"></textarea>
+                            <small class="invalid-feedback d-block font-weight-bold" *ngIf="actividadesDesarrolladas.invalid && actividadesDesarrolladas.touched">Debe ingresar la descripción de las actividades desarrolladas en el periodo</small>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col col-sm-12 d-inline-block align-top">
+                            <label for="soportes" class="labelForm">Producto o evidencia*</label>
+                            <textarea name="soportes" class="form-control inputForm" [ngClass]="{ 'is-invalid': soportes.invalid && soportes.touched}" #soportes="ngModel" [(ngModel)]="soporte" required rows="5" placeholder="Ingrese la descripción del soporte generado para la actividad. Minimo 15 caracteres"
+                                minlength="15"></textarea>
+                            <small class="invalid-feedback d-block font-weight-bold" *ngIf="soportes.invalid && soportes.touched">Debe ingresar la descripción del soporte generado para la actividad</small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button (click)="newSupportActivity( activitySupportForm )" type="button" class="btn btn-primary" data-dismiss="modal">Guardar</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- the Modal - Agregar o Editar la información de pago de seguridad social -->
+<div class="modal animated fadeIn faster" id="newSocialSecurity" *ngIf="enableFlag">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form #socialSecurityForm="ngForm" class="form-container" (ngSubmit)="newSocialSecurity()" *ngIf="activeAccountFlag">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Editar la información de pago de seguridad social para el contratista {{contractor.primerNombre + ' ' + contractor.primerApellido }}</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div class="col col-12 d-inline-block">
+                            <label for="tipoPago" class="labelForm">Seleccione el tipo de pago<span class="required">*</span></label>
+                            <select style="background-position-x: 95%; text-transform: uppercase;" name="tipoPago" id="tipoPago" class="form-control inputForm" [ngClass]="{'is-invalid': tipoPago.invalid }" #tipoPago="ngModel" [(ngModel)]="selectedTipoPago" (ngModelChange)="getPaymentsByContractIdAndDate()"
+                                required>
+								<option value="1">Mes vencido</option>
+								<option value="2">Mes anticipado</option>
+							</select>
+                            <fa-icon [icon]="faSpinner" class="d-block spin text-center mt-2" *ngIf="securitySocialPreloaderStatus"></fa-icon>
+                            <small class="invalid-feedback d-block font-weight-bold mt-2" *ngIf="securitySocialResponseMessage">{{ securitySocialResponseMessage }}</small>
+                        </div>
+                    </div>
+                    <ng-container *ngIf="securitySocialFlag">
+                        <div class="form-group col col-12">
+                            <label for="numeroPlanilla" class="labelForm">Número de Planilla<span class="required">*</span></label>
+                            <input type="text" name="numeroPlanilla" class="form-control inputForm" [ngClass]="{ 'is-invalid': numeroPlanilla.invalid }" #numeroPlanilla="ngModel" [(ngModel)]="securityPayment.numeroPlanilla" pattern="[0-9]+" required>
+                        </div>
+                        <div class="form-group col col-12">
+                            <label for="fechaPagoSeguridadSocial" class="labelForm">Fecha de Pago<span class="required">*</span></label>
+                            <input type="date" name="fechaPagoSeguridadSocial" class="form-control inputForm" [ngClass]="{ 'is-invalid': fechaPagoSeguridadSocial.invalid }" #fechaPagoSeguridadSocial="ngModel" [(ngModel)]="securityPayment.fechaPagoSeguridadSocial" required>
+                        </div>
+                        <div class="form-group col col-12">
+                            <label for="valorPagadoPension" class="labelForm">Valor Pagado Pensión<span class="required">*</span></label>
+                            <input type="text" name="valorPagadoPension" class="form-control inputForm" [ngClass]="{ 'is-invalid': valorPagadoPension.invalid }" #valorPagadoPension="ngModel" [(ngModel)]="securityPayment.valorPagadoPension" (ngModelChange)="validateMinimumValue(socialSecurityForm, 'valorPagadoPension', getSocialSecurityMinimumValues( certificatedValue, 2 ))"
+                                pattern="[0-9]+" required>
+                        </div>
+                        <div class="form-group col col-12">
+                            <label for="valorPagadoSalud" class="labelForm">Valor Pagado Salud<span class="required">*</span></label>
+                            <input type="text" name="valorPagadoSalud" class="form-control inputForm" [ngClass]="{ 'is-invalid': valorPagadoSalud.invalid }" #valorPagadoSalud="ngModel" [(ngModel)]="securityPayment.valorPagadoSalud" (ngModelChange)="validateMinimumValue(socialSecurityForm, 'valorPagadoSalud', getSocialSecurityMinimumValues( certificatedValue, 3 ))"
+                                pattern="[0-9]+" required>
+                        </div>
+                        <div class="form-group col col-12">
+                            <label for="valorPagadoARL" class="labelForm">Valor Pagado ARL<span class="required">*</span></label>
+                            <input type="text" name="valorPagadoARL" class="form-control inputForm" [ngClass]="{ 'is-invalid': valorPagadoARL.invalid }" #valorPagadoARL="ngModel" [(ngModel)]="securityPayment.valorPagadoARL" (ngModelChange)="validateMinimumValue(socialSecurityForm, 'valorPagadoARL', getSocialSecurityMinimumValues( certificatedValue, 4 ))"
+                                pattern="[0-9]+" required>
+                        </div>
+                    </ng-container>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button (click)="newSocialSecurity()" class="btn btn-primary" data-dismiss="modal" [disabled]="socialSecurityForm.invalid">Editar Pago Seguridad Social</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

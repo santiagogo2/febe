@@ -1,0 +1,11 @@
+.table tbody tr:hover {
+    background-color: inherit;
+}
+
+.tbody_styles tr:nth-child(even) {
+    background-color: unset;
+}
+
+.textLeft td {
+    text-align: left;
+}

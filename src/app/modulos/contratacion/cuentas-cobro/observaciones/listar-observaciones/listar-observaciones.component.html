@@ -1,0 +1,18 @@
+<div class="col col-12 pl-0 pr-0" *ngIf="observations">
+    <div class="form-group">
+        <div class="col col-12 pl-0 pr-0">
+            <label for="aprobarCuenta" class="labelForm">Observaciones:</label>
+            <ul>
+                <li *ngFor="let observation of observations">{{ observation.observation }}</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="mt-3 col col-sm-12 errorAlert pl-0 pr-0" *ngIf="responseMessage">
+    <div class="alert alert-danger" role="alert">
+        {{ responseMessage }}
+    </div>
+</div>
+<div class="deleteLoader" *ngIf="preloaderStatus">
+    <div class="loader"></div>
+</div>

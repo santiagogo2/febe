@@ -1,0 +1,32 @@
+<form id="observationForm" #observationForm="ngForm" (ngSubmit)="onSubmit( observationForm )">
+    <div class="form-group">
+        <div class="col col-12 pl-0 pr-0">
+            <label for="aprobarCuenta" class="labelForm">Aprobar la cuenta<span class="required">*</span></label>
+            <select name="aprobarCuenta" class="form-control inputForm " [ngClass]="{ 'is-invalid': aprobarCuenta.invalid }" #aprobarCuenta="ngModel" [(ngModel)]="respuestaCuenta" required>
+				<option value="1">SI</option>
+				<option value="2">NO</option>
+			</select>
+            <small class="d-block invalid-feedback" *ngIf="aprobarCuenta.touched && aprobarCuenta.invalid">Debe seleccionar una respuesta</small>
+        </div>
+    </div>
+    <div class="form-group" *ngIf="respuestaCuenta && respuestaCuenta == 2">
+        <div class="col col-sm-12 pl-0 pr-0">
+            <label for="observation" class="labelForm">Observaciones cuenta de cobro<span class="required">*</span></label>
+            <textarea name="observation" id="observation" class="form-control inputForm" [ngClass]="{ 'is-invalid': observation.invalid }" #observation="ngModel" [(ngModel)]="accountObservation.observation" rows="5" required placeholder="Ingrese las observaciones que tiene de la cuenta de cobro"></textarea>
+            <small class="d-block invalid-feedback" *ngIf="observation.invalid && observation.touched">Debe ingresar una observación para la cuenta de cobro</small>
+        </div>
+    </div>
+    <div class="form-group" style="margin-top: 3rem">
+        <div class="col col-sm-12 buttonSubmit pl-0 pr-0">
+            <input type="submit" value="{{ buttonTitle }}" class="btn btn-success btnPrefer col-sm-12" [disabled]="observationForm.invalid">
+        </div>
+        <div class="deleteLoader mt-3" *ngIf="preloaderStatus">
+            <div class="loader"></div>
+        </div>
+        <div class="mt-3 col col-sm-12 errorAlert" *ngIf="responseMessage">
+            <div class="alert alert-danger" role="alert">
+                {{ responseMessage }}
+            </div>
+        </div>
+    </div>
+</form>
