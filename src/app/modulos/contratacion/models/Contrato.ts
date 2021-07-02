@@ -9,8 +9,10 @@ export class Contrato {
         public DateFinish: string,
         public Value: number,
         public Object: string,
+        public Profile: string,
         public Unit: string,
         public Type: string,
-        public Activities: string
+        public Activities: string,
+        public DateEnding: string
     ){}
 }

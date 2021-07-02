@@ -3,6 +3,7 @@ export class Novedad {
         public Id: number,
         public IdUsuario: number,
         public Novedad: string,
+        public Observacion: string,
         public Archivo: string,
         public Estado: number,
         public update_by: number,
