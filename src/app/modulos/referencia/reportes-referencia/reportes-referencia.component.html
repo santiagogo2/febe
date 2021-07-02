@@ -1,0 +1,272 @@
+<div class="loaderBall" *ngIf="preloaderStatus">
+    <div class="ball-pulse-rise">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+<div class="mt-3 errorAlert alert-danger" *ngIf="responseMessage">
+    <div class="alert" role="alert">
+        {{ responseMessage }}
+    </div>
+</div>
+
+<div class="row reports">
+    <div class="col-sm-12 pl-0">
+        <div class="card border-0">
+            <div class="backLink col col-sm-12" *ngIf="!preloaderStatus">
+                <a class="col-sm-12" routerLink="/referencia">Regresar</a>
+            </div>
+            <form #reportForm="ngForm" class="form-container" (ngSubmit)="filterReport()" *ngIf="!preloaderStatus && !responseMessage">
+                <div class="form-group">
+                    <div class="col col-sm-6 d-inline-block">
+                        <label for="initialDate" class="labelForm">Fecha Inicial<span class="required">*</span></label>
+                        <input type="date" name="initialDate" class="form-control inputForm" [ngClass]="{'is-invalid': initialDate.invalid}" #initialDate="ngModel" [(ngModel)]="fechaInicial" required>
+                    </div>
+                    <div class="col col-sm-6 d-inline-block">
+                        <label for="endDate" class="labelForm">Fecha Final<span class="required">*</span></label>
+                        <input type="date" name="endDate" class="form-control inputForm" [ngClass]="{'is-invalid': endDate.invalid}" #endDate="ngModel" [(ngModel)]="fechaFinal" required>
+                    </div>
+                </div>
+                <ng-container>
+                    <div class="dropdown col col-sm-6 col-md-4 d-inline-block mb-2">
+                        <button class="btn btn-sm btn-subred-color dropdown-toggle popupbtn" type="button" id="cups" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							CUPS
+						</button>
+                        <div class="dropdown-menu" attr.aria-labelledby="cups" style="max-height: 400px; overflow-y: auto;">
+                            <div class="col-lg-12 d-inline-block pl-3 align-top checkbox dropdown-item">
+                                <input type="checkbox" [(ngModel)]="cupsSelectedAll" name="{{'examen' + 'selectedAll'}}" id="{{'examen' + 'selectedAll'}}" value="{{'selectedAll'}}" (ngModelChange)="selectedAll(cups, cupsSelectedAll)">
+                                <label class="checkbox" for="{{'examen' + 'selectedAll'}}">Marcar/Desmarcar Todos</label>
+                            </div>
+                            <div class="col-lg-12 d-inline-block pl-3 align-top checkbox dropdown-item">
+                                <input type="checkbox" [(ngModel)]="sinCUPS" name="{{'examen' + 'sinCUPS'}}" id="{{'examen' + 'sinCUPS'}}" value="{{'sinCUPS'}}">
+                                <label class="checkbox" for="{{'examen' + 'sinCUPS'}}">SIN CUPS</label>
+                            </div>
+                            <div class="col-lg-12 d-inline-block pl-3 align-top checkbox dropdown-item" *ngFor="let examen of cups">
+                                <input type="checkbox" [(ngModel)]="examen.isSelected" name="{{'examen' + examen.codigoCups}}" id="{{'examen' + examen.codigoCups}}" value="{{examen.codigoCups}}" (ngModelChange)="validateCUPSSelectedAll(cups)">
+                                <label class="checkbox" for="{{'examen' + examen.codigoCups}}">{{ examen.codigoCups + '-' + examen.nombreExamen }}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dropdown col col-sm-6 col-md-4 d-inline-block mb-2">
+                        <button class="btn btn-sm btn-subred-color dropdown-toggle popupbtn" type="button" id="unidadesAtencion" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Unidades de Atención
+						</button>
+                        <div class="dropdown-menu" attr.aria-labelledby="unidadesAtencion">
+                            <div class="col-lg-12 d-inline-block pl-3 align-top checkbox dropdown-item">
+                                <input type="checkbox" [(ngModel)]="unidadesSelectedAll" name="{{'centros' + 'selectedAll'}}" id="{{'centros' + 'selectedAll'}}" value="{{'selectedAll'}}" (ngModelChange)="selectedAll(centrosAtencion, unidadesSelectedAll)">
+                                <label class="checkbox" for="{{'centros' + 'selectedAll'}}">Marcar/Desmarcar Todos</label>
+                            </div>
+                            <div class="col-lg-12 d-inline-block pl-3 align-top checkbox dropdown-item">
+                                <input type="checkbox" [(ngModel)]="sinCentroAtencion" name="{{'examen' + 'sinCentroAtencion'}}" id="{{'examen' + 'sinCentroAtencion'}}" value="{{'sinCentroAtencion'}}">
+                                <label class="checkbox" for="{{'examen' + 'sinCentroAtencion'}}">SIN CENTRO DE ATENCIÓN</label>
+                            </div>
+                            <div class="col-lg-12 d-inline-block pl-3 align-top checkbox dropdown-item" *ngFor="let centros of centrosAtencion">
+                                <input type="checkbox" [(ngModel)]="centros.isSelected" name="{{'centros' + centros.name}}" id="{{'centros' + centros.name}}" value="{{centros.name}}" (ngModelChange)="validateUSSSelectedAll(centrosAtencion)">
+                                <label class="checkbox" for="{{'centros' + centros.name}}">{{ centros.name }}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dropdown col col-sm-6 col-md-4 d-inline-block mb-2">
+                        <button class="btn btn-sm btn-subred-color dropdown-toggle popupbtn" type="button" id="prioridad" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Prioridad
+						</button>
+                        <div class="dropdown-menu" attr.aria-labelledby="prioridad">
+                            <div class="col-lg-12 d-inline-block pl-3 align-top checkbox dropdown-item" *ngFor="let prio of prioridades">
+                                <input type="checkbox" [(ngModel)]="prio.isSelected" name="{{'prio' + prio.name}}" id="{{'prio' + prio.name}}" value="{{prio.name}}"><label class="checkbox" for="{{'prio' + prio.name}}">{{ prio.name }}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dropdown col col-sm-6 col-md-4 d-inline-block mb-2">
+                        <button class="btn btn-sm btn-subred-color dropdown-toggle popupbtn" type="button" id="estado" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Estado
+						</button>
+                        <div class="dropdown-menu" attr.aria-labelledby="estado">
+                            <div class="col-lg-12 d-inline-block pl-3 align-top checkbox dropdown-item" *ngFor="let estado of estadosReferencia">
+                                <input type="checkbox" [(ngModel)]="estado.isSelected" name="{{'estado' + estado.name}}" id="{{'estado' + estado.name}}" value="{{estado.name}}"><label class="checkbox" for="{{'estado' + estado.name}}">{{ estado.name }}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dropdown col col-sm-6 col-md-4 d-inline-block mb-2">
+                        <button class="btn btn-sm btn-subred-color dropdown-toggle popupbtn" type="button" id="motivoTraslado" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Motivo de Traslado
+						</button>
+                        <div class="dropdown-menu" attr.aria-labelledby="motivoTraslado">
+                            <div class="col-lg-12 d-inline-block pl-3 align-top checkbox dropdown-item" *ngFor="let motivoTraslado of motivosTraslados">
+                                <input type="checkbox" [(ngModel)]="motivoTraslado.isSelected" name="{{'motivoTraslado' + motivoTraslado.name}}" id="{{'motivoTraslado' + motivoTraslado.name}}" value="{{motivoTraslado.name}}"><label class="checkbox" for="{{'motivoTraslado' + motivoTraslado.name}}">{{ motivoTraslado.name }}</label>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+                <div class="form-group text-center mt-3">
+                    <div class="col col-sm-4 d-inline-block buttonSubmit" style="margin-top: 0 !important;">
+                        <input style="padding: 0.3rem !important" type="submit" value="Aplicar los filtros seleccionados al reporte" class="btn btn-secondary btnPrefer col-sm-12" [disabled]="reportForm.invalid || refreshData">
+                    </div>
+                    <div class="col col-sm-4 d-inline-block buttonSubmit" style="margin-top: 0 !important;">
+                        <input style="padding: 0.3rem !important" type="button" (click)="exportAsXLSX()" value="Exportar Datos" class="btn btn-primary btnPrefer col-sm-12" [disabled]="reportForm.invalid || refreshData">
+                    </div>
+                    <small class="col col-12 invalid-feedback d-block" *ngIf="reportMessage">{{ reportMessage }}</small>
+                </div>
+                <div class="deleteLoader" *ngIf="refreshData">
+                    <div class="loader"></div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-sm-12 reportGraph pl-0" *ngIf="interconsultaReport">
+        <div class="card border-0">
+            <h4 class="card-header">{{ interconsultaReport.title }}</h4>
+            <div class="card-body">
+                <div class="tableContainer">
+                    <table class="table table-bordered infoReportTable col col-sm-12 col-md-10">
+                        <thead class="thead_styles">
+                            <td *ngFor="let label of interconsultaReport.labels">{{ label }}</td>
+                        </thead>
+                        <tbody class="tbody_styles">
+                            <td *ngFor="let data of interconsultaReport.data[0].data">{{ data }}</td>
+                        </tbody>
+                    </table>
+                </div>
+                <app-grafico-barras [barChartData]="interconsultaReport.data" [barChartLabels]="interconsultaReport.labels" [barChartType]="interconsultaReport.type" [minHeight]="500" [fechaHora]="solicitudes[solicitudes.length - 1].updated_at">
+                </app-grafico-barras>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 reportGraph pl-0" *ngIf="ambulanceReport">
+        <div class="card border-0">
+            <h4 class="card-header">{{ ambulanceReport.title }}</h4>
+            <div class="card-body">
+                <div class="tableContainer">
+                    <table class="table table-bordered infoReportTable col col-sm-12 col-md-10">
+                        <thead class="thead_styles">
+                            <td *ngFor="let label of ambulanceReport.labels">{{ label }}</td>
+                        </thead>
+                        <tbody class="tbody_styles">
+                            <td *ngFor="let data of ambulanceReport.data[0].data">{{ data }}</td>
+                        </tbody>
+                    </table>
+                </div>
+                <app-grafico-barras [barChartData]="ambulanceReport.data" [barChartLabels]="ambulanceReport.labels" [barChartType]="ambulanceReport.type" [minHeight]="500" [fechaHora]="solicitudes[solicitudes.length - 1].updated_at">
+                </app-grafico-barras>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-lg-6 reportGraph pl-0" *ngIf="prioridadReport">
+        <div class="card border-0">
+            <h4 class="card-header">{{ prioridadReport.title }}</h4>
+            <div class="card-body">
+                <div class="tableContainer">
+                    <table class="table table-bordered infoReportTable col col-sm-12 col-md-10">
+                        <thead class="thead_styles">
+                            <td *ngFor="let label of prioridadReport.labels">{{ label }}</td>
+                        </thead>
+                        <tbody class="tbody_styles">
+                            <td *ngFor="let data of prioridadReport.data">{{ data }}</td>
+                        </tbody>
+                    </table>
+                </div>
+                <app-grafico-dona [chartData]="prioridadReport.data" [chartLabels]="prioridadReport.labels" [chartType]="prioridadReport.type" [fechaHora]="solicitudes[solicitudes.length - 1].updated_at">
+                </app-grafico-dona>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-lg-6 reportGraph pr-0" *ngIf="estadoReport">
+        <div class="card border-0">
+            <h4 class="card-header">{{ estadoReport.title }}</h4>
+            <div class="card-body">
+                <div class="tableContainer">
+                    <table class="table table-bordered infoReportTable col col-sm-12 col-md-10">
+                        <thead class="thead_styles">
+                            <td *ngFor="let label of estadoReport.labels">{{ label }}</td>
+                        </thead>
+                        <tbody class="tbody_styles">
+                            <td *ngFor="let data of estadoReport.data">{{ data }}</td>
+                        </tbody>
+                    </table>
+                </div>
+                <app-grafico-pie [pieChartData]="estadoReport.data" [pieChartLabels]="estadoReport.labels" [pieChartType]="estadoReport.type" [fechaHora]="solicitudes[solicitudes.length - 1].updated_at">
+                </app-grafico-pie>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-12 reportGraph pl-0 pr-0" *ngIf="solicitudes && solicitudes.length > 0">
+        <div class="card border-0">
+            <h4 class="card-header">Solicitudes referencia interna</h4>
+            <div class="card-body">
+                <div class="tableContainer">
+                    <div class="paginationControls" *ngIf="solicitudes && solicitudes.length > itemsPerPage">
+                        <pagination-controls (pageChange)="pageChange($event)" previousLabel="Anterior" nextLabel="Siguiente" maxSize="7">
+                        </pagination-controls>
+                    </div>
+                    <table class="table table-bordered infoReportTable col col-sm-12 mt-3">
+                        <thead class="thead_styles">
+                            <td style="font-size: 1rem">id</td>
+                            <td style="font-size: 1rem">Tipo de Identificación</td>
+                            <td style="font-size: 1rem">Documento</td>
+                            <td style="font-size: 1rem">Nombre</td>
+                            <td style="font-size: 1rem">Edad</td>
+                            <td style="font-size: 1rem">Ingreso</td>
+                            <td style="font-size: 1rem">Centro de Atención</td>
+                            <td style="font-size: 1rem">Número de Cama</td>
+                            <td style="font-size: 1rem">Motivo de Traslado</td>
+                            <td style="font-size: 1rem">Folio - (Fecha)</td>
+                            <td style="font-size: 1rem">Nombre del Médico</td>
+                            <td style="font-size: 1rem">Tipo de Ambulancia</td>
+                            <td style="font-size: 1rem">Prioridad</td>
+                            <td style="font-size: 1rem">Estado</td>
+                            <td style="font-size: 1rem">Fecha y Hora de Aceptación</td>
+                            <td style="font-size: 1rem">Funcionario que Contesta</td>
+                            <td style="font-size: 1rem">Sede que Contesta</td>
+                            <td style="font-size: 1rem">Número de Móvil</td>
+                            <td style="font-size: 1rem">Tipo de Traslado</td>
+                            <td style="font-size: 1rem">Fecha y Hora de Despacho</td>
+                            <td style="font-size: 1rem">Fecha y Hora de Llegada al Origen</td>
+                            <td style="font-size: 1rem">Fecha y Hora de Salida del Origen</td>
+                            <td style="font-size: 1rem">Fecha y Hora de Llegada al Destino</td>
+                            <td style="font-size: 1rem">Fecha y Hora de Salida del Destino</td>
+                            <td style="font-size: 1rem">Fecha y Hora de Regreso</td>
+                            <td style="font-size: 1rem">Fecha y Hora de Cierre</td>
+                            <td style="font-size: 1rem">Fecha y Hora de Aceptación vs Cierre</td>
+                        </thead>
+                        <tbody class="tbody_styles" *ngFor="let report of solicitudes | paginate: {itemsPerPage: itemsPerPage, currentPage: actualPage}">
+                            <td>{{ report.id }}</td>
+                            <td>{{ report.tipoIdentificacion }}</td>
+                            <td>{{ report.numeroIdentificacion }}</td>
+                            <td>{{ report.nombresApellidos }}</td>
+                            <td>{{ report.edadPaciente }}</td>
+                            <td>{{ report.ingreso | isnullfill }}</td>
+                            <td>{{ report.centroAtencion | isnullfill }}</td>
+                            <td>{{ report.numeroCama | isnullfill }}</td>
+                            <td>{{ report.motivoTraslado | global: 'motivosTraslados' }}</td>
+                            <td>{{ report.folio | isnullfill }} {{ report.fechaFolio | isnullfill }}</td>
+                            <td>{{ report.nombreMedico | isnullfill }}</td>
+                            <td>{{ report.ambulancia | global: 'tiposAmbulancia' }}</td>
+                            <td>{{ report.prioridad | global: 'prioridades' }}</td>
+                            <td>{{ report.estado | global: 'estadosReferencia' }}</td>
+                            <td>{{ report.fechaHoraAceptacion }}</td>
+                            <td>{{ report.funcionarioContesta | isnullfill }}</td>
+                            <td>{{ report.sedeContestan | isnullfill }}</td>
+                            <td>{{ report.numeroMovil | isnullfill }}</td>
+                            <td>{{ report.tipoTraslado | global: 'tiposTraslado' }}</td>
+                            <td>{{ report.fechaDespacho | isnullfill }} {{ report.horaDespacho | isnullfill }}</td>
+                            <td>{{ report.fechaLlegadaOrigen | isnullfill }} {{ report.horaLlegadaOrigen | isnullfill }}</td>
+                            <td>{{ report.fechaSalidaOrigen | isnullfill }} {{ report.horaSalidaOrigen | isnullfill }}</td>
+                            <td>{{ report.fechaLlegadaDestino | isnullfill }} {{ report.horaLlegadaDestino | isnullfill }}</td>
+                            <td>{{ report.fechaSalidaDestino | isnullfill }} {{ report.horaSalidaDestino | isnullfill }}</td>
+                            <td>{{ report.fechaRegreso | isnullfill }} {{ report.horaRegreso | isnullfill }}</td>
+                            <td>{{ report.fechaHoraCierre }}</td>
+                            <td>{{ report.timeElapsed }}</td>
+                        </tbody>
+                    </table>
+                    <div class="paginationControls" *ngIf="solicitudes && solicitudes.length > itemsPerPage">
+                        <pagination-controls (pageChange)="pageChange($event)" previousLabel="Anterior" nextLabel="Siguiente" maxSize="7">
+                        </pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
