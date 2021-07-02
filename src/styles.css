@@ -180,7 +180,7 @@ header .nav-item:hover {
 }
 
 .circleImageContainer {
-    width: 10%;
+    width: 9%;
 }
 
 .circleImageContainer:hover .imageContainer {
@@ -604,6 +604,7 @@ header .nav-item:hover {
 
 .tbody_styles td {
     padding: .55rem !important;
+    vertical-align: middle;
 }
 
 .tbody_styles tr:nth-child(even) {
@@ -916,6 +917,22 @@ footer p {
 .errorAlert div {
     border-radius: 0px !important;
     font-size: 0.9rem;
+}
+
+.añadir {
+    font-size: 1.5rem;
+    margin-left: 0.5rem;
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+.añadir:hover {
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    color: #F783AC;
 }
 
 
