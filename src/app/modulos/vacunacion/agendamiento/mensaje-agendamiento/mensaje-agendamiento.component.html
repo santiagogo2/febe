@@ -1,0 +1,51 @@
+<div class="loaderBall" *ngIf="!message && !responseMessage">
+    <div class="ball-pulse-rise">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+<div class="mt-3 errorAlert alert-danger" *ngIf="!message && responseMessage">
+    <div class="alert" role="alert">
+        {{ responseMessage }}
+    </div>
+</div>
+
+<div class="row" *ngIf="message">
+    <div class="col-sm-12">
+        <div class="card border-0">
+            <div class="card-body cardContainer">
+                <div class="formContainer">
+                    <div>
+                        <div class="backLink col col-12 d-inline-block">
+                            <a class="col-sm-6" href="javascript:history.back()">Regresar</a>
+                        </div>
+                    </div>
+                    <form #messageForm="ngForm" class="form-container" (ngSubmit)="onSubmit()" style="text-align: left;">
+                        <div class="col col-sm-12 d-inline-block align-top">
+                            <label for="nombreVacunador" class="labelForm">Nombre del Vacunador(a)<span class="required">*</span></label>
+                            <input type="text" name="nombreVacunador" class="form-control inputForm" [ngClass]="{'is-invalid': nombreVacunador.invalid}" #nombreVacunador="ngModel" [(ngModel)]="message" required>
+                            <small class="invalid-feedback d-block font-weight-bold" *ngIf="nombreVacunador.invalid && nombreVacunador.touched">Debe ingresar el nombre del vacunador(a). Solo se admiten letras en el campo</small>
+                        </div>
+
+                        <div class="form-group" style="margin-top: 3rem">
+                            <div class="col col-sm-12 buttonSubmit">
+                                <input type="submit" value="{{ buttonText }}" class="btn btn-success btnPrefer col-sm-12" [disabled]="messageForm.invalid">
+                            </div>
+                        </div>
+                        <div class="mt-3 col col-sm-12 errorAlert" *ngIf="responseMessage">
+                            <div class="alert alert-danger" role="alert">
+                                {{ responseMessage }}
+                            </div>
+                        </div>
+                        <div class="deleteLoader" *ngIf="preloaderStatus">
+                            <div class="loader"></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
